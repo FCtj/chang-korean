@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- Facebook 로그인 후 앱으로 돌아오기 (src/backend.ts 의 NATIVE_REDIRECT 와 같아야 함) -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.changkorean.app" android:host="auth-callback" />
+            </intent-filter>
+
         </activity>
 
         <provider

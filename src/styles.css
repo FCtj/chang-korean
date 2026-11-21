@@ -2831,3 +2831,252 @@ button:disabled {
   border-radius: 999px;
   background: var(--line);
 }
+
+/* ═════════ v0.7 로그인 · 리더보드 ═════════ */
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 0 var(--line);
+  background: var(--pink-soft);
+}
+.avatar.letter {
+  display: inline-grid;
+  place-items: center;
+  background: var(--c-soft);
+  color: var(--c-deep);
+  font-family: var(--font-cute);
+  font-weight: 600;
+}
+.fb-btn {
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 18px;
+  background: #1877f2;
+  color: #fff;
+  border-bottom: 4px solid #0f5bc4;
+  font-family: var(--font-cute);
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 14px;
+  text-align: left;
+}
+.fb-btn.big {
+  min-height: 56px;
+  font-size: 1.05rem;
+}
+.fb-btn:active {
+  transform: translateY(2px);
+  border-bottom-width: 2px;
+}
+.fb-logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #fff;
+  color: #1877f2;
+  display: grid;
+  place-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  flex: none;
+}
+.or-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.or-line::before,
+.or-line::after {
+  content: '';
+  flex: 1;
+  height: 2px;
+  background: var(--line);
+  border-radius: 2px;
+}
+.note.err {
+  color: var(--bad);
+}
+.country-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cchip {
+  border: 2px solid var(--line);
+  background: #fffafc;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-family: var(--font-cute);
+  font-size: 0.86rem;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.cchip .flag {
+  font-size: 1.05rem;
+}
+.cchip.on {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  color: var(--pink-deep);
+}
+.me-hello {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-cute);
+  font-size: 1.1rem;
+}
+.account-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.account-body {
+  flex: 1;
+  min-width: 0;
+}
+.account-name {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.head-avatar {
+  position: relative;
+  flex: none;
+  line-height: 0;
+}
+.head-photo {
+  position: absolute;
+  right: -6px;
+  bottom: -2px;
+}
+
+/* 리더보드 */
+.board {
+  transition: box-shadow 0.3s;
+}
+.board.flash-update {
+  box-shadow: 0 5px 0 var(--line), 0 0 0 4px var(--mint-soft);
+}
+.live-badge {
+  font-family: var(--font-cute);
+  font-size: 0.75rem;
+  color: #fff;
+  background: var(--bad);
+  padding: 2px 10px;
+  border-radius: 999px;
+  animation: twinkle 1.6s ease-in-out infinite;
+}
+.my-rank {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #c4a9ff 0%, #ff9cbf 100%);
+  color: #fff;
+  box-shadow: 0 4px 0 #d37fb0;
+}
+.my-rank-body {
+  flex: 1;
+  min-width: 0;
+}
+.my-rank-label {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+.my-rank-name {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.my-rank-num {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.1;
+}
+.my-rank-num .big {
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+.my-rank-num .small {
+  font-size: 0.82rem;
+}
+.my-rank-none {
+  font-size: 0.8rem;
+  max-width: 45%;
+  text-align: right;
+}
+.board-msg {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.88rem;
+  padding: 10px 0;
+}
+.board-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.board-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px;
+  border-radius: 18px;
+  background: #fffafc;
+  border: 2px solid transparent;
+}
+.board-row.top {
+  background: var(--butter-soft);
+}
+.board-row.me {
+  background: var(--pink-soft);
+  border-color: var(--pink);
+}
+.board-rank {
+  width: 28px;
+  text-align: center;
+  font-weight: 600;
+  flex: none;
+}
+.board-name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-cute);
+}
+.board-name-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.board-flag {
+  font-size: 1.1rem;
+  flex: none;
+}
+.board-pts {
+  font-weight: 600;
+  flex: none;
+}

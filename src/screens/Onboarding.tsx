@@ -1,15 +1,19 @@
 // 시작 화면: 닉네임 → 수준 테스트(또는 '처음이에요') → 학습 시작
 import { useState } from 'react'
 import { makeT, type UiLang } from '../i18n'
-import { update } from '../store'
-import { Elephant } from '../ui'
+import { getState, update } from '../store'
+import { Avatar, Elephant } from '../ui'
+import { backendReady, COUNTRIES, signInWithFacebook, useAuth } from '../backend'
 import Placement from './Placement'
 
 export default function Onboarding() {
   const [name, setName] = useState('')
   const [ui, setUi] = useState<UiLang>('lo')
   const [step, setStep] = useState<'hello' | 'level'>('hello')
+  const [country, setCountry] = useState(getState().country || 'LA')
+  const auth = useAuth()
   const { t } = makeT(ui)
+  const loggedIn = auth.status === 'in' && auth.me
 
   if (step === 'level') {
     return (
@@ -46,13 +50,57 @@ export default function Onboarding() {
             <span className="flag">🇱🇦</span> ພາສາລາວ → 한국어
           </div>
           <div className="field">
-            <label htmlFor="nick">{t('nickname')}</label>
-            <input id="nick" className="input" maxLength={16} placeholder={t('nicknamePh')} value={name} onChange={(e) => setName(e.target.value)} />
+            <span className="label">{t('country')}</span>
+            <div className="country-chips" role="radiogroup" aria-label={t('country')}>
+              {COUNTRIES.map((c) => (
+                <button
+                  key={c.code}
+                  role="radio"
+                  aria-checked={country === c.code}
+                  className={country === c.code ? 'cchip on' : 'cchip'}
+                  onClick={() => {
+                    setCountry(c.code)
+                    update((s) => ({ ...s, country: c.code }))
+                  }}
+                >
+                  <span className="flag">{c.flag}</span> {ui === 'ko' ? c.ko : c.lo}
+                </button>
+              ))}
+            </div>
           </div>
+          {loggedIn ? (
+            <div className="me-hello">
+              <Avatar src={auth.me!.avatar} name={auth.me!.name} size={48} />
+              <span>{auth.me!.name}</span>
+            </div>
+          ) : (
+            backendReady && (
+              <>
+                <button
+                  className="fb-btn big"
+                  onClick={() => {
+                    update((s) => ({ ...s, ui, country }))
+                    signInWithFacebook()
+                  }}
+                >
+                  <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
+                </button>
+                <p className="note center">{t('fbLoginHint')}</p>
+                {auth.error && <p className="note center err">{t('loginFailed')}</p>}
+                <div className="or-line">{t('orNickname')}</div>
+              </>
+            )
+          )}
+          {!loggedIn && (
+            <div className="field">
+              <label htmlFor="nick">{t('nickname')}</label>
+              <input id="nick" className="input" maxLength={16} placeholder={t('nicknamePh')} value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+          )}
           <button
             className="btn btn-pink btn-block"
             onClick={() => {
-              update((s) => ({ ...s, ui, nickname: name.trim() || (ui === 'lo' ? 'ຂ້ອຍ' : '나') }))
+              update((s) => ({ ...s, ui, country, nickname: loggedIn ? auth.me!.name : name.trim() || (ui === 'lo' ? 'ຂ້ອຍ' : '나') }))
               setStep('level')
             }}
           >

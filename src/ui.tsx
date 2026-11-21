@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 import { useApp } from './ctx'
 
 type IconName = 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart'
@@ -155,6 +155,21 @@ export function Elephant({
         </g>
       )}
     </svg>
+  )
+}
+
+/** 프로필 사진 (없거나 못 불러오면 이름 첫 글자) */
+export function Avatar({ src, name, size = 36 }: { src?: string | null; name: string; size?: number }) {
+  const [broken, setBroken] = useState(false)
+  const letter = (name || '?').trim().charAt(0).toUpperCase()
+  const hue = [...(name || '?')].reduce((n, ch) => n + ch.charCodeAt(0), 0) % PASTELS.length
+  if (src && !broken) {
+    return <img className="avatar" src={src} alt="" width={size} height={size} style={{ width: size, height: size }} referrerPolicy="no-referrer" onError={() => setBroken(true)} />
+  }
+  return (
+    <span className={`avatar letter c-${PASTELS[hue]}`} style={{ width: size, height: size, fontSize: size * 0.45 }} aria-hidden="true">
+      {letter}
+    </span>
   )
 }
 

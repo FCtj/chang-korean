@@ -1,7 +1,8 @@
 import { TIERS, PROMO_QUESTIONS } from '../data/words'
 import { useApp } from '../ctx'
 import { currentRound, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, stepKnownCount, stepOf, todayKey, useStore, STAMPS_PER_TICKET, STEP_SIZES } from '../store'
-import { Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle } from '../ui'
+import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle } from '../ui'
+import { useAuth } from '../backend'
 
 export default function Home() {
   const s = useStore()
@@ -11,11 +12,19 @@ export default function Home() {
   const cur = currentRound(s)
   const stampedToday = s.stamps.includes(todayKey())
   const cardStamps = s.stamps.length % STAMPS_PER_TICKET
+  const auth = useAuth()
 
   return (
     <div className="page">
       <header className="home-head">
-        <Elephant size={68} acc={TIER_ACC[tier.no - 1]} />
+        <span className="head-avatar">
+          <Elephant size={68} acc={TIER_ACC[tier.no - 1]} />
+          {auth.me && (
+            <span className="head-photo">
+              <Avatar src={auth.me.avatar} name={auth.me.name} size={30} />
+            </span>
+          )}
+        </span>
         <div className="home-head-text">
           <div className="home-hi">{tf('hi', s.nickname)}</div>
           <div className="tier-tag">

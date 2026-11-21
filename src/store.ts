@@ -32,6 +32,8 @@ export interface State {
   placedRounds: string[]
   ui: UiLang
   nickname: string
+  /** 나라 (ISO 2글자, 랭킹용). 기본 라오스 */
+  country: string
   settings: Settings
   /** 회차별 묶음(5개)마다 반복해서 본 횟수 (참고용) */
   chunkPlays: Record<string, number[]>
@@ -83,6 +85,7 @@ function initial(): State {
     placedRounds: [],
     ui: 'lo',
     nickname: '',
+    country: 'LA',
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
     chunkPlays: {},
     known: {},
@@ -164,6 +167,22 @@ export function getState() {
   return state
 }
 
+/** React 밖에서 상태 변화를 구독 (서버 동기화용) */
+export function subscribe(cb: () => void): () => void {
+  listeners.add(cb)
+  return () => listeners.delete(cb)
+}
+
+// ───────── 서버로 점수 보내기 (backend.ts 가 연결) ─────────
+type PointsReporter = (kind: 'study' | 'exam' | 'promo', ref: string | null, points: number) => void
+let reporter: PointsReporter | null = null
+export function setPointsReporter(fn: PointsReporter | null) {
+  reporter = fn
+}
+function report(kind: 'study' | 'exam' | 'promo', ref: string | null, points: number) {
+  if (points > 0) reporter?.(kind, ref, points)
+}
+
 export function useStore(): State {
   return useSyncExternalStore(
     (cb) => {
@@ -175,7 +194,7 @@ export function useStore(): State {
 }
 
 export function resetAll() {
-  const keep = { started: state.started, ui: state.ui, nickname: state.nickname }
+  const keep = { started: state.started, ui: state.ui, nickname: state.nickname, country: state.country }
   // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
@@ -315,6 +334,7 @@ function addCapped(base: number): number {
   const pts = Math.min(base, Math.max(0, DAILY_CAP - s.dayPoints))
   if (pts > 0) {
     update((st) => ({ ...st, dayPoints: st.dayPoints + pts, monthPoints: st.monthPoints + pts, totalPoints: st.totalPoints + pts }))
+    report('study', null, pts)
   }
   return pts
 }
@@ -378,6 +398,7 @@ export function recordExam(roundId: string, score: number, total: number): numbe
     }
     return next
   })
+  report('exam', roundId, bonus)
   return bonus
 }
 
@@ -389,6 +410,7 @@ export function recordPromo(tierNo: number, passed: boolean): number {
     bonus = PROMO_BONUS
     return { ...s, passedTiers: [...s.passedTiers, tierNo], monthPoints: s.monthPoints + bonus, totalPoints: s.totalPoints + bonus }
   })
+  report('promo', String(tierNo), bonus)
   return bonus
 }
 

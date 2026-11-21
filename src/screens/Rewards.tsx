@@ -1,21 +1,16 @@
 import { ROUNDS } from '../data/words'
 import { useApp } from '../ctx'
-import { daysLeftInMonth, demoRanking, isCollected, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
-import { Elephant, TIER_ACC } from '../ui'
+import { daysLeftInMonth, isCollected, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import Leaderboard from './Leaderboard'
 
 export default function Rewards() {
   const s = useStore()
   const { t, tf, ui } = useApp()
-  const rows = demoRanking(s)
-  const myRank = rows.findIndex((r) => r.me) + 1
   const month = Number(s.monthKey.slice(5, 7))
   const stamps = s.stamps.length
   const tickets = Math.floor(stamps / STAMPS_PER_TICKET)
   const onCard = stamps % STAMPS_PER_TICKET
   const stampedToday = s.stamps.includes(todayKey())
-  const target = myRank > 3 ? rows[2] : myRank > 1 ? rows[0] : null
-  const targetRank = myRank > 3 ? 3 : 1
-  const visible = rows.map((r, i) => ({ ...r, rank: i + 1 })).filter((r) => r.rank <= 5 || Math.abs(r.rank - myRank) <= 1)
 
   return (
     <div className="page">
@@ -27,20 +22,7 @@ export default function Rewards() {
         <span className="dday num">D-{daysLeftInMonth()}</span>
       </header>
 
-      <section className="me-card">
-        <div className="me-rank num">
-          <span>#</span>
-          {myRank}
-        </div>
-        <div className="me-body">
-          <div className="me-name">{s.nickname}</div>
-          <div className="me-points num">
-            ⭐ {s.monthPoints.toLocaleString()} {t('points')}
-          </div>
-          {target && <div className="me-gap num">{tf('toRank', targetRank, Math.max(1, target.points - s.monthPoints + 1))}</div>}
-        </div>
-        <Elephant size={64} acc="crown" className="me-elephant" />
-      </section>
+      <Leaderboard />
 
       <section className="panel">
         <h2 className="h3">🎁 {t('rewardsTitle')}</h2>
@@ -86,30 +68,6 @@ export default function Rewards() {
           <span className={stampedToday ? 'chip chip-mint' : 'chip chip-pink'}>{stampedToday ? `✓ ${t('todayDone')}` : t('todayTodo')}</span>
           <span className="note">{tf('stampsLeft', STAMPS_PER_TICKET - onCard)}</span>
         </div>
-      </section>
-
-      <section className="panel">
-        <div className="panel-head">
-          <h2 className="h3">🏆 {t('monthlyRanking')}</h2>
-          <span className="chip">{t('demoBadge')}</span>
-        </div>
-        <ol className="rank-list">
-          {visible.map((r, i) => {
-            const gap = i > 0 && r.rank - visible[i - 1].rank > 1
-            return (
-              <li key={r.name + r.rank} className={`${r.me ? 'rank-row me' : 'rank-row'} ${gap ? 'after-gap' : ''}`}>
-                <span className="rank-no num">{r.rank <= 3 ? ['🥇', '🥈', '🥉'][r.rank - 1] : r.rank}</span>
-                <Elephant size={30} acc={TIER_ACC[r.tier - 1]} tone={r.me ? 'pink' : 'lilac'} />
-                <span className="rank-name">
-                  {r.name}
-                  {r.me && <span className="me-tag">{t('me')}</span>}
-                </span>
-                <span className="rank-pts num">{r.points.toLocaleString()}</span>
-              </li>
-            )
-          })}
-        </ol>
-        <p className="note">{t('demoNote')}</p>
       </section>
 
       <section className="panel">

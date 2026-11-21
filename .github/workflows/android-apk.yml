@@ -33,11 +33,17 @@ jobs:
       - name: Check word data
         run: npm test
 
+      - name: Check database rules
+        run: npm run test:db
+
       - name: Type check
         run: npm run typecheck
 
       - name: Build web app and copy into Android project
         run: npm run build && npx cap sync android
+        env:
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
 
       - name: Build debug APK
         working-directory: android

@@ -5,7 +5,8 @@ import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setSettings, update, useStore, type Direction, type Order } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
-import { Icon, Segmented, Stepper, Toggle } from '../ui'
+import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
+import { backendReady, COUNTRIES, deleteMyData, setCountry, signInWithFacebook, signOut, useAuth } from '../backend'
 
 const SAMPLE: Partial<Record<Lang, string>> = { ko: '안녕하세요', lo: 'ສະບາຍດີ' }
 
@@ -15,6 +16,9 @@ export default function SettingsScreen() {
   const [name, setName] = useState(s.nickname)
   const [voices, setVoices] = useState<{ ko: boolean | null; lo: boolean | null }>({ ko: null, lo: null })
   const [confirmReset, setConfirmReset] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deletedMsg, setDeletedMsg] = useState(false)
+  const auth = useAuth()
 
   useEffect(() => {
     let alive = true
@@ -30,7 +34,38 @@ export default function SettingsScreen() {
 
       <section className="panel form">
         <h2 className="h3">🐘 {t('account')}</h2>
+        {backendReady &&
+          (auth.status === 'in' && auth.me ? (
+            <div className="account-row">
+              <Avatar src={auth.me.avatar} name={auth.me.name} size={48} />
+              <div className="account-body">
+                <div className="account-name">{auth.me.name}</div>
+                <div className="note">☁️ {t('syncOn')}</div>
+              </div>
+              <button className="btn btn-soft sm" onClick={() => signOut()}>
+                {t('logout')}
+              </button>
+            </div>
+          ) : (
+            <>
+              <button className="fb-btn" onClick={() => signInWithFacebook()}>
+                <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
+              </button>
+              <p className="note">{t('fbLoginHint')}</p>
+            </>
+          ))}
+        {deletedMsg && <p className="note">✓ {t('deleted')}</p>}
         <div className="field">
+          <span className="label">{t('country')}</span>
+          <div className="country-chips" role="radiogroup" aria-label={t('country')}>
+            {COUNTRIES.map((c) => (
+              <button key={c.code} role="radio" aria-checked={s.country === c.code} className={s.country === c.code ? 'cchip on' : 'cchip'} onClick={() => setCountry(c.code)}>
+                <span className="flag">{c.flag}</span> {s.ui === 'ko' ? c.ko : c.lo}
+              </button>
+            ))}
+          </div>
+        </div>
+        {auth.status !== 'in' && <div className="field">
           <label htmlFor="nick-edit">{t('nickname')}</label>
           <input
             id="nick-edit"
@@ -40,7 +75,7 @@ export default function SettingsScreen() {
             onChange={(e) => setName(e.target.value)}
             onBlur={() => name.trim() && update((st) => ({ ...st, nickname: name.trim() }))}
           />
-        </div>
+        </div>}
         <div className="field">
           <span className="label">{t('uiLang')}</span>
           <Segmented<UiLang>
@@ -112,6 +147,21 @@ export default function SettingsScreen() {
         )}
       </section>
 
+      {backendReady && auth.status === 'in' && (
+        <section className="panel form">
+          <button
+            className={confirmDelete ? 'btn btn-danger btn-block' : 'btn btn-soft btn-block'}
+            onClick={async () => {
+              if (!confirmDelete) return setConfirmDelete(true)
+              setConfirmDelete(false)
+              if (await deleteMyData()) setDeletedMsg(true)
+            }}
+          >
+            {confirmDelete ? t('deleteConfirm') : t('deleteData')}
+          </button>
+        </section>
+      )}
+
       <section className="panel form">
         <button className="btn btn-soft btn-block" onClick={() => push({ name: 'placement' })}>
           ✏️ {t('retakeTest')}
@@ -130,7 +180,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.6.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.7.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )
