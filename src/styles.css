@@ -2423,3 +2423,411 @@ button:disabled {
   margin-left: 6px;
   vertical-align: middle;
 }
+
+/* ═════════ v0.6 외우기 화면 ═════════ */
+
+/* STEP 1·2·3 */
+.stepbar {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 18px;
+  background: #fbf3f7;
+  border: 2px solid var(--line);
+  min-width: 0;
+}
+.step-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #eee2ec;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.85rem;
+  flex: none;
+}
+.step-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.15;
+}
+.step-name {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+.step-size {
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.step.now {
+  background: var(--pink-soft);
+  border-color: var(--pink);
+}
+.step.now .step-dot {
+  background: var(--pink);
+  color: #fff;
+}
+.step.done {
+  background: var(--mint-soft);
+  border-color: #bfeee0;
+}
+.step.done .step-dot {
+  background: var(--mint);
+  color: #fff;
+}
+.step.todo {
+  opacity: 0.6;
+}
+.stepbar.compact .step {
+  padding: 5px 8px;
+  border-radius: 14px;
+}
+.stepbar.compact .step-dot {
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+}
+
+/* 지금 묶음 */
+.batch-box {
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 24px;
+  padding: 10px 12px 12px;
+  box-shadow: 0 4px 0 var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.batch-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-cute);
+  font-size: 0.9rem;
+}
+.batch-label {
+  color: var(--ink);
+  font-weight: 600;
+}
+.batch-known {
+  color: var(--mint-deep);
+  background: var(--mint-soft);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+.batch-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: #f3e3ec;
+  overflow: hidden;
+}
+.batch-bar span {
+  display: block;
+  height: 100%;
+  background: var(--mint);
+  border-radius: inherit;
+  transition: width 0.35s ease;
+}
+.chips {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+.chips.scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 4px 2px 6px;
+  margin: -4px -2px -6px;
+  scrollbar-width: none;
+}
+.chips.scroll::-webkit-scrollbar {
+  display: none;
+}
+.chips.scroll .wchip {
+  flex: 0 0 64px;
+  scroll-snap-align: center;
+}
+.wchip {
+  position: relative;
+  border: 2px solid transparent;
+  background: var(--c-soft);
+  border-radius: 18px;
+  padding: 6px 2px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  transition: transform 0.2s cubic-bezier(0.3, 1.4, 0.5, 1), opacity 0.2s, border-color 0.2s;
+}
+.wchip-emoji {
+  font-family: var(--font-emoji);
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+.wchip-ko {
+  font-size: 0.78rem;
+  line-height: 1.2;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 3px;
+}
+.wchip.now {
+  background: #fff;
+  border-color: var(--c);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 0 var(--c-soft);
+}
+.wchip.known {
+  opacity: 0.45;
+}
+.wchip-badge {
+  position: absolute;
+  top: -5px;
+  right: -3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--mint);
+  color: #fff;
+  font-size: 0.7rem;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.countdown.slim {
+  height: 6px;
+}
+
+/* 뒤집히는 카드 */
+.fcard-stage {
+  position: relative;
+  height: clamp(300px, 44vh, 380px);
+}
+.fcard {
+  border: 0;
+  padding: 0;
+  background: none;
+  width: 100%;
+  height: 100%;
+  perspective: 1400px;
+  display: block;
+}
+.fcard-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.3, 1.25, 0.5, 1);
+}
+/* 새 카드 등장 애니메이션은 바깥 버튼에 (안쪽은 뒤집기 transform 전용) */
+.fcard {
+  animation: card-in 0.35s cubic-bezier(0.3, 1.3, 0.5, 1) both;
+}
+@keyframes card-in {
+  from {
+    transform: translateX(18px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+.fcard.flipped .fcard-inner {
+  transform: rotateY(180deg);
+}
+.fcard-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px 18px;
+  border-radius: 36px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  box-shadow: 0 7px 0 var(--line), var(--glow);
+  text-align: center;
+}
+.fcard-face.front .flash-blob {
+  width: clamp(130px, 38vw, 160px);
+  background: var(--c-soft);
+}
+.fcard-face.front .flash-emoji {
+  font-size: clamp(72px, 22vw, 96px);
+}
+.fcard-face.back {
+  transform: rotateY(180deg);
+  background: linear-gradient(170deg, #fff 35%, var(--c-soft) 100%);
+  border-color: var(--c);
+}
+.flip-hint {
+  position: absolute;
+  bottom: 14px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.back-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.back-emoji {
+  font-family: var(--font-emoji);
+  font-size: 2.2rem;
+}
+.back-q {
+  font-size: 1.5rem;
+  color: var(--muted);
+}
+.back-q.lo {
+  font-size: 1.25rem;
+}
+.back-divider {
+  width: 46px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--c);
+  opacity: 0.6;
+}
+.back-a {
+  font-size: clamp(2rem, 10vw, 2.8rem);
+  line-height: 1.35;
+  color: var(--pink-deep);
+  word-break: keep-all;
+}
+.back-a.lo {
+  font-weight: 600;
+  font-size: clamp(1.9rem, 9vw, 2.5rem);
+}
+.fcard-speak {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: #fff;
+  color: var(--pink-deep);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 3px 0 var(--line);
+  z-index: 2;
+}
+.fcard-speak:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--line);
+}
+.fcard-stage.interlude {
+  border-radius: 36px;
+  background: linear-gradient(160deg, #fff 0%, var(--pink-soft) 100%);
+  border: 2px solid var(--line);
+  box-shadow: 0 7px 0 var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+}
+.iw.more {
+  font-family: var(--font-cute);
+  color: var(--muted);
+}
+
+/* 외웠어요 / 다시 */
+.act-row {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 10px;
+}
+.act-row .btn {
+  min-height: 56px;
+}
+.mini-ctrl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.play-btn.sm {
+  width: 58px;
+  height: 58px;
+  box-shadow: 0 5px 0 var(--pink-deep);
+}
+
+/* 설정 시트 */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgba(91, 67, 102, 0.28);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fade-in 0.2s ease both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.sheet {
+  width: min(480px, 100%);
+  background: var(--surface);
+  border-radius: 30px 30px 0 0;
+  padding: 10px max(18px, env(safe-area-inset-right, 0px)) calc(18px + var(--safe-bottom)) max(18px, env(safe-area-inset-left, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: sheet-up 0.3s cubic-bezier(0.3, 1.2, 0.5, 1) both;
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+.sheet-handle {
+  align-self: center;
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--line);
+}

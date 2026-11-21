@@ -1,27 +1,53 @@
-// 자동 반복 플레이어
-// - 위에는 지금 묶음의 단어 5개를 작은 목록으로 미리 보여주고, 아래 카드에서 한 단어씩 그림·한국어·발음·뜻을 보여줌
-// - 「외웠어요」를 누른 단어는 더 이상 나오지 않음. 못 외운 단어만 1~5 → 6~10 → … 순서대로 계속 반복
-// - 마지막 묶음이 끝나면 처음부터 다시 (남은 못 외운 단어만). 모두 외우면 끝 → 시험으로
-// - review=true 이면 외운 단어까지 전부 복습
+// 외우기 화면 (자동 반복)
+// STEP 1: 5개씩 — 지금 5개 중 못 외운 단어만 반복, 5개를 다 외우면 다음 5개
+// STEP 2: 25개씩 — 같은 방식으로 1~25 → 26~50
+// STEP 3: 50개씩 — 50개 전부, 다 외우면 문제·졸업시험이 열림
+// STEP마다 처음엔 모두 '못 외움'에서 시작 (다시 확인하며 외우기)
+// review=true: 외운 단어까지 5개씩 계속 복습
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ROUNDS, roundSets, translation, type Word } from '../data/words'
+import { ROUNDS, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
-import { completeSession, getState, isKnown, knownCount, recordGroupPass, setKnown, setLastChunk, setSettings, useStore } from '../store'
+import {
+  completeSession,
+  getState,
+  isStepKnown,
+  recordGroupPass,
+  setLastChunk,
+  setSettings,
+  setStepKnown,
+  stepKey,
+  stepKnownCount,
+  stepOf,
+  useStore,
+  STEP_SIZES,
+  type Direction,
+} from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
-import { Elephant, Icon, Stepper, Toggle, TopBar, pastel, shuffle } from '../ui'
+import { Elephant, Icon, Segmented, Stepper, Toggle, TopBar, pastel, shuffle } from '../ui'
 
 const orderOf = (words: Word[]) => (getState().settings.order === 'random' ? shuffle(words) : words)
+function chunkBy<T>(arr: T[], n: number): T[][] {
+  const out: T[][] = []
+  for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n))
+  return out
+}
 
 export default function Player({ roundId, startChunk, review = false }: { roundId: string; startChunk: number; review?: boolean }) {
   const s = useStore()
   const { t, tf, replace } = useApp()
   const round = ROUNDS.find((r) => r.id === roundId)!
-  const sets = useMemo(() => roundSets(round), [round])
-  const total = sets.length
 
-  const activeOf = (c: number) => sets[c].filter((w) => review || !isKnown(getState(), w))
-  /** from부터(끝나면 처음으로 돌아가며) 못 외운 단어가 있는 묶음 찾기 */
-  const findGroup = (from: number): { c: number; wrapped: boolean } | null => {
+  const startStep = stepOf(getState(), roundId)
+  const [step] = useState(() => Math.min(startStep, 3))
+  const size = review ? 5 : STEP_SIZES[step - 1]
+  const batches = useMemo(() => chunkBy(round.words, size), [round, size])
+  const total = batches.length
+  const resumeKey = stepKey(roundId, review ? 0 : step)
+
+  const isActive = (w: Word) => review || !isStepKnown(getState(), w, step)
+  const activeOf = (b: number) => batches[b].filter(isActive)
+  /** from부터 못 외운 단어가 남은 묶음 찾기 (끝까지 가면 처음으로) */
+  const findBatch = (from: number): { c: number; wrapped: boolean } | null => {
     for (let k = 0; k < total; k++) {
       const c = (from + k) % total
       if (activeOf(c).length) return { c, wrapped: from + k >= total }
@@ -29,34 +55,38 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
     return null
   }
 
-  const first = useMemo(() => findGroup(Math.min(startChunk, total - 1)), []) // eslint-disable-line react-hooks/exhaustive-deps
-  const [chunk, setChunk] = useState(first?.c ?? 0)
+  const first = useMemo(() => {
+    if (!review && startStep >= 4) return null
+    const from = startChunk >= 0 ? startChunk : getState().lastChunk[resumeKey] ?? 0
+    return findBatch(Math.min(from, total - 1))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const [batch, setBatch] = useState(first?.c ?? 0)
   const [queue, setQueue] = useState<Word[]>(() => (first ? orderOf(activeOf(first.c)) : []))
   const [pos, setPos] = useState(0)
-  const [rep, setRep] = useState(1)
   const [phase, setPhase] = useState<'front' | 'back'>('front')
   const [playing, setPlaying] = useState(true)
   const [loop, setLoop] = useState(1)
-  const [pending, setPending] = useState<number | null>(null) // "다음 5개!" 화면에서 기다리는 묶음
-  const [finished, setFinished] = useState(!first)
+  const [pending, setPending] = useState<number | null>(null)
+  const [view, setView] = useState<'play' | 'stepDone' | 'allDone'>(first ? 'play' : startStep >= 4 ? 'allDone' : 'stepDone')
   const [toast, setToast] = useState<string | null>(null)
+  const [sheet, setSheet] = useState(false)
   const sec = s.settings.cardSec
-  const reps = s.settings.reps
   const word: Word | undefined = queue[pos]
-  const known = knownCount(s, round)
+  const batchWords = batches[batch]
 
-  useEffect(() => setLastChunk(roundId, chunk), [roundId, chunk])
+  useEffect(() => setLastChunk(resumeKey, batch), [resumeKey, batch])
   useEffect(() => () => stopSpeaking(), [])
 
-  // 섞어서 모드: 카드마다 방향을 정해 둠
+  // 섞어서 모드: 카드마다 방향
   const dirs = useMemo(
     () => queue.map(() => (s.settings.direction === 'mix' ? (Math.random() < 0.5 ? 'ko2n' : 'n2ko') : s.settings.direction)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queue, rep, s.settings.direction],
+    [queue, s.settings.direction],
   )
   const koFirst = dirs[pos] !== 'n2ko'
 
-  function showToast(text: string, ms = 1800) {
+  function showToast(text: string, ms = 1600) {
     setToast(text)
     setTimeout(() => setToast((cur) => (cur === text ? null : cur)), ms)
   }
@@ -64,268 +94,321 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
   // 한국어가 보이는 순간 발음
   const spokenKey = useRef('')
   useEffect(() => {
-    if (!word || pending !== null || finished || !playing || !s.settings.autoSpeak) return
-    const key = `${loop}-${chunk}-${rep}-${pos}-${phase}-${word.id}`
+    if (!word || view !== 'play' || pending !== null || !playing || !s.settings.autoSpeak) return
+    const key = `${loop}-${batch}-${pos}-${phase}-${word.id}-${queue.length}`
     if (spokenKey.current === key) return
     if ((phase === 'front' && koFirst) || (phase === 'back' && !koFirst)) {
       spokenKey.current = key
       speakWord(word)
     }
-  }, [loop, chunk, rep, pos, phase, koFirst, word, playing, pending, finished, s.settings.autoSpeak])
+  }, [loop, batch, pos, phase, koFirst, word, playing, pending, view, queue.length, s.settings.autoSpeak])
 
   // 자동 넘김
   useEffect(() => {
-    if (!playing || pending !== null || finished || !word) return
-    const ms = phase === 'front' ? sec * 1000 : Math.max(1200, sec * 600)
+    if (!playing || pending !== null || view !== 'play' || !word) return
+    const ms = phase === 'front' ? sec * 1000 : Math.max(1500, sec * 700)
     const timer = setTimeout(() => (phase === 'front' ? setPhase('back') : advance()), ms)
     return () => clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing, pending, finished, phase, pos, rep, chunk, sec, loop, queue])
+  }, [playing, pending, view, phase, pos, batch, sec, loop, queue])
 
-  // "다음 5개!" → 잠깐 보여주고 자동으로 다음 묶음
+  // "다음 n개!" → 잠깐 보여주고 자동으로 다음 묶음
   useEffect(() => {
     if (pending === null || !playing) return
-    const timer = setTimeout(() => startChunkAt(pending), 1500)
+    const timer = setTimeout(() => startBatch(pending), 1600)
     return () => clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pending, playing])
 
-  function startChunkAt(c: number) {
-    const g = findGroup(c)
-    if (!g) return finishAll()
+  // 지금 단어 칩이 보이게 가로 스크롤
+  const chipRefs = useRef<Record<string, HTMLButtonElement | null>>({})
+  useEffect(() => {
+    if (word) chipRefs.current[word.id]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+  }, [word])
+
+  function startBatch(c: number) {
+    const g = findBatch(c)
+    if (!g) return completeStep()
     setPending(null)
-    setChunk(g.c)
-    setRep(1)
+    setBatch(g.c)
     setQueue(orderOf(activeOf(g.c)))
     setPos(0)
     setPhase('front')
   }
 
-  function finishAll() {
+  function completeStep() {
     stopSpeaking()
     setPending(null)
-    setFinished(true)
     completeSession()
     sfx.fanfare()
+    setView(step >= 3 ? 'allDone' : 'stepDone')
+  }
+
+  function goNextBatch() {
+    const g = findBatch(batch + 1)
+    if (!g) return completeStep()
+    if (g.c === batch) {
+      // 남은 묶음이 지금 묶음뿐 → 바로 다시
+      setQueue(orderOf(activeOf(batch)))
+      setPos(0)
+      setPhase('front')
+      return
+    }
+    if (g.wrapped) setLoop((l) => l + 1)
+    sfx.correct()
+    setPending(g.c)
   }
 
   function advance() {
     setPhase('front')
-    const st = getState()
     let p = pos + 1
-    while (p < queue.length && !review && isKnown(st, queue[p])) p++
-    if (p < queue.length) {
-      setPos(p)
-      return
-    }
-    // 이 묶음 한 번 끝
-    const pts = recordGroupPass(roundId, chunk, total, queue.length)
-    if (pts > 0) showToast(`⭐ ${tf('earned', pts)}`, 1300)
-    const active = activeOf(chunk)
-    if (rep < reps && active.length) {
+    while (p < queue.length && !isActive(queue[p])) p++
+    if (p < queue.length) return setPos(p)
+    // 이 묶음 한 바퀴 끝
+    const pts = recordGroupPass(roundId, batch, total, queue.length)
+    if (pts > 0) showToast(`⭐ ${tf('earned', pts)}`, 1200)
+    const left = activeOf(batch)
+    if (!review && left.length) {
+      // 다 외울 때까지 같은 묶음에서 못 외운 단어만 다시
       sfx.tick()
-      setRep(rep + 1)
-      setQueue(orderOf(active))
+      showToast(`🔁 ${t('remainingAgain')} (${left.length})`, 1500)
+      setQueue(orderOf(left))
       setPos(0)
       return
     }
-    // 다음 5개 (못 외운 단어가 있는 묶음으로)
-    const g = findGroup(chunk + 1)
-    if (!g) return finishAll()
-    if (g.wrapped) {
-      const stamp = completeSession()
-      const nextSec = s.settings.autoFaster ? Math.max(1, sec - 1) : sec
-      if (nextSec !== sec) setSettings({ cardSec: nextSec })
-      setLoop((l) => l + 1)
-      showToast(`${t('loopDone')} ${tf('loopN', loop + 1)}${stamp ? ` · ☕ ${t('stampGot')}` : ''}`, 2600)
-    }
+    goNextBatch()
+  }
+
+  function mark(w: Word, on: boolean) {
+    const { points, stepDone } = setStepKnown(w, step, on)
+    if (!on) return showToast(t('unmarkHint'))
     sfx.correct()
-    if (g.c === chunk) {
-      // 남은 묶음이 지금 묶음뿐이면 "다음 5개!" 없이 바로 다시
-      setRep(1)
-      setQueue(orderOf(activeOf(chunk)))
-      setPos(0)
-      return
+    if (points > 0) showToast(`✓ ${t('memorized')} · ⭐ ${tf('earned', points)}`, 1200)
+    if (stepDone) return completeStep()
+    if (activeOf(batch).length === 0) return goNextBatch()
+    if (word && w.id === word.id) advance()
+  }
+
+  function jumpTo(w: Word) {
+    const i = queue.findIndex((x) => x.id === w.id)
+    if (i >= 0) {
+      setPhase('front')
+      setPos(i)
     }
-    setPending(g.c)
   }
 
-  function toggleKnown(w: Word) {
-    const on = !isKnown(getState(), w)
-    const { points } = setKnown(w, on)
-    if (on) {
-      sfx.correct()
-      if (points > 0) showToast(`✓ ${t('memorized')} · ⭐ ${tf('earned', points)}`, 1300)
-      if (!review && word && w.id === word.id) advance()
-      else if (!review && activeOf(chunk).length === 0 && !findGroup(chunk)) finishAll()
-    } else showToast(t('unmarkHint'), 1600)
-  }
-
-  if (finished) {
+  // ───────── STEP 끝 / 모두 끝 ─────────
+  if (view !== 'play') {
+    const all = view === 'allDone'
     return (
       <div className="screen">
         <TopBar title={tf('roundN', round.no)} sub={round.title[s.ui]} />
         <Confetti />
         <div className="page">
           <div className="result-hero pass">
-            <Elephant size={130} acc="star" mood="happy" className="bounce" />
-            <h1 className="result-title">🎉 {tf('allMemorized', round.words.length)}</h1>
-            <p className="result-line">{t('stepOpened')}</p>
+            <Elephant size={130} acc={all ? 'crown' : 'star'} mood="happy" className="bounce" />
+            <h1 className="result-title">🎉 {all ? t('allStepsDone') : tf('stepDone', step)}</h1>
+            <p className="result-line">{all ? t('examOpenNow') : tf('nextStepDesc', STEP_SIZES[step])}</p>
           </div>
-          <button className="btn btn-butter btn-block btn-big" onClick={() => replace({ name: 'round', roundId })}>
-            🎓 {t('goExam')}
-          </button>
-          <button className="btn btn-soft btn-block" onClick={() => replace({ name: 'player', roundId, startChunk: 0, review: true })}>
-            🔁 {t('reviewAll')}
-          </button>
+          <StepBar step={all ? 4 : step + 1} t={t} tf={tf} />
+          {all ? (
+            <>
+              <button className="btn btn-butter btn-block btn-big" onClick={() => replace({ name: 'round', roundId })}>
+                🎓 {t('goExam')}
+              </button>
+              <button className="btn btn-soft btn-block" onClick={() => replace({ name: 'player', roundId, startChunk: 0, review: true })}>
+                🔁 {t('reviewAll')}
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-pink btn-block btn-big" onClick={() => replace({ name: 'player', roundId, startChunk: 0 })}>
+                <Icon name="play" size={22} /> {tf('startStep', step + 1)}
+              </button>
+              <button className="btn btn-soft btn-block" onClick={() => replace({ name: 'round', roundId })}>
+                {t('later')}
+              </button>
+            </>
+          )}
         </div>
       </div>
     )
   }
 
-  const group = sets[chunk]
-  const pendingWords = pending !== null ? sets[pending] : null
+  const knownInBatch = batchWords.filter((w) => !isActive(w)).length
+  const pendingWords = pending !== null ? batches[pending] : null
 
   return (
     <div className="screen">
       <TopBar
-        title={`${tf('roundN', round.no)} · ${tf('setOf', chunk + 1, total)}`}
-        sub={
-          <span className="num">
-            {review ? `🔁 ${t('reviewMode')}` : `✓ ${tf('knownOf', known, round.words.length)} · ▶ ${t('autoPlaying')}`}
-            {reps > 1 && ` · ${tf('repOf', rep, reps)}`}
-          </span>
+        title={tf('roundN', round.no)}
+        sub={review ? `🔁 ${t('reviewMode')}` : `${tf('stepName', step)} · ${tf('stepSize', size)}`}
+        right={
+          <button className="bubble-btn" onClick={() => setSheet(true)} aria-label={t('study')}>
+            <Icon name="gear" />
+          </button>
         }
       />
       <div className="page player-page">
-        <div className="groups" aria-label={tf('setOf', chunk + 1, total)}>
-          {sets.map((g, k) => {
-            const allKnown = g.every((w) => isKnown(s, w))
-            return (
-              <button
-                key={k}
-                className={`grp ${k === chunk ? 'now' : allKnown ? 'known' : k < chunk ? 'done' : ''}`}
-                onClick={() => startChunkAt(k)}
-                aria-label={tf('setN', k + 1)}
-              >
-                {k === chunk ? k + 1 : ''}
-              </button>
-            )
-          })}
-        </div>
+        {!review && <StepBar step={step} t={t} tf={tf} compact />}
 
-        {/* 지금 묶음의 단어 5개 미리 보기 */}
-        <ul className="wordlist">
-          {group.map((w, k) => {
-            const kn = isKnown(s, w)
-            const now = !pendingWords && word?.id === w.id
-            return (
-              <li key={w.id} className={`wl c-${pastel(k + chunk)} ${now ? 'now' : ''} ${kn && !review ? 'known' : ''}`}>
-                <span className="wl-emoji" aria-hidden="true">{w.emoji}</span>
-                <span className="wl-ko ko">{w.ko}</span>
-                <span className="wl-rom">{w.rom}</span>
-                <span className="wl-lo lo">{translation(w)}</span>
-                <button className={kn ? 'wl-check on' : 'wl-check'} onClick={() => toggleKnown(w)} aria-pressed={kn} aria-label={`${w.ko} ${t('memorized')}`}>
-                  <Icon name="check" size={16} />
+        <section className="batch-box">
+          <div className="batch-head">
+            <span className="batch-label num">{tf('batchOf', batch + 1, total)}</span>
+            {!review && (
+              <span className="batch-known num">
+                ✓ {knownInBatch}/{batchWords.length}
+              </span>
+            )}
+          </div>
+          {!review && (
+            <div className="batch-bar" aria-hidden="true">
+              <span style={{ width: `${(knownInBatch / batchWords.length) * 100}%` }} />
+            </div>
+          )}
+          <div className={batchWords.length > 5 ? 'chips scroll' : 'chips'} role="list">
+            {batchWords.map((w, i) => {
+              const kn = !review && !isActive(w)
+              const now = !pendingWords && word?.id === w.id
+              return (
+                <button
+                  key={w.id}
+                  ref={(el) => {
+                    chipRefs.current[w.id] = el
+                  }}
+                  role="listitem"
+                  className={`wchip c-${pastel(i)} ${now ? 'now' : ''} ${kn ? 'known' : ''}`}
+                  onClick={() => (kn ? mark(w, false) : jumpTo(w))}
+                  aria-label={`${w.ko} ${translation(w)}${kn ? ` ✓ ${t('memorized')}` : ''}`}
+                >
+                  <span className="wchip-emoji" aria-hidden="true">{w.emoji}</span>
+                  <span className="wchip-ko ko">{w.ko}</span>
+                  {kn && <span className="wchip-badge" aria-hidden="true">✓</span>}
                 </button>
-              </li>
-            )
-          })}
-        </ul>
+              )
+            })}
+          </div>
+        </section>
 
-        <div className="countdown" aria-hidden="true">
+        <div className="countdown slim" aria-hidden="true">
           {pending === null && word && (
             <div
-              key={`${loop}-${chunk}-${rep}-${pos}-${phase}`}
+              key={`${loop}-${batch}-${pos}-${phase}-${queue.length}`}
               className={`countdown-fill ${phase}`}
-              style={{ animationDuration: `${phase === 'front' ? sec : Math.max(1.2, sec * 0.6)}s`, animationPlayState: playing ? 'running' : 'paused' }}
+              style={{ animationDuration: `${phase === 'front' ? sec : Math.max(1.5, sec * 0.7)}s`, animationPlayState: playing ? 'running' : 'paused' }}
             />
           )}
         </div>
 
         {pendingWords ? (
-          <div className="flash interlude" role="status">
+          <div className="fcard-stage interlude" role="status">
             <Elephant size={84} acc="bow" mood="happy" className="bounce" />
-            <div className="interlude-title">{t('nextFive')}</div>
+            <div className="interlude-title">{tf('nextN', pendingWords.length)}</div>
             <div className="interlude-words">
-              {pendingWords.map((w, k) => (
-                <span key={w.id} className={isKnown(s, w) && !review ? 'iw known' : 'iw'} style={{ animationDelay: `${k * 0.07}s` }}>
+              {pendingWords.slice(0, 10).map((w, k) => (
+                <span key={w.id} className="iw" style={{ animationDelay: `${k * 0.05}s` }}>
                   <span className="iw-emoji">{w.emoji}</span>
                   <span className="ko">{w.ko}</span>
                 </span>
               ))}
+              {pendingWords.length > 10 && <span className="iw more">+{pendingWords.length - 10}</span>}
             </div>
-            <div className="interlude-sub num">{tf('setOf', (pending ?? 0) + 1, total)}</div>
           </div>
         ) : word ? (
-          <button className="flash compact" onClick={() => (phase === 'front' ? setPhase('back') : advance())} aria-label={t('tapToReveal')}>
-            <span className={`flash-blob c-${pastel(group.indexOf(word) + chunk)}`} aria-hidden="true">
-              <span key={`${chunk}-${rep}-${pos}`} className="flash-emoji">
-                {word.emoji}
+          <div className="fcard-stage">
+            <button
+              key={`${loop}-${batch}-${pos}-${word.id}`}
+              className={phase === 'back' ? 'fcard flipped' : 'fcard'}
+              onClick={() => (phase === 'front' ? setPhase('back') : advance())}
+              aria-label={t('tapToReveal')}
+            >
+              <span className="fcard-inner">
+                <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))}`}>
+                  <span className="flash-blob" aria-hidden="true">
+                    <span className="flash-emoji">{word.emoji}</span>
+                  </span>
+                  {koFirst ? (
+                    <>
+                      <span className="card-word ko">{word.ko}</span>
+                      <span className="rom-pill">{word.rom}</span>
+                    </>
+                  ) : (
+                    <span className="card-word lo">{translation(word)}</span>
+                  )}
+                  <span className="flip-hint">↻ {t('tapToReveal')}</span>
+                </span>
+                <span className={`fcard-face back c-${pastel(batchWords.indexOf(word))}`}>
+                  <span className="back-top">
+                    <span className="back-emoji" aria-hidden="true">{word.emoji}</span>
+                    <span className={koFirst ? 'back-q ko' : 'back-q lo'}>{koFirst ? word.ko : translation(word)}</span>
+                  </span>
+                  <span className="back-divider" aria-hidden="true" />
+                  <span className={koFirst ? 'back-a lo' : 'back-a ko'}>{koFirst ? translation(word) : word.ko}</span>
+                  <span className="rom-pill">{word.rom}</span>
+                </span>
               </span>
-            </span>
-            {koFirst ? (
-              <>
-                <span className="card-word ko">{word.ko}</span>
-                <span className="rom-pill">{word.rom}</span>
-              </>
-            ) : (
-              <span className="card-word lo">{translation(word)}</span>
-            )}
-            <span className={phase === 'back' ? 'flash-back show' : 'flash-back'}>
-              {phase === 'back' ? (
-                koFirst ? (
-                  <span className="card-answer lo">{translation(word)}</span>
-                ) : (
-                  <>
-                    <span className="card-answer ko">{word.ko}</span>
-                    <span className="rom-pill">{word.rom}</span>
-                  </>
-                )
-              ) : (
-                <span className="flash-hint">{t('tapToReveal')}</span>
-              )}
-            </span>
-          </button>
+            </button>
+            <button className="fcard-speak" onClick={() => speakWord(word)} aria-label={t('speak')}>
+              <Icon name="speaker" size={22} />
+            </button>
+          </div>
         ) : null}
 
         {!review && (
-          <button className="btn btn-mint btn-block" onClick={() => word && toggleKnown(word)} disabled={!word || pending !== null}>
-            <Icon name="check" size={20} /> {t('memorized')}
-          </button>
+          <div className="act-row">
+            <button className="btn btn-soft" onClick={() => word && advance()} disabled={!word || pending !== null}>
+              <Icon name="repeat" size={18} /> {t('seeAgain')}
+            </button>
+            <button className="btn btn-mint" onClick={() => word && mark(word, true)} disabled={!word || pending !== null}>
+              <Icon name="check" size={20} /> {t('memorized')}
+            </button>
+          </div>
         )}
 
-        <div className="player">
-          <button className="round-btn" onClick={() => { setPhase('front'); setPos((i) => Math.max(0, i - 1)) }} disabled={pos === 0 || pending !== null} aria-label={t('prev')}>
-            <Icon name="prev" size={26} />
+        <div className="mini-ctrl">
+          <button className="round-btn sm" onClick={() => { setPhase('front'); setPos((i) => Math.max(0, i - 1)) }} disabled={pos === 0 || pending !== null} aria-label={t('prev')}>
+            <Icon name="prev" size={22} />
           </button>
-          <button className="round-btn" onClick={() => word && speakWord(word)} disabled={!word || pending !== null} aria-label={t('speak')}>
-            <Icon name="speaker" size={24} />
+          <button className="play-btn sm" onClick={() => setPlaying((p) => !p)} aria-label={playing ? t('pause') : t('play')}>
+            <Icon name={playing ? 'pause' : 'play'} size={26} />
           </button>
-          <button className="play-btn" onClick={() => setPlaying((p) => !p)} aria-label={playing ? t('pause') : t('play')}>
-            <Icon name={playing ? 'pause' : 'play'} size={34} />
-          </button>
-          <button className="round-btn" onClick={() => (pending !== null ? startChunkAt(pending) : advance())} aria-label={t('next')}>
-            <Icon name="next" size={26} />
-          </button>
-          <button className="round-btn" onClick={() => startChunkAt((chunk + 1) % total)} aria-label={t('nextFive')}>
-            <Icon name="skip" size={24} />
+          <button className="round-btn sm" onClick={() => (pending !== null ? startBatch(pending) : advance())} aria-label={t('next')}>
+            <Icon name="next" size={22} />
           </button>
         </div>
-
-        <section className="panel quick">
-          <p className="note">💡 {t('onlyUnknown')}</p>
-          <div className="quick-row">
-            <span className="quick-label">{t('cardSec')}</span>
-            <Stepper value={sec} min={1} max={10} onChange={(v) => setSettings({ cardSec: v })} format={(v) => `${v}${t('sec')}`} />
-          </div>
-          <div className="quick-row">
-            <span className="quick-label">{t('repsPerSet')}</span>
-            <Stepper value={reps} min={1} max={10} onChange={(v) => setSettings({ reps: v })} format={(v) => `${v}${t('times')}`} />
-          </div>
-          <Toggle id="faster" label={t('autoFaster')} on={s.settings.autoFaster} onChange={(v) => setSettings({ autoFaster: v })} />
-        </section>
+        {!review && <p className="note center">💡 {t('markHint')}</p>}
       </div>
+
+      {sheet && (
+        <div className="sheet-backdrop" onClick={() => setSheet(false)}>
+          <section className="sheet" role="dialog" aria-label={t('study')} onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-handle" aria-hidden="true" />
+            <h2 className="h3">⚙️ {t('study')}</h2>
+            <div className="quick-row">
+              <span className="quick-label">{t('cardSec')}</span>
+              <Stepper value={sec} min={1} max={10} onChange={(v) => setSettings({ cardSec: v })} format={(v) => `${v}${t('sec')}`} />
+            </div>
+            <div className="quick-col">
+              <span className="quick-label">{t('direction')}</span>
+              <Segmented<Direction>
+                name={t('direction')}
+                value={s.settings.direction}
+                onChange={(direction) => setSettings({ direction })}
+                options={[
+                  { id: 'ko2n', label: `${t('korean')} → ${t('lao')}` },
+                  { id: 'n2ko', label: `${t('lao')} → ${t('korean')}` },
+                  { id: 'mix', label: t('dirMix') },
+                ]}
+              />
+            </div>
+            <Toggle id="sh-speak" label={t('autoSpeak')} on={s.settings.autoSpeak} onChange={(v) => setSettings({ autoSpeak: v })} />
+            <Toggle id="sh-rand" label={t('orderRandom')} on={s.settings.order === 'random'} onChange={(v) => setSettings({ order: v ? 'random' : 'seq' })} />
+            <button className="btn btn-pink btn-block" onClick={() => setSheet(false)}>
+              {t('ok')}
+            </button>
+          </section>
+        </div>
+      )}
 
       {toast && (
         <div className="toast" role="status">
@@ -333,6 +416,27 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
         </div>
       )}
     </div>
+  )
+}
+
+/** STEP 1·2·3 진행 표시 */
+export function StepBar({ step, t, tf, compact = false }: { step: number; t: ReturnType<typeof useApp>['t']; tf: ReturnType<typeof useApp>['tf']; compact?: boolean }) {
+  return (
+    <ol className={compact ? 'stepbar compact' : 'stepbar'} aria-label={t('stepsTitle')}>
+      {STEP_SIZES.map((k, i) => {
+        const n = i + 1
+        const cls = n < step ? 'done' : n === step ? 'now' : 'todo'
+        return (
+          <li key={n} className={`step ${cls}`}>
+            <span className="step-dot num">{n < step ? '✓' : n}</span>
+            <span className="step-text">
+              <span className="step-name">{tf('stepName', n)}</span>
+              <span className="step-size">{compact ? tf('stepSizeShort', k) : tf('stepSize', k)}</span>
+            </span>
+          </li>
+        )
+      })}
+    </ol>
   )
 }
 

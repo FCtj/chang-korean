@@ -24,7 +24,7 @@ export interface WordStat {
 }
 
 export interface State {
-  v: 4
+  v: 5
   started: boolean
   /** 수준 테스트를 봤는지 (또는 '처음이에요'를 골랐는지) */
   placementDone: boolean
@@ -35,9 +35,13 @@ export interface State {
   settings: Settings
   /** 회차별 묶음(5개)마다 반복해서 본 횟수 (참고용) */
   chunkPlays: Record<string, number[]>
-  /** '외웠어요'로 표시한 단어 (단어 id → 표시한 시각). 외운 단어는 자동 반복에서 빠짐 */
+  /** 한 번이라도 '외웠어요'로 표시한 단어 (스티커북용) */
   known: Record<string, number>
-  /** 회차별 마지막으로 보던 묶음 (이어보기) */
+  /** 회차별 지금 STEP (1 = 5개씩, 2 = 25개씩, 3 = 50개씩, 4 = 모두 끝) */
+  steps: Record<string, number>
+  /** STEP마다 외운 단어: 키 = "회차id#STEP" → { 단어id: 시각 } */
+  stepKnown: Record<string, Record<string, number>>
+  /** 마지막으로 보던 묶음 (이어보기). 키 = "회차id#STEP" */
   lastChunk: Record<string, number>
   /** 문제·시험이 열린 회차 (한 번 열리면 계속 열림) */
   quizOpen: string[]
@@ -73,7 +77,7 @@ const monthOf = (dayKey: string) => dayKey.slice(0, 7)
 function initial(): State {
   const day = todayKey()
   return {
-    v: 4,
+    v: 5,
     started: false,
     placementDone: false,
     placedRounds: [],
@@ -82,6 +86,8 @@ function initial(): State {
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
     chunkPlays: {},
     known: {},
+    steps: {},
+    stepKnown: {},
     lastChunk: {},
     quizOpen: [],
     passedRounds: [],
@@ -105,9 +111,20 @@ function load(): State {
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<State> & { v?: number }
       const base = initial()
-      const merged: State = { ...base, ...parsed, v: 4, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      const merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈
       if ((parsed.v ?? 0) < 3 && merged.settings.reps === 3) merged.settings = { ...merged.settings, reps: 1 }
+      // v4 → v5: 예전에 외운 단어는 STEP 1(5개씩)에서 외운 것으로 옮김
+      if ((parsed.v ?? 0) < 5 && parsed.known) {
+        const stepKnown: State['stepKnown'] = {}
+        for (const [id, ts] of Object.entries(parsed.known)) {
+          const key = `${id.split('-')[0]}#1`
+          stepKnown[key] = { ...(stepKnown[key] ?? {}), [id]: ts }
+        }
+        merged.stepKnown = stepKnown
+        merged.lastChunk = {}
+        for (const r of ROUNDS) if (r.words.every((w) => stepKnown[`${r.id}#1`]?.[w.id])) merged.steps = { ...merged.steps, [r.id]: 2 }
+      }
       return merged
     }
   } catch {
@@ -199,11 +216,56 @@ export function knownCount(s: State, round: Round): number {
   return round.words.filter((w) => isKnown(s, w)).length
 }
 
-/** 4지선다 문제·졸업시험이 보이는지: 처음엔 숨김, 회차 단어를 모두 외우면 열림 */
+// ───────── STEP (5개씩 → 25개씩 → 50개씩) ─────────
+
+export const STEP_SIZES = [5, 25, 50] as const
+
+/** 회차의 지금 STEP: 1~3, 4 = 세 STEP 모두 끝 (통과한 회차도 4) */
+export function stepOf(s: State, roundId: string): number {
+  if (s.passedRounds.includes(roundId)) return 4
+  return s.steps[roundId] ?? 1
+}
+
+export const stepKey = (roundId: string, step: number) => `${roundId}#${step}`
+
+export function isStepKnown(s: State, w: Word, step: number): boolean {
+  return !!s.stepKnown[stepKey(w.roundId, step)]?.[w.id]
+}
+
+export function stepKnownCount(s: State, round: Round, step: number): number {
+  const m = s.stepKnown[stepKey(round.id, step)] ?? {}
+  return round.words.filter((w) => m[w.id]).length
+}
+
+/**
+ * STEP에서 '외웠어요' 표시/해제. 처음 표시하면 점수(STEP 1은 3점, 2·3은 2점).
+ * 회차 50개를 이 STEP에서 모두 외우면 다음 STEP으로 (STEP 3까지 끝나면 문제·시험 열림).
+ */
+export function setStepKnown(w: Word, step: number, on: boolean): { points: number; stepDone: boolean } {
+  const round = ROUNDS.find((r) => r.id === w.roundId)!
+  const key = stepKey(round.id, step)
+  const first = on && !state.stepKnown[key]?.[w.id] && !state.passedRounds.includes(round.id)
+  let stepDone = false
+  update((s) => {
+    const m = { ...(s.stepKnown[key] ?? {}) }
+    if (on) m[w.id] = m[w.id] ?? Date.now()
+    else delete m[w.id]
+    const known = on ? { ...s.known, [w.id]: s.known[w.id] ?? Date.now() } : s.known
+    let { steps, quizOpen } = s
+    if (on && (s.steps[round.id] ?? 1) === step && round.words.every((x) => m[x.id])) {
+      stepDone = true
+      steps = { ...steps, [round.id]: step + 1 }
+      if (step >= 3 && !quizOpen.includes(round.id)) quizOpen = [...quizOpen, round.id]
+    }
+    return { ...s, stepKnown: { ...s.stepKnown, [key]: m }, known, steps, quizOpen }
+  })
+  const points = first ? addCapped(step === 1 ? 3 : 2) : 0
+  return { points, stepDone }
+}
+
+/** 4지선다 문제·졸업시험이 보이는지: 처음엔 숨김, STEP 1~3을 모두 끝내면 열림 */
 export function isQuizOpen(s: State, roundId: string): boolean {
-  if (s.quizOpen.includes(roundId) || s.passedRounds.includes(roundId)) return true
-  const round = ROUNDS.find((r) => r.id === roundId)
-  return !!round && knownCount(s, round) === round.words.length
+  return s.quizOpen.includes(roundId) || stepOf(s, roundId) >= 4
 }
 
 /** 지금 공부해야 할 회차 (열려 있고 아직 통과 못 한 첫 회차) */
@@ -223,23 +285,6 @@ export function chunkCount(round: Round) {
 
 /** 스티커가 색칠되는 조건 = 외운 단어 */
 export const isCollected = isKnown
-
-/** '외웠어요' 표시/해제. 처음 외웠을 때 점수 +3. 회차의 마지막 단어를 외워 시험이 열리면 unlocked=true */
-export function setKnown(w: Word, on: boolean): { points: number; unlocked: boolean } {
-  const round = ROUNDS.find((r) => r.id === w.roundId)!
-  const wasOpen = isQuizOpen(state, round.id)
-  const first = on && !state.known[w.id] && !state.passedRounds.includes(w.roundId)
-  update((s) => {
-    const known = { ...s.known }
-    if (on) known[w.id] = known[w.id] ?? Date.now()
-    else delete known[w.id]
-    let quizOpen = s.quizOpen
-    if (on && !quizOpen.includes(round.id) && round.words.every((x) => known[x.id] || s.passedRounds.includes(x.roundId))) quizOpen = [...quizOpen, round.id]
-    return { ...s, known, quizOpen }
-  })
-  const points = first ? addCapped(3) : 0
-  return { points, unlocked: !wasOpen && isQuizOpen(state, round.id) }
-}
 
 // ───────── 수준 테스트 ─────────
 

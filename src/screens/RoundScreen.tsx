@@ -1,7 +1,8 @@
 import { ROUNDS, roundSets, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
-import { isKnown, isQuizOpen, knownCount, setKnown, setSettings, useStore, type Direction } from '../store'
-import { Icon, ProgressBar, Segmented, Stepper, TopBar, pastel, shuffle } from '../ui'
+import { isQuizOpen, isStepKnown, setStepKnown, stepKnownCount, stepOf, useStore, STEP_SIZES } from '../store'
+import { Icon, ProgressBar, TopBar, pastel, shuffle } from '../ui'
+import { StepBar } from './Player'
 
 export default function RoundScreen({ roundId }: { roundId: string }) {
   const s = useStore()
@@ -11,11 +12,12 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
   const passed = s.passedRounds.includes(round.id)
   const quizOpen = isQuizOpen(s, round.id)
   const best = s.bestExam[round.id]
-  const known = knownCount(s, round)
-  const allKnown = known === round.words.length
-  const resume = s.lastChunk[round.id] ?? 0
+  const step = stepOf(s, round.id) // 1~3, 4 = 끝
+  const done = step >= 4
+  const known = done ? round.words.length : stepKnownCount(s, round, step)
+  const isK = (w: Word) => done || isStepKnown(s, w, step)
 
-  const play = (chunk: number, review = false) => push({ name: 'player', roundId, startChunk: chunk, review })
+  const play = (review = false) => push({ name: 'player', roundId, startChunk: review ? 0 : -1, review })
   const quiz = (kind: 'practice' | 'listen', words: Word[], label: string) => push({ name: 'quiz', kind, words, pool: round.words, roundId, label })
 
   return (
@@ -28,32 +30,37 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
               <span key={w.id}>{w.emoji}</span>
             ))}
           </div>
-          {!allKnown && (
-            <button className="btn btn-pink btn-block btn-big" onClick={() => play(resume)}>
-              <Icon name="play" size={22} /> {t('playUnknown')}
-              <span className="btn-sub">{tf('startFrom', resume + 1)}</span>
+          <StepBar step={step} t={t} tf={tf} />
+          {!done && (
+            <div className="learn-prog">
+              <div className="learn-prog-top">
+                <span>
+                  <Icon name="check" size={16} /> {tf('stepName', step)} · {tf('stepSize', STEP_SIZES[step - 1])}
+                </span>
+                <span className="num">
+                  {known}/{round.words.length}
+                </span>
+              </div>
+              <ProgressBar value={known} max={round.words.length} />
+            </div>
+          )}
+          {!done && (
+            <button className="btn btn-pink btn-block btn-big" onClick={() => play()}>
+              <Icon name="play" size={22} /> {known > 0 || step > 1 ? t('continueStep') : tf('startStep', step)}
+              <span className="btn-sub">
+                {tf('stepName', step)} · {tf('stepSize', STEP_SIZES[step - 1])}
+              </span>
             </button>
           )}
-          <button className={allKnown ? 'btn btn-pink btn-block btn-big' : 'btn btn-soft btn-block'} onClick={() => play(0, true)}>
+          <button className={done ? 'btn btn-pink btn-block btn-big' : 'btn btn-soft btn-block'} onClick={() => play(true)}>
             🔁 {t('reviewAll')}
           </button>
-          <div className="learn-prog">
-            <div className="learn-prog-top">
-              <span>
-                <Icon name="check" size={16} /> {t('knownProgress')}
-              </span>
-              <span className="num">
-                {known}/{round.words.length}
-              </span>
-            </div>
-            <ProgressBar value={known} max={round.words.length} tone={allKnown ? 'mint' : 'pink'} />
-            {!quizOpen && <p className="hint">🎁 {tf('learnHint', round.words.length)}</p>}
-          </div>
+          {!quizOpen && <p className="hint">🎁 {tf('stepHint', round.words.length)}</p>}
         </section>
 
         <ol className="sets">
           {sets.map((words, i) => {
-            const k = words.filter((w) => isKnown(s, w)).length
+            const k = words.filter(isK).length
             const label = `${tf('roundN', round.no)} · ${tf('setN', i + 1)}`
             return (
               <li key={i} className={`set-row c-${pastel(i)} ${k === words.length ? 'all-known' : ''}`}>
@@ -61,16 +68,13 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
                   <span className="set-no num">{k === words.length ? <Icon name="check" size={18} /> : i + 1}</span>
                   <span className="set-title">{tf('setN', i + 1)}</span>
                   <span className={k === words.length ? 'chip chip-mint num' : 'chip num'}>{tf('knownOf', k, words.length)}</span>
-                  <button className="set-play" onClick={() => play(i)} aria-label={`${tf('setN', i + 1)} ${t('play')}`}>
-                    <Icon name="play" size={18} />
-                  </button>
                 </div>
                 <ul className="mini-words">
                   {words.map((w) => {
-                    const kn = isKnown(s, w)
+                    const kn = isK(w)
                     return (
                       <li key={w.id} className={kn ? 'known' : ''}>
-                        <button className="mw" onClick={() => setKnown(w, !kn)} aria-pressed={kn} aria-label={`${w.ko} ${t('memorized')}`}>
+                        <button className="mw" onClick={() => !done && setStepKnown(w, step, !kn)} disabled={done} aria-pressed={kn} aria-label={`${w.ko} ${t('memorized')}`}>
                           <span className="mw-emoji" aria-hidden="true">{w.emoji}</span>
                           <span className="mw-ko ko">{w.ko}</span>
                           <span className="mw-lo lo">{translation(w)}</span>
@@ -96,31 +100,6 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
             )
           })}
         </ol>
-
-        <section className="panel quick">
-          <h2 className="h3">{t('settingsHere')}</h2>
-          <div className="quick-row">
-            <span className="quick-label">{t('cardSec')}</span>
-            <Stepper value={s.settings.cardSec} min={1} max={10} onChange={(cardSec) => setSettings({ cardSec })} format={(v) => `${v}${t('sec')}`} />
-          </div>
-          <div className="quick-row">
-            <span className="quick-label">{t('repsPerSet')}</span>
-            <Stepper value={s.settings.reps} min={1} max={10} onChange={(reps) => setSettings({ reps })} format={(v) => `${v}${t('times')}`} />
-          </div>
-          <div className="quick-col">
-            <span className="quick-label">{t('direction')}</span>
-            <Segmented<Direction>
-              name={t('direction')}
-              value={s.settings.direction}
-              onChange={(direction) => setSettings({ direction })}
-              options={[
-                { id: 'ko2n', label: `${t('korean')} → ${t('lao')}` },
-                { id: 'n2ko', label: `${t('lao')} → ${t('korean')}` },
-                { id: 'mix', label: t('dirMix') },
-              ]}
-            />
-          </div>
-        </section>
 
         {quizOpen && (
           <section className={passed ? 'exam-card passed' : 'exam-card'}>

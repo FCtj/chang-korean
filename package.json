@@ -1,7 +1,7 @@
 {
   "name": "chang-korean",
   "private": true,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "type": "module",
   "description": "라오스 학습자를 위한 그림·소리 한국어 단어 앱 (MVP)",
   "scripts": {

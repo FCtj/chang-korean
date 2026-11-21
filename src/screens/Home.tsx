@@ -1,6 +1,6 @@
 import { TIERS, PROMO_QUESTIONS } from '../data/words'
 import { useApp } from '../ctx'
-import { currentRound, currentTierNo, isKnown, isPromoOpen, isQuizOpen, isRoundOpen, isTierOpen, knownCount, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { currentRound, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, stepKnownCount, stepOf, todayKey, useStore, STAMPS_PER_TICKET, STEP_SIZES } from '../store'
 import { Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle } from '../ui'
 
 export default function Home() {
@@ -40,14 +40,17 @@ export default function Home() {
       )}
 
       {cur && (() => {
-        const done = knownCount(s, cur)
+        const step = Math.min(stepOf(s, cur.id), 3)
+        const done = stepKnownCount(s, cur, step)
         const need = cur.words.length
-        const startChunk = s.lastChunk[cur.id] ?? 0
+        const next5 = cur.words.filter((w) => !isStepKnown(s, w, step)).slice(0, 5)
         return (
-          <button className="continue" onClick={() => push({ name: 'player', roundId: cur.id, startChunk })}>
+          <button className="continue" onClick={() => push({ name: 'player', roundId: cur.id, startChunk: -1 })}>
             <span className="continue-deco" aria-hidden="true">✦ ♥ ✦</span>
             <span className="continue-top">
-              <span className="continue-label">{t('continueStudy')}</span>
+              <span className="continue-label">
+                {tf('stepName', step)} · {tf('stepSize', STEP_SIZES[step - 1])}
+              </span>
               <span className="continue-stamp">{stampedToday ? `☕ ${t('todayDone')}` : `☕ ${t('todayTodo')}`}</span>
             </span>
             <span className="continue-title">
@@ -55,10 +58,8 @@ export default function Home() {
             </span>
             <span className="continue-row">
               <span className="continue-emojis" aria-hidden="true">
-                {cur.words.slice(startChunk * 5, startChunk * 5 + 5).map((w) => (
-                  <span key={w.id} className={isKnown(s, w) ? 'known' : ''}>
-                    {w.emoji}
-                  </span>
+                {next5.map((w) => (
+                  <span key={w.id}>{w.emoji}</span>
                 ))}
               </span>
               <span className="play-dot" aria-hidden="true">
@@ -120,8 +121,9 @@ export default function Home() {
                   {tr.rounds.map((r, i) => {
                     const ro = isRoundOpen(s, r)
                     const passed = s.passedRounds.includes(r.id)
-                    const vd = knownCount(s, r)
-                    const vn = r.words.length
+                    const st = stepOf(s, r.id)
+                    const vn = r.words.length * 3
+                    const vd = st >= 4 ? vn : (st - 1) * r.words.length + stepKnownCount(s, r, st)
                     return (
                       <li key={r.id}>
                         <button className={`round-card ${ro ? '' : 'locked'} ${passed ? 'passed' : ''}`} disabled={!ro} onClick={() => push({ name: 'round', roundId: r.id })}>
@@ -136,7 +138,11 @@ export default function Home() {
                             ) : ro ? (
                               <span className="round-prog">
                                 <ProgressBar value={passed ? vn : vd} max={vn} tone={passed ? 'mint' : 'pink'} />
-                                {isQuizOpen(s, r.id) && !passed && <span className="chip chip-pink tiny">{t('newBadge')}</span>}
+                                {isQuizOpen(s, r.id) && !passed ? (
+                                  <span className="chip chip-pink tiny">{t('newBadge')}</span>
+                                ) : (
+                                  !passed && <span className="chip tiny num">{tf('stepName', Math.min(st, 3))}</span>
+                                )}
                               </span>
                             ) : (
                               <span className="round-hint">{t('lockedHint')}</span>

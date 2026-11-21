@@ -58,10 +58,6 @@ export default function SettingsScreen() {
       <section className="panel form">
         <h2 className="h3">🔁 {t('study')}</h2>
         <div className="quick-row">
-          <span className="quick-label">{t('repsPerSet')}</span>
-          <Stepper value={s.settings.reps} min={1} max={10} onChange={(reps) => setSettings({ reps })} format={(v) => `${v}${t('times')}`} />
-        </div>
-        <div className="quick-row">
           <span className="quick-label">{t('cardSec')}</span>
           <Stepper value={s.settings.cardSec} min={1} max={10} onChange={(cardSec) => setSettings({ cardSec })} format={(v) => `${v}${t('sec')}`} />
         </div>
@@ -134,7 +130,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.5.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.6.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )
