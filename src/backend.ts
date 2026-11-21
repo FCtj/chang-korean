@@ -8,13 +8,29 @@ import { App as CapApp } from '@capacitor/app'
 import { getState, setPointsReporter, subscribe, update, type State } from './store'
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
 
-// 빌드할 때 넣은 값(GitHub 저장소 변수)이 있으면 그것, 없으면 src/config.ts 의 공개값
-const URL_ = (import.meta.env.VITE_SUPABASE_URL as string | undefined) || SUPABASE_URL
-const KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || SUPABASE_PUBLISHABLE_KEY
+// 주소·키는 src/config.ts 의 공개값 (빌드할 때 VITE_* 로 넣은 값이 있으면 그것)
+// 잘못된 값은 쓰지 않음: 주소는 https:// 로 시작해야 하고, 비밀 키(sb_secret_ / service_role)는 절대 쓰지 않음
+const isUrl = (v?: string) => !!v && /^https:\/\/[^\s/]+/.test(v)
+function isPublicKey(v?: string): boolean {
+  if (!v) return false
+  if (v.startsWith('sb_publishable_')) return true
+  if (v.startsWith('eyJ')) {
+    try {
+      return JSON.parse(atob(v.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).role === 'anon'
+    } catch {
+      return false
+    }
+  }
+  return false
+}
+const envUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined
+const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
+const URL_ = isUrl(envUrl) ? envUrl : SUPABASE_URL
+const KEY = isPublicKey(envKey) ? envKey : SUPABASE_PUBLISHABLE_KEY
 const native = Capacitor.isNativePlatform()
 
 /** 서버 설정이 들어 있는지 */
-export const backendReady = !!(URL_ && KEY)
+export const backendReady = isUrl(URL_) && isPublicKey(KEY)
 
 export const supabase: SupabaseClient | null = backendReady
   ? createClient(URL_!, KEY!, {

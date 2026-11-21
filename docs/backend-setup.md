@@ -65,16 +65,13 @@ Facebook 로그인, 사용자 정보·학습 기록 저장, 나라별 실시간/
 
 ## 4. 앱에 주소와 키 넣기
 
-둘 중 편한 방법 하나:
+주소와 공개 키는 [`src/config.ts`](../src/config.ts) 에 넣습니다 (웹·안드로이드·아이폰이 모두 이 값을 씀).
 
-- **방법 A (권장)**: GitHub 저장소 → **Settings → Secrets and variables → Actions → Variables** 탭 →
-  `SUPABASE_URL`, `SUPABASE_ANON_KEY`(= Publishable key) 두 변수 추가 → Actions에서 *Deploy web (GitHub Pages)* → **Run workflow**
-  (Secrets 탭이 아니라 **Variables** 탭입니다. 공개용 키라 Variables 에 넣어도 됩니다)
-- **방법 B**: 주소와 Publishable(anon) 키를 알려주시면 저장소에 넣어 드립니다
-  (원래 공개용 키입니다. 데이터는 위의 권한 규칙(RLS)으로 보호됩니다. **Secret / service_role 키는 절대 보내지 마세요.**)
+- `SUPABASE_URL` = 프로젝트 주소 `https://xxxx.supabase.co`
+- `SUPABASE_PUBLISHABLE_KEY` = `sb_publishable_…` (또는 예전 `anon` 키)
 
-Facebook 앱(2·3번)을 아직 안 만들었어도 4번까지 하면 서버에는 연결됩니다. 다만 로그인 버튼을 눌러도 Facebook 쪽 설정이 없어서
-로그인은 안 되고, 랭킹·그룹은 로그인한 사람만 쓸 수 있습니다.
+⚠️ **GitHub 저장소 변수(Settings → Variables)는 더 이상 쓰지 않습니다.** 빌드 로그가 공개라서 값이 그대로 보이기 때문입니다.
+⚠️ **Secret 키(`sb_secret_…`, service_role)는 어디에도 넣지 마세요.** 빌드에 비밀 키가 들어가면 `scripts/check-no-secrets.mjs` 가 빌드를 멈춥니다.
 
 그다음 웹(https://fctj.github.io/chang-korean/)에서 **Facebook으로 계속하기**가 보이면 성공입니다.
 

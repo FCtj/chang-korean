@@ -34,9 +34,6 @@ jobs:
 
       - name: Build web app
         run: npm run build
-        env:
-          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
-          VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
 
       - name: Copy web app into the iOS project
         run: npx cap sync ios
