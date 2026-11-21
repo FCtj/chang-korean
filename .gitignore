@@ -3,3 +3,6 @@ dist/
 dist-single/
 *.log
 .DS_Store
+
+# 저장소 최상위 .gitignore의 data/ 규칙에서 단어 데이터 폴더는 제외
+!src/data/
