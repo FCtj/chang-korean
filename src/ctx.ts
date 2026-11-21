@@ -8,6 +8,7 @@ export type Route =
   | { name: 'tabs' }
   | { name: 'round'; roundId: string }
   | { name: 'player'; roundId: string; startChunk: number }
+  | { name: 'placement' }
   | { name: 'quiz'; kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }
 
 export type Tab = 'learn' | 'rewards' | 'settings'

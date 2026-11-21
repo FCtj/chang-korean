@@ -10,7 +10,7 @@ export type Order = 'seq' | 'random'
 export interface Settings {
   direction: Direction
   cardSec: number // 카드 앞면 보여주는 시간 (초)
-  reps: number // 5개 묶음을 몇 번 반복하고 다음 5개로 넘어갈지
+  reps: number // 5개 묶음을 몇 번 반복하고 다음 5개로 넘어갈지 (기본 1 = 1~5, 6~10 … 순서대로 계속)
   autoFaster: boolean // 회차 전체를 한 바퀴 돌 때마다 1초씩 빨라짐 (최소 1초)
   quizSec: number // 문제당 제한시간, 0 = 없음
   order: Order
@@ -24,8 +24,12 @@ export interface WordStat {
 }
 
 export interface State {
-  v: 2
+  v: 3
   started: boolean
+  /** 수준 테스트를 봤는지 (또는 '처음이에요'를 골랐는지) */
+  placementDone: boolean
+  /** 수준 테스트로 건너뛴 회차 */
+  placedRounds: string[]
   ui: UiLang
   nickname: string
   settings: Settings
@@ -69,11 +73,13 @@ const monthOf = (dayKey: string) => dayKey.slice(0, 7)
 function initial(): State {
   const day = todayKey()
   return {
-    v: 2,
+    v: 3,
     started: false,
+    placementDone: false,
+    placedRounds: [],
     ui: 'lo',
     nickname: '',
-    settings: { direction: 'ko2n', cardSec: 3, reps: 3, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
+    settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
     chunkPlays: {},
     lastChunk: {},
     quizOpen: [],
@@ -96,9 +102,12 @@ function load(): State {
   try {
     const raw = localStorage.getItem(KEY)
     if (raw) {
-      const parsed = JSON.parse(raw) as Partial<State>
+      const parsed = JSON.parse(raw) as Partial<State> & { v?: number }
       const base = initial()
-      return { ...base, ...parsed, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      const merged: State = { ...base, ...parsed, v: 3, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈
+      if (parsed.v !== 3 && merged.settings.reps === 3) merged.settings = { ...merged.settings, reps: 1 }
+      return merged
     }
   } catch {
     /* 저장소를 못 쓰는 환경(사생활 보호 모드 등)에서는 메모리에만 보관 */
@@ -116,6 +125,7 @@ function persist() {
     /* 무시 */
   }
 }
+persist() // 이전 버전 기록을 바꿨으면 바로 저장
 
 /** 날짜·달이 바뀌었으면 일일 점수 / 월간 점수·도장 초기화 */
 function rollover(s: State): State {
@@ -148,6 +158,7 @@ export function useStore(): State {
 
 export function resetAll() {
   const keep = { started: state.started, ui: state.ui, nickname: state.nickname }
+  // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
   listeners.forEach((l) => l())
@@ -216,6 +227,28 @@ export function isCollected(s: State, w: Word): boolean {
   const round = ROUNDS.find((r) => r.id === w.roundId)!
   const chunk = Math.floor(round.words.findIndex((x) => x.id === w.id) / SET_SIZE)
   return playsOf(s, w.roundId, chunk) >= UNLOCK_PLAYS || (s.wordStats[w.id]?.c ?? 0) >= 3
+}
+
+// ───────── 수준 테스트 ─────────
+
+/**
+ * 수준 테스트 결과 반영. placedAt = 처음으로 모르는 회차의 순번(ROUNDS 기준, 0이면 처음부터).
+ * 앞 회차들은 통과 처리(점수 보너스 없음), 회차를 모두 건너뛴 계급은 승급 처리. 이미 통과한 기록은 지우지 않음.
+ */
+export function applyPlacement(placedAt: number) {
+  const skip = ROUNDS.slice(0, placedAt).map((r) => r.id)
+  update((s) => {
+    const passedRounds = [...new Set([...s.passedRounds, ...skip])]
+    const passedTiers = [...new Set([...s.passedTiers, ...TIERS.filter((t) => t.rounds.length > 0 && t.rounds.every((r) => passedRounds.includes(r.id))).map((t) => t.no)])]
+    return {
+      ...s,
+      placementDone: true,
+      placedRounds: [...new Set([...s.placedRounds, ...skip])],
+      passedRounds,
+      passedTiers,
+      quizOpen: [...new Set([...s.quizOpen, ...skip])],
+    }
+  })
 }
 
 // ───────── 점수·도장 ─────────

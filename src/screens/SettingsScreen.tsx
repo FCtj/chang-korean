@@ -11,7 +11,7 @@ const SAMPLE: Partial<Record<Lang, string>> = { ko: '안녕하세요', lo: 'ສ�
 
 export default function SettingsScreen() {
   const s = useStore()
-  const { t } = useApp()
+  const { t, push } = useApp()
   const [name, setName] = useState(s.nickname)
   const [voices, setVoices] = useState<{ ko: boolean | null; lo: boolean | null }>({ ko: null, lo: null })
   const [confirmReset, setConfirmReset] = useState(false)
@@ -117,6 +117,9 @@ export default function SettingsScreen() {
       </section>
 
       <section className="panel form">
+        <button className="btn btn-soft btn-block" onClick={() => push({ name: 'placement' })}>
+          ✏️ {t('retakeTest')}
+        </button>
         <button
           className={confirmReset ? 'btn btn-danger btn-block' : 'btn btn-soft btn-block'}
           onClick={() => {
@@ -131,7 +134,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.2.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.3.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )

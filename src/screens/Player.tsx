@@ -1,5 +1,6 @@
 // 자동 반복 플레이어
-// 5개 묶음을 설정한 횟수(기본 3번)만큼 반복 → "다음 5개!" → 다음 묶음 … 마지막 묶음이 끝나면 처음부터 다시
+// 1~5 → "다음 5개!" → 6~10 → … 순서대로 계속, 마지막 묶음이 끝나면 처음부터 다시
+// (설정에서 '5개씩 반복'을 2번 이상으로 하면 같은 5개를 그만큼 반복한 뒤 넘어감)
 // 버튼을 누르지 않아도 계속 자동으로 이어집니다.
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ROUNDS, roundSets, translation, type Word } from '../data/words'
@@ -71,7 +72,7 @@ export default function Player({ roundId, startChunk }: { roundId: string; start
   // "다음 5개!" 화면 → 잠깐 보여주고 자동으로 다음 묶음 시작
   useEffect(() => {
     if (pending === null || !playing) return
-    const timer = setTimeout(() => startChunkAt(pending), 1600)
+    const timer = setTimeout(() => startChunkAt(pending), 1300)
     return () => clearTimeout(timer)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pending, playing])
@@ -134,12 +135,24 @@ export default function Player({ roundId, startChunk }: { roundId: string; start
         title={`${tf('roundN', round.no)} · ${tf('setOf', chunk + 1, total)}`}
         sub={
           <span className="num">
-            🔁 {tf('repOf', rep, reps)}
+            {reps > 1 ? `🔁 ${tf('repOf', rep, reps)}` : `▶ ${t('autoPlaying')}`}
             {loop > 1 && ` · ${tf('loopN', loop)}`}
           </span>
         }
       />
       <div className="page player-page">
+        <div className="groups" aria-label={tf('setOf', chunk + 1, total)}>
+          {sets.map((g, k) => (
+            <button
+              key={k}
+              className={`grp ${k === chunk ? 'now' : k < chunk ? 'done' : ''}`}
+              onClick={() => startChunkAt(k)}
+              aria-label={tf('setN', k + 1)}
+            >
+              {k === chunk ? g[0].emoji : ''}
+            </button>
+          ))}
+        </div>
         <div className="strip" aria-hidden="true">
           {order.map((w, k) => (
             <span key={w.id} className={`bead c-${pastel(k + chunk)} ${k === idx ? 'now' : k < idx ? 'done' : ''}`}>

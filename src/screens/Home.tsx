@@ -28,6 +28,17 @@ export default function Home() {
         </div>
       </header>
 
+      {!s.placementDone && (
+        <button className="level-card" onClick={() => push({ name: 'placement' })}>
+          <Elephant size={56} acc="grad" />
+          <span className="level-card-body">
+            <span className="level-card-title">✏️ {t('levelTest')}</span>
+            <span className="level-card-text">{t('levelPrompt')}</span>
+          </span>
+          <Icon name="next" size={22} />
+        </button>
+      )}
+
       {cur && (() => {
         const [done, need] = viewProgress(s, cur)
         const startChunk = s.lastChunk[cur.id] ?? 0
@@ -112,7 +123,11 @@ export default function Home() {
                           <span className="round-body">
                             <span className="round-title">{tf('roundN', r.no)}</span>
                             <span className="round-sub">{r.title[ui]}</span>
-                            {ro ? (
+                            {s.placedRounds.includes(r.id) ? (
+                              <span className="round-prog">
+                                <span className="chip chip-mint tiny">✓ {t('placedBadge')}</span>
+                              </span>
+                            ) : ro ? (
                               <span className="round-prog">
                                 <ProgressBar value={passed ? vn : vd} max={vn} tone={passed ? 'mint' : 'pink'} />
                                 {isQuizOpen(s, r.id) && !passed && <span className="chip chip-pink tiny">{t('newBadge')}</span>}

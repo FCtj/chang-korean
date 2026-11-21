@@ -10,6 +10,7 @@ import Onboarding from './screens/Onboarding'
 import Home from './screens/Home'
 import RoundScreen from './screens/RoundScreen'
 import Player from './screens/Player'
+import Placement from './screens/Placement'
 import Quiz from './screens/Quiz'
 import Rewards from './screens/Rewards'
 import SettingsScreen from './screens/SettingsScreen'
@@ -102,6 +103,7 @@ export default function App() {
     )
   } else if (top.name === 'round') screen = <RoundScreen key={top.roundId} roundId={top.roundId} />
   else if (top.name === 'player') screen = <Player key={`${stack.length}-${top.roundId}-${top.startChunk}`} roundId={top.roundId} startChunk={top.startChunk} />
+  else if (top.name === 'placement') screen = <Placement ui={ui} mode="retake" onBack={() => ctx.pop()} onDone={() => ctx.home('learn')} />
   else screen = <Quiz key={`${stack.length}-${top.kind}-${top.words.length}`} {...top} />
 
   return (

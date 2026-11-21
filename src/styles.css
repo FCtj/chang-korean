@@ -1930,3 +1930,237 @@ button:disabled {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ── 묶음 진행 (10묶음) ── */
+.groups {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  align-items: center;
+}
+.grp {
+  height: 10px;
+  border: 0;
+  padding: 0;
+  border-radius: 999px;
+  background: #f3e3ec;
+  font-family: var(--font-emoji);
+  font-size: 0.9rem;
+  line-height: 1;
+  transition: height 0.2s, background 0.2s;
+}
+.grp.done {
+  background: var(--pink);
+}
+.grp.now {
+  height: 26px;
+  background: #fff;
+  border: 2px solid var(--pink);
+  box-shadow: 0 2px 0 var(--pink-soft);
+}
+
+/* ── 시작 화면 언어 전환 ── */
+.lang-toggle {
+  align-self: flex-end;
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+}
+.lang-toggle button {
+  border: 0;
+  background: none;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: var(--font-cute);
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.lang-toggle button.on {
+  background: var(--pink);
+  color: #fff;
+}
+
+/* ── 수준 테스트 ── */
+.center {
+  text-align: center;
+}
+.level-intro,
+.level-result {
+  align-items: stretch;
+}
+.hero-blob.small {
+  width: 170px;
+  height: 170px;
+  align-self: center;
+  margin-top: 8px;
+}
+.level-desc {
+  margin: 0;
+  color: var(--muted);
+}
+.level-steps {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.level-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.level-step-emoji {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-emoji);
+  font-size: 1.5rem;
+  box-shadow: 0 3px 0 var(--line);
+}
+.level-progress {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.lp {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f3e3ec;
+  color: var(--muted);
+  font-family: var(--font-cute);
+  font-weight: 600;
+}
+.lp.done {
+  background: var(--mint);
+  color: #fff;
+}
+.lp.now {
+  background: var(--pink);
+  color: #fff;
+  transform: scale(1.12);
+  box-shadow: 0 3px 0 var(--pink-deep);
+}
+.q-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+.qd {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f3e3ec;
+}
+.qd.done {
+  background: var(--lilac);
+}
+.qd.now {
+  background: var(--pink);
+  transform: scale(1.3);
+}
+.idk {
+  margin-top: 2px;
+}
+.level-tier {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--pink-deep);
+  margin-top: 4px;
+}
+.level-from {
+  margin: 4px 0 8px;
+  font-family: var(--font-cute);
+  font-size: 1.05rem;
+}
+.level-map {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.level-map li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  color: var(--muted);
+}
+.level-map li.done {
+  background: var(--mint-soft);
+  border-color: #bfeee0;
+  color: var(--mint-deep);
+}
+.level-map li.here {
+  border-color: var(--pink);
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--pink-soft);
+}
+.level-map-no {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f3e3ec;
+  font-weight: 600;
+  flex: none;
+}
+.level-map li.done .level-map-no {
+  background: var(--mint);
+  color: #fff;
+}
+.level-map li.here .level-map-no {
+  background: var(--pink);
+  color: #fff;
+}
+.level-map-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.9rem;
+}
+.level-card {
+  width: 100%;
+  border: 2px dashed var(--lilac);
+  background: var(--lilac-soft);
+  border-radius: 26px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  color: var(--lilac-deep);
+  box-shadow: 0 4px 0 #ddd2ff;
+}
+.level-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.level-card-title {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.level-card-text {
+  font-size: 0.82rem;
+  color: var(--ink);
+}

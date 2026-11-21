@@ -110,6 +110,22 @@ const S = {
   demoBadge: { ko: '예시', lo: 'ຕົວຢ່າງ' },
   contentDraft: { ko: '라오어 번역은 원어민 검수 전 초안이에요', lo: 'ຄຳແປພາສາລາວຍັງເປັນສະບັບຮ່າງ' },
   settingsHere: { ko: '반복 설정', lo: 'ຕັ້ງຄ່າການຊ້ຳ' },
+  autoPlaying: { ko: '자동으로 다음 단어로 넘어가요', lo: 'ປ່ຽນຄຳອັດຕະໂນມັດ' },
+  next5: { ko: '다음 5개', lo: '5 ຄຳຕໍ່ໄປ' },
+  // 수준 테스트
+  levelTest: { ko: '수준 테스트', lo: 'ທົດສອບລະດັບ' },
+  levelTestDesc: { ko: '아는 단어는 건너뛰고 내 수준에 맞는 곳부터 시작해요. 2~3분이면 끝나요.', lo: 'ຂ້າມຄຳທີ່ຮູ້ແລ້ວ ແລະ ເລີ່ມຈາກລະດັບທີ່ເໝາະກັບເຈົ້າ. ໃຊ້ເວລາ 2~3 ນາທີ.' },
+  takeTest: { ko: '수준 테스트 시작', lo: 'ເລີ່ມທົດສອບ' },
+  beginner: { ko: '한국어가 처음이에요', lo: 'ຂ້ອຍຫາກໍ່ເລີ່ມຮຽນພາສາເກົາຫຼີ' },
+  dontKnow: { ko: '몰라요', lo: 'ບໍ່ຮູ້' },
+  testQ: { ko: '이 단어의 뜻은?', lo: 'ຄຳນີ້ໝາຍເຖິງຫຍັງ?' },
+  levelResult: { ko: '내 수준', lo: 'ລະດັບຂອງເຈົ້າ' },
+  startHere: { ko: '여기서 시작하기', lo: 'ເລີ່ມຈາກນີ້' },
+  allKnown: { ko: '준비된 단어를 모두 알고 있어요! 새 단어가 곧 나와요', lo: 'ເຈົ້າຮູ້ຄຳສັບທັງໝົດແລ້ວ! ຄຳສັບໃໝ່ຈະມາໄວໆນີ້' },
+  retakeTest: { ko: '수준 테스트 다시 보기', lo: 'ທົດສອບລະດັບອີກຄັ້ງ' },
+  placedBadge: { ko: '테스트 통과', lo: 'ຜ່ານການທົດສອບ' },
+  levelPrompt: { ko: '수준 테스트를 보면 맞는 단계부터 시작할 수 있어요', lo: 'ທົດສອບລະດັບ ເພື່ອເລີ່ມຈາກຂັ້ນທີ່ເໝາະກັບເຈົ້າ' },
+  fromStart: { ko: '처음부터 차근차근 시작해요', lo: 'ເລີ່ມແຕ່ຕົ້ນເທື່ອລະກ້າວ' },
 } satisfies Record<string, Str>
 
 const F = {
@@ -134,6 +150,13 @@ const F = {
     lo: (n: number) => `ຊ້ຳທຸກຊຸດ ${n} ເທື່ອ ເພື່ອເປີດຂັ້ນຕໍ່ໄປ`,
   },
   startFrom: { ko: (n: number) => `${n}묶음부터`, lo: (n: number) => `ເລີ່ມຈາກຊຸດ ${n}` },
+  testStage: { ko: (a: number, b: number) => `${a}/${b}단계`, lo: (a: number, b: number) => `ຂັ້ນ ${a}/${b}` },
+  testRule: {
+    ko: (n: number, need: number) => `단계마다 ${n}문제 중 ${need}개 이상 맞히면 다음 단계로 올라가요`,
+    lo: (n: number, need: number) => `ແຕ່ລະຂັ້ນມີ ${n} ຂໍ້ ຕອບຖືກ ${need} ຂໍ້ຂຶ້ນໄປ ຈຶ່ງໄປຂັ້ນຕໍ່ໄປ`,
+  },
+  placedFrom: { ko: (n: number) => `${n}회차부터 시작해요`, lo: (n: number) => `ເລີ່ມຈາກບົດທີ ${n}` },
+  skipped: { ko: (n: number) => `아는 회차 ${n}개는 통과 처리했어요`, lo: (n: number) => `ຂ້າມ ${n} ບົດທີ່ຮູ້ແລ້ວ` },
 } satisfies Record<string, Fn>
 
 export type StrKey = keyof typeof S
