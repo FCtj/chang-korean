@@ -1,6 +1,6 @@
 import { TIERS, PROMO_QUESTIONS } from '../data/words'
 import { useApp } from '../ctx'
-import { currentRound, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isTierOpen, todayKey, useStore, viewProgress, STAMPS_PER_TICKET } from '../store'
+import { currentRound, currentTierNo, isKnown, isPromoOpen, isQuizOpen, isRoundOpen, isTierOpen, knownCount, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle } from '../ui'
 
 export default function Home() {
@@ -40,7 +40,8 @@ export default function Home() {
       )}
 
       {cur && (() => {
-        const [done, need] = viewProgress(s, cur)
+        const done = knownCount(s, cur)
+        const need = cur.words.length
         const startChunk = s.lastChunk[cur.id] ?? 0
         return (
           <button className="continue" onClick={() => push({ name: 'player', roundId: cur.id, startChunk })}>
@@ -55,7 +56,9 @@ export default function Home() {
             <span className="continue-row">
               <span className="continue-emojis" aria-hidden="true">
                 {cur.words.slice(startChunk * 5, startChunk * 5 + 5).map((w) => (
-                  <span key={w.id}>{w.emoji}</span>
+                  <span key={w.id} className={isKnown(s, w) ? 'known' : ''}>
+                    {w.emoji}
+                  </span>
                 ))}
               </span>
               <span className="play-dot" aria-hidden="true">
@@ -64,7 +67,7 @@ export default function Home() {
             </span>
             <span className="continue-foot">
               <ProgressBar value={done} max={need} tone="butter" />
-              <span className="num">{tf('startFrom', startChunk + 1)}</span>
+              <span className="num">{tf('knownOf', done, need)}</span>
             </span>
           </button>
         )
@@ -115,7 +118,8 @@ export default function Home() {
                   {tr.rounds.map((r, i) => {
                     const ro = isRoundOpen(s, r)
                     const passed = s.passedRounds.includes(r.id)
-                    const [vd, vn] = viewProgress(s, r)
+                    const vd = knownCount(s, r)
+                    const vn = r.words.length
                     return (
                       <li key={r.id}>
                         <button className={`round-card ${ro ? '' : 'locked'} ${passed ? 'passed' : ''}`} disabled={!ro} onClick={() => push({ name: 'round', roundId: r.id })}>

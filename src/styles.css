@@ -2164,3 +2164,231 @@ button:disabled {
   font-size: 0.82rem;
   color: var(--ink);
 }
+
+/* ── 외웠어요 버튼 ── */
+.btn-mint {
+  background: var(--mint);
+  color: #fff;
+  border-bottom-color: var(--mint-deep);
+}
+
+/* ── 플레이어: 지금 묶음 5개 목록 ── */
+.wordlist {
+  list-style: none;
+  margin: 0;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 4px 0 var(--line);
+}
+.wl {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) minmax(0, 1.1fr) 32px;
+  grid-template-areas: 'emoji ko lo check' 'emoji rom lo check';
+  align-items: center;
+  column-gap: 8px;
+  padding: 4px 6px 4px 8px;
+  border-radius: 16px;
+  transition: background 0.2s, transform 0.2s;
+}
+.wl-emoji {
+  grid-area: emoji;
+  font-family: var(--font-emoji);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.wl-ko {
+  grid-area: ko;
+  font-size: 1.02rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wl-rom {
+  grid-area: rom;
+  font-family: var(--font-cute);
+  font-size: 0.72rem;
+  color: var(--lilac-deep);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wl-lo {
+  grid-area: lo;
+  font-size: 0.86rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wl-check {
+  grid-area: check;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  background: #fff;
+  color: #e6d3de;
+  display: grid;
+  place-items: center;
+}
+.wl-check.on {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: #fff;
+}
+.wl.now {
+  background: var(--c-soft);
+  box-shadow: inset 0 0 0 2px var(--c);
+}
+.wl.now .wl-lo {
+  color: var(--ink);
+}
+.wl.known .wl-ko,
+.wl.known .wl-lo,
+.wl.known .wl-rom,
+.wl.known .wl-emoji {
+  opacity: 0.4;
+}
+.wl.known .wl-ko {
+  text-decoration: line-through;
+  text-decoration-color: var(--mint);
+  text-decoration-thickness: 2px;
+}
+.grp.known {
+  background: var(--mint);
+}
+.grp.now {
+  font-family: var(--font-cute);
+  font-size: 0.8rem;
+  color: var(--pink-deep);
+}
+
+/* 플레이어 카드는 목록과 함께 한 화면에 들어오게 조금 작게 */
+.flash.compact {
+  min-height: 0;
+  padding: 16px 14px 14px;
+  gap: 6px;
+}
+.flash.compact .flash-blob {
+  width: clamp(110px, 32vw, 140px);
+}
+.flash.compact .flash-emoji {
+  font-size: clamp(64px, 19vw, 84px);
+}
+.flash.compact .flash-back {
+  min-height: 56px;
+  margin-top: 4px;
+  padding-top: 8px;
+}
+.interlude-words {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.iw {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid var(--line);
+  font-size: 0.92rem;
+  animation: bounce-in 0.45s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+.iw.known {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+.iw-emoji {
+  font-family: var(--font-emoji);
+}
+
+/* ── 회차 화면: 묶음별 단어 목록 ── */
+.set-head2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 6px;
+}
+.set-title {
+  flex: 1;
+  font-family: var(--font-cute);
+  font-weight: 600;
+}
+.set-head2 .set-play {
+  border: 0;
+}
+.set-row.all-known .set-no {
+  background: var(--mint);
+  box-shadow: 0 3px 0 var(--mint-deep);
+}
+.mini-words {
+  list-style: none;
+  margin: 0;
+  padding: 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mw {
+  width: 100%;
+  border: 0;
+  background: none;
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) minmax(0, 1.2fr) 24px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 6px;
+  border-radius: 12px;
+  text-align: left;
+}
+.mw:active {
+  background: var(--c-soft);
+}
+.mw-emoji {
+  font-family: var(--font-emoji);
+  font-size: 1.15rem;
+}
+.mw-ko {
+  font-size: 0.98rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mw-lo {
+  font-size: 0.84rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mw-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  color: transparent;
+  display: grid;
+  place-items: center;
+}
+.mini-words li.known .mw-check {
+  background: var(--mint);
+  border-color: var(--mint);
+  color: #fff;
+}
+.mini-words li.known .mw-ko,
+.mini-words li.known .mw-lo {
+  opacity: 0.45;
+}
+.continue-emojis span.known {
+  opacity: 0.45;
+}

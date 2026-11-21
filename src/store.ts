@@ -24,7 +24,7 @@ export interface WordStat {
 }
 
 export interface State {
-  v: 3
+  v: 4
   started: boolean
   /** 수준 테스트를 봤는지 (또는 '처음이에요'를 골랐는지) */
   placementDone: boolean
@@ -33,11 +33,13 @@ export interface State {
   ui: UiLang
   nickname: string
   settings: Settings
-  /** 회차별 묶음(5개)마다 반복해서 본 횟수 */
+  /** 회차별 묶음(5개)마다 반복해서 본 횟수 (참고용) */
   chunkPlays: Record<string, number[]>
+  /** '외웠어요'로 표시한 단어 (단어 id → 표시한 시각). 외운 단어는 자동 반복에서 빠짐 */
+  known: Record<string, number>
   /** 회차별 마지막으로 보던 묶음 (이어보기) */
   lastChunk: Record<string, number>
-  /** 반복 학습을 다 해서 문제·시험이 열린 회차 */
+  /** 문제·시험이 열린 회차 (한 번 열리면 계속 열림) */
   quizOpen: string[]
   passedRounds: string[]
   passedTiers: number[]
@@ -53,8 +55,6 @@ export interface State {
   totalPoints: number
 }
 
-/** 모든 묶음을 이만큼 반복해서 봐야 4지선다 문제·졸업시험이 나타남 */
-export const UNLOCK_PLAYS = 3
 export const DAILY_CAP = 400 // 하루에 받을 수 있는 최대 학습 점수
 export const EXAM_BONUS = 100
 export const PROMO_BONUS = 300
@@ -73,7 +73,7 @@ const monthOf = (dayKey: string) => dayKey.slice(0, 7)
 function initial(): State {
   const day = todayKey()
   return {
-    v: 3,
+    v: 4,
     started: false,
     placementDone: false,
     placedRounds: [],
@@ -81,6 +81,7 @@ function initial(): State {
     nickname: '',
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
     chunkPlays: {},
+    known: {},
     lastChunk: {},
     quizOpen: [],
     passedRounds: [],
@@ -104,9 +105,9 @@ function load(): State {
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<State> & { v?: number }
       const base = initial()
-      const merged: State = { ...base, ...parsed, v: 3, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      const merged: State = { ...base, ...parsed, v: 4, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈
-      if (parsed.v !== 3 && merged.settings.reps === 3) merged.settings = { ...merged.settings, reps: 1 }
+      if ((parsed.v ?? 0) < 3 && merged.settings.reps === 3) merged.settings = { ...merged.settings, reps: 1 }
       return merged
     }
   } catch {
@@ -189,9 +190,20 @@ export function isPromoOpen(s: State, tierNo: number): boolean {
   return tier.rounds.every((r) => s.passedRounds.includes(r.id))
 }
 
-/** 4지선다 문제·졸업시험이 보이는지 (처음엔 숨김, 반복 학습을 다 하면 열림) */
+/** 외운 단어인지 ('외웠어요' 표시 또는 통과한 회차의 단어) */
+export function isKnown(s: State, w: Word): boolean {
+  return !!s.known[w.id] || s.passedRounds.includes(w.roundId)
+}
+
+export function knownCount(s: State, round: Round): number {
+  return round.words.filter((w) => isKnown(s, w)).length
+}
+
+/** 4지선다 문제·졸업시험이 보이는지: 처음엔 숨김, 회차 단어를 모두 외우면 열림 */
 export function isQuizOpen(s: State, roundId: string): boolean {
-  return s.quizOpen.includes(roundId) || s.passedRounds.includes(roundId)
+  if (s.quizOpen.includes(roundId) || s.passedRounds.includes(roundId)) return true
+  const round = ROUNDS.find((r) => r.id === roundId)
+  return !!round && knownCount(s, round) === round.words.length
 }
 
 /** 지금 공부해야 할 회차 (열려 있고 아직 통과 못 한 첫 회차) */
@@ -209,24 +221,24 @@ export function chunkCount(round: Round) {
   return Math.ceil(round.words.length / SET_SIZE)
 }
 
-export function playsOf(s: State, roundId: string, chunk: number): number {
-  return s.chunkPlays[roundId]?.[chunk] ?? 0
-}
+/** 스티커가 색칠되는 조건 = 외운 단어 */
+export const isCollected = isKnown
 
-/** 반복 학습 진행도: (지금까지 채운 반복 수, 열리는 데 필요한 반복 수) */
-export function viewProgress(s: State, round: Round): [number, number] {
-  const n = chunkCount(round)
-  let done = 0
-  for (let i = 0; i < n; i++) done += Math.min(UNLOCK_PLAYS, playsOf(s, round.id, i))
-  return [done, n * UNLOCK_PLAYS]
-}
-
-/** 스티커가 색칠되는 조건: 그 단어의 묶음을 3번 반복했거나, 회차 통과, 또는 문제에서 3번 맞힘 */
-export function isCollected(s: State, w: Word): boolean {
-  if (s.passedRounds.includes(w.roundId)) return true
+/** '외웠어요' 표시/해제. 처음 외웠을 때 점수 +3. 회차의 마지막 단어를 외워 시험이 열리면 unlocked=true */
+export function setKnown(w: Word, on: boolean): { points: number; unlocked: boolean } {
   const round = ROUNDS.find((r) => r.id === w.roundId)!
-  const chunk = Math.floor(round.words.findIndex((x) => x.id === w.id) / SET_SIZE)
-  return playsOf(s, w.roundId, chunk) >= UNLOCK_PLAYS || (s.wordStats[w.id]?.c ?? 0) >= 3
+  const wasOpen = isQuizOpen(state, round.id)
+  const first = on && !state.known[w.id] && !state.passedRounds.includes(w.roundId)
+  update((s) => {
+    const known = { ...s.known }
+    if (on) known[w.id] = known[w.id] ?? Date.now()
+    else delete known[w.id]
+    let quizOpen = s.quizOpen
+    if (on && !quizOpen.includes(round.id) && round.words.every((x) => known[x.id] || s.passedRounds.includes(x.roundId))) quizOpen = [...quizOpen, round.id]
+    return { ...s, known, quizOpen }
+  })
+  const points = first ? addCapped(3) : 0
+  return { points, unlocked: !wasOpen && isQuizOpen(state, round.id) }
 }
 
 // ───────── 수준 테스트 ─────────
@@ -262,22 +274,15 @@ function addCapped(base: number): number {
   return pts
 }
 
-/** 5개 묶음을 한 번 다 본 것을 기록. 이번에 문제·시험이 처음 열렸으면 unlocked=true */
-export function recordChunkPlay(roundId: string, chunk: number, total: number): { points: number; unlocked: boolean } {
-  let unlocked = false
+/** 묶음을 한 번 다 본 것을 기록하고 점수(본 단어 수만큼, 하루 상한 있음)를 줌 */
+export function recordGroupPass(roundId: string, chunk: number, total: number, viewed: number): number {
   update((s) => {
     const plays = [...(s.chunkPlays[roundId] ?? Array(total).fill(0))]
     while (plays.length < total) plays.push(0)
     plays[chunk] = (plays[chunk] ?? 0) + 1
-    let quizOpen = s.quizOpen
-    if (!quizOpen.includes(roundId) && plays.every((p) => p >= UNLOCK_PLAYS)) {
-      quizOpen = [...quizOpen, roundId]
-      unlocked = true
-    }
-    return { ...s, chunkPlays: { ...s.chunkPlays, [roundId]: plays }, quizOpen }
+    return { ...s, chunkPlays: { ...s.chunkPlays, [roundId]: plays } }
   })
-  const points = addCapped(state.passedRounds.includes(roundId) ? 2 : 5)
-  return { points, unlocked }
+  return addCapped(state.passedRounds.includes(roundId) ? Math.ceil(viewed / 2) : viewed)
 }
 
 export function setLastChunk(roundId: string, chunk: number) {
@@ -290,11 +295,15 @@ export function awardPractice(roundId: string): number {
   return addCapped(state.passedRounds.includes(roundId) ? 1 : 2)
 }
 
+/** 문제 결과 기록. 맞히면 '외운 단어', 틀리면 다시 자동 반복에 들어감 */
 export function recordAnswer(wordId: string, ok: boolean) {
   update((s) => {
     const prev = s.wordStats[wordId] ?? { c: 0, w: 0, lastWrong: 0 }
     const next: WordStat = ok ? { ...prev, c: prev.c + 1 } : { ...prev, w: prev.w + 1, lastWrong: Date.now() }
-    return { ...s, wordStats: { ...s.wordStats, [wordId]: next } }
+    const known = { ...s.known }
+    if (ok) known[wordId] = known[wordId] ?? Date.now()
+    else delete known[wordId]
+    return { ...s, wordStats: { ...s.wordStats, [wordId]: next }, known }
   })
 }
 

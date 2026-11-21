@@ -102,7 +102,8 @@ export default function App() {
       </>
     )
   } else if (top.name === 'round') screen = <RoundScreen key={top.roundId} roundId={top.roundId} />
-  else if (top.name === 'player') screen = <Player key={`${stack.length}-${top.roundId}-${top.startChunk}`} roundId={top.roundId} startChunk={top.startChunk} />
+  else if (top.name === 'player')
+    screen = <Player key={`${stack.length}-${top.roundId}-${top.startChunk}-${!!top.review}`} roundId={top.roundId} startChunk={top.startChunk} review={top.review} />
   else if (top.name === 'placement') screen = <Placement ui={ui} mode="retake" onBack={() => ctx.pop()} onDone={() => ctx.home('learn')} />
   else screen = <Quiz key={`${stack.length}-${top.kind}-${top.words.length}`} {...top} />
 
