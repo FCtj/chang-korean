@@ -251,6 +251,8 @@ export const S_VI: Record<StrKey, string> = {
   commError: 'Vui lòng thử lại sau',
   themeCardTitle: 'Chọn giao diện cho bạn',
   themeCardSub: 'Nữ = hồng, Nam = đen. Đổi bất cứ lúc nào trong Cài đặt',
+  privacyPolicy: 'Chính sách quyền riêng tư',
+  dataDeletion: 'Hướng dẫn xóa dữ liệu',
 }
 
 export const F_VI: FnTable = {

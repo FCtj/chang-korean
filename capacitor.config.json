@@ -10,5 +10,9 @@
       "insetsHandling": "css",
       "initialViewportFitValueHint": "cover"
     }
+  },
+  "ios": {
+    "backgroundColor": "#FFF4F7",
+    "contentInset": "never"
   }
 }

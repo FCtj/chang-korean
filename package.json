@@ -1,7 +1,7 @@
 {
   "name": "chang-korean",
   "private": true,
-  "version": "0.11.1",
+  "version": "0.12.0",
   "type": "module",
   "description": "라오스 학습자를 위한 그림·소리 한국어 단어 앱 (MVP)",
   "scripts": {
@@ -13,6 +13,8 @@
     "android:sync": "npm run build && cap sync android",
     "android:apk": "npm run android:sync && cd android && ./gradlew assembleDebug",
     "android:open": "cap open android",
+    "ios:sync": "npm run build && cap sync ios",
+    "ios:open": "cap open ios",
     "test:db": "node supabase/test-schema.mjs"
   },
   "dependencies": {
@@ -21,6 +23,7 @@
     "@capacitor/app": "^8.1.2",
     "@capacitor/browser": "^8.0.5",
     "@capacitor/core": "^8.6.2",
+    "@capacitor/ios": "^8.6.2",
     "@fontsource/fredoka": "^5.3.0",
     "@fontsource/jua": "^5.3.0",
     "@fontsource/noto-sans-lao-looped": "^5.3.0",

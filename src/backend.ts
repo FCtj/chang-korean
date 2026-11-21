@@ -6,9 +6,11 @@ import { createClient, type Session, type SupabaseClient } from '@supabase/supab
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
 import { getState, setPointsReporter, subscribe, update, type State } from './store'
+import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
 
-const URL_ = import.meta.env.VITE_SUPABASE_URL as string | undefined
-const KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
+// 빌드할 때 넣은 값(GitHub 저장소 변수)이 있으면 그것, 없으면 src/config.ts 의 공개값
+const URL_ = (import.meta.env.VITE_SUPABASE_URL as string | undefined) || SUPABASE_URL
+const KEY = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined) || SUPABASE_PUBLISHABLE_KEY
 const native = Capacitor.isNativePlatform()
 
 /** 서버 설정이 들어 있는지 */

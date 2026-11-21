@@ -1,0 +1,65 @@
+# Chang Korean 아이폰(iOS) 앱 빌드 확인
+# Mac이 없어도 GitHub의 Mac 서버에서 iOS 프로젝트가 제대로 빌드되는지 확인합니다 (서명 없이, 시뮬레이터용).
+# 실제 아이폰 설치·TestFlight·App Store 배포는 Apple 개발자 계정과 서명 인증서가 필요합니다 → docs/ios-setup.md
+name: Chang Korean iOS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ios/**'
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'capacitor.config.json'
+      - '.github/workflows/ios.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build web app
+        run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY }}
+
+      - name: Copy web app into the iOS project
+        run: npx cap sync ios
+
+      - name: Build for iOS Simulator (no signing)
+        shell: bash
+        run: |
+          xcodebuild \
+            -project ios/App/App.xcodeproj \
+            -scheme App \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tail -n 60
+          test -d build/Build/Products/Debug-iphonesimulator/App.app
+
+      - name: Zip simulator app
+        run: cd build/Build/Products/Debug-iphonesimulator && zip -qry ../../../../chang-korean-ios-simulator.zip App.app
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chang-korean-ios-simulator
+          path: chang-korean-ios-simulator.zip
+          retention-days: 14

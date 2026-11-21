@@ -46,7 +46,10 @@ Facebook 로그인, 사용자 정보·학습 기록 저장, 나라별 실시간/
    - 사용 사례: **Facebook 로그인으로 사용자 인증**(Authenticate and request data from users with Facebook Login)
 2. **App settings → Basic**
    - `App ID`, `App Secret` 복사
-   - 개인정보처리방침 URL, 사용자 데이터 삭제 안내 URL, 앱 아이콘(`store/icon-512.png`) 입력 — **라이브 모드로 바꾸려면 필수**
+   - 개인정보처리방침 URL: `https://fctj.github.io/chang-korean/privacy.html`
+   - 사용자 데이터 삭제 → "데이터 삭제 안내 URL": `https://fctj.github.io/chang-korean/delete-data.html`
+   - 앱 도메인: `fctj.github.io`, 앱 아이콘: `store/icon-512.png`, 카테고리: 교육
+   - 위 항목은 **라이브 모드로 바꾸려면 필수** (두 페이지는 `legal/` 폴더에 있고 사이트에 자동으로 올라감. 문의 이메일은 `src/config.ts` 의 `CONTACT_EMAIL`)
 3. **Facebook Login → Settings → Valid OAuth Redirect URIs** 에 추가:
    `https://<1번의 프로젝트 주소>.supabase.co/auth/v1/callback`
 4. 앱을 **Live** 모드로 전환 (이름·사진(`public_profile`)만 쓰므로 별도 앱 심사는 보통 필요 없음)

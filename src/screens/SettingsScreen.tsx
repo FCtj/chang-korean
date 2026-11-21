@@ -6,6 +6,7 @@ import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
 import NativePicker from './NativePicker'
+import { SITE_URL } from '../config'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
@@ -222,7 +223,16 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.11.1 (MVP) · {t('contentDraft')}
+        <a href={`${SITE_URL}privacy.html`} target="_blank" rel="noopener noreferrer">
+          {t('privacyPolicy')}
+        </a>{' '}
+        ·{' '}
+        <a href={`${SITE_URL}delete-data.html`} target="_blank" rel="noopener noreferrer">
+          {t('dataDeletion')}
+        </a>
+      </p>
+      <p className="foot-note">
+        Chang Korean v0.12.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )

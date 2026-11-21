@@ -250,6 +250,8 @@ export const S_TH: Record<StrKey, string> = {
   commError: 'โปรดลองใหม่ภายหลัง',
   themeCardTitle: 'เลือกธีมที่ใช่สำหรับคุณ',
   themeCardSub: 'หญิง = ชมพู ชาย = ดำ เปลี่ยนได้ตลอดในการตั้งค่า',
+  privacyPolicy: 'นโยบายความเป็นส่วนตัว',
+  dataDeletion: 'วิธีลบข้อมูล',
 }
 
 export const F_TH: FnTable = {

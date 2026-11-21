@@ -24,3 +24,22 @@ mkdirSync(new URL('dist-web/', root), { recursive: true })
 writeFileSync(new URL('dist-web/index.html', root), html)
 writeFileSync(new URL('dist-web/chang-korean.html', root), html)
 console.log(`✓ dist-web/index.html, dist-web/chang-korean.html (${(html.length / 1024).toFixed(0)} KB)`)
+
+// 개인정보처리방침 · 데이터 삭제 안내 (Facebook 앱 라이브 전환에 필요) → dist-web/privacy.html, dist-web/delete-data.html
+const config = readFileSync(new URL('src/config.ts', root), 'utf8')
+const email = (config.match(/CONTACT_EMAIL = '([^']*)'/) ?? [])[1] ?? ''
+const issues = 'https://github.com/FCtj/chang-korean/issues'
+const contact = email
+  ? `문의: <a href="mailto:${email}">${email}</a>`
+  : `문의: <a href="${issues}">${issues}</a>`
+const contactEn = email ? `Contact: <a href="mailto:${email}">${email}</a>` : `Contact: <a href="${issues}">${issues}</a>`
+const style = readFileSync(new URL('legal/_style.css', root), 'utf8')
+for (const page of ['privacy.html', 'delete-data.html']) {
+  const out = readFileSync(new URL(`legal/${page}`, root), 'utf8')
+    .replaceAll('{{STYLE}}', style)
+    .replaceAll('{{CONTACT_EN}}', contactEn)
+    .replaceAll('{{CONTACT}}', contact)
+  if (out.includes('{{')) throw new Error(`legal/${page}: 바꾸지 못한 {{…}} 가 남아 있음`)
+  writeFileSync(new URL(`dist-web/${page}`, root), out)
+}
+console.log('✓ dist-web/privacy.html, dist-web/delete-data.html')
