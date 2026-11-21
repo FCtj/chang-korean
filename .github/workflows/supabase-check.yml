@@ -1,0 +1,46 @@
+# Supabase 연결 점검 (공개 키만 사용 — 비밀 키 필요 없음)
+# - 테이블 7개가 만들어졌는지
+# - Facebook 로그인이 켜졌는지
+# Actions → "Supabase check" → Run workflow 로 언제든 다시 실행할 수 있습니다.
+name: Supabase check
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['src/config.ts', '.github/workflows/supabase-check.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tables and auth settings
+        shell: bash
+        run: |
+          URL=$(grep -oE "SUPABASE_URL = '[^']*'" src/config.ts | cut -d"'" -f2)
+          KEY=$(grep -oE "SUPABASE_PUBLISHABLE_KEY = '[^']*'" src/config.ts | cut -d"'" -f2)
+          if [ -z "$URL" ] || [ -z "$KEY" ]; then echo "src/config.ts 에 주소나 공개 키가 없습니다"; exit 1; fi
+          case "$KEY" in sb_secret_*) echo "비밀 키는 쓰면 안 됩니다"; exit 1;; esac
+          echo "프로젝트: $URL"
+          missing=0
+          for t in profiles progress point_events groups group_members posts reactions; do
+            code=$(curl -s -o body.json -w '%{http_code}' --max-time 20 "$URL/rest/v1/$t?select=*&limit=0" -H "apikey: $KEY")
+            if [ "$code" = "200" ]; then echo "✓ 테이블 $t"; else echo "✗ 테이블 $t (HTTP $code) $(head -c 200 body.json)"; missing=1; fi
+          done
+          echo "--- 로그인 설정 ---"
+          curl -s --max-time 20 "$URL/auth/v1/settings" -H "apikey: $KEY" > auth.json
+          python3 - <<'PY'
+          import json
+          try:
+              s = json.load(open('auth.json'))
+          except Exception as e:
+              print('✗ 로그인 설정을 읽지 못함', e); raise SystemExit(0)
+          ext = s.get('external', {})
+          print(('✓' if ext.get('facebook') else '✗'), 'Facebook 로그인', 'ON' if ext.get('facebook') else 'OFF')
+          print('  켜진 로그인:', ', '.join(k for k, v in ext.items() if v) or '(없음)')
+          PY
+          if [ "$missing" = "1" ]; then echo "테이블이 없습니다 → Supabase SQL Editor 에서 supabase/schema.sql 실행"; exit 1; fi

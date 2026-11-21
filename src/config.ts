@@ -4,7 +4,7 @@
 // GitHub 저장소 변수(SUPABASE_URL / SUPABASE_ANON_KEY)가 있으면 그 값이 우선입니다.
 
 /** Supabase 프로젝트 주소 (예: https://abcdxyz.supabase.co). 비어 있으면 예시 모드로 동작 */
-export const SUPABASE_URL = ''
+export const SUPABASE_URL = 'https://aoonpimjvqrdfbkeomya.supabase.co'
 /** Supabase Publishable key (공개용) */
 export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_RsM7yDx8h6mnHosgkZ4FyA_ope7AahS'
 /** Facebook 앱 ID (공개값. 로그인은 Supabase 가 처리하므로 앱 코드에서는 참고용) */
