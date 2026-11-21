@@ -6,6 +6,8 @@ import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
 import NativePicker from './NativePicker'
+import { GenderPicker, PhotoPicker } from './ProfileFields'
+import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
 import { backendReady, COUNTRIES, deleteMyData, setCountry, signInWithFacebook, signOut, useAuth } from '../backend'
@@ -77,6 +79,28 @@ export default function SettingsScreen() {
               </button>
             ))}
           </div>
+        </div>
+        {auth.status !== 'in' && (
+          <div className="field">
+            <span className="label">{t('photo')}</span>
+            <PhotoPicker name={s.nickname} />
+          </div>
+        )}
+        <div className="field">
+          <span className="label">{t('gender')}</span>
+          <GenderPicker />
+        </div>
+        <div className="field">
+          <span className="label">{t('theme')}</span>
+          <Segmented<Theme>
+            name={t('theme')}
+            value={s.theme}
+            onChange={(theme) => update((st) => ({ ...st, theme }))}
+            options={[
+              { id: 'candy', label: `💗 ${t('themeCandy')}` },
+              { id: 'carbon', label: `🖤 ${t('themeCarbon')}` },
+            ]}
+          />
         </div>
         {auth.status !== 'in' && <div className="field">
           <label htmlFor="nick-edit">{t('nickname')}</label>
@@ -198,7 +222,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.9.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.10.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )

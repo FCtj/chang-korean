@@ -27,12 +27,17 @@ function spawn(cls: string, x: number, y: number, text: string, vars: Record<str
 }
 
 const PARTY = ['⭐', '💖', '✨', '🌸', '💫', '🎀']
-const COLORS = ['#FF8DB3', '#B9A6FF', '#7FD8C2', '#FFD66B', '#FFB59A', '#8CCBFF']
+const PARTY_CARBON = ['⭐', '✨', '⚡', '💎', '💫', '🏆']
+const party = () => (document.documentElement.dataset.theme === 'carbon' ? PARTY_CARBON : PARTY)
+const CANDY = ['#FF8DB3', '#B9A6FF', '#7FD8C2', '#FFD66B', '#FFB59A', '#8CCBFF']
+const CARBON = ['#3E6AE1', '#ECEEF1', '#9AA3AD', '#7B9BFF', '#D4A94A', '#E82127']
+/** 지금 테마의 효과 색 (블랙 테마는 파랑·은색·금색) */
+export const fxColors = () => (document.documentElement.dataset.theme === 'carbon' ? CARBON : CANDY)
 
 /** (x, y)에서 별·하트가 팡 터져 퍼짐 */
 export function burst(x: number, y: number, opts: { count?: number; emojis?: string[]; power?: number } = {}) {
   if (reduced()) return
-  const { count = 14, emojis = PARTY, power = 1 } = opts
+  const { count = 14, emojis = party(), power = 1 } = opts
   for (let i = 0; i < count; i++) {
     const angle = (Math.PI * 2 * i) / count + Math.random() * 0.5
     const dist = (60 + Math.random() * 70) * power
@@ -46,7 +51,7 @@ export function burst(x: number, y: number, opts: { count?: number; emojis?: str
         '--dx': `${Math.cos(angle) * dist}px`,
         '--dy': `${Math.sin(angle) * dist - 20 * power}px`,
         '--rot': `${Math.random() * 360 - 180}deg`,
-        '--c': COLORS[i % COLORS.length],
+        '--c': fxColors()[i % 6],
         '--s': `${0.8 + Math.random() * 0.7}`,
       },
       900,
@@ -79,7 +84,7 @@ export function fireworks(shots = 6) {
   const h = window.innerHeight
   for (let i = 0; i < shots; i++) {
     setTimeout(() => {
-      burst(w * (0.15 + Math.random() * 0.7), h * (0.12 + Math.random() * 0.4), { count: 18, power: 1.5, emojis: ['✨', '⭐', '💖', '🎉', '💫'] })
+      burst(w * (0.15 + Math.random() * 0.7), h * (0.12 + Math.random() * 0.4), { count: 18, power: 1.5, emojis: document.documentElement.dataset.theme === 'carbon' ? ['✨', '⭐', '⚡', '🏆', '💫'] : ['✨', '⭐', '💖', '🎉', '💫'] })
       if (i % 2 === 0) sfx.pop()
     }, i * 260)
   }
@@ -90,6 +95,6 @@ export function sparkleRain(n = 26) {
   if (reduced()) return
   const w = window.innerWidth
   for (let i = 0; i < n; i++) {
-    spawn('fx-rain', Math.random() * w, -30, PARTY[i % PARTY.length], { '--delay': `${Math.random() * 0.8}s`, '--dur': `${1.6 + Math.random() * 1.2}s`, '--rot': `${Math.random() * 720 - 360}deg` }, 3200)
+    spawn('fx-rain', Math.random() * w, -30, party()[i % PARTY.length], { '--delay': `${Math.random() * 0.8}s`, '--dur': `${1.6 + Math.random() * 1.2}s`, '--rot': `${Math.random() * 720 - 360}deg` }, 3200)
   }
 }

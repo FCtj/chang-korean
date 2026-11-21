@@ -6,6 +6,9 @@ import type { UiLang } from './i18n'
 import { DEMO_FILL, DEMO_PEOPLE } from './data/friends'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
+/** candy = 분홍 파스텔(기본, 여자 선택) · carbon = 묵직한 블랙(남자 선택) */
+export type Theme = 'candy' | 'carbon'
+export type Gender = 'f' | 'm' | ''
 export type Order = 'seq' | 'random'
 
 export interface Settings {
@@ -35,6 +38,10 @@ export interface State {
   /** 배우는 사람의 언어 (뜻이 이 언어로 나옴): 라오어 · 태국어 · 베트남어(베타) */
   native: Native
   nickname: string
+  /** 내 사진 (기기에서 고른 사진을 작게 줄인 data URL). 페이스북 로그인하면 페이스북 사진이 우선 */
+  photo: string
+  gender: Gender
+  theme: Theme
   /** 나라 (ISO 2글자, 랭킹용). 기본 라오스 */
   country: string
   /** 배우는 목적 (단어팩 추천용) */
@@ -105,6 +112,9 @@ function initial(): State {
     ui: native,
     native,
     nickname: '',
+    photo: '',
+    gender: '',
+    theme: 'candy',
     country: COUNTRY_OF[native],
     purposes: [],
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
@@ -219,7 +229,7 @@ export function useStore(): State {
 }
 
 export function resetAll() {
-  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, country: state.country }
+  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, country: state.country }
   // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
@@ -229,6 +239,11 @@ export function resetAll() {
 /** 학습자 언어 바꾸기: 화면 언어도 같이 (운영자용 한국어 화면이면 그대로) */
 export function setLanguage(native: Native, opts: { country?: boolean } = {}) {
   update((s) => ({ ...s, native, ui: s.ui === 'ko' ? 'ko' : native, ...(opts.country ? { country: COUNTRY_OF[native] } : {}) }))
+}
+
+/** 성별 고르기: 남자 → 블랙(carbon) 테마, 여자 → 분홍(candy) 테마. 테마는 설정에서 따로 바꿀 수 있음 */
+export function setGender(gender: Gender) {
+  update((s) => ({ ...s, gender, theme: gender === 'm' ? 'carbon' : 'candy' }))
 }
 
 export function setSettings(patch: Partial<Settings>) {

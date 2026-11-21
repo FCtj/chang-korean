@@ -65,7 +65,7 @@ export default function Leaderboard() {
   const demo: RankRow[] = backendReady
     ? []
     : demoRanking(s)
-        .map((r, i) => ({ rank: i + 1, userId: r.me ? 'me' : r.name, name: r.name, avatar: r.me ? (auth.me?.avatar ?? null) : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me }))
+        .map((r, i) => ({ rank: i + 1, userId: r.me ? 'me' : r.name, name: r.name, avatar: r.me ? (auth.me?.avatar || s.photo || null) : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me }))
         .filter((r) => scope === 'all' || r.country === myCountry)
         .map((r, i) => ({ ...r, rank: i + 1 }))
   const list = backendReady ? rows : demo
@@ -145,7 +145,7 @@ export default function Leaderboard() {
 
       {(auth.status === 'in' || !backendReady) && (
         <div className="my-rank">
-          <Avatar src={auth.me?.avatar} name={auth.me?.name ?? s.nickname} size={44} />
+          <Avatar src={auth.me?.avatar || s.photo} name={auth.me?.name ?? s.nickname} size={44} />
           <div className="my-rank-body">
             <div className="my-rank-label">{t('myRank')}</div>
             <div className="my-rank-name">{auth.me?.name ?? s.nickname}</div>
@@ -212,7 +212,7 @@ export default function Leaderboard() {
               <div className="cer-avatar">
                 <span className="cer-ring" aria-hidden="true" />
                 {ceremony.kind === 'gold' && <span className="cer-crown" aria-hidden="true">👑</span>}
-                <Avatar src={auth.me?.avatar} name={auth.me?.name ?? s.nickname} size={104} />
+                <Avatar src={auth.me?.avatar || s.photo} name={auth.me?.name ?? s.nickname} size={104} />
                 <span className="cer-medal" aria-hidden="true">
                   {ceremony.kind === 'gold' ? '🥇' : ceremony.kind === 'silver' ? '🥈' : ceremony.kind === 'bronze' ? '🥉' : '🎁'}
                 </span>

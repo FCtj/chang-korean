@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { useApp } from './ctx'
+import { useStore } from './store'
 
 type IconName = 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart'
 
@@ -80,6 +81,8 @@ export function Elephant({
   className?: string
   style?: CSSProperties
 }) {
+  const theme = useStore().theme
+  if (theme === 'carbon') return <CarbonElephant size={size} acc={acc} mood={mood} dim={tone === 'grey'} className={className} style={style} />
   const c = TONES[tone]
   const ink = '#5B4366'
   return (
@@ -156,6 +159,104 @@ export function Elephant({
       )}
     </svg>
   )
+}
+
+/** 블랙 테마 코끼리: 그래파이트 금속 몸 + 헤드라이트 같은 눈 */
+function CarbonElephant({ size, acc, mood, dim, className, style }: { size: number; acc: Accessory; mood: 'smile' | 'happy' | 'wow'; dim: boolean; className?: string; style?: CSSProperties }) {
+  const id = useId().replace(/[^a-zA-Z0-9]/g, '')
+  const body = dim ? ['#30343b', '#1b1e23'] : ['#555d69', '#1c2026']
+  const eye = dim ? '#5f6670' : '#eef4ff'
+  const glow = dim ? undefined : `url(#cg${id})`
+  const silver = '#d9dde3'
+  return (
+    <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" className={className} style={style}>
+      <defs>
+        <linearGradient id={`cb${id}`} x1="0.2" y1="0" x2="0.6" y2="1">
+          <stop offset="0" stopColor={body[0]} />
+          <stop offset="1" stopColor={body[1]} />
+        </linearGradient>
+        <linearGradient id={`ce${id}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor={dim ? '#2a2e34' : '#3d434d'} />
+          <stop offset="1" stopColor="#111317" />
+        </linearGradient>
+        <filter id={`cg${id}`} x="-60%" y="-200%" width="220%" height="500%">
+          <feGaussianBlur stdDeviation="1.8" result="b" />
+          <feFlood floodColor="#5b8cff" floodOpacity="0.9" />
+          <feComposite in2="b" operator="in" result="g" />
+          <feMerge>
+            <feMergeNode in="g" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      {/* 귀: 날렵한 패널 */}
+      <path d="M40 38 C22 22 2 32 3 56 C4 80 22 92 38 80 Z" fill={`url(#ce${id})`} stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+      <path d="M80 38 C98 22 118 32 117 56 C116 80 98 92 82 80 Z" fill={`url(#ce${id})`} stroke="rgba(255,255,255,0.14)" strokeWidth="1" />
+      <path d="M12 50 C14 40 22 36 30 38" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M108 50 C106 40 98 36 90 38" fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="1.4" strokeLinecap="round" />
+      {/* 얼굴 */}
+      <ellipse cx="60" cy="58" rx="33" ry="31" fill={`url(#cb${id})`} />
+      <path d="M35 46 Q46 31 66 30" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2.2" strokeLinecap="round" />
+      {/* 이마 엠블럼 */}
+      <rect x="55" y="38" width="10" height="2.6" rx="1.3" fill={dim ? '#4a5058' : 'rgba(255,255,255,0.45)'} />
+      {/* 코 */}
+      <path d="M60 72 C58 88 62 98 72 99 C78 99.5 81 95 79 91" fill="none" stroke={`url(#cb${id})`} strokeWidth="13" strokeLinecap="round" />
+      <path d="M55 84 h10 M57 91 h9" fill="none" stroke="rgba(255,255,255,0.13)" strokeWidth="1.4" strokeLinecap="round" />
+      {/* 눈: 헤드라이트 */}
+      {mood === 'happy' ? (
+        <g fill="none" stroke={eye} strokeWidth="3.4" strokeLinecap="round" filter={glow}>
+          <path d="M40 57 q7 -7 14 0" />
+          <path d="M66 57 q7 -7 14 0" />
+        </g>
+      ) : mood === 'wow' ? (
+        <g fill={eye} filter={glow}>
+          <rect x="42" y="50" width="10" height="11" rx="4.5" />
+          <rect x="68" y="50" width="10" height="11" rx="4.5" />
+        </g>
+      ) : (
+        <g fill="none" stroke={eye} strokeWidth="4" strokeLinecap="round" filter={glow}>
+          <path d="M40 53.5 L54 56.5" />
+          <path d="M80 53.5 L66 56.5" />
+        </g>
+      )}
+      {/* 장식 (은색 라인) */}
+      {acc === 'cap' && (
+        <g>
+          <path d="M33 41 Q60 20 87 41" fill="none" stroke={silver} strokeWidth="3.2" strokeLinecap="round" />
+          <path d="M80 35 L95 38" stroke="#e82127" strokeWidth="3.2" strokeLinecap="round" />
+        </g>
+      )}
+      {acc === 'grad' && (
+        <g>
+          <rect x="47" y="27" width="26" height="10" rx="2" fill="#16191d" stroke="rgba(255,255,255,0.18)" />
+          <polygon points="60,14 94,25 60,36 26,25" fill="#24282e" stroke={silver} strokeWidth="1.2" strokeLinejoin="round" />
+          <path d="M88 26 v13" stroke={silver} strokeWidth="1.8" strokeLinecap="round" />
+          <circle cx="88" cy="40.5" r="2.4" fill="#e82127" />
+        </g>
+      )}
+      {acc === 'star' && (
+        <polygon
+          transform="translate(60 21)"
+          points="0,-12 3.5,-3.9 12,-3.7 5.4,1.9 7.6,10.2 0,5.4 -7.6,10.2 -5.4,1.9 -12,-3.7 -3.5,-3.9"
+          fill="#2a2f36"
+          stroke={silver}
+          strokeWidth="1.6"
+          strokeLinejoin="round"
+        />
+      )}
+      {acc === 'crown' && (
+        <g>
+          <path d="M41 36 L44 18 L52 27 L60 13 L68 27 L76 18 L79 36 Z" fill="#20242a" stroke={silver} strokeWidth="1.6" strokeLinejoin="round" />
+          <circle cx="60" cy="29" r="2.6" fill="#5b8cff" />
+        </g>
+      )}
+    </svg>
+  )
+}
+
+/** 버튼 끝 장식: 분홍 테마는 ♥, 블랙 테마는 → */
+export function useHeart() {
+  return useStore().theme === 'carbon' ? '→' : '♥'
 }
 
 /** 프로필 사진 (없거나 못 불러오면 이름 첫 글자) */

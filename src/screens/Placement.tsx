@@ -6,7 +6,7 @@ import { ROUNDS, TIERS, translation, type Word } from '../data/words'
 import { makeT, type UiLang } from '../i18n'
 import { applyPlacement } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
-import { Elephant, Icon, TIER_ACC, shuffle } from '../ui'
+import { Elephant, Icon, TIER_ACC, shuffle, useHeart } from '../ui'
 import { Confetti } from './Player'
 
 const PER = 6 // 단계마다 문제 수
@@ -45,6 +45,7 @@ const placedIndex = (passedStages: number) =>
 
 export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mode: 'first' | 'retake'; onDone: () => void; onBack?: () => void }) {
   const { t, tf } = useMemo(() => makeT(ui), [ui])
+  const heart = useHeart()
   const [phase, setPhase] = useState<'intro' | 'test' | 'result'>('intro')
   const [stage, setStage] = useState(0)
   const [qs, setQs] = useState<Q[]>(() => makeStage(0))
@@ -191,7 +192,7 @@ export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mo
               onDone()
             }}
           >
-            {t('startHere')} ♥
+            {t('startHere')} {heart}
           </button>
         </div>
       </div>

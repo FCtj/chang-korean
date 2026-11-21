@@ -35,6 +35,12 @@ export default function App() {
     el.dataset.native = s.native
   }, [ui, s.native])
 
+  // 테마: candy(분홍) / carbon(블랙). 폰 상단 바 색도 같이
+  useEffect(() => {
+    document.documentElement.dataset.theme = s.theme
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', s.theme === 'carbon' ? '#0b0c0f' : '#FF8DB3')
+  }, [s.theme])
+
   const top = stack[stack.length - 1]
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -76,7 +82,12 @@ export default function App() {
     [ui, t, tf, tab],
   )
 
-  if (!s.started) return <Onboarding />
+  if (!s.started)
+    return (
+      <Ctx.Provider value={ctx}>
+        <Onboarding />
+      </Ctx.Provider>
+    )
 
   let screen
   if (top.name === 'tabs') {

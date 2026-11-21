@@ -4,8 +4,9 @@ import { makeT, nativeInfo, type UiLang } from '../i18n'
 import { getState, setLanguage, update } from '../store'
 import type { Native, Purpose } from '../data/words'
 import NativePicker from './NativePicker'
+import { GenderPicker, PhotoPicker } from './ProfileFields'
 import { PurposePicker } from './SettingsScreen'
-import { Avatar, Elephant } from '../ui'
+import { Avatar, Elephant, useHeart } from '../ui'
 import { backendReady, COUNTRIES, signInWithFacebook, useAuth } from '../backend'
 import Placement from './Placement'
 
@@ -17,6 +18,7 @@ export default function Onboarding() {
   const [purposes, setPurposes] = useState<Purpose[]>(getState().purposes)
   const [country, setCountry] = useState(getState().country || 'LA')
   const auth = useAuth()
+  const heart = useHeart()
   const { t } = makeT(ui)
   const loggedIn = auth.status === 'in' && auth.me
 
@@ -141,11 +143,21 @@ export default function Onboarding() {
             )
           )}
           {!loggedIn && (
-            <div className="field">
-              <label htmlFor="nick">{t('nickname')}</label>
-              <input id="nick" className="input" maxLength={16} placeholder={t('nicknamePh')} value={name} onChange={(e) => setName(e.target.value)} />
-            </div>
+            <>
+              <div className="field">
+                <label htmlFor="nick">{t('nickname')}</label>
+                <input id="nick" className="input" maxLength={16} placeholder={t('nicknamePh')} value={name} onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div className="field">
+                <span className="label">{t('photo')}</span>
+                <PhotoPicker name={name} />
+              </div>
+            </>
           )}
+          <div className="field">
+            <span className="label">{t('gender')}</span>
+            <GenderPicker />
+          </div>
           <button
             className="btn btn-pink btn-block"
             onClick={() => {
@@ -153,7 +165,7 @@ export default function Onboarding() {
               setStep('purpose')
             }}
           >
-            {t('start')} ♥
+            {t('start')} {heart}
           </button>
         </section>
       </main>

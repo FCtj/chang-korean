@@ -22,9 +22,9 @@ export default function Home() {
       <header className="home-head">
         <span className="head-avatar">
           <Elephant size={68} acc={TIER_ACC[tier.no - 1]} />
-          {auth.me && (
+          {(auth.me?.avatar || s.photo) && (
             <span className="head-photo">
-              <Avatar src={auth.me.avatar} name={auth.me.name} size={30} />
+              <Avatar src={auth.me?.avatar || s.photo} name={auth.me?.name ?? s.nickname} size={30} />
             </span>
           )}
         </span>
@@ -59,7 +59,7 @@ export default function Home() {
         const next5 = cur.words.filter((w) => !isStepKnown(s, w, step)).slice(0, 5)
         return (
           <button className="continue" onClick={() => push({ name: 'player', roundId: cur.id, startChunk: -1 })}>
-            <span className="continue-deco" aria-hidden="true">✦ ♥ ✦</span>
+            <span className="continue-deco" aria-hidden="true">{s.theme === 'carbon' ? '✦ ✦ ✦' : '✦ ♥ ✦'}</span>
             <span className="continue-top">
               <span className="continue-label">
                 {cur.pack ? `${t('packsTitle')} · ` : ''}

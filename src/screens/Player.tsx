@@ -24,7 +24,7 @@ import {
   STEP_SIZES,
   type Direction,
 } from '../store'
-import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
+import { burstFrom, fireworks, floatFrom, fxColors, sparkleRain } from '../fx'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { Elephant, Icon, Segmented, Stepper, Toggle, TopBar, pastel, shuffle } from '../ui'
 
@@ -486,7 +486,7 @@ export function StepBar({
 }
 
 export function Confetti() {
-  const colors = ['#FF8DB3', '#B9A6FF', '#7FD8C2', '#FFD66B', '#FFB59A', '#8CCBFF']
+  const colors = fxColors()
   return (
     <div className="confetti" aria-hidden="true">
       {Array.from({ length: 28 }, (_, i) => (
