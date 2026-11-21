@@ -48,6 +48,12 @@ npm test               # 단어 데이터 검사 (회차당 50개, 중복 없음
 npm run build:single   # 웹 버전 한 파일 → dist-web/index.html (글꼴 포함, 인터넷 없이도 동작)
 ```
 
+### 웹 버전 (GitHub Pages)
+
+main에 push하면 `.github/workflows/pages.yml` 이 웹 버전을 자동으로 올립니다.
+주소: **https://fctj.github.io/chang-korean/**
+(처음 한 번만 저장소 Settings → Pages → Source를 **GitHub Actions** 로 선택)
+
 ### 웹 버전을 다른 사람에게 공유하기
 
 `dist-web/chang-korean.html` 은 외부 연결 없이 혼자 동작하는 파일입니다.
