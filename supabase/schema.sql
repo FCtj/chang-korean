@@ -1,5 +1,8 @@
 -- Chang Korean 데이터베이스 (Supabase / PostgreSQL)
 -- Supabase 대시보드 → SQL Editor 에 이 파일 전체를 붙여 넣고 Run 하면 됩니다. 여러 번 실행해도 안전합니다.
+-- 같은 내용이 supabase/migrations/ 에도 있습니다. Supabase의 GitHub 연동에서 'Deploy to production' 을 켜 두면
+-- main 에 올릴 때 자동으로 적용됩니다. 스키마를 바꿀 때는 새 migration 파일을 만들고, 같은 SQL 을 이 파일 끝에 그대로 붙이세요
+-- (npm run test:db 가 migrations 를 이어 붙인 것 = 이 파일인지 검사).
 --
 -- 테이블
 --   profiles      사용자 정보 (Facebook 이름·사진, 나라)          — 누구나 읽기, 본인만 쓰기

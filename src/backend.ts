@@ -289,10 +289,7 @@ export function initBackend() {
 export const COUNTRIES: { code: string; flag: string; ko: string; lo: string; th: string; vi: string }[] = [
   { code: 'LA', flag: '🇱🇦', ko: '라오스', lo: 'ລາວ', th: 'ลาว', vi: 'Lào' },
   { code: 'TH', flag: '🇹🇭', ko: '태국', lo: 'ໄທ', th: 'ไทย', vi: 'Thái Lan' },
-  { code: 'KR', flag: '🇰🇷', ko: '한국', lo: 'ເກົາຫຼີ', th: 'เกาหลี', vi: 'Hàn Quốc' },
   { code: 'VN', flag: '🇻🇳', ko: '베트남', lo: 'ຫວຽດນາມ', th: 'เวียดนาม', vi: 'Việt Nam' },
-  { code: 'KH', flag: '🇰🇭', ko: '캄보디아', lo: 'ກຳປູເຈຍ', th: 'กัมพูชา', vi: 'Campuchia' },
-  { code: 'MM', flag: '🇲🇲', ko: '미얀마', lo: 'ມຽນມາ', th: 'เมียนมา', vi: 'Myanmar' },
   { code: 'ZZ', flag: '🌏', ko: '기타', lo: 'ອື່ນໆ', th: 'อื่น ๆ', vi: 'Khác' },
 ]
 export const countryOf = (code: string) => COUNTRIES.find((c) => c.code === code) ?? COUNTRIES[COUNTRIES.length - 1]

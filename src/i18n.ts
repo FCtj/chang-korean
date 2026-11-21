@@ -261,6 +261,8 @@ const S = {
   justNow: { ko: '방금', lo: 'ຫາກໍ່' },
   demoCodeHint: { ko: '예시 코드: CHANG1', lo: 'ລະຫັດຕົວຢ່າງ: CHANG1' },
   commError: { ko: '잠시 후 다시 해 주세요', lo: 'ກະລຸນາລອງໃໝ່ພາຍຫຼັງ' },
+  themeCardTitle: { ko: '나에게 맞는 테마 고르기', lo: 'ເລືອກທີມທີ່ເໝາະກັບເຈົ້າ' },
+  themeCardSub: { ko: '여자는 핑크, 남자는 블랙 테마로 바뀌어요. 설정에서 언제든 바꿀 수 있어요', lo: 'ຍິງ = ສີບົວ, ຊາຍ = ສີດຳ. ປ່ຽນໄດ້ຕະຫຼອດໃນການຕັ້ງຄ່າ' },
 } satisfies Record<string, Str>
 
 const F = {

@@ -248,6 +248,8 @@ export const S_TH: Record<StrKey, string> = {
   justNow: 'เมื่อกี้',
   demoCodeHint: 'รหัสตัวอย่าง: CHANG1',
   commError: 'โปรดลองใหม่ภายหลัง',
+  themeCardTitle: 'เลือกธีมที่ใช่สำหรับคุณ',
+  themeCardSub: 'หญิง = ชมพู ชาย = ดำ เปลี่ยนได้ตลอดในการตั้งค่า',
 }
 
 export const F_TH: FnTable = {

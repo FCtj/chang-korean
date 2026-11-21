@@ -3,6 +3,7 @@ import { useApp } from '../ctx'
 import { currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
 import { useAuth } from '../backend'
+import { GenderPicker } from './ProfileFields'
 
 export default function Home() {
   const s = useStore()
@@ -39,6 +40,14 @@ export default function Home() {
           {s.streak > 0 && <span className="pill pill-peach num">🔥 {tf('streak', s.streak)}</span>}
         </div>
       </header>
+
+      {!s.gender && (
+        <section className="panel theme-card">
+          <h2 className="h3">✨ {t('themeCardTitle')}</h2>
+          <p className="note">{t('themeCardSub')}</p>
+          <GenderPicker />
+        </section>
+      )}
 
       {!s.placementDone && (
         <button className="level-card" onClick={() => push({ name: 'placement' })}>

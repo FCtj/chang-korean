@@ -1,0 +1,711 @@
+-- Chang Korean 데이터베이스 (Supabase / PostgreSQL)
+-- Supabase 대시보드 → SQL Editor 에 이 파일 전체를 붙여 넣고 Run 하면 됩니다. 여러 번 실행해도 안전합니다.
+-- 같은 내용이 supabase/migrations/ 에도 있습니다. Supabase의 GitHub 연동에서 'Deploy to production' 을 켜 두면
+-- main 에 올릴 때 자동으로 적용됩니다. 스키마를 바꿀 때는 새 migration 파일을 만들고, 같은 SQL 을 이 파일 끝에 그대로 붙이세요
+-- (npm run test:db 가 migrations 를 이어 붙인 것 = 이 파일인지 검사).
+--
+-- 테이블
+--   profiles      사용자 정보 (Facebook 이름·사진, 나라)          — 누구나 읽기, 본인만 쓰기
+--   progress      학습 기록 (STEP·외운 단어·통과한 회차 등 JSON)   — 본인만 읽기/쓰기
+--   point_events  점수 기록 (랭킹 계산용)                          — 누구나 읽기, 쓰기는 award_points() 로만
+--   groups / group_members / posts / reactions  스터디 그룹·피드 (아래 "스터디 그룹" 부분 참고) — 같은 그룹 멤버만 읽기
+-- 함수
+--   award_points(kind, ref, points)   점수 적립 (서버에서 하루 상한·중복 보너스 막음)
+--   get_leaderboard(period, country)  랭킹 (period: 'today' 실시간 / 'month' 월간, country: 'LA' 등 또는 null=전체)
+--   get_my_rank(period, country)      내 순위
+--   delete_my_data()                  내 데이터 전부 삭제 (Facebook 데이터 삭제 요구사항, 그룹 글·반응·멤버십 포함)
+--   create_group / join_group / my_groups / leave_group / group_feed / group_ranking / toggle_reaction  스터디 그룹
+-- 하루·한 주·한 달의 기준 시간대: 라오스/태국 시간 (Asia/Vientiane, UTC+7), 한 주는 월요일 0시부터
+
+-- ───────── 테이블 ─────────
+
+create table if not exists public.profiles (
+  id uuid primary key references auth.users (id) on delete cascade,
+  display_name text not null default '',
+  avatar_url text,
+  country text not null default 'LA' check (country ~ '^[A-Z]{2}$'),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.progress (
+  user_id uuid primary key references auth.users (id) on delete cascade,
+  data jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.point_events (
+  id bigint generated always as identity primary key,
+  user_id uuid not null references auth.users (id) on delete cascade,
+  kind text not null check (kind in ('study', 'exam', 'promo')),
+  ref text,
+  points int not null check (points > 0),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists point_events_created_idx on public.point_events (created_at);
+create index if not exists point_events_user_kind_idx on public.point_events (user_id, kind, created_at);
+create unique index if not exists point_events_bonus_once on public.point_events (user_id, kind, ref) where kind in ('exam', 'promo');
+
+-- ───────── 권한 (RLS) ─────────
+
+alter table public.profiles enable row level security;
+alter table public.progress enable row level security;
+alter table public.point_events enable row level security;
+
+drop policy if exists "profiles are public" on public.profiles;
+create policy "profiles are public" on public.profiles for select using (true);
+drop policy if exists "insert own profile" on public.profiles;
+create policy "insert own profile" on public.profiles for insert with check (auth.uid() = id);
+drop policy if exists "update own profile" on public.profiles;
+create policy "update own profile" on public.profiles for update using (auth.uid() = id) with check (auth.uid() = id);
+
+drop policy if exists "read own progress" on public.progress;
+create policy "read own progress" on public.progress for select using (auth.uid() = user_id);
+drop policy if exists "insert own progress" on public.progress;
+create policy "insert own progress" on public.progress for insert with check (auth.uid() = user_id);
+drop policy if exists "update own progress" on public.progress;
+create policy "update own progress" on public.progress for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
+
+-- 점수 기록은 랭킹·실시간 업데이트용으로 누구나 읽을 수 있음 (직접 쓰기는 불가, award_points() 로만)
+drop policy if exists "points are public" on public.point_events;
+create policy "points are public" on public.point_events for select using (true);
+
+-- ───────── 점수 적립 ─────────
+
+create or replace function public.award_points(p_kind text, p_ref text, p_points int)
+returns int
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  day_start timestamptz := date_trunc('day', now() at time zone 'Asia/Vientiane') at time zone 'Asia/Vientiane';
+  today_total int;
+  allowed int;
+begin
+  if uid is null then
+    raise exception 'not signed in';
+  end if;
+  if p_points is null or p_points <= 0 then
+    return 0;
+  end if;
+
+  if p_kind = 'study' then
+    -- 공부 점수: 한 번에 최대 10점, 하루 최대 400점
+    select coalesce(sum(points), 0) into today_total
+      from point_events where user_id = uid and kind = 'study' and created_at >= day_start;
+    allowed := least(p_points, 10, greatest(0, 400 - today_total));
+  elsif p_kind = 'exam' then
+    -- 졸업시험 첫 통과 보너스: 회차마다 한 번, 최대 100점
+    if p_ref is null or p_ref !~ '^r([1-9]|[1-9][0-9])$' then return 0; end if;
+    if exists (select 1 from point_events where user_id = uid and kind = 'exam' and ref = p_ref) then return 0; end if;
+    allowed := least(p_points, 100);
+  elsif p_kind = 'promo' then
+    -- 승급시험 보너스: 계급마다 한 번, 최대 300점
+    if p_ref is null or p_ref !~ '^[1-9]$' then return 0; end if;
+    if exists (select 1 from point_events where user_id = uid and kind = 'promo' and ref = p_ref) then return 0; end if;
+    allowed := least(p_points, 300);
+  else
+    return 0;
+  end if;
+
+  if allowed <= 0 then
+    return 0;
+  end if;
+  insert into point_events (user_id, kind, ref, points) values (uid, p_kind, p_ref, allowed);
+  return allowed;
+end;
+$$;
+
+-- ───────── 랭킹 ─────────
+
+create or replace function public.period_start(p_period text)
+returns timestamptz
+language sql
+stable
+as $$
+  select case
+    when p_period = 'today' then date_trunc('day', now() at time zone 'Asia/Vientiane') at time zone 'Asia/Vientiane'
+    -- 'week' = 이번 주 월요일 0시 (ISO 주)
+    when p_period = 'week' then date_trunc('week', now() at time zone 'Asia/Vientiane') at time zone 'Asia/Vientiane'
+    else date_trunc('month', now() at time zone 'Asia/Vientiane') at time zone 'Asia/Vientiane'
+  end;
+$$;
+
+create or replace function public.get_leaderboard(p_period text, p_country text default null, p_limit int default 50)
+returns table (rank bigint, user_id uuid, display_name text, avatar_url text, country text, points bigint)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with sums as (
+    select e.user_id, sum(e.points)::bigint as points
+    from point_events e
+    where e.created_at >= period_start(p_period)
+    group by e.user_id
+  )
+  select rank() over (order by s.points desc) as rank, p.id, p.display_name, p.avatar_url, p.country, s.points
+  from sums s
+  join profiles p on p.id = s.user_id
+  where p_country is null or p.country = p_country
+  order by s.points desc, p.display_name
+  limit least(greatest(coalesce(p_limit, 50), 1), 100);
+$$;
+
+create or replace function public.get_my_rank(p_period text, p_country text default null)
+returns table (rank bigint, points bigint, total bigint)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  with sums as (
+    select e.user_id, sum(e.points)::bigint as points
+    from point_events e
+    where e.created_at >= period_start(p_period)
+    group by e.user_id
+  ), ranked as (
+    select s.user_id, s.points, rank() over (order by s.points desc) as rank, count(*) over () as total
+    from sums s
+    join profiles p on p.id = s.user_id
+    where p_country is null or p.country = p_country
+  )
+  select rank, points, total from ranked where user_id = auth.uid();
+$$;
+
+-- ───────── 내 데이터 삭제 ─────────
+
+create or replace function public.delete_my_data()
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  g record;
+begin
+  if auth.uid() is null then
+    raise exception 'not signed in';
+  end if;
+  -- 스터디 그룹: 내 반응·글 삭제 후 모든 그룹에서 나가기
+  -- (방장이었던 그룹은 leave_group 과 똑같이 가장 먼저 들어온 멤버에게 넘기거나, 아무도 없으면 삭제 — group_members 삭제 트리거가 처리)
+  delete from reactions where user_id = auth.uid();
+  delete from posts where user_id = auth.uid();
+  delete from group_members where user_id = auth.uid();
+  for g in select id from groups where owner = auth.uid() loop
+    perform group_owner_left(g.id, auth.uid());
+  end loop;
+  delete from point_events where user_id = auth.uid();
+  delete from progress where user_id = auth.uid();
+  delete from profiles where id = auth.uid();
+end;
+$$;
+
+revoke all on function public.award_points(text, text, int) from public, anon;
+grant execute on function public.award_points(text, text, int) to authenticated;
+grant execute on function public.get_leaderboard(text, text, int) to anon, authenticated;
+grant execute on function public.get_my_rank(text, text) to authenticated;
+revoke all on function public.delete_my_data() from public, anon;
+grant execute on function public.delete_my_data() to authenticated;
+
+-- ───────── 실시간 (랭킹 자동 갱신) ─────────
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'point_events'
+  ) then
+    alter publication supabase_realtime add table public.point_events;
+  end if;
+end $$;
+
+-- ═════════════════ 스터디 그룹 / 커뮤니티 ═════════════════
+-- 테이블
+--   groups         스터디 그룹 (이름·이모지·초대 코드 6자리)   — 멤버만 읽기, 방장만 이름·이모지 수정, 만들기는 create_group() 로만
+--   group_members  그룹 멤버 (owner 방장 / member)            — 같은 그룹 멤버만 읽기, 가입은 join_group() 로만, 삭제는 본인(나가기) 또는 방장(내보내기)
+--   posts          그룹 피드 글 (brag 자랑 / text 글 / achievement 시험 통과 인증 — 서버만 씀) — 멤버만 읽기·쓰기, 수정 불가
+--   reactions      글 반응 (👏 🔥 💪 ❤️ 😂)                   — 멤버만 읽기, 본인 반응만 달기/지우기
+-- 함수 (모두 로그인 필요, 아니면 'not_logged_in')
+--   create_group(name, emoji)         그룹 만들기 → {id,name,emoji,code,owner,member_count,role} (방장은 최대 10개 → 'too_many')
+--   join_group(code)                  초대 코드로 가입 (대소문자·앞뒤 공백 무시, 'not_found' / 그룹당 50명 'full' / 한 사람 20개 그룹 'too_many')
+--   my_groups()                       내 그룹 목록 (들어간 순서)
+--   leave_group(group)                나가기 (방장이 나가면 가장 먼저 들어온 멤버가 방장, 아무도 없으면 그룹 삭제)
+--   group_feed(group, before, limit)  피드 (최신순, 반응 수·내 반응 포함, 멤버 아니면 'not_member')
+--   group_ranking(group, period)      그룹 안 랭킹 (period: 'week' 이번 주(기본) / 'today' / 'month')
+--   toggle_reaction(post, emoji)      반응 달기/취소 (true = 달림, false = 취소됨)
+-- 졸업시험·승급시험 보너스(point_events kind 'exam'/'promo')가 적립되면 내가 속한 모든 그룹 피드에 인증 글(achievement, verified)이 자동으로 올라감
+
+-- ───────── 그룹 테이블 ─────────
+
+create table if not exists public.groups (
+  id uuid primary key default gen_random_uuid(),
+  name text not null check (char_length(btrim(name)) between 1 and 30),
+  emoji text not null default '🐘' check (char_length(emoji) <= 8),
+  code text not null unique,
+  owner uuid not null references auth.users (id) on delete cascade,
+  created_at timestamptz default now()
+);
+
+create table if not exists public.group_members (
+  group_id uuid references public.groups (id) on delete cascade,
+  user_id uuid references auth.users (id) on delete cascade,
+  role text not null default 'member' check (role in ('owner', 'member')),
+  joined_at timestamptz default now(),
+  primary key (group_id, user_id)
+);
+
+create index if not exists group_members_user_idx on public.group_members (user_id, joined_at);
+
+create table if not exists public.posts (
+  id uuid primary key default gen_random_uuid(),
+  group_id uuid not null references public.groups (id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  kind text not null check (kind in ('brag', 'text', 'achievement')),
+  body text not null default '' check (char_length(body) <= 500),
+  data jsonb not null default '{}' check (pg_column_size(data) < 2000),
+  verified boolean not null default false,
+  created_at timestamptz default now()
+);
+
+create index if not exists posts_group_created_idx on public.posts (group_id, created_at desc);
+
+create table if not exists public.reactions (
+  post_id uuid references public.posts (id) on delete cascade,
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  emoji text not null check (emoji in ('👏', '🔥', '💪', '❤️', '😂')),
+  created_at timestamptz default now(),
+  primary key (post_id, user_id, emoji)
+);
+
+-- 글 시각은 서버 시각으로 (앱이 미래 시각을 넣어 피드 맨 위에 고정하는 것 방지)
+create or replace function public.posts_set_created_at()
+returns trigger
+language plpgsql
+set search_path = public
+as $$
+begin
+  new.created_at := now();
+  return new;
+end;
+$$;
+
+drop trigger if exists posts_set_created_at on public.posts;
+create trigger posts_set_created_at before insert on public.posts
+  for each row execute function public.posts_set_created_at();
+
+-- ───────── 그룹 도우미 함수 ─────────
+
+-- 내가 이 그룹 멤버인가? (RLS 정책에서 사용. security definer 라서 group_members 정책을 다시 타지 않음 → 재귀 없음)
+create or replace function public.is_group_member(p_group uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (select 1 from group_members where group_id = p_group and user_id = auth.uid());
+$$;
+
+-- (내부용) 그룹 정보 JSON {id, name, emoji, code, owner, member_count, role}
+create or replace function public.group_json(p_group uuid, p_user uuid)
+returns json
+language sql
+stable
+set search_path = public
+as $$
+  select json_build_object(
+    'id', g.id,
+    'name', g.name,
+    'emoji', g.emoji,
+    'code', g.code,
+    'owner', g.owner,
+    'member_count', (select count(*)::int from group_members c where c.group_id = g.id),
+    'role', m.role
+  )
+  from groups g
+  join group_members m on m.group_id = g.id and m.user_id = p_user
+  where g.id = p_group;
+$$;
+
+-- (내부용) 방장이 그룹을 떠났을 때: 가장 먼저 들어온 남은 멤버에게 방장을 넘기고, 아무도 없으면 그룹 삭제
+create or replace function public.group_owner_left(p_group uuid, p_user uuid)
+returns void
+language plpgsql
+set search_path = public
+as $$
+declare
+  v_next uuid;
+begin
+  if not exists (select 1 from groups where id = p_group and owner = p_user) then
+    return;
+  end if;
+  select user_id into v_next
+    from group_members
+    where group_id = p_group and user_id <> p_user
+    order by joined_at, user_id
+    limit 1;
+  if v_next is null then
+    delete from groups where id = p_group;
+  else
+    update groups set owner = v_next where id = p_group;
+    update group_members set role = 'owner' where group_id = p_group and user_id = v_next;
+  end if;
+end;
+$$;
+
+-- 멤버 행이 지워질 때마다 (leave_group, 직접 삭제, delete_my_data) 방장 승계 처리
+create or replace function public.group_member_deleted()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  perform group_owner_left(old.group_id, old.user_id);
+  return null;
+end;
+$$;
+
+drop trigger if exists group_members_owner_left on public.group_members;
+create trigger group_members_owner_left after delete on public.group_members
+  for each row execute function public.group_member_deleted();
+
+-- ───────── 그룹 권한 (RLS) ─────────
+
+alter table public.groups enable row level security;
+alter table public.group_members enable row level security;
+alter table public.posts enable row level security;
+alter table public.reactions enable row level security;
+
+-- groups: 멤버만 읽기. 만들기·삭제는 함수로만. 방장은 이름·이모지만 수정 가능
+drop policy if exists "members read group" on public.groups;
+create policy "members read group" on public.groups for select using (public.is_group_member(id));
+drop policy if exists "owner updates group" on public.groups;
+create policy "owner updates group" on public.groups for update using (auth.uid() = owner) with check (auth.uid() = owner);
+revoke update on public.groups from anon, authenticated;
+grant update (name, emoji) on public.groups to authenticated;
+
+-- group_members: 같은 그룹 멤버만 읽기. 가입은 join_group() 로만. 삭제는 본인(나가기) 또는 방장(내보내기)
+drop policy if exists "members read members" on public.group_members;
+create policy "members read members" on public.group_members for select using (public.is_group_member(group_id));
+drop policy if exists "leave or owner removes" on public.group_members;
+create policy "leave or owner removes" on public.group_members for delete using (
+  auth.uid() = user_id
+  or exists (select 1 from public.groups g where g.id = group_members.group_id and g.owner = auth.uid())
+);
+
+-- posts: 멤버만 읽기. 멤버는 본인 이름으로 brag/text 만 쓰기 (achievement·verified 는 서버만). 삭제는 글쓴이 또는 방장. 수정 불가
+drop policy if exists "members read posts" on public.posts;
+create policy "members read posts" on public.posts for select using (public.is_group_member(group_id));
+drop policy if exists "members write posts" on public.posts;
+create policy "members write posts" on public.posts for insert with check (
+  auth.uid() = user_id
+  and kind in ('brag', 'text')
+  and verified = false
+  and public.is_group_member(group_id)
+);
+drop policy if exists "author or owner deletes post" on public.posts;
+create policy "author or owner deletes post" on public.posts for delete using (
+  auth.uid() = user_id
+  or exists (select 1 from public.groups g where g.id = posts.group_id and g.owner = auth.uid())
+);
+
+-- reactions: 글이 있는 그룹의 멤버만 읽기. 본인 반응만, 멤버일 때만 달기/지우기
+drop policy if exists "members read reactions" on public.reactions;
+create policy "members read reactions" on public.reactions for select using (
+  exists (select 1 from public.posts p where p.id = reactions.post_id and public.is_group_member(p.group_id))
+);
+drop policy if exists "members add own reaction" on public.reactions;
+create policy "members add own reaction" on public.reactions for insert with check (
+  auth.uid() = user_id
+  and exists (select 1 from public.posts p where p.id = reactions.post_id and public.is_group_member(p.group_id))
+);
+drop policy if exists "members remove own reaction" on public.reactions;
+create policy "members remove own reaction" on public.reactions for delete using (
+  auth.uid() = user_id
+  and exists (select 1 from public.posts p where p.id = reactions.post_id and public.is_group_member(p.group_id))
+);
+
+-- ───────── 그룹 함수 ─────────
+
+create or replace function public.create_group(p_name text, p_emoji text default '🐘')
+returns json
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  v_chars constant text := 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; -- 헷갈리는 I O 0 1 제외
+  v_code text;
+  v_id uuid;
+  v_tries int := 0;
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  -- 방장은 최대 10개 그룹, 한 사람은 최대 20개 그룹
+  if (select count(*) from groups where owner = uid) >= 10
+     or (select count(*) from group_members where user_id = uid) >= 20 then
+    raise exception 'too_many';
+  end if;
+  -- 초대 코드 6자리, 겹치면 다시 만듦
+  loop
+    v_code := '';
+    for i in 1..6 loop
+      v_code := v_code || substr(v_chars, 1 + floor(random() * length(v_chars))::int, 1);
+    end loop;
+    begin
+      insert into groups (name, emoji, code, owner)
+        values (btrim(p_name), coalesce(nullif(btrim(p_emoji), ''), '🐘'), v_code, uid)
+        returning id into v_id;
+      exit;
+    exception when unique_violation then
+      v_tries := v_tries + 1;
+      if v_tries >= 20 then
+        raise;
+      end if;
+    end;
+  end loop;
+  insert into group_members (group_id, user_id, role) values (v_id, uid, 'owner');
+  return group_json(v_id, uid);
+end;
+$$;
+
+create or replace function public.join_group(p_code text)
+returns json
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  v_id uuid;
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  select id into v_id
+    from groups
+    where code = upper(regexp_replace(coalesce(p_code, ''), '^\s+|\s+$', '', 'g'))
+    for update; -- 동시에 가입해도 50명을 넘지 않게
+  if v_id is null then
+    raise exception 'not_found';
+  end if;
+  if exists (select 1 from group_members where group_id = v_id and user_id = uid) then
+    return group_json(v_id, uid);
+  end if;
+  if (select count(*) from group_members where group_id = v_id) >= 50 then
+    raise exception 'full';
+  end if;
+  if (select count(*) from group_members where user_id = uid) >= 20 then
+    raise exception 'too_many';
+  end if;
+  insert into group_members (group_id, user_id, role) values (v_id, uid, 'member');
+  return group_json(v_id, uid);
+end;
+$$;
+
+create or replace function public.my_groups()
+returns json
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  v json;
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  select coalesce(json_agg(group_json(m.group_id, uid) order by m.joined_at, m.group_id), '[]'::json) into v
+    from group_members m
+    where m.user_id = uid;
+  return v;
+end;
+$$;
+
+create or replace function public.leave_group(p_group uuid)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  -- 방장이었다면 group_members 삭제 트리거가 방장을 넘기거나 그룹을 삭제함
+  delete from group_members where group_id = p_group and user_id = uid;
+  perform group_owner_left(p_group, uid); -- 멤버 행 없이 방장만 남아 있던 경우까지 정리
+end;
+$$;
+
+create or replace function public.group_feed(p_group uuid, p_before timestamptz default null, p_limit int default 30)
+returns json
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  v json;
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  if not is_group_member(p_group) then
+    raise exception 'not_member';
+  end if;
+  select coalesce(json_agg(json_build_object(
+      'id', p.id,
+      'user_id', p.user_id,
+      'name', pr.display_name,
+      'avatar', pr.avatar_url,
+      'kind', p.kind,
+      'body', p.body,
+      'data', p.data,
+      'verified', p.verified,
+      'created_at', p.created_at,
+      'reactions', (
+        select coalesce(json_object_agg(r.emoji, r.n order by r.first_at), '{}'::json)
+        from (
+          select emoji, count(*)::int as n, min(created_at) as first_at
+          from reactions where post_id = p.id group by emoji
+        ) r
+      ),
+      'mine', (
+        select coalesce(json_agg(r.emoji order by r.created_at), '[]'::json)
+        from reactions r where r.post_id = p.id and r.user_id = uid
+      )
+    ) order by p.created_at desc, p.id desc), '[]'::json) into v
+  from (
+    select * from posts
+    where group_id = p_group and (p_before is null or created_at < p_before)
+    order by created_at desc, id desc
+    limit least(greatest(coalesce(p_limit, 30), 1), 50)
+  ) p
+  left join profiles pr on pr.id = p.user_id;
+  return v;
+end;
+$$;
+
+create or replace function public.group_ranking(p_group uuid, p_period text default 'week')
+returns json
+language plpgsql
+stable
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  v_since timestamptz := period_start(p_period);
+  v json;
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  if not is_group_member(p_group) then
+    raise exception 'not_member';
+  end if;
+  select coalesce(json_agg(json_build_object(
+      'user_id', m.user_id,
+      'name', pr.display_name,
+      'avatar', pr.avatar_url,
+      'country', pr.country,
+      'role', m.role,
+      'points', m.points
+    ) order by m.points desc, m.joined_at, m.user_id), '[]'::json) into v
+  from (
+    select gm.user_id, gm.role, gm.joined_at,
+      coalesce((select sum(e.points) from point_events e where e.user_id = gm.user_id and e.created_at >= v_since), 0)::bigint as points
+    from group_members gm
+    where gm.group_id = p_group
+  ) m
+  left join profiles pr on pr.id = m.user_id;
+  return v;
+end;
+$$;
+
+create or replace function public.toggle_reaction(p_post uuid, p_emoji text)
+returns boolean
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  uid uuid := auth.uid();
+  v_group uuid;
+begin
+  if uid is null then
+    raise exception 'not_logged_in';
+  end if;
+  select group_id into v_group from posts where id = p_post;
+  if v_group is null or not is_group_member(v_group) then
+    raise exception 'not_member';
+  end if;
+  delete from reactions where post_id = p_post and user_id = uid and emoji = p_emoji;
+  if found then
+    return false;
+  end if;
+  insert into reactions (post_id, user_id, emoji) values (p_post, uid, p_emoji) on conflict do nothing;
+  return true;
+end;
+$$;
+
+-- 졸업시험·승급시험 보너스가 적립되면 내가 속한 모든 그룹에 인증 글 자동 게시
+create or replace function public.post_achievement()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into posts (group_id, user_id, kind, body, data, verified)
+  select m.group_id, new.user_id, 'achievement', '',
+         jsonb_build_object('type', new.kind, 'ref', new.ref, 'points', new.points), true
+  from group_members m
+  where m.user_id = new.user_id;
+  return null;
+end;
+$$;
+
+drop trigger if exists point_events_achievement on public.point_events;
+create trigger point_events_achievement after insert on public.point_events
+  for each row when (new.kind in ('exam', 'promo')) execute function public.post_achievement();
+
+revoke all on function public.is_group_member(uuid) from public;
+grant execute on function public.is_group_member(uuid) to anon, authenticated; -- RLS 정책이 호출하므로 필요 (로그인 안 했으면 false)
+revoke all on function public.group_json(uuid, uuid) from public, anon, authenticated;
+revoke all on function public.group_owner_left(uuid, uuid) from public, anon, authenticated;
+revoke all on function public.create_group(text, text) from public, anon;
+grant execute on function public.create_group(text, text) to authenticated;
+revoke all on function public.join_group(text) from public, anon;
+grant execute on function public.join_group(text) to authenticated;
+revoke all on function public.my_groups() from public, anon;
+grant execute on function public.my_groups() to authenticated;
+revoke all on function public.leave_group(uuid) from public, anon;
+grant execute on function public.leave_group(uuid) to authenticated;
+revoke all on function public.group_feed(uuid, timestamptz, int) from public, anon;
+grant execute on function public.group_feed(uuid, timestamptz, int) to authenticated;
+revoke all on function public.group_ranking(uuid, text) from public, anon;
+grant execute on function public.group_ranking(uuid, text) to authenticated;
+revoke all on function public.toggle_reaction(uuid, text) from public, anon;
+grant execute on function public.toggle_reaction(uuid, text) to authenticated;
+
+-- ───────── 실시간 (그룹 피드 자동 갱신) ─────────
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'posts'
+  ) then
+    alter publication supabase_realtime add table public.posts;
+  end if;
+end $$;

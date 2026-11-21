@@ -249,6 +249,8 @@ export const S_VI: Record<StrKey, string> = {
   justNow: 'Vừa xong',
   demoCodeHint: 'Mã mẫu: CHANG1',
   commError: 'Vui lòng thử lại sau',
+  themeCardTitle: 'Chọn giao diện cho bạn',
+  themeCardSub: 'Nữ = hồng, Nam = đen. Đổi bất cứ lúc nào trong Cài đặt',
 }
 
 export const F_VI: FnTable = {

@@ -151,6 +151,8 @@ function load(): State {
       const merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
       // 공부한 날 기록이 생기기 전 사용자: 이번 달 도장 + 마지막 공부한 날로 시작
       if (!Array.isArray(parsed.studyDays)) merged.studyDays = [...new Set([...(parsed.stamps ?? []), ...(parsed.lastStudyDay ? [parsed.lastStudyDay] : [])])].sort()
+      // 나라는 라오스 · 태국 · 베트남 · 기타만
+      if (!['LA', 'TH', 'VN', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로
       if (!parsed.native || !NATIVES.includes(parsed.native)) merged.native = 'lo'
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈

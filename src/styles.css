@@ -2910,9 +2910,13 @@ button:disabled {
   color: var(--bad);
 }
 .country-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.country-chips .cchip {
+  justify-content: center;
+  padding-block: 9px;
 }
 .cchip {
   border: 2px solid var(--line);
@@ -4768,4 +4772,13 @@ body {
 }
 :root[data-theme='carbon'] .avatar-stack .avatar {
   border-color: #16181c;
+}
+
+/* 홈: 테마 고르기 카드 (성별을 아직 안 고른 사람) */
+.theme-card {
+  background: linear-gradient(135deg, var(--surface) 55%, var(--pink-soft));
+}
+.theme-card .h3,
+.theme-card .note {
+  margin: 0;
 }

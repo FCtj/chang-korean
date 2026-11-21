@@ -1,6 +1,6 @@
 // supabase/schema.sql 검사 (npm run test:db). PGlite = WASM PostgreSQL, Supabase의 auth 스키마·역할은 흉내 냄
 import { PGlite } from '@electric-sql/pglite'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 
 const db = new PGlite()
 const q = (sql, params) => db.query(sql, params)
@@ -26,6 +26,14 @@ await db.exec(`
 `)
 await db.exec(readFileSync(new URL('./schema.sql', import.meta.url), 'utf8'))
 await db.exec(readFileSync(new URL('./schema.sql', import.meta.url), 'utf8')) // 두 번 실행해도 안전한지
+
+// supabase/migrations/*.sql (Supabase GitHub 연동이 자동 적용) 을 순서대로 이어 붙인 것 = schema.sql 이어야 함
+{
+  const dir = new URL('./migrations/', import.meta.url)
+  const files = readdirSync(dir).filter((f) => f.endsWith('.sql')).sort()
+  const joined = files.map((f) => readFileSync(new URL(f, dir), 'utf8')).join('')
+  check('migrations match schema.sql', joined === readFileSync(new URL('./schema.sql', import.meta.url), 'utf8'), files.join(', '))
+}
 check('schema runs twice without error', true)
 await db.exec(`
   grant usage on schema public to anon, authenticated;

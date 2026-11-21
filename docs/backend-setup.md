@@ -31,9 +31,14 @@ Facebook 로그인, 사용자 정보·학습 기록 저장, 나라별 실시간/
    - Region: **Southeast Asia (Singapore)** 추천 (라오스·태국에서 가장 가까움)
 2. 왼쪽 **SQL Editor** → 새 쿼리에 이 저장소의 [`supabase/schema.sql`](../supabase/schema.sql) 전체를 붙여 넣고 **Run**
    - 이미 만든 프로젝트라면 최신 `schema.sql` 을 다시 Run 하면 됩니다 (여러 번 실행해도 안전, 기존 데이터 유지 — 스터디 그룹 테이블이 추가됨)
-3. **Project Settings → API** 에서 두 값을 복사해 둡니다
-   - `Project URL` (예: `https://abcdxyz.supabase.co`)
-   - `anon public` 키
+   - **GitHub 연동을 해 두었다면**: Supabase → Project Settings → Integrations → GitHub 에서 저장소 `FCtj/chang-korean`,
+     Working directory `.`, Production branch `main`, **Deploy to production** 을 켜면 `supabase/migrations/` 가 main 에 올라갈 때 자동 적용됩니다.
+     (플랜에 따라 이 기능이 안 될 수 있으니, 테이블이 안 생기면 위의 SQL Editor 방법으로 하세요. 둘 다 해도 안전합니다.)
+   - 확인: 왼쪽 **Table Editor** 에 `profiles`, `progress`, `point_events`, `groups`, `group_members`, `posts`, `reactions` 가 보이면 성공
+3. **Project Settings → API Keys** (예전 화면: Settings → API) 에서 두 값을 복사해 둡니다
+   - `Project URL` (예: `https://abcdxyz.supabase.co`) — Project Settings → General 또는 Data API 에 있음
+   - **Publishable key** (`sb_publishable_…`) 또는 예전 `anon public` 키 — 둘 중 아무거나
+   - ⚠️ **Secret key / service_role 키는 절대 앱이나 저장소에 넣지 마세요**
 
 ## 2. Facebook 앱 만들기
 
@@ -60,9 +65,13 @@ Facebook 로그인, 사용자 정보·학습 기록 저장, 나라별 실시간/
 둘 중 편한 방법 하나:
 
 - **방법 A (권장)**: GitHub 저장소 → **Settings → Secrets and variables → Actions → Variables** 탭 →
-  `SUPABASE_URL`, `SUPABASE_ANON_KEY` 두 변수 추가 → Actions에서 *Deploy web (GitHub Pages)* 다시 실행
-- **방법 B**: 주소와 anon 키를 알려주시면 저장소에 넣어 드립니다
-  (anon 키는 원래 공개용 키입니다. 데이터는 위의 권한 규칙(RLS)으로 보호됩니다. **service_role 키는 절대 보내지 마세요.**)
+  `SUPABASE_URL`, `SUPABASE_ANON_KEY`(= Publishable key) 두 변수 추가 → Actions에서 *Deploy web (GitHub Pages)* → **Run workflow**
+  (Secrets 탭이 아니라 **Variables** 탭입니다. 공개용 키라 Variables 에 넣어도 됩니다)
+- **방법 B**: 주소와 Publishable(anon) 키를 알려주시면 저장소에 넣어 드립니다
+  (원래 공개용 키입니다. 데이터는 위의 권한 규칙(RLS)으로 보호됩니다. **Secret / service_role 키는 절대 보내지 마세요.**)
+
+Facebook 앱(2·3번)을 아직 안 만들었어도 4번까지 하면 서버에는 연결됩니다. 다만 로그인 버튼을 눌러도 Facebook 쪽 설정이 없어서
+로그인은 안 되고, 랭킹·그룹은 로그인한 사람만 쓸 수 있습니다.
 
 그다음 웹(https://fctj.github.io/chang-korean/)에서 **Facebook으로 계속하기**가 보이면 성공입니다.
 
