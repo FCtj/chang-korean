@@ -1,0 +1,51 @@
+# Chang Korean 안드로이드 테스트용 APK 빌드
+# push할 때마다 실행됩니다. 결과 APK는 실행 기록의 Artifacts에서 내려받습니다.
+name: Chang Korean APK
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install
+        run: npm ci
+
+      - name: Check word data
+        run: npm test
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build web app and copy into Android project
+        run: npm run build && npx cap sync android
+
+      - name: Build debug APK
+        working-directory: android
+        run: chmod +x gradlew && ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chang-korean-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30

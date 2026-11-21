@@ -58,7 +58,7 @@ npm run build:single   # 웹 버전 한 파일 → dist-web/index.html (글꼴 �
 ### 안드로이드 APK
 
 **방법 1. GitHub Actions (PC에 아무것도 설치하지 않아도 됨)**
-`chang-korean/` 를 바꿔서 push하면 `.github/workflows/chang-korean-apk.yml` 이 자동으로 APK를 만듭니다.
+push하면 `.github/workflows/android-apk.yml` 이 자동으로 APK를 만듭니다.
 GitHub → Actions → *Chang Korean APK* → 최근 실행 → **Artifacts** 의 `chang-korean-debug-apk` 를 내려받아 폰에 설치하세요.
 (처음 설치할 때 '출처를 알 수 없는 앱 설치 허용'이 필요합니다.)
 
