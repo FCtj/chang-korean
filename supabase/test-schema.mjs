@@ -19,10 +19,8 @@ await db.exec(`
   grant usage on schema auth to anon, authenticated;
   grant execute on function auth.uid() to anon, authenticated;
   create publication supabase_realtime;
-  -- Supabase 기본값: public 스키마에 새로 만든 테이블·함수는 anon/authenticated 에게 모든 권한 (막는 건 RLS·revoke 몫)
-  alter default privileges in schema public grant all on tables to anon, authenticated;
-  alter default privileges in schema public grant all on sequences to anon, authenticated;
-  alter default privileges in schema public grant all on functions to anon, authenticated;
+  -- 새 Supabase 프로젝트처럼: 테이블 권한을 자동으로 주지 않음 → schema.sql 의 grant 만으로 앱이 동작해야 함
+  -- (함수는 PostgreSQL 기본값대로 PUBLIC 실행 가능, 막을 함수는 schema.sql 에서 revoke)
 `)
 await db.exec(readFileSync(new URL('./schema.sql', import.meta.url), 'utf8'))
 await db.exec(readFileSync(new URL('./schema.sql', import.meta.url), 'utf8')) // 두 번 실행해도 안전한지
@@ -211,7 +209,7 @@ check('non-member cannot post', e !== '', e)
 const future = await one(G.som, `insert into posts (group_id, kind, body, created_at) values ($1,'text','from the future', now() + interval '1 year') returning id, created_at <= now() as ok`, [g1.id])
 check('client-supplied created_at ignored', future.ok === true)
 await as(G.som, () => q('delete from posts where id=$1', [future.id]))
-await as(G.mai, () => q(`update posts set verified = true, body = 'edited' where id=$1`, [brag.id]))
+await as(G.mai, () => q(`update posts set verified = true, body = 'edited' where id=$1`, [brag.id])).catch(() => {}) // 권한 없음(42501) 또는 RLS로 0행 — 둘 다 막힌 것
 check('posts cannot be updated', (await q('select verified, body from posts where id=$1', [brag.id])).rows[0].body === 'I learned 50 words!')
 
 // 멤버가 아니면 안 보임
@@ -322,7 +320,7 @@ e = await asErr(G.nok, `insert into groups (name, code, owner) values ('x','XXXX
 check('direct insert into groups blocked', e !== '', e)
 e = await asErr(G.nok, `insert into group_members (group_id, user_id) values ($1,$2)`, [g1.id, G.nok])
 check('direct insert into group_members blocked', e !== '', e)
-await as(G.bee, () => q('delete from groups where id=$1', [g1.id]))
+await as(G.bee, () => q('delete from groups where id=$1', [g1.id])).catch(() => {}) // 권한 없음(42501) 또는 RLS로 0행
 check('direct delete of a group blocked', (await q('select count(*)::int n from groups where id=$1', [g1.id])).rows[0].n === 1)
 
 // 글 삭제 / 멤버 내보내기
