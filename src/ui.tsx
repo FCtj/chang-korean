@@ -1,4 +1,4 @@
-import { useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { useApp } from './ctx'
 
 type IconName = 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart'
@@ -245,4 +245,31 @@ export function shuffle<T>(arr: T[]): T[] {
     ;[a[i], a[j]] = [a[j], a[i]]
   }
   return a
+}
+
+/** 숫자가 올라갈 때 촤르륵 세면서 커지는 표시 */
+export function useCountUp(value: number, ms = 700): [number, boolean] {
+  const [shown, setShown] = useState(value)
+  const [bump, setBump] = useState(false)
+  const prev = useRef(value)
+  useEffect(() => {
+    const from = prev.current
+    prev.current = value
+    if (value <= from) {
+      setShown(value)
+      return
+    }
+    setBump(true)
+    const start = performance.now()
+    let raf = 0
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / ms)
+      setShown(Math.round(from + (value - from) * (1 - Math.pow(1 - p, 3))))
+      if (p < 1) raf = requestAnimationFrame(tick)
+      else setTimeout(() => setBump(false), 150)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [value, ms])
+  return [shown, bump]
 }

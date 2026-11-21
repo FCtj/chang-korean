@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { makeT, type UiLang } from '../i18n'
 import { getState, update } from '../store'
+import type { Purpose } from '../data/words'
+import { PurposePicker } from './SettingsScreen'
 import { Avatar, Elephant } from '../ui'
 import { backendReady, COUNTRIES, signInWithFacebook, useAuth } from '../backend'
 import Placement from './Placement'
@@ -9,11 +11,38 @@ import Placement from './Placement'
 export default function Onboarding() {
   const [name, setName] = useState('')
   const [ui, setUi] = useState<UiLang>('lo')
-  const [step, setStep] = useState<'hello' | 'level'>('hello')
+  const [step, setStep] = useState<'hello' | 'purpose' | 'level'>('hello')
+  const [purposes, setPurposes] = useState<Purpose[]>(getState().purposes)
   const [country, setCountry] = useState(getState().country || 'LA')
   const auth = useAuth()
   const { t } = makeT(ui)
   const loggedIn = auth.status === 'in' && auth.me
+
+  if (step === 'purpose') {
+    return (
+      <div className="app">
+        <main className="onboard">
+          <div className="onboard-hero small">
+            <Elephant size={110} acc="bow" mood="happy" className="float" />
+            <h1 className="h1 center">{t('purposeQ')}</h1>
+            <p className="note center">{t('purposeHint')}</p>
+          </div>
+          <section className="onboard-card">
+            <PurposePicker ui={ui} value={purposes} onChange={setPurposes} big />
+            <button
+              className="btn btn-pink btn-block btn-big"
+              onClick={() => {
+                update((s) => ({ ...s, purposes }))
+                setStep('level')
+              }}
+            >
+              {t('next')} →
+            </button>
+          </section>
+        </main>
+      </div>
+    )
+  }
 
   if (step === 'level') {
     return (
@@ -101,7 +130,7 @@ export default function Onboarding() {
             className="btn btn-pink btn-block"
             onClick={() => {
               update((s) => ({ ...s, ui, country, nickname: loggedIn ? auth.me!.name : name.trim() || (ui === 'lo' ? 'ຂ້ອຍ' : '나') }))
-              setStep('level')
+              setStep('purpose')
             }}
           >
             {t('start')} ♥

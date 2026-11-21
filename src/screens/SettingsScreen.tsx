@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
-import type { Lang } from '../data/words'
+import type { Lang, Purpose } from '../data/words'
+import { makeT } from '../i18n'
 import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setSettings, update, useStore, type Direction, type Order } from '../store'
@@ -88,6 +89,11 @@ export default function SettingsScreen() {
             ]}
           />
         </div>
+      </section>
+
+      <section className="panel form">
+        <h2 className="h3">🎯 {t('myPurpose')}</h2>
+        <PurposePicker ui={s.ui} value={s.purposes} onChange={(purposes) => update((st) => ({ ...st, purposes }))} />
       </section>
 
       <section className="panel form">
@@ -180,8 +186,35 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.7.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.8.0 (MVP) · {t('contentDraft')}
       </p>
+    </div>
+  )
+}
+
+const PURPOSES: { id: Purpose; icon: string; key: 'pWork' | 'pTravel' | 'pSchool' | 'pKpop' | 'pFamily' }[] = [
+  { id: 'work', icon: '💼', key: 'pWork' },
+  { id: 'travel', icon: '✈️', key: 'pTravel' },
+  { id: 'school', icon: '🎓', key: 'pSchool' },
+  { id: 'kpop', icon: '🎤', key: 'pKpop' },
+  { id: 'family', icon: '👨‍👩‍👧', key: 'pFamily' },
+]
+
+/** 배우는 목적 고르기 (여러 개) */
+export function PurposePicker({ ui, value, onChange, big = false }: { ui: 'lo' | 'ko'; value: Purpose[]; onChange: (v: Purpose[]) => void; big?: boolean }) {
+  const { t } = makeT(ui)
+  return (
+    <div className={big ? 'purpose-grid big' : 'purpose-grid'} role="group" aria-label={t('myPurpose')}>
+      {PURPOSES.map((p) => {
+        const on = value.includes(p.id)
+        return (
+          <button key={p.id} className={on ? 'purpose on' : 'purpose'} aria-pressed={on} onClick={() => onChange(on ? value.filter((x) => x !== p.id) : [...value, p.id])}>
+            <span className="purpose-icon" aria-hidden="true">{p.icon}</span>
+            <span className="purpose-label">{t(p.key)}</span>
+            {on && <span className="purpose-check" aria-hidden="true">✓</span>}
+          </button>
+        )
+      })}
     </div>
   )
 }

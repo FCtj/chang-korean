@@ -8,6 +8,7 @@
 // 기기 TTS 대신 녹음 파일이 재생됩니다.
 
 import { R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18 } from './rounds-more.ts'
+import { PACK_SURVIVAL, PACK_WORK, PACK_TRAVEL, PACK_SCHOOL, PACK_KPOP, PACK_FAMILY } from './packs.ts'
 
 export type Lang = 'ko' | 'lo' | 'th'
 export type Native = 'lo' | 'th'
@@ -26,10 +27,14 @@ export interface Word {
 export interface Round {
   id: string
   tier: number
-  no: number // 전체 회차 번호 (1, 2, 3 ...)
+  no: number // 전체 회차 번호 (1, 2, 3 ...). 단어팩은 0
   title: L10n
   words: Word[]
+  /** 바로 쓰는 단어팩이면 아이콘·목적 (계급 순서와 상관없이 언제든 열림) */
+  pack?: { icon: string; purpose: Purpose | null; desc: L10n }
 }
+
+export type Purpose = 'work' | 'travel' | 'school' | 'kpop' | 'family'
 
 export interface Tier {
   no: number
@@ -361,6 +366,26 @@ export const TIERS: Tier[] = [
 ]
 
 export const ROUNDS: Round[] = TIERS.flatMap((t) => t.rounds)
+
+// ───────── 바로 쓰는 단어팩 ─────────
+function makePack(key: string, icon: string, purpose: Purpose | null, title: L10n, desc: L10n, rows: Row[]): Round {
+  return { ...makeRound(`p-${key}`, 0, 0, title, rows), pack: { icon, purpose, desc } }
+}
+
+export const PACKS: Round[] = [
+  makePack('survival', '🆘', null, t('생존 필수 단어', 'ຄຳສັບຈຳເປັນ'), t('네 · 주세요 · 어디예요? · 얼마예요? · 아파요', 'ແມ່ນ · ຂໍແດ່ · ຢູ່ໃສ? · ເທົ່າໃດ? · ບໍ່ສະບາຍ'), PACK_SURVIVAL),
+  makePack('work', '💼', 'work', t('한국 일터', 'ບ່ອນເຮັດວຽກໃນເກົາຫຼີ'), t('출근 · 월급 · 조심하세요 · 다쳤어요', 'ເຂົ້າວຽກ · ເງິນເດືອນ · ລະວັງ · ບາດເຈັບ'), PACK_WORK),
+  makePack('travel', '✈️', 'travel', t('한국 여행', 'ທ່ອງທ່ຽວເກົາຫຼີ'), t('공항 · 지하철 · 왼쪽 · 비싸요', 'ສະໜາມບິນ · ລົດໄຟໃຕ້ດິນ · ຊ້າຍ · ແພງ'), PACK_TRAVEL),
+  makePack('school', '🎓', 'school', t('학교 · 시험', 'ໂຮງຮຽນ · ສອບເສັງ'), t('선생님 · 숙제 · 시험 · 어려워요', 'ຄູ · ວຽກບ້ານ · ສອບເສັງ · ຍາກ'), PACK_SCHOOL),
+  makePack('kpop', '🎤', 'kpop', t('K-POP · 드라마', 'K-POP · ລະຄອນ'), t('사랑해요 · 오빠 · 대박 · 화이팅', 'ຮັກ · ອ້າຍ · ສຸດຍອດ · ສູ້ໆ'), PACK_KPOP),
+  makePack('family', '👨‍👩‍👧', 'family', t('가족 · 친구', 'ຄອບຄົວ · ໝູ່'), t('밥 먹었어요? · 보고 싶어요 · 잘 자요', 'ກິນເຂົ້າແລ້ວບໍ? · ຄິດຮອດ · ຝັນດີ'), PACK_FAMILY),
+]
+
+const ROUND_MAP: Record<string, Round> = Object.fromEntries([...ROUNDS, ...PACKS].map((r) => [r.id, r]))
+/** 회차 또는 단어팩 찾기 */
+export function findRound(id: string): Round {
+  return ROUND_MAP[id]
+}
 export const ALL_WORDS: Word[] = ROUNDS.flatMap((r) => r.words)
 export const WORD_BY_ID: Record<string, Word> = Object.fromEntries(ALL_WORDS.map((w) => [w.id, w]))
 

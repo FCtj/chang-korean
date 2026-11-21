@@ -13,6 +13,7 @@ import { awardPractice, completeSession, getState, recordAnswer, recordExam, rec
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { Elephant, Icon, ProgressBar, TopBar, shuffle } from '../ui'
 import { Confetti } from './Player'
+import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 
 type QType = 'k2n' | 'n2k' | 'listen'
 interface Q {
@@ -100,7 +101,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
   const wrongRef = useRef<string[]>([])
   const finished = useRef(false)
 
-  function answer(choice: Word | 'timeout') {
+  function answer(choice: Word | 'timeout', el?: HTMLElement | null) {
     if (answered) return
     const correct = choice !== 'timeout' && choice.id === q.word.id
     setPicked(choice)
@@ -109,6 +110,8 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
       sfx.correct()
       const pts = awardPractice(roundId ?? q.word.roundId)
       setEarned((e) => e + pts)
+      burstFrom(el, { count: 12 })
+      if (pts > 0) floatFrom(el, `+${pts} ⭐`)
       if (pts === 0 && getState().dayPoints >= DAILY_CAP) setCapHit(true)
       if (q.type === 'n2k' && settings.autoSpeak) speakWord(q.word)
       autoNext.current = setTimeout(next, q.type === 'n2k' && settings.autoSpeak ? 1500 : 900)
@@ -152,7 +155,13 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
       passed = wrong.length === 0
       bonus = recordPromo(tierNo, passed)
     }
-    if (passed) sfx.fanfare()
+    if (passed) {
+      sfx.levelUp()
+      setTimeout(() => {
+        fireworks(isTest ? 9 : 5)
+        sparkleRain(isTest ? 34 : 18)
+      }, 200)
+    }
     setResult({ firstTry, total, wrong, earned: 0, bonus, stamp, passed, capHit: getState().dayPoints >= DAILY_CAP })
   }
 
@@ -229,7 +238,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
             const isPicked = picked !== null && picked !== 'timeout' && picked.id === o.id
             const cls = !answered ? '' : isAnswer ? 'good' : isPicked ? 'bad' : 'dim'
             return (
-              <button key={o.id} className={`opt ${cls}`} onClick={() => answer(o)} disabled={answered}>
+              <button key={o.id} className={`opt ${cls}`} onClick={(e) => answer(o, e.currentTarget)} disabled={answered}>
                 {q.type === 'listen' && <span className="opt-emoji big">{o.emoji}</span>}
                 {q.type === 'k2n' && (
                   <>

@@ -3,13 +3,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, type Period, type RankRow } from '../backend'
-import { demoRanking, useStore } from '../store'
-import { Avatar, Segmented } from '../ui'
+import { demoRanking, todayKey, useStore } from '../store'
+import { sfx } from '../audio'
+import { fireworks, sparkleRain } from '../fx'
+import { Avatar, Elephant, Segmented } from '../ui'
 
 export default function Leaderboard() {
   const s = useStore()
   const auth = useAuth()
-  const { t, tf, ui } = useApp()
+  const { t, tf, ui, home } = useApp()
+  const [ceremony, setCeremony] = useState<Ceremony | null>(null)
   const [period, setPeriod] = useState<Period>('today')
   const [scope, setScope] = useState<'country' | 'all'>('country')
   const [rows, setRows] = useState<RankRow[] | null>(null)
@@ -68,6 +71,46 @@ export default function Leaderboard() {
   const list = backendReady ? rows : demo
   const meRow = !backendReady ? demo.find((r) => r.me) : null
   const myRankView = backendReady ? mine : meRow ? { rank: meRow.rank, points: meRow.points, total: demo.length } : null
+
+  // 랭킹을 열었을 때 한 번: 상위권이면 축하 세레머니, 아니면 격려 (하루에 기간·범위별 한 번)
+  const ready = list !== null && (backendReady ? auth.status !== 'loading' : true)
+  useEffect(() => {
+    if (!ready || !list) return
+    if (backendReady && auth.status !== 'in') return
+    const key = `ck-cer:${todayKey()}:${period}:${scope}`
+    try {
+      if (localStorage.getItem(key)) return
+      localStorage.setItem(key, '1')
+    } catch {
+      /* 저장 안 돼도 보여 주기 */
+    }
+    const me = myRankView
+    let c: Ceremony
+    if (!me || me.points <= 0) c = { kind: 'norank' }
+    else if (me.rank <= 3) c = { kind: (['gold', 'silver', 'bronze'] as const)[me.rank - 1], rank: me.rank, points: me.points }
+    else if (me.rank <= 10) c = { kind: 'top10', rank: me.rank, points: me.points }
+    else {
+      const tenth = list.find((r) => r.rank === 10) ?? list[9]
+      const target = tenth ?? list.find((r) => r.rank === me.rank - 1)
+      c = { kind: 'encourage', rank: me.rank, points: me.points, goal: target ? target.rank : undefined, gap: target ? Math.max(1, target.points - me.points + 1) : undefined }
+    }
+    const tm = setTimeout(() => {
+      setCeremony(c)
+      if (c.kind === 'gold' || c.kind === 'silver' || c.kind === 'bronze') {
+        sfx.levelUp()
+        fireworks(c.kind === 'gold' ? 10 : 7)
+        sparkleRain(c.kind === 'gold' ? 40 : 26)
+      } else if (c.kind === 'top10') {
+        sfx.fanfare()
+        sparkleRain(22)
+      } else sfx.pop()
+    }, 450)
+    return () => clearTimeout(tm)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, period, scope])
+
+  const podium = list && list.length >= 3 ? list.filter((r) => r.rank <= 3).slice(0, 3) : []
+  const rest = podium.length === 3 ? list!.filter((r) => !podium.includes(r)) : list
 
   return (
     <section className={flash ? 'panel board flash-update' : 'panel board'}>
@@ -128,9 +171,22 @@ export default function Leaderboard() {
       )}
       {list === null && !error && <div className="board-msg">…</div>}
       {list && list.length === 0 && !error && <div className="board-msg">{t('noRanks')}</div>}
-      {list && list.length > 0 && (
+      {podium.length === 3 && (
+        <div className="podium" aria-label="TOP 3">
+          {[podium[1], podium[0], podium[2]].map((r) => (
+            <div key={r.userId} className={`pod pod-${r.rank} ${r.me ? 'me' : ''}`}>
+              {r.rank === 1 && <span className="pod-crown" aria-hidden="true">👑</span>}
+              <Avatar src={r.avatar} name={r.name} size={r.rank === 1 ? 64 : 52} />
+              <span className="pod-name">{r.name}</span>
+              <span className="pod-pts num">⭐ {r.points.toLocaleString()}</span>
+              <span className="pod-block num">{['🥇', '🥈', '🥉'][r.rank - 1]}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      {rest && rest.length > 0 && (
         <ol className="board-list">
-          {list.map((r) => (
+          {rest.map((r) => (
             <li key={r.userId + r.rank} className={r.me ? 'board-row me' : r.rank <= 3 ? 'board-row top' : 'board-row'}>
               <span className="board-rank num">{r.rank <= 3 ? ['🥇', '🥈', '🥉'][r.rank - 1] : r.rank}</span>
               <Avatar src={r.avatar} name={r.name} size={38} />
@@ -146,6 +202,70 @@ export default function Leaderboard() {
       )}
       {myRankView && <p className="note center">{tf('rankOf', myRankView.rank, myRankView.total)}</p>}
       {!backendReady && <p className="note">{t('demoNote')}</p>}
+
+      {ceremony && (
+        <div className="cer-backdrop" onClick={() => setCeremony(null)}>
+          <div className={`cer cer-${ceremony.kind}`} role="dialog" onClick={(e) => e.stopPropagation()}>
+            {ceremony.kind === 'encourage' || ceremony.kind === 'norank' ? (
+              <Elephant size={120} acc="star" mood="happy" className="bounce cheer" />
+            ) : (
+              <div className="cer-avatar">
+                <span className="cer-ring" aria-hidden="true" />
+                {ceremony.kind === 'gold' && <span className="cer-crown" aria-hidden="true">👑</span>}
+                <Avatar src={auth.me?.avatar} name={auth.me?.name ?? s.nickname} size={104} />
+                <span className="cer-medal" aria-hidden="true">
+                  {ceremony.kind === 'gold' ? '🥇' : ceremony.kind === 'silver' ? '🥈' : ceremony.kind === 'bronze' ? '🥉' : '🎁'}
+                </span>
+              </div>
+            )}
+            <h2 className="cer-title">
+              {ceremony.kind === 'gold'
+                ? t('cer1')
+                : ceremony.kind === 'silver' || ceremony.kind === 'bronze'
+                  ? tf('cerRank', ceremony.rank!)
+                  : ceremony.kind === 'top10'
+                    ? tf('cerTop', ceremony.rank!)
+                    : ceremony.kind === 'encourage'
+                      ? t('encTitle')
+                      : t('encNoRank')}
+            </h2>
+            <p className="cer-sub">
+              {ceremony.kind === 'gold'
+                ? t('cer1Sub')
+                : ceremony.kind === 'encourage'
+                  ? ceremony.gap
+                    ? tf('encGap', ceremony.goal!, ceremony.gap)
+                    : t('encSub')
+                  : ceremony.kind === 'norank'
+                    ? t('encSub')
+                    : t('cerTopSub')}
+            </p>
+            {ceremony.points !== undefined && <div className="cer-points num">#{ceremony.rank} · ⭐ {ceremony.points.toLocaleString()}</div>}
+            {ceremony.kind === 'encourage' || ceremony.kind === 'norank' ? (
+              <>
+                <button className="btn btn-pink btn-block" onClick={() => home('learn')}>
+                  💪 {t('goStudy')}
+                </button>
+                <button className="btn btn-soft btn-block" onClick={() => setCeremony(null)}>
+                  {t('ok')}
+                </button>
+              </>
+            ) : (
+              <button className="btn btn-butter btn-block" onClick={() => setCeremony(null)}>
+                {t('thanks')}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   )
+}
+
+interface Ceremony {
+  kind: 'gold' | 'silver' | 'bronze' | 'top10' | 'encourage' | 'norank'
+  rank?: number
+  points?: number
+  goal?: number
+  gap?: number
 }

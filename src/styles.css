@@ -3080,3 +3080,497 @@ button:disabled {
   font-weight: 600;
   flex: none;
 }
+
+/* ═════════ v0.8 효과 ═════════ */
+.fx-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  overflow: hidden;
+}
+.fx-particle,
+.fx-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-emoji);
+  font-size: calc(18px * var(--s, 1));
+  animation: fx-fly 0.85s cubic-bezier(0.15, 0.7, 0.3, 1) forwards;
+}
+.fx-dot {
+  width: calc(9px * var(--s, 1));
+  height: calc(9px * var(--s, 1));
+  border-radius: 50%;
+  background: var(--c);
+}
+@keyframes fx-fly {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3) rotate(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+.fx-float {
+  position: absolute;
+  transform: translate(-50%, 0);
+  font-family: var(--font-cute);
+  font-weight: 600;
+  white-space: nowrap;
+  animation: fx-rise 1.15s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+.fx-float.points {
+  font-size: 1.4rem;
+  color: var(--butter-deep);
+  text-shadow: 0 2px 0 #fff, 0 0 12px rgba(255, 214, 107, 0.9);
+}
+.fx-float.combo {
+  font-size: 1.9rem;
+  color: var(--pink-deep);
+  text-shadow: 0 3px 0 #fff, 0 0 16px rgba(255, 141, 179, 0.8);
+}
+.fx-float.big {
+  font-size: 2.6rem;
+  color: var(--pink-deep);
+  text-shadow: 0 3px 0 #fff;
+  animation-duration: 1.7s;
+}
+@keyframes fx-rise {
+  0% {
+    transform: translate(-50%, 10px) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    transform: translate(-50%, -14px) scale(1.25);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(-50%, -26px) scale(1);
+  }
+  100% {
+    transform: translate(-50%, -80px) scale(1);
+    opacity: 0;
+  }
+}
+.fx-rain {
+  position: absolute;
+  font-family: var(--font-emoji);
+  font-size: 22px;
+  animation: fx-fall var(--dur) ease-in var(--delay) forwards;
+  opacity: 0;
+}
+@keyframes fx-fall {
+  0% {
+    transform: translateY(0) rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotate(var(--rot));
+    opacity: 0.9;
+  }
+}
+/* 점수 알약 톡 튀기 */
+.pill.bump {
+  animation: bump 0.5s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* 콤보 배지 */
+.combo-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ff8db3, #b9a6ff);
+  color: #fff;
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 3px 12px;
+  border-radius: 999px;
+  box-shadow: 0 3px 0 rgba(200, 70, 120, 0.3);
+  z-index: 3;
+  animation: bounce-in 0.4s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  white-space: nowrap;
+}
+
+/* ═════════ v0.8 단어팩 · 목적 · 세레머니 · 시상대 ═════════ */
+.packs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.packs-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.pack-card {
+  position: relative;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 14px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  box-shadow: 0 4px 0 var(--line);
+  min-width: 0;
+  transition: transform 0.08s;
+}
+.pack-card:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--line);
+}
+.pack-card:first-child {
+  border-color: var(--pink);
+  background: linear-gradient(160deg, #fff 40%, var(--pink-soft));
+  box-shadow: 0 4px 0 #ffc7da;
+}
+.pack-card.done {
+  border-color: #bfeee0;
+  background: var(--mint-soft);
+  box-shadow: 0 4px 0 #bfeee0;
+}
+.pack-badge {
+  position: absolute;
+  top: -9px;
+  right: 10px;
+  background: var(--pink);
+  color: #fff;
+  font-family: var(--font-cute);
+  font-size: 0.72rem;
+  padding: 2px 9px;
+  border-radius: 999px;
+  box-shadow: 0 2px 0 var(--pink-deep);
+}
+.pack-badge.done {
+  background: var(--mint);
+  box-shadow: 0 2px 0 var(--mint-deep);
+}
+.pack-icon {
+  font-family: var(--font-emoji);
+  font-size: 1.9rem;
+  line-height: 1.1;
+}
+.pack-title {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 1rem;
+}
+.pack-desc {
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pack-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: #f3e3ec;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.pack-bar span {
+  display: block;
+  height: 100%;
+  background: var(--pink);
+  border-radius: inherit;
+}
+.pack-card.done .pack-bar span {
+  background: var(--mint);
+}
+.more-packs summary {
+  cursor: pointer;
+  font-family: var(--font-cute);
+  color: var(--lilac-deep);
+  padding: 6px 2px;
+}
+.more-packs[open] summary {
+  margin-bottom: 10px;
+}
+
+/* 목적 고르기 */
+.onboard-hero.small {
+  gap: 6px;
+}
+.purpose-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.purpose {
+  position: relative;
+  border: 2px solid var(--line);
+  background: #fffafc;
+  border-radius: 20px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  font-family: var(--font-cute);
+  font-size: 0.9rem;
+  color: var(--ink);
+  min-width: 0;
+}
+.purpose-grid.big .purpose {
+  padding: 14px 12px;
+  font-size: 0.98rem;
+}
+.purpose-grid.big .purpose:last-child {
+  grid-column: 1 / -1;
+}
+.purpose-icon {
+  font-family: var(--font-emoji);
+  font-size: 1.5rem;
+}
+.purpose-label {
+  min-width: 0;
+}
+.purpose.on {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  color: var(--pink-deep);
+  box-shadow: 0 3px 0 #ffc7da;
+}
+.purpose-check {
+  position: absolute;
+  top: -7px;
+  right: -5px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* 시상대 */
+.podium {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  padding-top: 18px;
+}
+.pod {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  animation: bounce-in 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+}
+.pod-2 {
+  animation-delay: 0.1s;
+}
+.pod-3 {
+  animation-delay: 0.2s;
+}
+.pod-crown {
+  position: absolute;
+  top: -22px;
+  font-size: 1.6rem;
+  font-family: var(--font-emoji);
+  animation: float 2.4s ease-in-out infinite;
+}
+.pod-name {
+  font-family: var(--font-cute);
+  font-size: 0.82rem;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pod-pts {
+  font-size: 0.75rem;
+  color: var(--butter-deep);
+}
+.pod-block {
+  width: 100%;
+  border-radius: 16px 16px 8px 8px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-emoji);
+  font-size: 1.4rem;
+}
+.pod-1 .pod-block {
+  height: 74px;
+  background: linear-gradient(180deg, #ffe48a, #ffd15c);
+  box-shadow: 0 4px 0 #f0b93a;
+}
+.pod-2 .pod-block {
+  height: 54px;
+  background: linear-gradient(180deg, #eef0f6, #d9dde8);
+  box-shadow: 0 4px 0 #c3c8d6;
+}
+.pod-3 .pod-block {
+  height: 42px;
+  background: linear-gradient(180deg, #ffd9c4, #f7bf9f);
+  box-shadow: 0 4px 0 #e7a07a;
+}
+.pod.me .pod-name {
+  color: var(--pink-deep);
+}
+.pod-1 .avatar {
+  box-shadow: 0 0 0 3px #ffd15c, 0 0 18px rgba(255, 209, 92, 0.8);
+}
+
+/* 세레머니 */
+.cer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  background: rgba(91, 67, 102, 0.35);
+  display: grid;
+  place-items: center;
+  padding: 0 var(--gutter-r) 0 var(--gutter-l);
+  animation: fade-in 0.25s ease both;
+}
+.cer {
+  width: min(380px, 100%);
+  background: var(--surface);
+  border-radius: 34px;
+  padding: 26px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  box-shadow: var(--glow);
+  animation: cer-in 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  position: relative;
+  overflow: hidden;
+}
+@keyframes cer-in {
+  0% {
+    transform: scale(0.4) rotate(-6deg);
+    opacity: 0;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+.cer-gold {
+  background: radial-gradient(circle at 50% 0%, #fff6d1 0%, #fff 60%);
+  border: 3px solid #ffd15c;
+}
+.cer-silver {
+  background: radial-gradient(circle at 50% 0%, #f1f3fa 0%, #fff 60%);
+  border: 3px solid #d9dde8;
+}
+.cer-bronze {
+  background: radial-gradient(circle at 50% 0%, #ffe7da 0%, #fff 60%);
+  border: 3px solid #f7bf9f;
+}
+.cer-top10 {
+  border: 3px solid var(--lilac);
+}
+.cer-avatar {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-items: center;
+}
+.cer-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(#ff8db3, #ffd66b, #7fd8c2, #8ccbff, #b9a6ff, #ff8db3);
+  animation: spin 3s linear infinite;
+  opacity: 0.85;
+}
+.cer-silver .cer-ring {
+  background: conic-gradient(#e6e9f2, #fff, #c3c8d6, #fff, #e6e9f2);
+}
+.cer-bronze .cer-ring {
+  background: conic-gradient(#ffcfb5, #fff, #e7a07a, #fff, #ffcfb5);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.cer-avatar .avatar {
+  position: relative;
+  border: 4px solid #fff;
+}
+.cer-crown {
+  position: absolute;
+  top: -26px;
+  font-family: var(--font-emoji);
+  font-size: 2.6rem;
+  z-index: 2;
+  animation: float 2s ease-in-out infinite;
+}
+.cer-medal {
+  position: absolute;
+  bottom: -4px;
+  right: 2px;
+  font-family: var(--font-emoji);
+  font-size: 2.4rem;
+  z-index: 2;
+  animation: wiggle 0.8s ease-in-out 3;
+}
+.cer-title {
+  margin: 4px 0 0;
+  font-family: var(--font-cute);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--pink-deep);
+  text-wrap: balance;
+}
+.cer-gold .cer-title {
+  color: #c98a00;
+  text-shadow: 0 2px 0 #fff2c2;
+}
+.cer-sub {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+.cer-points {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--butter-deep);
+  background: var(--butter-soft);
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+.cheer {
+  animation: bounce-in 0.55s cubic-bezier(0.3, 1.4, 0.5, 1) both, float 2.4s ease-in-out 0.6s infinite;
+}

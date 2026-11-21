@@ -1,7 +1,7 @@
-import { TIERS, PROMO_QUESTIONS } from '../data/words'
+import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
-import { currentRound, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, stepKnownCount, stepOf, todayKey, useStore, STAMPS_PER_TICKET, STEP_SIZES } from '../store'
-import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle } from '../ui'
+import { currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
 import { useAuth } from '../backend'
 
 export default function Home() {
@@ -9,10 +9,13 @@ export default function Home() {
   const { t, tf, ui, push } = useApp()
   const tierNo = currentTierNo(s)
   const tier = TIERS.find((x) => x.no === tierNo)!
-  const cur = currentRound(s)
+  const cur = nextUnit(s)
+  const recPacks = recommendedPacks(s)
+  const otherPacks = PACKS.filter((p) => !recPacks.includes(p))
   const stampedToday = s.stamps.includes(todayKey())
   const cardStamps = s.stamps.length % STAMPS_PER_TICKET
   const auth = useAuth()
+  const [pts, bump] = useCountUp(s.monthPoints)
 
   return (
     <div className="page">
@@ -32,7 +35,7 @@ export default function Home() {
           </div>
         </div>
         <div className="pills">
-          <span className="pill pill-butter num">⭐ {s.monthPoints.toLocaleString()}</span>
+          <span className={bump ? 'pill pill-butter num bump' : 'pill pill-butter num'}>⭐ {pts.toLocaleString()}</span>
           {s.streak > 0 && <span className="pill pill-peach num">🔥 {tf('streak', s.streak)}</span>}
         </div>
       </header>
@@ -49,7 +52,8 @@ export default function Home() {
       )}
 
       {cur && (() => {
-        const step = Math.min(stepOf(s, cur.id), 3)
+        const sizes = stepSizesOf(cur)
+        const step = Math.min(stepOf(s, cur.id), sizes.length)
         const done = stepKnownCount(s, cur, step)
         const need = cur.words.length
         const next5 = cur.words.filter((w) => !isStepKnown(s, w, step)).slice(0, 5)
@@ -58,12 +62,13 @@ export default function Home() {
             <span className="continue-deco" aria-hidden="true">✦ ♥ ✦</span>
             <span className="continue-top">
               <span className="continue-label">
-                {tf('stepName', step)} · {tf('stepSize', STEP_SIZES[step - 1])}
+                {cur.pack ? `${t('packsTitle')} · ` : ''}
+                {tf('stepName', step)} · {tf('stepSize', sizes[step - 1])}
               </span>
               <span className="continue-stamp">{stampedToday ? `☕ ${t('todayDone')}` : `☕ ${t('todayTodo')}`}</span>
             </span>
             <span className="continue-title">
-              {tf('roundN', cur.no)} · {cur.title[ui]}
+              {cur.pack ? `${cur.pack.icon} ${cur.title[ui]}` : `${tf('roundN', cur.no)} · ${cur.title[ui]}`}
             </span>
             <span className="continue-row">
               <span className="continue-emojis" aria-hidden="true">
@@ -96,6 +101,28 @@ export default function Home() {
           ))}
         </span>
       </div>
+
+      <section className="packs">
+        <div className="packs-head">
+          <h2 className="h3">⚡ {t('packsTitle')}</h2>
+          <span className="note">{t('packsSub')}</span>
+        </div>
+        <div className="pack-grid">
+          {recPacks.map((p, i) => (
+            <PackCard key={p.id} pack={p} badge={i === 0 ? t('startFirst') : t('recommended')} />
+          ))}
+        </div>
+        {otherPacks.length > 0 && (
+          <details className="more-packs">
+            <summary>{t('morePacks')}</summary>
+            <div className="pack-grid">
+              {otherPacks.map((p) => (
+                <PackCard key={p.id} pack={p} />
+              ))}
+            </div>
+          </details>
+        )}
+      </section>
 
       <div className="path">
         {TIERS.map((tr) => {
@@ -131,8 +158,8 @@ export default function Home() {
                     const ro = isRoundOpen(s, r)
                     const passed = s.passedRounds.includes(r.id)
                     const st = stepOf(s, r.id)
-                    const vn = r.words.length * 3
-                    const vd = st >= 4 ? vn : (st - 1) * r.words.length + stepKnownCount(s, r, st)
+                    const vd = unitProgress(s, r)
+                    const vn = 1
                     return (
                       <li key={r.id}>
                         <button className={`round-card ${ro ? '' : 'locked'} ${passed ? 'passed' : ''}`} disabled={!ro} onClick={() => push({ name: 'round', roundId: r.id })}>
@@ -150,7 +177,7 @@ export default function Home() {
                                 {isQuizOpen(s, r.id) && !passed ? (
                                   <span className="chip chip-pink tiny">{t('newBadge')}</span>
                                 ) : (
-                                  !passed && <span className="chip tiny num">{tf('stepName', Math.min(st, 3))}</span>
+                                  !passed && <span className="chip tiny num">{tf('stepName', Math.min(st, stepSizesOf(r).length))}</span>
                                 )}
                               </span>
                             ) : (
@@ -190,5 +217,31 @@ export default function Home() {
         })}
       </div>
     </div>
+  )
+}
+
+/** STEP 진행률 0~1 (STEP마다 전체 단어 수만큼 칸) */
+function unitProgress(s: ReturnType<typeof useStore>, r: Round): number {
+  const n = stepSizesOf(r).length
+  if (stepsDone(s, r.id)) return 1
+  const st = stepOf(s, r.id)
+  return ((st - 1) * r.words.length + stepKnownCount(s, r, st)) / (n * r.words.length)
+}
+
+function PackCard({ pack, badge }: { pack: Round; badge?: string }) {
+  const s = useStore()
+  const { t, ui, push } = useApp()
+  const done = stepsDone(s, pack.id)
+  const pct = unitProgress(s, pack)
+  return (
+    <button className={done ? 'pack-card done' : 'pack-card'} onClick={() => push({ name: 'round', roundId: pack.id })}>
+      {done ? <span className="pack-badge done">✓ {t('done')}</span> : badge && <span className="pack-badge">{badge}</span>}
+      <span className="pack-icon" aria-hidden="true">{pack.pack!.icon}</span>
+      <span className="pack-title">{pack.title[ui]}</span>
+      <span className="pack-desc">{pack.pack!.desc[ui]}</span>
+      <span className="pack-bar" aria-hidden="true">
+        <span style={{ width: `${Math.round(pct * 100)}%` }} />
+      </span>
+    </button>
   )
 }

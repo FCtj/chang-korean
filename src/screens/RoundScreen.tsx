@@ -1,19 +1,20 @@
-import { ROUNDS, roundSets, translation, type Word } from '../data/words'
+import { findRound, roundSets, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
-import { isQuizOpen, isStepKnown, setStepKnown, stepKnownCount, stepOf, useStore, STEP_SIZES } from '../store'
+import { isQuizOpen, isStepKnown, setStepKnown, stepKnownCount, stepOf, stepSizesOf, useStore } from '../store'
 import { Icon, ProgressBar, TopBar, pastel, shuffle } from '../ui'
 import { StepBar } from './Player'
 
 export default function RoundScreen({ roundId }: { roundId: string }) {
   const s = useStore()
   const { t, tf, ui, push } = useApp()
-  const round = ROUNDS.find((r) => r.id === roundId)!
+  const round = findRound(roundId)
+  const sizes = stepSizesOf(round)
   const sets = roundSets(round)
   const passed = s.passedRounds.includes(round.id)
   const quizOpen = isQuizOpen(s, round.id)
   const best = s.bestExam[round.id]
-  const step = stepOf(s, round.id) // 1~3, 4 = 끝
-  const done = step >= 4
+  const step = stepOf(s, round.id) // 1부터, sizes.length+1 = 끝
+  const done = step > sizes.length
   const known = done ? round.words.length : stepKnownCount(s, round, step)
   const isK = (w: Word) => done || isStepKnown(s, w, step)
 
@@ -22,7 +23,7 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
 
   return (
     <div className="screen">
-      <TopBar title={tf('roundN', round.no)} sub={round.title[ui]} />
+      <TopBar title={round.pack ? `${round.pack.icon} ${round.title[ui]}` : tf('roundN', round.no)} sub={round.pack ? round.pack.desc[ui] : round.title[ui]} />
       <div className="page">
         <section className="round-hero">
           <div className="round-hero-emojis" aria-hidden="true">
@@ -30,12 +31,12 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
               <span key={w.id}>{w.emoji}</span>
             ))}
           </div>
-          <StepBar step={step} t={t} tf={tf} />
+          <StepBar step={step} sizes={sizes} t={t} tf={tf} />
           {!done && (
             <div className="learn-prog">
               <div className="learn-prog-top">
                 <span>
-                  <Icon name="check" size={16} /> {tf('stepName', step)} · {tf('stepSize', STEP_SIZES[step - 1])}
+                  <Icon name="check" size={16} /> {tf('stepName', step)} · {tf('stepSize', sizes[step - 1])}
                 </span>
                 <span className="num">
                   {known}/{round.words.length}
@@ -48,14 +49,14 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
             <button className="btn btn-pink btn-block btn-big" onClick={() => play()}>
               <Icon name="play" size={22} /> {known > 0 || step > 1 ? t('continueStep') : tf('startStep', step)}
               <span className="btn-sub">
-                {tf('stepName', step)} · {tf('stepSize', STEP_SIZES[step - 1])}
+                {tf('stepName', step)} · {tf('stepSize', sizes[step - 1])}
               </span>
             </button>
           )}
           <button className={done ? 'btn btn-pink btn-block btn-big' : 'btn btn-soft btn-block'} onClick={() => play(true)}>
             🔁 {t('reviewAll')}
           </button>
-          {!quizOpen && <p className="hint">🎁 {tf('stepHint', round.words.length)}</p>}
+          {!quizOpen && <p className="hint">🎁 {round.pack ? t('packsSub') : tf('stepHint', round.words.length)}</p>}
         </section>
 
         <ol className="sets">
@@ -101,7 +102,7 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
           })}
         </ol>
 
-        {quizOpen && (
+        {quizOpen && !round.pack && (
           <section className={passed ? 'exam-card passed' : 'exam-card'}>
             <div className="exam-top">
               <span className="exam-icon" aria-hidden="true">

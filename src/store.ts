@@ -1,7 +1,7 @@
 // 학습 기록·점수·도장 저장 (기기 안 localStorage)
 // 서버를 붙이면 이 파일의 저장/불러오기 부분만 API 호출로 바꾸면 됩니다.
 import { useSyncExternalStore } from 'react'
-import { TIERS, ROUNDS, SET_SIZE, type Round, type Word } from './data/words'
+import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
@@ -34,6 +34,8 @@ export interface State {
   nickname: string
   /** 나라 (ISO 2글자, 랭킹용). 기본 라오스 */
   country: string
+  /** 배우는 목적 (단어팩 추천용) */
+  purposes: Purpose[]
   settings: Settings
   /** 회차별 묶음(5개)마다 반복해서 본 횟수 (참고용) */
   chunkPlays: Record<string, number[]>
@@ -86,6 +88,7 @@ function initial(): State {
     ui: 'lo',
     nickname: '',
     country: 'LA',
+    purposes: [],
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
     chunkPlays: {},
     known: {},
@@ -239,10 +242,23 @@ export function knownCount(s: State, round: Round): number {
 
 export const STEP_SIZES = [5, 25, 50] as const
 
-/** 회차의 지금 STEP: 1~3, 4 = 세 STEP 모두 끝 (통과한 회차도 4) */
+/** 회차의 STEP별 묶음 크기: 50개 → [5, 25, 50], 25개 단어팩 → [5, 25] */
+export function stepSizesOf(round: Round): number[] {
+  const n = round.words.length
+  return [...STEP_SIZES.filter((k) => k < n), n]
+}
+export const finalStep = (round: Round) => stepSizesOf(round).length
+
+/** 회차의 지금 STEP: 1부터, 마지막 STEP을 끝내면 finalStep+1 (통과한 회차도) */
 export function stepOf(s: State, roundId: string): number {
-  if (s.passedRounds.includes(roundId)) return 4
-  return s.steps[roundId] ?? 1
+  const round = findRound(roundId)
+  if (s.passedRounds.includes(roundId)) return finalStep(round) + 1
+  return Math.min(s.steps[roundId] ?? 1, finalStep(round) + 1)
+}
+
+/** STEP을 모두 끝냈는지 */
+export function stepsDone(s: State, roundId: string): boolean {
+  return stepOf(s, roundId) > finalStep(findRound(roundId))
 }
 
 export const stepKey = (roundId: string, step: number) => `${roundId}#${step}`
@@ -261,7 +277,7 @@ export function stepKnownCount(s: State, round: Round, step: number): number {
  * 회차 50개를 이 STEP에서 모두 외우면 다음 STEP으로 (STEP 3까지 끝나면 문제·시험 열림).
  */
 export function setStepKnown(w: Word, step: number, on: boolean): { points: number; stepDone: boolean } {
-  const round = ROUNDS.find((r) => r.id === w.roundId)!
+  const round = findRound(w.roundId)
   const key = stepKey(round.id, step)
   const first = on && !state.stepKnown[key]?.[w.id] && !state.passedRounds.includes(round.id)
   let stepDone = false
@@ -274,7 +290,7 @@ export function setStepKnown(w: Word, step: number, on: boolean): { points: numb
     if (on && (s.steps[round.id] ?? 1) === step && round.words.every((x) => m[x.id])) {
       stepDone = true
       steps = { ...steps, [round.id]: step + 1 }
-      if (step >= 3 && !quizOpen.includes(round.id)) quizOpen = [...quizOpen, round.id]
+      if (step >= finalStep(round) && !quizOpen.includes(round.id)) quizOpen = [...quizOpen, round.id]
     }
     return { ...s, stepKnown: { ...s.stepKnown, [key]: m }, known, steps, quizOpen }
   })
@@ -284,7 +300,17 @@ export function setStepKnown(w: Word, step: number, on: boolean): { points: numb
 
 /** 4지선다 문제·졸업시험이 보이는지: 처음엔 숨김, STEP 1~3을 모두 끝내면 열림 */
 export function isQuizOpen(s: State, roundId: string): boolean {
-  return s.quizOpen.includes(roundId) || stepOf(s, roundId) >= 4
+  return s.quizOpen.includes(roundId) || stepsDone(s, roundId)
+}
+
+/** 추천 단어팩: 생존 단어 + 고른 목적의 팩 (순서대로) */
+export function recommendedPacks(s: State): Round[] {
+  return PACKS.filter((p) => p.pack!.purpose === null || s.purposes.includes(p.pack!.purpose))
+}
+
+/** 이어서 할 것: 아직 안 끝낸 추천 단어팩이 있으면 그것 먼저, 없으면 지금 회차 */
+export function nextUnit(s: State): Round | null {
+  return recommendedPacks(s).find((p) => !stepsDone(s, p.id)) ?? currentRound(s)
 }
 
 /** 지금 공부해야 할 회차 (열려 있고 아직 통과 못 한 첫 회차) */

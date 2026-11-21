@@ -149,4 +149,16 @@ export const sfx = {
   tick() {
     tone(1400, 0, 0.03, 'square', 0.03)
   },
+  pop() {
+    tone(660, 0, 0.06, 'sine', 0.1)
+    tone(990, 0.04, 0.08, 'sine', 0.08)
+  },
+  combo(n: number) {
+    const base = 600 + Math.min(n, 8) * 70
+    tone(base, 0, 0.08, 'triangle')
+    tone(base * 1.5, 0.07, 0.12, 'triangle')
+  },
+  levelUp() {
+    ;[523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, i * 0.09, 0.3, 'triangle', 0.1))
+  },
 }

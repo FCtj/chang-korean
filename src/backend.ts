@@ -128,7 +128,7 @@ async function onSession(session: Session | null) {
 // ───────── 학습 기록 동기화 ─────────
 // 기기 기록과 서버 기록을 합쳐서(외운 단어·통과한 회차는 합집합, STEP은 큰 쪽) 양쪽에 저장
 
-const SYNC_KEYS = ['passedRounds', 'passedTiers', 'quizOpen', 'placedRounds', 'placementDone', 'bestExam', 'known', 'steps', 'stepKnown', 'wordStats', 'lastChunk', 'streak', 'lastStudyDay'] as const
+const SYNC_KEYS = ['purposes', 'passedRounds', 'passedTiers', 'quizOpen', 'placedRounds', 'placementDone', 'bestExam', 'known', 'steps', 'stepKnown', 'wordStats', 'lastChunk', 'streak', 'lastStudyDay'] as const
 type Synced = Pick<State, (typeof SYNC_KEYS)[number]>
 
 function snapshot(s: State): Synced {
@@ -156,6 +156,7 @@ export function mergeProgress(local: State, remote: Partial<Synced>): State {
   const remoteNewer = (remote.lastStudyDay ?? '') > local.lastStudyDay
   return {
     ...local,
+    purposes: local.purposes.length ? local.purposes : (remote.purposes ?? []),
     passedRounds: union(local.passedRounds, remote.passedRounds),
     passedTiers: unionN(local.passedTiers, remote.passedTiers),
     quizOpen: union(local.quizOpen, remote.quizOpen),
