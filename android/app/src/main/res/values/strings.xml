@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Chang Korean</string>
+    <string name="title_activity_main">Chang Korean</string>
+    <string name="package_name">com.changkorean.app</string>
+    <string name="custom_url_scheme">com.changkorean.app</string>
+</resources>
