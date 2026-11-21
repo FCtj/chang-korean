@@ -1,8 +1,9 @@
-// 시작 화면: 닉네임 → 수준 테스트(또는 '처음이에요') → 학습 시작
+// 시작 화면: 내 언어(라오어·태국어·베트남어 베타) + 닉네임 → 목적 → 수준 테스트(또는 '처음이에요') → 학습 시작
 import { useState } from 'react'
-import { makeT, type UiLang } from '../i18n'
-import { getState, update } from '../store'
-import type { Purpose } from '../data/words'
+import { makeT, nativeInfo, type UiLang } from '../i18n'
+import { getState, setLanguage, update } from '../store'
+import type { Native, Purpose } from '../data/words'
+import NativePicker from './NativePicker'
 import { PurposePicker } from './SettingsScreen'
 import { Avatar, Elephant } from '../ui'
 import { backendReady, COUNTRIES, signInWithFacebook, useAuth } from '../backend'
@@ -10,7 +11,8 @@ import Placement from './Placement'
 
 export default function Onboarding() {
   const [name, setName] = useState('')
-  const [ui, setUi] = useState<UiLang>('lo')
+  const [native, setNativeState] = useState<Native>(getState().native)
+  const [ui, setUi] = useState<UiLang>(getState().ui)
   const [step, setStep] = useState<'hello' | 'purpose' | 'level'>('hello')
   const [purposes, setPurposes] = useState<Purpose[]>(getState().purposes)
   const [country, setCountry] = useState(getState().country || 'LA')
@@ -56,9 +58,18 @@ export default function Onboarding() {
     <div className="app">
       <main className="onboard">
         <div className="lang-toggle" role="radiogroup" aria-label="language">
-          {(['lo', 'ko'] as UiLang[]).map((l) => (
-            <button key={l} role="radio" aria-checked={ui === l} className={ui === l ? 'on' : ''} onClick={() => setUi(l)}>
-              {l === 'lo' ? 'ລາວ' : '한국어'}
+          {([native, 'ko'] as UiLang[]).map((l) => (
+            <button
+              key={l}
+              role="radio"
+              aria-checked={ui === l}
+              className={ui === l ? 'on' : ''}
+              onClick={() => {
+                setUi(l)
+                update((s) => ({ ...s, ui: l }))
+              }}
+            >
+              {l === 'ko' ? '한국어' : nativeInfo(native).name}
             </button>
           ))}
         </div>
@@ -70,13 +81,22 @@ export default function Onboarding() {
             <Elephant size={150} acc="bow" className="float" />
           </div>
           <h1 className="brand">Chang Korean</h1>
-          <p className="onboard-tag lo">ຮຽນຄຳສັບເກົາຫຼີດ້ວຍຮູບ ແລະ ສຽງ</p>
+          <p className="onboard-tag lo">{makeT(native).t('tagline')}</p>
           <p className="onboard-sub">그림과 소리로 외우는 한국어 단어</p>
         </div>
 
         <section className="onboard-card">
-          <div className="lang-pill" aria-label="ພາສາລາວ → 한국어">
-            <span className="flag">🇱🇦</span> ພາສາລາວ → 한국어
+          <div className="field">
+            <span className="label">{t('myLang')}</span>
+            <NativePicker
+              value={native}
+              onChange={(n) => {
+                setNativeState(n)
+                if (ui !== 'ko') setUi(n)
+                setCountry(nativeInfo(n).country)
+                setLanguage(n, { country: true })
+              }}
+            />
           </div>
           <div className="field">
             <span className="label">{t('country')}</span>
@@ -92,7 +112,7 @@ export default function Onboarding() {
                     update((s) => ({ ...s, country: c.code }))
                   }}
                 >
-                  <span className="flag">{c.flag}</span> {ui === 'ko' ? c.ko : c.lo}
+                  <span className="flag">{c.flag}</span> {c[ui]}
                 </button>
               ))}
             </div>
@@ -108,7 +128,7 @@ export default function Onboarding() {
                 <button
                   className="fb-btn big"
                   onClick={() => {
-                    update((s) => ({ ...s, ui, country }))
+                    update((s) => ({ ...s, ui, native, country }))
                     signInWithFacebook()
                   }}
                 >
@@ -129,7 +149,7 @@ export default function Onboarding() {
           <button
             className="btn btn-pink btn-block"
             onClick={() => {
-              update((s) => ({ ...s, ui, country, nickname: loggedIn ? auth.me!.name : name.trim() || (ui === 'lo' ? 'ຂ້ອຍ' : '나') }))
+              update((s) => ({ ...s, ui, native, country, nickname: loggedIn ? auth.me!.name : name.trim() || (ui === 'ko' ? '나' : nativeInfo(native).me) }))
               setStep('purpose')
             }}
           >

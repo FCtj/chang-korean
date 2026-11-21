@@ -1,10 +1,15 @@
-// 화면 문구 (라오어 · 한국어)
-// 기본 화면 언어는 라오어. 한국어는 운영자 확인용으로 설정에서 바꿀 수 있습니다.
-// ⚠️ 라오어 문구는 초안입니다. 출시 전 원어민 검수가 필요합니다.
+// 화면 문구 (라오어 · 태국어 · 베트남어 · 한국어)
+// 기본은 라오어. 태국어는 i18n-th.ts, 베트남어(베타)는 i18n-vi.ts.
+// 한국어는 운영자 확인용으로 설정에서 바꿀 수 있습니다.
+// ⚠️ 라오어·태국어·베트남어 문구는 초안입니다. 출시 전 원어민 검수가 필요합니다.
+import { S_TH, F_TH } from './i18n-th'
+import { S_VI, F_VI } from './i18n-vi'
+import type { Native } from './data/words'
 
-export type UiLang = 'lo' | 'ko'
-type Str = Record<UiLang, string>
-type Fn = Record<UiLang, (...a: any[]) => string>
+export type UiLang = 'lo' | 'th' | 'vi' | 'ko'
+type Base = 'lo' | 'ko'
+type Str = Record<Base, string>
+type Fn = Record<Base, (...a: any[]) => string>
 
 const S = {
   tagline: { ko: '그림과 소리로 외우는 한국어 단어', lo: 'ຮຽນຄຳສັບເກົາຫຼີດ້ວຍຮູບ ແລະ ສຽງ' },
@@ -17,6 +22,12 @@ const S = {
   tabSettings: { ko: '설정', lo: 'ຕັ້ງຄ່າ' },
   korean: { ko: '한국어', lo: 'ເກົາຫຼີ' },
   lao: { ko: '라오어', lo: 'ລາວ' },
+  thai: { ko: '태국어', lo: 'ໄທ' },
+  viet: { ko: '베트남어', lo: 'ຫວຽດນາມ' },
+  myLang: { ko: '내 언어', lo: 'ພາສາຂອງຂ້ອຍ' },
+  myLangHint: { ko: '단어 뜻과 화면이 이 언어로 나와요', lo: 'ຄວາມໝາຍຂອງຄຳສັບ ແລະ ໜ້າຈໍ ຈະເປັນພາສານີ້' },
+  beta: { ko: '베타', lo: 'ທົດລອງ' },
+  viBetaNote: { ko: '베트남어는 베타예요. 어색한 번역이 있으면 알려 주세요', lo: 'ພາສາຫວຽດນາມຍັງເປັນລຸ້ນທົດລອງ. ຖ້າເຫັນການແປທີ່ແປກ ກະລຸນາບອກພວກເຮົາ' },
   locked: { ko: '잠김', lo: 'ລັອກຢູ່' },
   comingSoon: { ko: '준비 중', lo: 'ກຳລັງກະກຽມ' },
   tierComing: { ko: '다음 업데이트에서 열려요', lo: 'ຈະເປີດໃນອັບເດດຕໍ່ໄປ' },
@@ -108,7 +119,7 @@ const S = {
   faster: { ko: '늘리기', lo: 'ເພີ່ມ' },
   wrongCount: { ko: '틀림', lo: 'ຜິດ' },
   demoBadge: { ko: '예시', lo: 'ຕົວຢ່າງ' },
-  contentDraft: { ko: '라오어 번역은 원어민 검수 전 초안이에요', lo: 'ຄຳແປພາສາລາວຍັງເປັນສະບັບຮ່າງ' },
+  contentDraft: { ko: '번역(라오어·태국어·베트남어)은 원어민 검수 전 초안이에요', lo: 'ຄຳແປພາສາລາວຍັງເປັນສະບັບຮ່າງ' },
   settingsHere: { ko: '반복 설정', lo: 'ຕັ້ງຄ່າການຊ້ຳ' },
   autoPlaying: { ko: '자동으로 다음 단어로 넘어가요', lo: 'ປ່ຽນຄຳອັດຕະໂນມັດ' },
   memorized: { ko: '외웠어요', lo: 'ຈື່ໄດ້ແລ້ວ' },
@@ -251,12 +262,29 @@ const F = {
   skipped: { ko: (n: number) => `아는 회차 ${n}개는 통과 처리했어요`, lo: (n: number) => `ຂ້າມ ${n} ບົດທີ່ຮູ້ແລ້ວ` },
 } satisfies Record<string, Fn>
 
+/** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */
+export const NATIVE_INFO: { id: Native; flag: string; name: string; country: string; key: 'lao' | 'thai' | 'viet'; me: string; hello: string; beta?: boolean }[] = [
+  { id: 'lo', flag: '🇱🇦', name: 'ພາສາລາວ', country: 'LA', key: 'lao', me: 'ຂ້ອຍ', hello: 'ສະບາຍດີ' },
+  { id: 'th', flag: '🇹🇭', name: 'ภาษาไทย', country: 'TH', key: 'thai', me: 'ฉัน', hello: 'สวัสดี' },
+  { id: 'vi', flag: '🇻🇳', name: 'Tiếng Việt', country: 'VN', key: 'viet', me: 'Tôi', hello: 'Xin chào', beta: true },
+]
+export const nativeInfo = (n: Native) => NATIVE_INFO.find((x) => x.id === n) ?? NATIVE_INFO[0]
+
 export type StrKey = keyof typeof S
 export type FnKey = keyof typeof F
+/** 다른 언어 파일(i18n-th.ts, i18n-vi.ts)이 채워야 하는 함수 문구 모양 */
+export type FnTable = { [K in FnKey]: (typeof F)[K]['ko'] }
+
+const MORE: Record<'th' | 'vi', { s: Record<StrKey, string>; f: FnTable }> = {
+  th: { s: S_TH, f: F_TH },
+  vi: { s: S_VI, f: F_VI },
+}
 
 export function makeT(ui: UiLang) {
-  const t = (k: StrKey) => S[k][ui]
-  const tf = <K extends FnKey>(k: K, ...args: Parameters<(typeof F)[K]['ko']>) =>
-    (F[k][ui] as (...a: unknown[]) => string)(...args)
+  const t = (k: StrKey): string => (ui === 'lo' || ui === 'ko' ? S[k][ui] : (MORE[ui].s[k] ?? S[k].lo))
+  const tf = <K extends FnKey>(k: K, ...args: Parameters<FnTable[K]>): string => {
+    const fn = ui === 'lo' || ui === 'ko' ? F[k][ui] : (MORE[ui].f[k] ?? F[k].lo)
+    return (fn as (...a: unknown[]) => string)(...args)
+  }
   return { t, tf }
 }

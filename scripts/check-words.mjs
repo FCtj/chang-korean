@@ -2,7 +2,8 @@
 // - 회차마다 정확히 50개
 // - 회차 안에서 이모지·라오어 뜻 중복 없음 (문제 보기가 헷갈리지 않게)
 // - 한국어 단어는 전체에서 중복 없음
-// - 한국어·로마자·라오어·이모지 비어 있으면 안 됨 (태국어는 지금은 비워도 됨)
+// - 한국어·로마자·라오어·태국어·베트남어·이모지 비어 있으면 안 됨
+// (태국어·베트남어 번역 중복 검사는 check-translations.mjs)
 import { TIERS, PACKS } from '../src/data/words.ts'
 
 let errors = 0
@@ -23,7 +24,7 @@ for (const tier of TIERS) {
       }
     }
     for (const w of round.words) {
-      for (const key of ['ko', 'rom', 'lo', 'emoji']) if (!w[key]?.trim()) fail(`${w.id}: ${key} 비어 있음`)
+      for (const key of ['ko', 'rom', 'lo', 'th', 'vi', 'emoji']) if (!w[key]?.trim()) fail(`${w.id}: ${key} 비어 있음`)
       if (koAll.has(w.ko)) fail(`한국어 중복 "${w.ko}" (${koAll.get(w.ko)}, ${w.id})`)
       koAll.set(w.ko, w.id)
     }
@@ -40,7 +41,7 @@ for (const pack of PACKS) {
       seen.add(w[key])
     }
   }
-  for (const w of pack.words) for (const key of ['ko', 'rom', 'lo', 'emoji']) if (!w[key]?.trim()) fail(`${w.id}: ${key} 비어 있음`)
+  for (const w of pack.words) for (const key of ['ko', 'rom', 'lo', 'th', 'vi', 'emoji']) if (!w[key]?.trim()) fail(`${w.id}: ${key} 비어 있음`)
 }
 
 const rounds = TIERS.flatMap((t) => t.rounds)

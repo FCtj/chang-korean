@@ -1,7 +1,8 @@
 // 단어 데이터: 5계급 18회차 900단어 (유치원·초등 ~ 고등학생 수준)
 // 1~4회차는 이 파일, 5~18회차는 rounds-more.ts
-// 지금 앱은 라오어만 사용합니다. 태국어(th)는 다음 버전을 위해 데이터만 남겨 둡니다.
-// ⚠️ 라오어·태국어 번역은 초안입니다. 출시 전 반드시 원어민 검수가 필요합니다.
+// 학습자 언어: 라오어(기본) · 태국어 · 베트남어(베타)
+// 태국어·베트남어 뜻은 tr-th.ts / tr-vi.ts (한국어 → 뜻), 제목은 tr-titles.ts 에서 채웁니다.
+// ⚠️ 라오어·태국어·베트남어 번역은 초안입니다. 출시 전 반드시 원어민 검수가 필요합니다.
 //
 // 한 줄 형식: [한국어, 로마자 발음, 라오어, 태국어, 이모지]
 // 녹음 파일을 붙일 때는 public/audio/<단어id>.mp3 를 넣고 AUDIO_READY 에 id를 추가하면
@@ -9,9 +10,14 @@
 
 import { R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18 } from './rounds-more.ts'
 import { PACK_SURVIVAL, PACK_WORK, PACK_TRAVEL, PACK_SCHOOL, PACK_KPOP, PACK_FAMILY } from './packs.ts'
+import { TH } from './tr-th.ts'
+import { VI } from './tr-vi.ts'
+import { TITLE_TH, TITLE_VI } from './tr-titles.ts'
 
-export type Lang = 'ko' | 'lo' | 'th'
-export type Native = 'lo' | 'th'
+export type Lang = 'ko' | 'lo' | 'th' | 'vi'
+/** 학습자 언어 (뜻이 나오는 언어) */
+export type Native = 'lo' | 'th' | 'vi'
+export const NATIVES: Native[] = ['lo', 'th', 'vi']
 export type L10n = Record<Lang, string>
 
 export interface Word {
@@ -20,6 +26,7 @@ export interface Word {
   rom: string
   lo: string
   th: string
+  vi: string
   emoji: string
   roundId: string
 }
@@ -290,43 +297,44 @@ function makeRound(id: string, tier: number, no: number, title: L10n, rows: Row[
       ko,
       rom,
       lo,
-      th,
+      th: th || TH[ko] || '',
+      vi: VI[ko] || '',
       emoji,
       roundId: id,
     })),
   }
 }
 
-const t = (ko: string, lo: string, th = ''): L10n => ({ ko, lo, th })
+const t = (ko: string, lo: string, th = ''): L10n => ({ ko, lo, th: th || TITLE_TH[ko] || '', vi: TITLE_VI[ko] || '' })
 
 export const TIERS: Tier[] = [
   {
     no: 1,
-    name: { ko: '아기 코끼리', lo: 'ລູກຊ້າງ', th: 'ลูกช้าง' },
+    name: t('아기 코끼리', 'ລູກຊ້າງ', 'ลูกช้าง'),
     badge: '🎀',
     level: t('유치원 · 초등 저학년', 'ອະນຸບານ · ປະຖົມຕົ້ນ'),
-    topics: { ko: '숫자 · 인사 · 가족 · 몸 · 음식 · 동물', lo: 'ຕົວເລກ · ທັກທາຍ · ຄອບຄົວ · ອາຫານ · ສັດ', th: 'ตัวเลข · ทักทาย · ครอบครัว · อาหาร · สัตว์' },
+    topics: t('숫자 · 인사 · 가족 · 몸 · 음식 · 동물', 'ຕົວເລກ · ທັກທາຍ · ຄອບຄົວ · ອາຫານ · ສັດ', 'ตัวเลข · ทักทาย · ครอบครัว · อาหาร · สัตว์'),
     rounds: [
-      makeRound('r1', 1, 1, { ko: '숫자 · 인사 · 가족 · 몸', lo: 'ຕົວເລກ · ທັກທາຍ · ຄອບຄົວ · ຮ່າງກາຍ', th: 'ตัวเลข · ทักทาย · ครอบครัว · ร่างกาย' }, R1),
-      makeRound('r2', 1, 2, { ko: '과일 · 음식 · 동물 · 자연', lo: 'ໝາກໄມ້ · ອາຫານ · ສັດ · ທຳມະຊາດ', th: 'ผลไม้ · อาหาร · สัตว์ · ธรรมชาติ' }, R2),
+      makeRound('r1', 1, 1, t('숫자 · 인사 · 가족 · 몸', 'ຕົວເລກ · ທັກທາຍ · ຄອບຄົວ · ຮ່າງກາຍ', 'ตัวเลข · ทักทาย · ครอบครัว · ร่างกาย'), R1),
+      makeRound('r2', 1, 2, t('과일 · 음식 · 동물 · 자연', 'ໝາກໄມ້ · ອາຫານ · ສັດ · ທຳມະຊາດ', 'ผลไม้ · อาหาร · สัตว์ · ธรรมชาติ'), R2),
     ],
   },
   {
     no: 2,
-    name: { ko: '꼬마 코끼리', lo: 'ຊ້າງນ້ອຍ', th: 'ช้างน้อย' },
+    name: t('꼬마 코끼리', 'ຊ້າງນ້ອຍ', 'ช้างน้อย'),
     badge: '🧢',
     level: t('초등학생', 'ປະຖົມ'),
     topics: t('색깔 · 물건 · 탈것 · 장소 · 직업 · 감정 · 음식 · 집 · 요일', 'ສີ · ສິ່ງຂອງ · ພາຫະນະ · ສະຖານທີ່ · ອາຊີບ · ອາຫານ · ວັນ'),
     rounds: [
-      makeRound('r3', 2, 3, { ko: '색깔 · 물건 · 옷 · 탈것', lo: 'ສີ · ສິ່ງຂອງ · ເຄື່ອງນຸ່ງ · ພາຫະນະ', th: 'สี · สิ่งของ · เสื้อผ้า · ยานพาหนะ' }, R3),
-      makeRound('r4', 2, 4, { ko: '장소 · 직업 · 감정 · 생활', lo: 'ສະຖານທີ່ · ອາຊີບ · ຄວາມຮູ້ສຶກ · ຊີວິດປະຈຳວັນ', th: 'สถานที่ · อาชีพ · ความรู้สึก · ชีวิตประจำวัน' }, R4),
+      makeRound('r3', 2, 3, t('색깔 · 물건 · 옷 · 탈것', 'ສີ · ສິ່ງຂອງ · ເຄື່ອງນຸ່ງ · ພາຫະນະ', 'สี · สิ่งของ · เสื้อผ้า · ยานพาหนะ'), R3),
+      makeRound('r4', 2, 4, t('장소 · 직업 · 감정 · 생활', 'ສະຖານທີ່ · ອາຊີບ · ຄວາມຮູ້ສຶກ · ຊີວິດປະຈຳວັນ', 'สถานที่ · อาชีพ · ความรู้สึก · ชีวิตประจำวัน'), R4),
       makeRound('r5', 2, 5, t('부엌 · 채소 · 간식 · 해산물', 'ເຮືອນຄົວ · ຜັກ · ເຂົ້າໜົມ · ອາຫານທະເລ'), R5),
       makeRound('r6', 2, 6, t('집 · 물건 · 요일 · 곤충', 'ເຮືອນ · ສິ່ງຂອງ · ວັນ · ແມງໄມ້'), R6),
     ],
   },
   {
     no: 3,
-    name: { ko: '청년 코끼리', lo: 'ຊ້າງໜຸ່ມ', th: 'ช้างหนุ่ม' },
+    name: t('청년 코끼리', 'ຊ້າງໜຸ່ມ', 'ช้างหนุ่ม'),
     badge: '🎓',
     level: t('초등 고학년', 'ປະຖົມປາຍ'),
     topics: t('기본 동사 · 형용사 · 의문사 · 자주 쓰는 말', 'ຄຳກິລິຍາ · ຄຳຄຸນນາມ · ຄຳຖາມ · ສຳນວນ'),
@@ -339,7 +347,7 @@ export const TIERS: Tier[] = [
   },
   {
     no: 4,
-    name: { ko: '대장 코끼리', lo: 'ຊ້າງຫົວໜ້າຝູງ', th: 'ช้างจ่าฝูง' },
+    name: t('대장 코끼리', 'ຊ້າງຫົວໜ້າຝູງ', 'ช้างจ่าฝูง'),
     badge: '⭐',
     level: t('중학생', 'ມັດທະຍົມຕົ້ນ'),
     topics: t('학교 · 건강 · 쇼핑과 돈 · 직장 · 교통 · 여행 · 날씨', 'ໂຮງຮຽນ · ສຸຂະພາບ · ເງິນ · ວຽກ · ການທ່ອງທ່ຽວ · ອາກາດ'),
@@ -352,7 +360,7 @@ export const TIERS: Tier[] = [
   },
   {
     no: 5,
-    name: { ko: '왕 코끼리', lo: 'ພະຍາຊ້າງ', th: 'พญาช้าง' },
+    name: t('왕 코끼리', 'ພະຍາຊ້າງ', 'พญาช้าง'),
     badge: '👑',
     level: t('고등학생', 'ມັດທະຍົມປາຍ'),
     topics: t('사회 · 정치 · 경제 · 환경 · 과학 · 문화 · 마음', 'ສັງຄົມ · ການເມືອງ · ເສດຖະກິດ · ສິ່ງແວດລ້ອມ · ວິທະຍາສາດ · ວັດທະນະທຳ'),
@@ -369,7 +377,9 @@ export const ROUNDS: Round[] = TIERS.flatMap((t) => t.rounds)
 
 // ───────── 바로 쓰는 단어팩 ─────────
 function makePack(key: string, icon: string, purpose: Purpose | null, title: L10n, desc: L10n, rows: Row[]): Round {
-  return { ...makeRound(`p-${key}`, 0, 0, title, rows), pack: { icon, purpose, desc } }
+  // 설명은 단어 묶음("네 · 주세요 · …")이라 각 단어 뜻으로 태국어·베트남어를 만듦
+  const fromWords = (m: Record<string, string>) => desc.ko.split(' · ').map((k) => m[k] ?? k).join(' · ')
+  return { ...makeRound(`p-${key}`, 0, 0, title, rows), pack: { icon, purpose, desc: { ...desc, th: desc.th || fromWords(TH), vi: fromWords(VI) } } }
 }
 
 export const PACKS: Round[] = [
@@ -401,7 +411,15 @@ export function roundSets(round: Round): Word[][] {
   return sets
 }
 
-/** 학습자 언어 뜻 (지금은 라오어만) */
-export function translation(w: Word): string {
-  return w.lo
+// 지금 학습자 언어 (store 가 불러오거나 바꿀 때 setNative 로 알려 줌)
+let native: Native = 'lo'
+export function setNative(n: Native) {
+  native = NATIVES.includes(n) ? n : 'lo'
+}
+export function getNative(): Native {
+  return native
+}
+/** 학습자 언어 뜻 (비어 있으면 라오어) */
+export function translation(w: Word, n: Native = native): string {
+  return w[n] || w.lo
 }

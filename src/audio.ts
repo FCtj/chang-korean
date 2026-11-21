@@ -6,7 +6,7 @@ import { Capacitor } from '@capacitor/core'
 import { TextToSpeech } from '@capacitor-community/text-to-speech'
 import { AUDIO_READY, type Lang, type Word } from './data/words'
 
-const BCP47: Record<Lang, string> = { ko: 'ko-KR', lo: 'lo-LA', th: 'th-TH' }
+const BCP47: Record<Lang, string> = { ko: 'ko-KR', lo: 'lo-LA', th: 'th-TH', vi: 'vi-VN' }
 const native = Capacitor.isNativePlatform()
 
 let webVoices: SpeechSynthesisVoice[] = []

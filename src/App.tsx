@@ -27,9 +27,13 @@ export default function App() {
   const ui = s.ui
   const { t, tf } = useMemo(() => makeT(ui), [ui])
 
+  // 화면 언어·학습자 언어에 맞는 글꼴 (styles.css 의 data-ui / data-native)
   useEffect(() => {
-    document.documentElement.lang = ui
-  }, [ui])
+    const el = document.documentElement
+    el.lang = ui
+    el.dataset.ui = ui
+    el.dataset.native = s.native
+  }, [ui, s.native])
 
   const top = stack[stack.length - 1]
   useEffect(() => {

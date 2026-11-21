@@ -65,7 +65,7 @@ export default function Leaderboard() {
   const demo: RankRow[] = backendReady
     ? []
     : demoRanking(s)
-        .map((r, i) => ({ rank: i + 1, userId: r.name, name: r.name, avatar: null, country: r.me ? s.country : i % 4 === 3 ? 'TH' : 'LA', points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me }))
+        .map((r, i) => ({ rank: i + 1, userId: r.me ? 'me' : r.name, name: r.name, avatar: r.me ? (auth.me?.avatar ?? null) : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me }))
         .filter((r) => scope === 'all' || r.country === myCountry)
         .map((r, i) => ({ ...r, rank: i + 1 }))
   const list = backendReady ? rows : demo
@@ -132,7 +132,7 @@ export default function Leaderboard() {
         value={scope}
         onChange={setScope}
         options={[
-          { id: 'country', label: `${c.flag} ${c[ui === 'ko' ? 'ko' : 'lo']}` },
+          { id: 'country', label: `${c.flag} ${c[ui]}` },
           { id: 'all', label: `🌏 ${t('scopeAll')}` },
         ]}
       />
@@ -194,7 +194,7 @@ export default function Leaderboard() {
                 <span className="board-name-text">{r.name}</span>
                 {r.me && <span className="me-tag">{t('me')}</span>}
               </span>
-              {scope === 'all' && <span className="board-flag" title={countryOf(r.country).ko}>{countryOf(r.country).flag}</span>}
+              {scope === 'all' && <span className="board-flag" title={countryOf(r.country)[ui]}>{countryOf(r.country).flag}</span>}
               <span className="board-pts num">{r.points.toLocaleString()}</span>
             </li>
           ))}

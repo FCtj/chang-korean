@@ -7,6 +7,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { findRound, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
+import { nativeInfo } from '../i18n'
 import {
   completeSession,
   getState,
@@ -427,8 +428,8 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                 value={s.settings.direction}
                 onChange={(direction) => setSettings({ direction })}
                 options={[
-                  { id: 'ko2n', label: `${t('korean')} → ${t('lao')}` },
-                  { id: 'n2ko', label: `${t('lao')} → ${t('korean')}` },
+                  { id: 'ko2n', label: `${t('korean')} → ${t(nativeInfo(s.native).key)}` },
+                  { id: 'n2ko', label: `${t(nativeInfo(s.native).key)} → ${t('korean')}` },
                   { id: 'mix', label: t('dirMix') },
                 ]}
               />

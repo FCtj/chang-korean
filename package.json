@@ -1,7 +1,7 @@
 {
   "name": "chang-korean",
   "private": true,
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "description": "라오스 학습자를 위한 그림·소리 한국어 단어 앱 (MVP)",
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "vite build",
     "build:single": "vite build --mode single && node scripts/make-artifact.mjs && node scripts/make-standalone.mjs",
     "typecheck": "tsc --noEmit",
-    "test": "node scripts/check-words.mjs",
+    "test": "node scripts/check-words.mjs && node scripts/check-translations.mjs th && node scripts/check-translations.mjs vi",
     "android:sync": "npm run build && cap sync android",
     "android:apk": "npm run android:sync && cd android && ./gradlew assembleDebug",
     "android:open": "cap open android",

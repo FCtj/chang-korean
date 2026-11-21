@@ -3574,3 +3574,153 @@ button:disabled {
 .cheer {
   animation: bounce-in 0.55s cubic-bezier(0.3, 1.4, 0.5, 1) both, float 2.4s ease-in-out 0.6s infinite;
 }
+
+/* ───────── v0.9: 라오어 · 태국어 · 베트남어(베타) ───────── */
+:root {
+  --font-th: 'Noto Sans Thai Looped', 'Noto Sans Thai', 'Leelawadee UI', 'Thonburi', 'Tahoma', system-ui, sans-serif;
+  --font-latin-vi: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+/* 뜻(학습자 언어) 글꼴 */
+:root[data-native='th'] {
+  --font-lo: var(--font-th);
+}
+:root[data-native='vi'] {
+  --font-lo: var(--font-latin-vi);
+}
+/* 화면 글꼴: Fredoka 에는 베트남어 성조 글자가 없어서 시스템 글꼴로 */
+:root[data-ui='th'] {
+  --font-body: var(--font-th);
+}
+:root[data-ui='vi'] {
+  --font-cute: var(--font-latin-vi);
+  --font-body: var(--font-latin-vi);
+}
+
+.native-picker {
+  display: grid;
+  gap: 10px;
+}
+.native-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.native-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px 12px;
+  border: 2.5px solid var(--line);
+  border-radius: 20px;
+  background: #fffafc;
+  color: var(--ink);
+  box-shadow: 0 4px 0 var(--line);
+  transition: transform 0.12s, border-color 0.15s, background 0.15s;
+}
+.native-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--line);
+}
+.native-card .native-flag {
+  font-family: var(--font-emoji);
+  font-size: 2.1rem;
+  line-height: 1;
+}
+.native-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+}
+.native-name {
+  font-size: 1.12rem;
+  font-weight: 600;
+}
+.nf-lo {
+  font-family: 'Noto Sans Lao Looped', 'Noto Sans Lao', system-ui, sans-serif;
+}
+.nf-th {
+  font-family: var(--font-th);
+}
+.nf-vi {
+  font-family: var(--font-latin-vi);
+}
+.native-arrow {
+  font-family: var(--font-ko);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.native-card.on {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  box-shadow: 0 4px 0 #ffc3d6;
+}
+.native-card.on .native-arrow {
+  color: var(--pink-deep);
+}
+.native-check {
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--pink-deep);
+  color: #fff;
+  font-size: 0.9rem;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(236, 95, 142, 0.35);
+  animation: bounce-in 0.3s ease-out;
+}
+/* 베트남어(베타): 가로로 작게 */
+.native-card.beta {
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 16px;
+  border-style: dashed;
+  box-shadow: none;
+}
+.native-card.beta .native-flag {
+  font-size: 1.4rem;
+}
+.native-card.beta .native-text {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
+}
+.native-card.beta .native-name {
+  font-size: 0.98rem;
+}
+.native-card.beta.on {
+  border-style: solid;
+  border-color: var(--lilac-deep);
+  background: var(--lilac-soft);
+}
+.native-card.beta.on .native-check {
+  background: var(--lilac-deep);
+}
+.beta-tag {
+  font-family: var(--font-cute);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--lilac);
+  color: #fff;
+}
+.beta-note {
+  background: var(--lilac-soft);
+  border-radius: 12px;
+  padding: 8px 10px;
+  color: var(--lilac-deep);
+}
+@media (prefers-reduced-motion: reduce) {
+  .native-check {
+    animation: none;
+  }
+}

@@ -1,21 +1,26 @@
 import { useEffect, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
 import type { Lang, Purpose } from '../data/words'
-import { makeT } from '../i18n'
+import { makeT, nativeInfo } from '../i18n'
 import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
-import { resetAll, setSettings, update, useStore, type Direction, type Order } from '../store'
+import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
+import NativePicker from './NativePicker'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
 import { backendReady, COUNTRIES, deleteMyData, setCountry, signInWithFacebook, signOut, useAuth } from '../backend'
 
-const SAMPLE: Partial<Record<Lang, string>> = { ko: '안녕하세요', lo: 'ສະບາຍດີ' }
 
 export default function SettingsScreen() {
   const s = useStore()
   const { t, push } = useApp()
   const [name, setName] = useState(s.nickname)
-  const [voices, setVoices] = useState<{ ko: boolean | null; lo: boolean | null }>({ ko: null, lo: null })
+  const [voices, setVoices] = useState<Partial<Record<Lang, boolean | null>>>({})
+  const me = nativeInfo(s.native)
+  const voiceLangs: { lang: Lang; name: string; sample: string }[] = [
+    { lang: 'ko', name: '한국어', sample: '안녕하세요' },
+    { lang: s.native, name: me.name, sample: me.hello },
+  ]
   const [confirmReset, setConfirmReset] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deletedMsg, setDeletedMsg] = useState(false)
@@ -23,15 +28,22 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     let alive = true
-    ;(['ko', 'lo'] as const).forEach((l) => hasVoice(l).then((ok) => alive && setVoices((v) => ({ ...v, [l]: ok }))))
+    ;(['ko', s.native] as const).forEach((l) => hasVoice(l).then((ok) => alive && setVoices((v) => ({ ...v, [l]: ok }))))
     return () => {
       alive = false
     }
-  }, [])
+  }, [s.native])
 
   return (
     <div className="page">
       <h1 className="h1">{t('tabSettings')}</h1>
+
+      <section className="panel form">
+        <h2 className="h3">🌏 {t('myLang')}</h2>
+        <NativePicker value={s.native} onChange={(n) => setLanguage(n)} />
+        <p className="note">{t('myLangHint')}</p>
+        {s.native === 'vi' && <p className="note beta-note">🧪 {t('viBetaNote')}</p>}
+      </section>
 
       <section className="panel form">
         <h2 className="h3">🐘 {t('account')}</h2>
@@ -61,7 +73,7 @@ export default function SettingsScreen() {
           <div className="country-chips" role="radiogroup" aria-label={t('country')}>
             {COUNTRIES.map((c) => (
               <button key={c.code} role="radio" aria-checked={s.country === c.code} className={s.country === c.code ? 'cchip on' : 'cchip'} onClick={() => setCountry(c.code)}>
-                <span className="flag">{c.flag}</span> {s.ui === 'ko' ? c.ko : c.lo}
+                <span className="flag">{c.flag}</span> {c[s.ui]}
               </button>
             ))}
           </div>
@@ -84,7 +96,7 @@ export default function SettingsScreen() {
             value={s.ui}
             onChange={(l) => update((st) => ({ ...st, ui: l }))}
             options={[
-              { id: 'lo', label: '🇱🇦 ພາສາລາວ' },
+              { id: s.native, label: `${me.flag} ${me.name}` },
               { id: 'ko', label: '🇰🇷 한국어' },
             ]}
           />
@@ -110,8 +122,8 @@ export default function SettingsScreen() {
             value={s.settings.direction}
             onChange={(direction) => setSettings({ direction })}
             options={[
-              { id: 'ko2n', label: `${t('korean')} → ${t('lao')}` },
-              { id: 'n2ko', label: `${t('lao')} → ${t('korean')}` },
+              { id: 'ko2n', label: `${t('korean')} → ${t(me.key)}` },
+              { id: 'n2ko', label: `${t(me.key)} → ${t('korean')}` },
               { id: 'mix', label: t('dirMix') },
             ]}
           />
@@ -137,11 +149,11 @@ export default function SettingsScreen() {
 
       <section className="panel form">
         <h2 className="h3">🔊 {t('voice')}</h2>
-        {(['ko', 'lo'] as const).map((l) => (
+        {voiceLangs.map(({ lang: l, name, sample }) => (
           <div key={l} className="voice-row">
-            <span className="voice-name">{l === 'ko' ? '한국어' : 'ພາສາລາວ'}</span>
-            <span className={voices[l] ? 'chip chip-mint' : 'chip'}>{voices[l] === null ? '…' : voices[l] ? t('voiceOk') : t('voiceMissing')}</span>
-            <button className="btn btn-soft sm" onClick={() => speakText(SAMPLE[l]!, l)}>
+            <span className="voice-name">{name}</span>
+            <span className={voices[l] ? 'chip chip-mint' : 'chip'}>{voices[l] == null ? '…' : voices[l] ? t('voiceOk') : t('voiceMissing')}</span>
+            <button className="btn btn-soft sm" onClick={() => speakText(sample, l)}>
               <Icon name="speaker" size={16} /> {t('test')}
             </button>
           </div>
@@ -186,7 +198,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.8.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.9.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )
@@ -201,7 +213,7 @@ const PURPOSES: { id: Purpose; icon: string; key: 'pWork' | 'pTravel' | 'pSchool
 ]
 
 /** 배우는 목적 고르기 (여러 개) */
-export function PurposePicker({ ui, value, onChange, big = false }: { ui: 'lo' | 'ko'; value: Purpose[]; onChange: (v: Purpose[]) => void; big?: boolean }) {
+export function PurposePicker({ ui, value, onChange, big = false }: { ui: UiLang; value: Purpose[]; onChange: (v: Purpose[]) => void; big?: boolean }) {
   const { t } = makeT(ui)
   return (
     <div className={big ? 'purpose-grid big' : 'purpose-grid'} role="group" aria-label={t('myPurpose')}>

@@ -1,0 +1,1099 @@
+# unit	ko	romanization	lao	emoji	existing_thai
+
+## r1 (tier 1) — 숫자 · 인사 · 가족 · 몸
+r1	하나	hana	ໜຶ່ງ	1️⃣	หนึ่ง
+r1	둘	dul	ສອງ	2️⃣	สอง
+r1	셋	set	ສາມ	3️⃣	สาม
+r1	넷	net	ສີ່	4️⃣	สี่
+r1	다섯	daseot	ຫ້າ	5️⃣	ห้า
+r1	여섯	yeoseot	ຫົກ	6️⃣	หก
+r1	일곱	ilgop	ເຈັດ	7️⃣	เจ็ด
+r1	여덟	yeodeol	ແປດ	8️⃣	แปด
+r1	아홉	ahop	ເກົ້າ	9️⃣	เก้า
+r1	열	yeol	ສິບ	🔟	สิบ
+r1	안녕하세요	annyeonghaseyo	ສະບາຍດີ	🙋	สวัสดี
+r1	감사합니다	gamsahamnida	ຂອບໃຈ	🙏	ขอบคุณ
+r1	미안합니다	mianhamnida	ຂໍໂທດ	🙇	ขอโทษ
+r1	네	ne	ແມ່ນ	⭕	ใช่
+r1	아니요	aniyo	ບໍ່ແມ່ນ	❌	ไม่ใช่
+r1	안녕히 가세요	annyeonghi gaseyo	ລາກ່ອນ	👋	ลาก่อน
+r1	괜찮아요	gwaenchanayo	ບໍ່ເປັນຫຍັງ	👌	ไม่เป็นไร
+r1	사랑해요	saranghaeyo	ຂ້ອຍຮັກເຈົ້າ	🥰	ฉันรักคุณ
+r1	맛있어요	masisseoyo	ແຊບ	😋	อร่อย
+r1	축하해요	chukahaeyo	ຂໍສະແດງຄວາມຍິນດີ	🎉	ยินดีด้วย
+r1	엄마	eomma	ແມ່	👩	แม่
+r1	아빠	appa	ພໍ່	👨	พ่อ
+r1	아기	agi	ແອນ້ອຍ	👶	เด็กทารก
+r1	할머니	halmeoni	ແມ່ຕູ້	👵	ยาย
+r1	할아버지	harabeoji	ພໍ່ຕູ້	👴	ปู่
+r1	가족	gajok	ຄອບຄົວ	👨‍👩‍👧	ครอบครัว
+r1	친구	chingu	ໝູ່	👫	เพื่อน
+r1	선생님	seonsaengnim	ຄູ	👩‍🏫	ครู
+r1	학생	haksaeng	ນັກຮຽນ	👨‍🎓	นักเรียน
+r1	의사	uisa	ທ່ານໝໍ	👨‍⚕️	หมอ
+r1	경찰	gyeongchal	ຕຳຫຼວດ	👮	ตำรวจ
+r1	사람	saram	ຄົນ	🧍	คน
+r1	눈	nun	ຕາ	👁️	ตา
+r1	코	ko	ດັງ	👃	จมูก
+r1	입	ip	ປາກ	👄	ปาก
+r1	귀	gwi	ຫູ	👂	หู
+r1	손	son	ມື	✋	มือ
+r1	발	bal	ຕີນ	🦶	เท้า
+r1	다리	dari	ຂາ	🦵	ขา
+r1	팔	pal	ແຂນ	💪	แขน
+r1	치아	chia	ແຂ້ວ	🦷	ฟัน
+r1	혀	hyeo	ລີ້ນ	👅	ลิ้น
+r1	얼굴	eolgul	ໃບໜ້າ	🙂	ใบหน้า
+r1	피	pi	ເລືອດ	🩸	เลือด
+r1	뼈	ppyeo	ກະດູກ	🦴	กระดูก
+r1	물	mul	ນ້ຳ	💧	น้ำ
+r1	밥	bap	ເຂົ້າ	🍚	ข้าว
+r1	집	jip	ເຮືອນ	🏠	บ้าน
+r1	돈	don	ເງິນ	💰	เงิน
+r1	화장실	hwajangsil	ຫ້ອງນ້ຳ	🚻	ห้องน้ำ
+
+## r2 (tier 1) — 과일 · 음식 · 동물 · 자연
+r2	사과	sagwa	ໝາກແອັບເປີ້ນ	🍎	แอปเปิ้ล
+r2	바나나	banana	ໝາກກ້ວຍ	🍌	กล้วย
+r2	포도	podo	ໝາກອະງຸ່ນ	🍇	องุ่น
+r2	수박	subak	ໝາກໂມ	🍉	แตงโม
+r2	딸기	ttalgi	ໝາກສະຕໍເບີຣີ	🍓	สตรอว์เบอร์รี
+r2	망고	manggo	ໝາກມ່ວງ	🥭	มะม่วง
+r2	오렌지	orenji	ໝາກກ້ຽງ	🍊	ส้ม
+r2	코코넛	kokoneot	ໝາກພ້າວ	🥥	มะพร้าว
+r2	파인애플	painaepeul	ໝາກນັດ	🍍	สับปะรด
+r2	레몬	remon	ໝາກນາວ	🍋	มะนาว
+r2	빵	ppang	ເຂົ້າຈີ່	🍞	ขนมปัง
+r2	우유	uyu	ນົມ	🥛	นม
+r2	커피	keopi	ກາເຟ	☕	กาแฟ
+r2	녹차	nokcha	ຊາຂຽວ	🍵	ชาเขียว
+r2	계란	gyeran	ໄຂ່	🥚	ไข่
+r2	고기	gogi	ຊີ້ນ	🥩	เนื้อ
+r2	생선	saengseon	ປາ	🐟	ปลา
+r2	라면	ramyeon	ໝີ່ສຳເລັດຮູບ	🍜	บะหมี่กึ่งสำเร็จรูป
+r2	치킨	chikin	ໄກ່ທອດ	🍗	ไก่ทอด
+r2	케이크	keikeu	ເຄັກ	🍰	เค้ก
+r2	아이스크림	aiseukeurim	ກະແລ້ມ	🍦	ไอศกรีม
+r2	주스	juseu	ນ້ຳໝາກໄມ້	🥤	น้ำผลไม้
+r2	개	gae	ໝາ	🐕	หมา
+r2	고양이	goyangi	ແມວ	🐈	แมว
+r2	코끼리	kokkiri	ຊ້າງ	🐘	ช้าง
+r2	소	so	ງົວ	🐄	วัว
+r2	돼지	dwaeji	ໝູ	🐖	หมู
+r2	닭	dak	ໄກ່	🐓	ไก่
+r2	말	mal	ມ້າ	🐎	ม้า
+r2	새	sae	ນົກ	🐦	นก
+r2	원숭이	wonsungi	ລີງ	🐒	ลิง
+r2	호랑이	horangi	ເສືອ	🐅	เสือ
+r2	토끼	tokki	ກະຕ່າຍ	🐇	กระต่าย
+r2	뱀	baem	ງູ	🐍	งู
+r2	쥐	jwi	ໜູ	🐁	หนู
+r2	오리	ori	ເປັດ	🦆	เป็ด
+r2	해	hae	ຕາເວັນ	☀️	พระอาทิตย์
+r2	달	dal	ພະຈັນ	🌙	พระจันทร์
+r2	별	byeol	ດາວ	⭐	ดาว
+r2	비	bi	ຝົນ	🌧️	ฝน
+r2	구름	gureum	ເມກ	☁️	เมฆ
+r2	바람	baram	ລົມ	🌬️	ลม
+r2	산	san	ພູ	⛰️	ภูเขา
+r2	바다	bada	ທະເລ	🌊	ทะเล
+r2	나무	namu	ຕົ້ນໄມ້	🌳	ต้นไม้
+r2	꽃	kkot	ດອກໄມ້	🌸	ดอกไม้
+r2	불	bul	ໄຟ	🔥	ไฟ
+r2	강	gang	ແມ່ນ້ຳ	🏞️	แม่น้ำ
+r2	섬	seom	ເກາະ	🏝️	เกาะ
+r2	무지개	mujigae	ສາຍຮຸ້ງ	🌈	สายรุ้ง
+
+## r3 (tier 2) — 색깔 · 물건 · 옷 · 탈것
+r3	빨간색	ppalgansaek	ສີແດງ	🟥	สีแดง
+r3	파란색	paransaek	ສີຟ້າ	🟦	สีน้ำเงิน
+r3	노란색	noransaek	ສີເຫຼືອງ	🟨	สีเหลือง
+r3	초록색	choroksaek	ສີຂຽວ	🟩	สีเขียว
+r3	검은색	geomeunsaek	ສີດຳ	⬛	สีดำ
+r3	하얀색	hayansaek	ສີຂາວ	⬜	สีขาว
+r3	주황색	juhwangsaek	ສີສົ້ມ	🟧	สีส้ม
+r3	보라색	borasaek	ສີມ່ວງ	🟪	สีม่วง
+r3	갈색	galsaek	ສີນ້ຳຕານ	🟫	สีน้ำตาล
+r3	휴대폰	hyudaepon	ໂທລະສັບ	📱	โทรศัพท์มือถือ
+r3	컴퓨터	keompyuteo	ຄອມພິວເຕີ	💻	คอมพิวเตอร์
+r3	시계	sigye	ໂມງ	⌚	นาฬิกา
+r3	가방	gabang	ກະເປົາ	🎒	กระเป๋า
+r3	책	chaek	ປຶ້ມ	📖	หนังสือ
+r3	연필	yeonpil	ສໍດຳ	✏️	ดินสอ
+r3	우산	usan	ຄັນຮົ່ມ	☂️	ร่ม
+r3	열쇠	yeolsoe	ກະແຈ	🔑	กุญแจ
+r3	안경	angyeong	ແວ່ນຕາ	👓	แว่นตา
+r3	의자	uija	ຕັ່ງ	🪑	เก้าอี้
+r3	침대	chimdae	ຕຽງ	🛏️	เตียง
+r3	문	mun	ປະຕູ	🚪	ประตู
+r3	텔레비전	tellebijeon	ໂທລະທັດ	📺	โทรทัศน์
+r3	카메라	kamera	ກ້ອງຖ່າຍຮູບ	📷	กล้องถ่ายรูป
+r3	선물	seonmul	ຂອງຂວັນ	🎁	ของขวัญ
+r3	가위	gawi	ມີດຕັດ	✂️	กรรไกร
+r3	티셔츠	tisyeocheu	ເສື້ອຍືດ	👕	เสื้อยืด
+r3	바지	baji	ໂສ້ງ	👖	กางเกง
+r3	원피스	wonpiseu	ຊຸດກະໂປ່ງ	👗	ชุดเดรส
+r3	운동화	undonghwa	ເກີບຜ້າໃບ	👟	รองเท้าผ้าใบ
+r3	구두	gudu	ເກີບໜັງ	👞	รองเท้าหนัง
+r3	모자	moja	ໝວກ	🧢	หมวก
+r3	양말	yangmal	ຖົງຕີນ	🧦	ถุงเท้า
+r3	장갑	janggap	ຖົງມື	🧤	ถุงมือ
+r3	목도리	mokdori	ຜ້າພັນຄໍ	🧣	ผ้าพันคอ
+r3	반지	banji	ແຫວນ	💍	แหวน
+r3	자동차	jadongcha	ລົດໃຫຍ່	🚗	รถยนต์
+r3	버스	beoseu	ລົດເມ	🚌	รถบัส
+r3	택시	taeksi	ລົດແທັກຊີ	🚕	แท็กซี่
+r3	기차	gicha	ລົດໄຟ	🚆	รถไฟ
+r3	지하철	jihacheol	ລົດໄຟໃຕ້ດິນ	🚇	รถไฟใต้ดิน
+r3	비행기	bihaenggi	ຍົນ	✈️	เครื่องบิน
+r3	배	bae	ເຮືອ	🚢	เรือ
+r3	자전거	jajeongeo	ລົດຖີບ	🚲	จักรยาน
+r3	오토바이	otobai	ລົດຈັກ	🏍️	มอเตอร์ไซค์
+r3	트럭	teureok	ລົດບັນທຸກ	🚚	รถบรรทุก
+r3	신호등	sinhodeung	ໄຟສັນຍານ	🚦	ไฟจราจร
+r3	표	pyo	ປີ້	🎫	ตั๋ว
+r3	지도	jido	ແຜນທີ່	🗺️	แผนที่
+r3	짐	jim	ກະເປົາເດີນທາງ	🧳	กระเป๋าเดินทาง
+r3	주유소	juyuso	ປ້ຳນ້ຳມັນ	⛽	ปั๊มน้ำมัน
+
+## r4 (tier 2) — 장소 · 직업 · 감정 · 생활
+r4	학교	hakgyo	ໂຮງຮຽນ	🏫	โรงเรียน
+r4	병원	byeongwon	ໂຮງໝໍ	🏥	โรงพยาบาล
+r4	은행	eunhaeng	ທະນາຄານ	🏦	ธนาคาร
+r4	회사	hoesa	ບໍລິສັດ	🏢	บริษัท
+r4	공장	gongjang	ໂຮງງານ	🏭	โรงงาน
+r4	마트	mateu	ຊຸບເປີມາເກັດ	🛒	ซูเปอร์มาร์เก็ต
+r4	식당	sikdang	ຮ້ານອາຫານ	🍽️	ร้านอาหาร
+r4	호텔	hotel	ໂຮງແຮມ	🏨	โรงแรม
+r4	공항	gonghang	ສະໜາມບິນ	🛫	สนามบิน
+r4	우체국	ucheguk	ໄປສະນີ	🏤	ไปรษณีย์
+r4	교회	gyohoe	ໂບດ	⛪	โบสถ์
+r4	절	jeol	ວັດ	🛕	วัด
+r4	공원	gongwon	ສວນສາທາລະນະ	⛲	สวนสาธารณะ
+r4	경찰서	gyeongchalseo	ສະຖານີຕຳຫຼວດ	🚓	สถานีตำรวจ
+r4	편의점	pyeonuijeom	ຮ້ານສະດວກຊື້	🏪	ร้านสะดวกซื้อ
+r4	약국	yakguk	ຮ້ານຂາຍຢາ	💊	ร้านขายยา
+r4	요리사	yorisa	ພໍ່ຄົວ	👨‍🍳	เชฟ
+r4	농부	nongbu	ຊາວນາ	👨‍🌾	ชาวนา
+r4	소방관	sobanggwan	ພະນັກງານດັບເພີງ	👨‍🚒	นักดับเพลิง
+r4	가수	gasu	ນັກຮ້ອງ	👩‍🎤	นักร้อง
+r4	군인	gunin	ທະຫານ	💂	ทหาร
+r4	조종사	jojongsa	ນັກບິນ	👨‍✈️	นักบิน
+r4	기술자	gisulja	ຊ່າງ	👨‍🔧	ช่าง
+r4	회사원	hoesawon	ພະນັກງານບໍລິສັດ	👨‍💼	พนักงานบริษัท
+r4	과학자	gwahakja	ນັກວິທະຍາສາດ	👩‍🔬	นักวิทยาศาสตร์
+r4	화가	hwaga	ຊ່າງແຕ້ມ	👩‍🎨	จิตรกร
+r4	기뻐요	gippeoyo	ດີໃຈ	😄	ดีใจ
+r4	슬퍼요	seulpeoyo	ເສົ້າໃຈ	😢	เศร้า
+r4	화나요	hwanayo	ໃຈຮ້າຍ	😠	โกรธ
+r4	무서워요	museowoyo	ຢ້ານ	😱	กลัว
+r4	피곤해요	pigonhaeyo	ເມື່ອຍ	😫	เหนื่อย
+r4	아파요	apayo	ບໍ່ສະບາຍ	🤒	ไม่สบาย
+r4	졸려요	jollyeoyo	ງ່ວງນອນ	😴	ง่วงนอน
+r4	더워요	deowoyo	ຮ້ອນ	🥵	ร้อน
+r4	추워요	chuwoyo	ໜາວ	🥶	หนาว
+r4	놀랐어요	nollasseoyo	ຕົກໃຈ	😲	ตกใจ
+r4	아침	achim	ຕອນເຊົ້າ	🌅	ตอนเช้า
+r4	밤	bam	ຕອນກາງຄືນ	🌃	กลางคืน
+r4	생일	saengil	ວັນເກີດ	🎂	วันเกิด
+r4	봄	bom	ລະດູໃບໄມ້ປົ່ງ	🌱	ฤดูใบไม้ผลิ
+r4	여름	yeoreum	ລະດູຮ້ອນ	🏖️	ฤดูร้อน
+r4	가을	gaeul	ລະດູໃບໄມ້ຫຼົ່ນ	🍂	ฤดูใบไม้ร่วง
+r4	겨울	gyeoul	ລະດູໜາວ	⛄	ฤดูหนาว
+r4	달력	dallyeok	ປະຕິທິນ	📅	ปฏิทิน
+r4	사진	sajin	ຮູບຖ່າຍ	🖼️	รูปถ่าย
+r4	음악	eumak	ດົນຕີ	🎵	ดนตรี
+r4	영화	yeonghwa	ຮູບເງົາ	🎬	หนัง
+r4	축구	chukgu	ບານເຕະ	⚽	ฟุตบอล
+r4	쇼핑	syoping	ຊື້ເຄື່ອງ	🛍️	ช้อปปิ้ง
+r4	게임	geim	ເກມ	🎮	เกม
+
+## r5 (tier 2) — 부엌 · 채소 · 간식 · 해산물
+r5	감자	gamja	ມັນຝະລັ່ງ	🥔	
+r5	당근	danggeun	ຫົວກາລົດ	🥕	
+r5	옥수수	oksusu	ສາລີ	🌽	
+r5	토마토	tomato	ໝາກເລັ່ນ	🍅	
+r5	오이	oi	ໝາກແຕງ	🥒	
+r5	버섯	beoseot	ເຫັດ	🍄	
+r5	고추	gochu	ໝາກເຜັດ	🌶️	
+r5	마늘	maneul	ກະທຽມ	🧄	
+r5	양파	yangpa	ຫົວຜັກບົ່ວ	🧅	
+r5	쌀	ssal	ເຂົ້າສານ	🌾	
+r5	소금	sogeum	ເກືອ	🧂	
+r5	설탕	seoltang	ນ້ຳຕານ	🍬	
+r5	기름	gireum	ນ້ຳມັນ	🛢️	
+r5	꿀	kkul	ນ້ຳເຜິ້ງ	🍯	
+r5	치즈	chijeu	ເນີຍແຂງ	🧀	
+r5	과자	gwaja	ເຂົ້າໜົມ	🍪	
+r5	사탕	satang	ເຂົ້າໜົມອົມ	🍭	
+r5	초콜릿	chokollit	ຊັອກໂກແລັດ	🍫	
+r5	팝콘	papkon	ປັອບຄອນ	🍿	
+r5	도넛	doneot	ໂດນັດ	🍩	
+r5	햄버거	haembeogeo	ແຮມເບີເກີ	🍔	
+r5	피자	pija	ພິຊຊ່າ	🍕	
+r5	샌드위치	saendeuwichi	ແຊນວິດ	🥪	
+r5	김밥	gimbap	ກິມບັບ	🍙	
+r5	국	guk	ແກງ	🍲	
+r5	만두	mandu	ກ້ຽວ	🥟	
+r5	새우	saeu	ກຸ້ງ	🍤	
+r5	게	ge	ປູ	🦀	
+r5	오징어	ojingeo	ປາມຶກ	🦑	
+r5	조개	jogae	ຫອຍ	🐚	
+r5	맥주	maekju	ເບຍ	🍺	
+r5	술	sul	ເຫຼົ້າ	🍶	
+r5	와인	wain	ເຫຼົ້າແວງ	🍷	
+r5	콜라	kolla	ໂຄລາ	🥤	
+r5	얼음	eoreum	ນ້ຳກ້ອນ	🧊	
+r5	숟가락	sutgarak	ບ່ວງ	🥄	
+r5	젓가락	jeotgarak	ໄມ້ທູ່	🥢	
+r5	칼	kal	ມີດ	🔪	
+r5	그릇	geureut	ຖ້ວຍ	🥣	
+r5	병	byeong	ຂວດ	🍾	
+r5	점심	jeomsim	ອາຫານທ່ຽງ	🍱	
+r5	저녁	jeonyeok	ອາຫານແລງ	🍛	
+r5	디저트	dijeoteu	ຂອງຫວານ	🍮	
+r5	요리	yori	ການແຕ່ງອາຫານ	🍳	
+r5	배달	baedal	ການຈັດສົ່ງ	🛵	
+r5	체리	cheri	ໝາກເຊີຣີ	🍒	
+r5	키위	kiwi	ໝາກກີວີ	🥝	
+r5	아보카도	abokado	ອາໂວກາໂດ	🥑	
+r5	땅콩	ttangkong	ຖົ່ວດິນ	🥜	
+r5	고구마	goguma	ມັນດ້າງ	🍠	
+
+## r6 (tier 2) — 집 · 물건 · 요일 · 곤충
+r6	거실	geosil	ຫ້ອງຮັບແຂກ	🛋️	
+r6	부엌	bueok	ເຮືອນຄົວ	🚰	
+r6	방	bang	ຫ້ອງ	🛌	
+r6	창문	changmun	ປ່ອງຢ້ຽມ	🪟	
+r6	마당	madang	ເດີ່ນບ້ານ	🏡	
+r6	냉장고	naengjanggo	ຕູ້ເຢັນ	❄️	
+r6	세탁기	setakgi	ເຄື່ອງຊັກຜ້າ	🧺	
+r6	에어컨	eeokeon	ແອ	🌬️	
+r6	전등	jeondeung	ດອກໄຟ	💡	
+r6	라디오	radio	ວິທະຍຸ	📻	
+r6	샤워	syawo	ອາບນ້ຳ	🚿	
+r6	비누	binu	ສະບູ	🧼	
+r6	휴지	hyuji	ເຈ້ຍອະນາໄມ	🧻	
+r6	거울	geoul	ແວ່ນແຍງ	🪞	
+r6	칫솔	chitsol	ແປງຖູແຂ້ວ	🪥	
+r6	공책	gongchaek	ປຶ້ມຂຽນ	📓	
+r6	펜	pen	ບິກ	🖊️	
+r6	종이	jongi	ເຈ້ຍ	📄	
+r6	편지	pyeonji	ຈົດໝາຍ	✉️	
+r6	상자	sangja	ກ່ອງ	📦	
+r6	망치	mangchi	ຄ້ອນ	🔨	
+r6	배터리	baeteori	ແບັດເຕີຣີ	🔋	
+r6	플러그	peulleogeu	ປລັກໄຟ	🔌	
+r6	자물쇠	jamulsoe	ແມ່ກະແຈ	🔒	
+r6	양초	yangcho	ທຽນ	🕯️	
+r6	월요일	woryoil	ວັນຈັນ	🌙	
+r6	화요일	hwayoil	ວັນອັງຄານ	🔥	
+r6	수요일	suyoil	ວັນພຸດ	💧	
+r6	목요일	mogyoil	ວັນພະຫັດ	🌳	
+r6	금요일	geumyoil	ວັນສຸກ	💰	
+r6	토요일	toyoil	ວັນເສົາ	⛰️	
+r6	일요일	iryoil	ວັນອາທິດ	☀️	
+r6	주말	jumal	ທ້າຍອາທິດ	🎈	
+r6	오늘	oneul	ມື້ນີ້	📍	
+r6	내일	naeil	ມື້ອື່ນ	⏩	
+r6	어제	eoje	ມື້ວານ	⏪	
+r6	지금	jigeum	ຕອນນີ້	⏱️	
+r6	시간	sigan	ເວລາ	⏳	
+r6	분	bun	ນາທີ	⏲️	
+r6	매일	maeil	ທຸກມື້	🔁	
+r6	곰	gom	ໝີ	🐻	
+r6	사자	saja	ສິງໂຕ	🦁	
+r6	기린	girin	ຢີລາບ	🦒	
+r6	펭귄	pengwin	ນົກເພັນກວິນ	🐧	
+r6	거북이	geobugi	ເຕົ່າ	🐢	
+r6	나비	nabi	ແມງກະເບື້ອ	🦋	
+r6	벌	beol	ເຜິ້ງ	🐝	
+r6	개미	gaemi	ມົດ	🐜	
+r6	모기	mogi	ຍຸງ	🦟	
+r6	거미	geomi	ແມງມຸມ	🕷️	
+
+## r7 (tier 3) — 기본 동사 ① 매일 하는 일
+r7	먹다	meokda	ກິນ	🍴	
+r7	마시다	masida	ດື່ມ	🥤	
+r7	자다	jada	ນອນຫຼັບ	😴	
+r7	일어나다	ireonada	ຕື່ນນອນ	⏰	
+r7	씻다	ssitda	ລ້າງ	🧼	
+r7	보다	boda	ເບິ່ງ	👀	
+r7	듣다	deutda	ຟັງ	🎧	
+r7	말하다	malhada	ເວົ້າ	🗣️	
+r7	읽다	ikda	ອ່ານ	📖	
+r7	쓰다	sseuda	ຂຽນ	✍️	
+r7	가다	gada	ໄປ	➡️	
+r7	오다	oda	ມາ	⬅️	
+r7	걷다	geotda	ຍ່າງ	🚶	
+r7	달리다	dallida	ແລ່ນ	🏃	
+r7	앉다	anda	ນັ່ງ	🪑	
+r7	서다	seoda	ຢືນ	🧍	
+r7	눕다	nupda	ນອນລົງ	🛌	
+r7	웃다	utda	ຫົວ	😆	
+r7	울다	ulda	ຮ້ອງໄຫ້	😭	
+r7	놀다	nolda	ຫຼິ້ນ	🤸	
+r7	공부하다	gongbuhada	ຮຽນ	📚	
+r7	일하다	ilhada	ເຮັດວຽກ	💼	
+r7	쉬다	swida	ພັກຜ່ອນ	🛋️	
+r7	운동하다	undonghada	ອອກກຳລັງກາຍ	🏋️	
+r7	노래하다	noraehada	ຮ້ອງເພງ	🎤	
+r7	춤추다	chumchuda	ເຕັ້ນ	💃	
+r7	수영하다	suyeonghada	ລອຍນ້ຳ	🏊	
+r7	그리다	geurida	ແຕ້ມ	🎨	
+r7	만들다	mandeulda	ສ້າງ	🛠️	
+r7	사다	sada	ຊື້	🛍️	
+r7	팔다	palda	ຂາຍ	🏷️	
+r7	주다	juda	ໃຫ້	🎁	
+r7	받다	batda	ຮັບ	📥	
+r7	보내다	bonaeda	ສົ່ງ	📤	
+r7	찾다	chatda	ຊອກຫາ	🔍	
+r7	열다	yeolda	ເປີດ	🔓	
+r7	닫다	datda	ປິດ	🔐	
+r7	켜다	kyeoda	ເປີດໄຟ	💡	
+r7	끄다	kkeuda	ປິດໄຟ	🌑	
+r7	기다리다	gidarida	ລໍຖ້າ	⏳	
+r7	만나다	mannada	ພົບ	🤝	
+r7	사랑하다	saranghada	ຮັກ	💕	
+r7	좋아하다	joahada	ມັກ	👍	
+r7	싫어하다	sireohada	ບໍ່ມັກ	👎	
+r7	알다	alda	ຮູ້	🧠	
+r7	모르다	moreuda	ບໍ່ຮູ້	❓	
+r7	배우다	baeuda	ຮຽນຮູ້	📝	
+r7	가르치다	gareuchida	ສອນ	👩‍🏫	
+r7	생각하다	saenggakada	ຄິດ	🤔	
+r7	타다	tada	ຂີ່	🚌	
+
+## r8 (tier 3) — 기본 동사 ② 생활 · 이동
+r8	입다	ipda	ນຸ່ງ	👕	
+r8	벗다	beotda	ຖອດ	🧥	
+r8	신다	sinda	ໃສ່ເກີບ	👟	
+r8	자르다	jareuda	ຕັດ	✂️	
+r8	빌리다	billida	ຢືມ	🤲	
+r8	돕다	dopda	ຊ່ວຍ	🙌	
+r8	부르다	bureuda	ເອີ້ນ	📢	
+r8	묻다	mutda	ຖາມ	❔	
+r8	대답하다	daedapada	ຕອບ	💬	
+r8	전화하다	jeonhwahada	ໂທ	📞	
+r8	시작하다	sijakada	ເລີ່ມ	🏁	
+r8	끝나다	kkeunnada	ຈົບ	🔚	
+r8	멈추다	meomchuda	ຢຸດ	🛑	
+r8	계속하다	gyesokada	ສືບຕໍ່	⏯️	
+r8	바꾸다	bakkuda	ປ່ຽນ	🔄	
+r8	들어가다	deureogada	ເຂົ້າໄປ	🚪	
+r8	나가다	nagada	ອອກໄປ	↗️	
+r8	올라가다	ollagada	ຂຶ້ນ	⬆️	
+r8	내려가다	naeryeogada	ລົງ	⬇️	
+r8	돌아가다	doragada	ກັບຄືນ	↩️	
+r8	떨어지다	tteoreojida	ຕົກ	🍂	
+r8	넘어지다	neomeojida	ລົ້ມ	🤕	
+r8	잃어버리다	ireobeorida	ເຮັດເສຍ	😵	
+r8	잊다	itda	ລືມ	🤷	
+r8	기억하다	gieokada	ຈື່	💭	
+r8	청소하다	cheongsohada	ທຳຄວາມສະອາດ	🧹	
+r8	빨래하다	ppallaehada	ຊັກເຄື່ອງ	🧺	
+r8	설거지하다	seolgeojihada	ລ້າງຖ້ວຍ	🍽️	
+r8	정리하다	jeongnihada	ຈັດລຽງ	🗂️	
+r8	버리다	beorida	ຖິ້ມ	🗑️	
+r8	결혼하다	gyeolhonhada	ແຕ່ງງານ	💒	
+r8	태어나다	taeeonada	ເກີດ	🐣	
+r8	죽다	jukda	ຕາຍ	⚰️	
+r8	살다	salda	ອາໄສຢູ່	🏡	
+r8	자라다	jarada	ເຕີບໃຫຍ່	🌱	
+r8	운전하다	unjeonhada	ຂັບລົດ	🚗	
+r8	여행하다	yeohaenghada	ທ່ອງທ່ຽວ	🧳	
+r8	이사하다	isahada	ຍ້າຍບ້ານ	🚚	
+r8	도착하다	dochakada	ມາຮອດ	📍	
+r8	출발하다	chulbalhada	ອອກເດີນທາງ	🛫	
+r8	사용하다	sayonghada	ໃຊ້	🔧	
+r8	고치다	gochida	ສ້ອມແປງ	🛠️	
+r8	준비하다	junbihada	ກະກຽມ	📋	
+r8	연습하다	yeonseupada	ຝຶກຊ້ອມ	🎯	
+r8	이기다	igida	ຊະນະ	🏆	
+r8	지다	jida	ແພ້	😞	
+r8	싸우다	ssauda	ຕໍ່ສູ້	🥊	
+r8	화해하다	hwahaehada	ຄືນດີກັນ	🤗	
+r8	믿다	mitda	ເຊື່ອ	✅	
+r8	걱정하다	geokjeonghada	ເປັນຫ່ວງ	😟	
+
+## r9 (tier 3) — 기본 형용사
+r9	크다	keuda	ໃຫຍ່	🐘	
+r9	작다	jakda	ນ້ອຍ	🐭	
+r9	길다	gilda	ຍາວ	📏	
+r9	짧다	jjalda	ສັ້ນ	🩳	
+r9	넓다	neolda	ກວ້າງ	🏟️	
+r9	좁다	jopda	ແຄບ	🤏	
+r9	높다	nopda	ສູງ	🗼	
+r9	낮다	natda	ຕ່ຳ	📉	
+r9	무겁다	mugeopda	ໜັກ	🧱	
+r9	가볍다	gabyeopda	ເບົາ	🎈	
+r9	많다	manta	ຫຼາຍ	➕	
+r9	적다	jeokda	ໜ້ອຍ	➖	
+r9	빠르다	ppareuda	ໄວ	🚀	
+r9	느리다	neurida	ຊ້າ	🐌	
+r9	새롭다	saeropda	ໃໝ່	✨	
+r9	오래되다	oraedoeda	ເກົ່າ	🏚️	
+r9	깨끗하다	kkaekkeutada	ສະອາດ	🧽	
+r9	더럽다	deoreopda	ເປື້ອນ	💩	
+r9	쉽다	swipda	ງ່າຍ	🙆	
+r9	어렵다	eoryeopda	ຍາກ	🤯	
+r9	달다	dalda	ຫວານ	🍯	
+r9	짜다	jjada	ເຄັມ	🧂	
+r9	맵다	maepda	ເຜັດ	🌶️	
+r9	시다	sida	ສົ້ມ	🍋	
+r9	뜨겁다	tteugeopda	ຮ້ອນ	♨️	
+r9	차갑다	chagapda	ເຢັນ	🧊	
+r9	예쁘다	yeppeuda	ງາມ	🌸	
+r9	귀엽다	gwiyeopda	ໜ້າຮັກ	🐱	
+r9	멋있다	meositda	ເທ່	😎	
+r9	못생기다	motsaenggida	ຂີ້ຮ້າຍ	👹	
+r9	착하다	chakada	ໃຈດີ	😇	
+r9	나쁘다	nappeuda	ຊົ່ວ	😈	
+r9	똑똑하다	ttokttokada	ສະຫຼາດ	🤓	
+r9	부지런하다	bujireonhada	ດຸໝັ່ນ	🐜	
+r9	게으르다	geeureuda	ຂີ້ຄ້ານ	🦥	
+r9	바쁘다	bappeuda	ຫຍຸ້ງ	🏃‍♀️	
+r9	한가하다	hangahada	ຫວ່າງ	🏖️	
+r9	배고프다	baegopeuda	ຫິວ	🤤	
+r9	배부르다	baebureuda	ອີ່ມ	🍚	
+r9	목마르다	mongmareuda	ຫິວນ້ຳ	🏜️	
+r9	좋다	jota	ດີ	⭐	
+r9	재미있다	jaemiitda	ມ່ວນ	🎡	
+r9	재미없다	jaemieopda	ບໍ່ມ່ວນ	😑	
+r9	행복하다	haengbokada	ມີຄວາມສຸກ	🥳	
+r9	외롭다	oeropda	ເຫງົາ	🥀	
+r9	조용하다	joyonghada	ງຽບ	🤫	
+r9	시끄럽다	sikkeureopda	ໜວກຫູ	📣	
+r9	비싸다	bissada	ແພງ	💎	
+r9	싸다	ssada	ຖືກ	💸	
+r9	같다	gatda	ຄືກັນ	👯	
+
+## r10 (tier 3) — 의문사 · 위치 · 부사 · 표현
+r10	누구	nugu	ໃຜ	👤	
+r10	무엇	mueot	ຫຍັງ	⁉️	
+r10	어디	eodi	ໃສ	🗺️	
+r10	언제	eonje	ເມື່ອໃດ	🕰️	
+r10	왜	wae	ເປັນຫຍັງ	🧐	
+r10	어떻게	eotteoke	ແນວໃດ	🧩	
+r10	얼마	eolma	ເທົ່າໃດ	💲	
+r10	몇	myeot	ຈັກ	#️⃣	
+r10	어느	eoneu	ອັນໃດ	👉	
+r10	무슨	museun	ແມ່ນຫຍັງ	🔤	
+r10	위	wi	ເທິງ	🔝	
+r10	아래	arae	ລຸ່ມ	🔻	
+r10	앞	ap	ໜ້າ	▶️	
+r10	뒤	dwi	ຫຼັງ	◀️	
+r10	옆	yeop	ຂ້າງ	↔️	
+r10	안	an	ໃນ	🏠	
+r10	밖	bak	ນອກ	🌳	
+r10	왼쪽	oenjjok	ຊ້າຍ	⬅️	
+r10	오른쪽	oreunjjok	ຂວາ	➡️	
+r10	가운데	gaunde	ກາງ	⏺️	
+r10	많이	mani	ຫຼາຍໆ	📈	
+r10	조금	jogeum	ໜ້ອຍໜຶ່ງ	🔸	
+r10	빨리	ppalli	ໄວໆ	⚡	
+r10	천천히	cheoncheonhi	ຊ້າໆ	🐢	
+r10	정말	jeongmal	ແທ້ໆ	‼️	
+r10	항상	hangsang	ສະເໝີ	♾️	
+r10	자주	jaju	ເລື້ອຍໆ	🔁	
+r10	가끔	gakkeum	ບາງຄັ້ງ	🎲	
+r10	다시	dasi	ອີກຄັ້ງ	🔂	
+r10	먼저	meonjeo	ກ່ອນ	🥇	
+r10	나중에	najunge	ພາຍຫຼັງ	⌛	
+r10	벌써	beolsseo	ແລ້ວ	⌚	
+r10	아직	ajik	ຍັງ	🕐	
+r10	같이	gachi	ນຳກັນ	👭	
+r10	혼자	honja	ຜູ້ດຽວ	🧘	
+r10	그리고	geurigo	ແລະ	🔗	
+r10	그런데	geureonde	ແຕ່ວ່າ	🔀	
+r10	그래서	geuraeseo	ດັ່ງນັ້ນ	⏬	
+r10	왜냐하면	waenyahamyeon	ເພາະວ່າ	💡	
+r10	만약	manyak	ຖ້າ	🤞	
+r10	잠깐만요	jamkkanmanyo	ລໍຖ້າບຶດໜຶ່ງ	✋	
+r10	도와주세요	dowajuseyo	ຊ່ວຍແດ່	🆘	
+r10	알겠어요	algesseoyo	ເຂົ້າໃຈແລ້ວ	👌	
+r10	모르겠어요	moreugesseoyo	ບໍ່ເຂົ້າໃຈ	🤷‍♀️	
+r10	천만에요	cheonmaneyo	ບໍ່ເປັນຫຍັງ	😊	
+r10	백	baek	ຮ້ອຍ	💯	
+r10	천	cheon	ພັນ	🔢	
+r10	만	man	ໝື່ນ	💵	
+r10	원	won	ວອນ	🇰🇷	
+r10	반	ban	ເຄິ່ງ	🌗	
+
+## r11 (tier 4) — 학교 · 과목 · 공부
+r11	국어	gugeo	ພາສາເກົາຫຼີ	📕	
+r11	수학	suhak	ຄະນິດສາດ	📐	
+r11	영어	yeongeo	ພາສາອັງກິດ	🇬🇧	
+r11	과학	gwahak	ວິທະຍາສາດ	🔬	
+r11	역사	yeoksa	ປະຫວັດສາດ	📜	
+r11	미술	misul	ສິລະປະ	🎨	
+r11	체육	cheyuk	ພະລະສຶກສາ	🤾	
+r11	지리	jiri	ພູມສາດ	🌏	
+r11	코딩	koding	ການຂຽນໂປຣແກຣມ	💻	
+r11	도덕	dodeok	ສິນທຳ	🧭	
+r11	교실	gyosil	ຫ້ອງຮຽນ	🏫	
+r11	칠판	chilpan	ກະດານດຳ	🖍️	
+r11	숙제	sukje	ວຽກບ້ານ	📒	
+r11	시험	siheom	ການສອບເສັງ	📝	
+r11	점수	jeomsu	ຄະແນນ	💯	
+r11	질문	jilmun	ຄຳຖາມ	🙋	
+r11	대답	daedap	ຄຳຕອບ	💬	
+r11	문제	munje	ໂຈດ	❓	
+r11	정답	jeongdap	ຄຳຕອບທີ່ຖືກ	✔️	
+r11	실수	silsu	ຄວາມຜິດພາດ	❌	
+r11	학년	hangnyeon	ຊັ້ນປີ	📶	
+r11	방학	banghak	ພັກຮຽນ	🏖️	
+r11	졸업	joreop	ຈົບການສຶກສາ	🎓	
+r11	입학	iphak	ເຂົ້າຮຽນ	🌸	
+r11	기숙사	gisuksa	ຫໍພັກ	🛏️	
+r11	사전	sajeon	ວັດຈະນານຸກົມ	🔎	
+r11	교과서	gyogwaseo	ປຶ້ມແບບຮຽນ	📘	
+r11	도서관	doseogwan	ຫໍສະໝຸດ	🏛️	
+r11	동아리	dongari	ຊົມລົມ	🎸	
+r11	선배	seonbae	ລຸ້ນພີ່	👩‍🎓	
+r11	후배	hubae	ລຸ້ນນ້ອງ	👦	
+r11	반장	banjang	ຫົວໜ້າຫ້ອງ	🎖️	
+r11	출석	chulseok	ການມາຮຽນ	✋	
+r11	지각	jigak	ມາຊ້າ	⏰	
+r11	결석	gyeolseok	ຂາດຮຽນ	🏠	
+r11	설명	seolmyeong	ຄຳອະທິບາຍ	📢	
+r11	발표	balpyo	ການນຳສະເໜີ	🎤	
+r11	토론	toron	ການໂຕ້ວາທີ	🗣️	
+r11	계산	gyesan	ການຄິດໄລ່	🧮	
+r11	번역	beonyeok	ການແປ	🌐	
+r11	더하기	deohagi	ບວກ	➕	
+r11	빼기	ppaegi	ລົບ	➖	
+r11	곱하기	gopagi	ຄູນ	✖️	
+r11	나누기	nanugi	ຫານ	➗	
+r11	숫자	sutja	ຕົວເລກ	🔢	
+r11	실험	silheom	ການທົດລອງ	🧪	
+r11	물질	muljil	ສານ	⚗️	
+r11	온도	ondo	ອຸນຫະພູມ	🌡️	
+r11	무게	muge	ນ້ຳໜັກ	⚖️	
+r11	거리	geori	ໄລຍະທາງ	📏	
+
+## r12 (tier 4) — 몸 · 건강 · 병원
+r12	머리	meori	ຫົວ	💆	
+r12	어깨	eokkae	ບ່າ	🤷‍♂️	
+r12	목	mok	ຄໍ	🦒	
+r12	손가락	songarak	ນິ້ວມື	☝️	
+r12	무릎	mureup	ຫົວເຂົ່າ	🧎	
+r12	발가락	balgarak	ນິ້ວຕີນ	👣	
+r12	피부	pibu	ຜິວໜັງ	🧴	
+r12	머리카락	meorikarak	ຜົມ	💇	
+r12	수염	suyeom	ໜວດ	🧔	
+r12	근육	geunyuk	ກ້າມເນື້ອ	💪	
+r12	감기	gamgi	ໄຂ້ຫວັດ	🤧	
+r12	기침	gichim	ໄອ	😷	
+r12	두통	dutong	ເຈັບຫົວ	🤕	
+r12	복통	boktong	ເຈັບທ້ອງ	😖	
+r12	상처	sangcheo	ບາດແຜ	🩹	
+r12	약	yak	ຢາ	💊	
+r12	주사	jusa	ສັກຢາ	💉	
+r12	수술	susul	ຜ່າຕັດ	🩺	
+r12	간호사	ganhosa	ພະຍາບານ	👩‍⚕️	
+r12	환자	hwanja	ຄົນເຈັບ	🛌	
+r12	구급차	gugeupcha	ລົດສຸກເສີນ	🚑	
+r12	응급실	eunggeupsil	ຫ້ອງສຸກເສີນ	🚨	
+r12	치과	chigwa	ຄລີນິກແຂ້ວ	🦷	
+r12	진찰	jinchal	ການກວດພະຍາດ	👨‍⚕️	
+r12	처방전	cheobangjeon	ໃບສັ່ງຢາ	📋	
+r12	건강	geongang	ສຸຂະພາບ	💚	
+r12	운동	undong	ການອອກກຳລັງກາຍ	🏃	
+r12	다이어트	daieoteu	ການຫຼຸດນ້ຳໜັກ	🥗	
+r12	수면	sumyeon	ການນອນ	💤	
+r12	영양	yeongyang	ໂພຊະນາການ	🥦	
+r12	비타민	bitamin	ວິຕາມິນ	🍊	
+r12	담배	dambae	ຢາສູບ	🚬	
+r12	금연	geumyeon	ຫ້າມສູບຢາ	🚭	
+r12	알레르기	allereugi	ພູມແພ້	🌼	
+r12	스트레스	seuteureseu	ຄວາມຄຽດ	😫	
+r12	안전	anjeon	ຄວາມປອດໄພ	🦺	
+r12	위험	wiheom	ອັນຕະລາຍ	⚠️	
+r12	사고	sago	ອຸບັດຕິເຫດ	💥	
+r12	화재	hwajae	ໄຟໄໝ້	🧯	
+r12	조심	josim	ລະວັງ	🚧	
+r12	기분	gibun	ອາລົມ	🙂	
+r12	긴장	ginjang	ຄວາມເຄັ່ງຕຶງ	😬	
+r12	우울	uul	ຊຶມເສົ້າ	🌧️	
+r12	편안	pyeonan	ສະບາຍໃຈ	😌	
+r12	부끄럽다	bukkeureopda	ອາຍ	😳	
+r12	보건소	bogeonso	ສຸກສາລາ	🏥	
+r12	건강보험	geongangboheom	ປະກັນສຸຂະພາບ	🛡️	
+r12	체온	cheon	ອຸນຫະພູມຮ່າງກາຍ	🌡️	
+r12	혈압	hyeorap	ຄວາມດັນເລືອດ	🩸	
+r12	소독	sodok	ການຂ້າເຊື້ອ	🧽	
+
+## r13 (tier 4) — 쇼핑 · 돈 · 직장
+r13	가격	gagyeok	ລາຄາ	🏷️	
+r13	할인	harin	ສ່ວນຫຼຸດ	🔖	
+r13	영수증	yeongsujeung	ໃບບິນ	🧾	
+r13	계산대	gyesandae	ບ່ອນຈ່າຍເງິນ	🛎️	
+r13	손님	sonnim	ລູກຄ້າ	🙋‍♀️	
+r13	현금	hyeongeum	ເງິນສົດ	💵	
+r13	카드	kadeu	ບັດ	💳	
+r13	동전	dongjeon	ຫຼຽນ	🪙	
+r13	지갑	jigap	ກະເປົາເງິນ	👛	
+r13	거스름돈	geoseureumdon	ເງິນທອນ	💱	
+r13	통장	tongjang	ປຶ້ມບັນຊີ	📗	
+r13	계좌	gyejwa	ບັນຊີ	🔢	
+r13	송금	songgeum	ການໂອນເງິນ	📤	
+r13	저금	jeogeum	ການອອມເງິນ	🐷	
+r13	이자	ija	ດອກເບ້ຍ	📈	
+r13	월급	wolgeup	ເງິນເດືອນ	💰	
+r13	아르바이트	areubaiteu	ວຽກພິເສດ	🕘	
+r13	면접	myeonjeop	ການສຳພາດ	🤝	
+r13	계약서	gyeyakseo	ສັນຍາ	✍️	
+r13	출근	chulgeun	ເຂົ້າວຽກ	🌅	
+r13	퇴근	toegeun	ເລີກວຽກ	🌆	
+r13	회의	hoeui	ກອງປະຊຸມ	👥	
+r13	사장	sajang	ນາຍຈ້າງ	👔	
+r13	직원	jigwon	ພະນັກງານ	👷	
+r13	동료	dongnyo	ເພື່ອນຮ່ວມງານ	👯‍♂️	
+r13	시장	sijang	ຕະຫຼາດ	🧺	
+r13	가게	gage	ຮ້ານ	🏪	
+r13	주문	jumun	ການສັ່ງ	📲	
+r13	배송	baesong	ການຂົນສົ່ງ	🚛	
+r13	환불	hwanbul	ການຄືນເງິນ	↩️	
+r13	무료	muryo	ຟຣີ	🆓	
+r13	세금	segeum	ພາສີ	🏛️	
+r13	요금	yogeum	ຄ່າບໍລິການ	📃	
+r13	월세	wolse	ຄ່າເຊົ່າ	🏘️	
+r13	빚	bit	ໜີ້ສິນ	📉	
+r13	이력서	iryeokseo	ຊີວະປະຫວັດ	📄	
+r13	경력	gyeongnyeok	ປະສົບການເຮັດວຽກ	🧗	
+r13	휴가	hyuga	ວັນພັກ	🏝️	
+r13	야근	yageun	ເຮັດວຽກກາງຄືນ	🌙	
+r13	승진	seungjin	ການເລື່ອນຕຳແໜ່ງ	🆙	
+r13	광고	gwanggo	ໂຄສະນາ	📺	
+r13	상품	sangpum	ສິນຄ້າ	🎁	
+r13	브랜드	beuraendeu	ຍີ່ຫໍ້	™️	
+r13	품질	pumjil	ຄຸນນະພາບ	🔍	
+r13	사이즈	saijeu	ຂະໜາດ	👗	
+r13	깎아주세요	kkakkajuseyo	ຫຼຸດລາຄາແດ່	✂️	
+r13	얼마예요	eolmayeyo	ລາຄາເທົ່າໃດ	💲	
+r13	포장	pojang	ຫໍ່	🎀	
+r13	교환	gyohwan	ປ່ຽນ	🔄	
+r13	예약	yeyak	ການຈອງ	📅	
+
+## r14 (tier 4) — 교통 · 여행 · 날씨 · 자연
+r14	정류장	jeongnyujang	ປ້າຍລົດເມ	🚏	
+r14	역	yeok	ສະຖານີລົດໄຟ	🚉	
+r14	항공권	hanggonggwon	ປີ້ຍົນ	🎫	
+r14	여권	yeogwon	ໜັງສືຜ່ານແດນ	🛂	
+r14	비자	bija	ວີຊາ	📑	
+r14	길	gil	ທາງ	🛤️	
+r14	횡단보도	hoengdanbodo	ທາງມ້າລາຍ	🚸	
+r14	교차로	gyocharo	ສີ່ແຍກ	🚦	
+r14	고속도로	gosokdoro	ທາງດ່ວນ	🛣️	
+r14	주차장	juchajang	ບ່ອນຈອດລົດ	🅿️	
+r14	여행	yeohaeng	ການທ່ອງທ່ຽວ	🧳	
+r14	관광	gwangwang	ການທັດສະນະຈອນ	🗽	
+r14	숙소	sukso	ທີ່ພັກ	🏨	
+r14	기념품	ginyeompum	ຂອງທີ່ລະນຶກ	🎎	
+r14	경치	gyeongchi	ທິວທັດ	🏞️	
+r14	동쪽	dongjjok	ທິດຕາເວັນອອກ	🌄	
+r14	서쪽	seojjok	ທິດຕາເວັນຕົກ	🌇	
+r14	남쪽	namjjok	ທິດໃຕ້	🧭	
+r14	북쪽	bukjjok	ທິດເໜືອ	❄️	
+r14	근처	geuncheo	ໃກ້ຄຽງ	📍	
+r14	날씨	nalssi	ອາກາດ	⛅	
+r14	기온	gion	ອຸນຫະພູມອາກາດ	🌡️	
+r14	태풍	taepung	ພາຍຸ	🌀	
+r14	천둥	cheondung	ຟ້າຮ້ອງ	⚡	
+r14	안개	angae	ໝອກ	🌫️	
+r14	맑다	makda	ແຈ່ມໃສ	☀️	
+r14	흐리다	heurida	ມີເມກຫຼາຍ	☁️	
+r14	장마	jangma	ລະດູຝົນ	☔	
+r14	가뭄	gamum	ໄພແຫ້ງແລ້ງ	🏜️	
+r14	홍수	hongsu	ນ້ຳຖ້ວມ	🌊	
+r14	숲	sup	ປ່າ	🌲	
+r14	호수	hosu	ທະເລສາບ	🛶	
+r14	폭포	pokpo	ນ້ຳຕົກ	💦	
+r14	동굴	donggul	ຖ້ຳ	🕳️	
+r14	사막	samak	ທະເລຊາຍ	🐫	
+r14	언덕	eondeok	ເນີນພູ	🗻	
+r14	들판	deulpan	ທົ່ງນາ	🌾	
+r14	해변	haebyeon	ຫາດຊາຍ	🏖️	
+r14	하늘	haneul	ທ້ອງຟ້າ	🌌	
+r14	땅	ttang	ດິນ	🌱	
+r14	일주일	iljuil	ອາທິດໜຶ່ງ	🗓️	
+r14	한 달	han dal	ເດືອນໜຶ່ງ	📆	
+r14	일 년	il lyeon	ປີໜຶ່ງ	🎆	
+r14	새해	saehae	ປີໃໝ່	🎊	
+r14	휴일	hyuil	ວັນພັກ	🎌	
+r14	길을 잃다	gireul ilta	ຫຼົງທາງ	🗺️	
+r14	갈아타다	garatada	ປ່ຽນລົດ	🔁	
+r14	왕복	wangbok	ໄປກັບ	🔄	
+r14	편도	pyeondo	ທາງດຽວ	➡️	
+r14	출구	chulgu	ທາງອອກ	🚪	
+
+## r15 (tier 5) — 사회 · 정치 · 법 · 미디어
+r15	사회	sahoe	ສັງຄົມ	🏙️	
+r15	국가	gukga	ປະເທດຊາດ	🏳️	
+r15	정부	jeongbu	ລັດຖະບານ	🏛️	
+r15	대통령	daetongnyeong	ປະທານາທິບໍດີ	🎩	
+r15	국민	gungmin	ປະຊາຊົນ	👨‍👩‍👧‍👦	
+r15	선거	seongeo	ການເລືອກຕັ້ງ	🗳️	
+r15	투표	tupyo	ການລົງຄະແນນສຽງ	✅	
+r15	정치	jeongchi	ການເມືອງ	🎙️	
+r15	민주주의	minjujuui	ປະຊາທິປະໄຕ	🗽	
+r15	시민	simin	ພົນລະເມືອງ	🧑‍🤝‍🧑	
+r15	법	beop	ກົດໝາຍ	⚖️	
+r15	법원	beobwon	ສານ	🧑‍⚖️	
+r15	범죄	beomjoe	ອາຊະຍາກຳ	🦹	
+r15	권리	gwolli	ສິດ	✊	
+r15	의무	uimu	ໜ້າທີ່	📜	
+r15	자유	jayu	ອິດສະລະພາບ	🕊️	
+r15	평등	pyeongdeung	ຄວາມສະເໝີພາບ	🤝	
+r15	평화	pyeonghwa	ສັນຕິພາບ	☮️	
+r15	전쟁	jeonjaeng	ສົງຄາມ	⚔️	
+r15	차별	chabyeol	ການຈຳແນກ	🚫	
+r15	세계	segye	ໂລກ	🌍	
+r15	국제	gukje	ສາກົນ	🌐	
+r15	외국	oeguk	ຕ່າງປະເທດ	🛫	
+r15	대사관	daesagwan	ສະຖານທູດ	🏢	
+r15	이민	imin	ການອົບພະຍົບ	🧳	
+r15	뉴스	nyuseu	ຂ່າວ	📰	
+r15	신문	sinmun	ໜັງສືພິມ	🗞️	
+r15	방송	bangsong	ການອອກອາກາດ	📡	
+r15	인터넷	inteonet	ອິນເຕີເນັດ	🖥️	
+r15	정보	jeongbo	ຂໍ້ມູນ	ℹ️	
+r15	기자	gija	ນັກຂ່າວ	📸	
+r15	여론	yeoron	ຄວາມຄິດເຫັນສາທາລະນະ	💬	
+r15	사실	sasil	ຄວາມຈິງ	✔️	
+r15	가짜	gajja	ປອມ	🎭	
+r15	소문	somun	ຂ່າວລື	🗣️	
+r15	인구	ingu	ປະຊາກອນ	👥	
+r15	노인	noin	ຜູ້ສູງອາຍຸ	👴	
+r15	청소년	cheongsonyeon	ໄວໜຸ່ມ	🧒	
+r15	복지	bokji	ສະຫວັດດີການ	🤲	
+r15	빈곤	bingon	ຄວາມທຸກຍາກ	🥺	
+r15	문제점	munjejeom	ບັນຫາ	❗	
+r15	해결	haegyeol	ການແກ້ໄຂ	🔑	
+r15	원인	wonin	ສາເຫດ	🔍	
+r15	결과	gyeolgwa	ຜົນໄດ້ຮັບ	📊	
+r15	영향	yeonghyang	ຜົນກະທົບ	🌊	
+r15	지역	jiyeok	ທ້ອງຖິ່ນ	🗾	
+r15	도시	dosi	ເມືອງ	🌆	
+r15	시골	sigol	ຊົນນະບົດ	🏡	
+r15	수도	sudo	ນະຄອນຫຼວງ	⭐	
+r15	국경	gukgyeong	ຊາຍແດນ	🚧	
+
+## r16 (tier 5) — 경제 · 일 · 미래
+r16	경제	gyeongje	ເສດຖະກິດ	💹	
+r16	무역	muyeok	ການຄ້າ	🚢	
+r16	수출	suchul	ການສົ່ງອອກ	📤	
+r16	수입	suip	ການນຳເຂົ້າ	📥	
+r16	투자	tuja	ການລົງທຶນ	📈	
+r16	사업	saeop	ທຸລະກິດ	💼	
+r16	기업	gieop	ວິສາຫະກິດ	🏢	
+r16	산업	saneop	ອຸດສາຫະກຳ	🏭	
+r16	농업	nongeop	ກະສິກຳ	🚜	
+r16	관광업	gwangwangeop	ອຸດສາຫະກຳທ່ອງທ່ຽວ	🏖️	
+r16	소득	sodeuk	ລາຍໄດ້	💰	
+r16	소비	sobi	ການບໍລິໂພກ	🛒	
+r16	생산	saengsan	ການຜະລິດ	⚙️	
+r16	가치	gachi	ມູນຄ່າ	💎	
+r16	비용	biyong	ຄ່າໃຊ້ຈ່າຍ	💸	
+r16	성공	seonggong	ຄວາມສຳເລັດ	🏆	
+r16	실패	silpae	ຄວາມລົ້ມເຫຼວ	💔	
+r16	경쟁	gyeongjaeng	ການແຂ່ງຂັນ	🏁	
+r16	협력	hyeomnyeok	ການຮ່ວມມື	🤝	
+r16	노력	noryeok	ຄວາມພະຍາຍາມ	💪	
+r16	목표	mokpyo	ເປົ້າໝາຍ	🎯	
+r16	계획	gyehoek	ແຜນການ	🗒️	
+r16	경험	gyeongheom	ປະສົບການ	🧗	
+r16	능력	neungnyeok	ຄວາມສາມາດ	🦸	
+r16	기회	gihoe	ໂອກາດ	🚪	
+r16	미래	mirae	ອະນາຄົດ	🔮	
+r16	과거	gwageo	ອະດີດ	⏪	
+r16	현재	hyeonjae	ປັດຈຸບັນ	⏺️	
+r16	발전	baljeon	ການພັດທະນາ	📶	
+r16	변화	byeonhwa	ການປ່ຽນແປງ	🦋	
+r16	직업	jigeop	ອາຊີບ	🧑‍💼	
+r16	전문가	jeonmunga	ຜູ້ຊ່ຽວຊານ	🎓	
+r16	취업	chwieop	ການໄດ້ວຽກ	📝	
+r16	실업	sireop	ການຫວ່າງງານ	😟	
+r16	은퇴	euntoe	ການກິນບຳນານ	🏝️	
+r16	소비자	sobija	ຜູ້ບໍລິໂພກ	🛍️	
+r16	생산자	saengsanja	ຜູ້ຜະລິດ	👨‍🌾	
+r16	시장경제	sijanggyeongje	ເສດຖະກິດຕະຫຼາດ	📊	
+r16	물가	mulga	ລາຄາສິນຄ້າ	🏷️	
+r16	환율	hwanyul	ອັດຕາແລກປ່ຽນ	💱	
+r16	보험	boheom	ປະກັນໄພ	☂️	
+r16	주식	jusik	ຮຸ້ນ	📉	
+r16	예산	yesan	ງົບປະມານ	🧮	
+r16	손해	sonhae	ການເສຍຫາຍ	🔻	
+r16	이익	iik	ກຳໄລ	🔺	
+r16	창업	changeop	ການເລີ່ມທຸລະກິດ	🚀	
+r16	아이디어	aidieo	ແນວຄິດ	💡	
+r16	책임	chaegim	ຄວາມຮັບຜິດຊອບ	🎗️	
+r16	신뢰	silloe	ຄວາມໄວ້ວາງໃຈ	🔗	
+r16	기술	gisul	ເຕັກນິກ	🛠️	
+
+## r17 (tier 5) — 환경 · 과학 · 기술
+r17	환경	hwangyeong	ສິ່ງແວດລ້ອມ	🌱	
+r17	지구	jigu	ໜ່ວຍໂລກ	🌍	
+r17	기후	gihu	ດິນຟ້າອາກາດ	🌦️	
+r17	온난화	onnanhwa	ພາວະໂລກຮ້ອນ	🔥	
+r17	오염	oyeom	ມົນລະພິດ	🏭	
+r17	재활용	jaehwaryong	ການນຳກັບມາໃຊ້ໃໝ່	♻️	
+r17	자원	jawon	ຊັບພະຍາກອນ	⛏️	
+r17	에너지	eneoji	ພະລັງງານ	⚡	
+r17	전기	jeongi	ໄຟຟ້າ	🔌	
+r17	석유	seogyu	ນ້ຳມັນດິບ	🛢️	
+r17	태양광	taeyanggwang	ພະລັງງານແສງຕາເວັນ	☀️	
+r17	우주	uju	ອະວະກາດ	🚀	
+r17	행성	haengseong	ດາວເຄາະ	🪐	
+r17	위성	wiseong	ດາວທຽມ	🛰️	
+r17	블랙홀	beullaekhol	ຂຸມດຳ	🕳️	
+r17	연구	yeongu	ການຄົ້ນຄວ້າ	🔬	
+r17	발명	balmyeong	ການປະດິດ	💡	
+r17	이론	iron	ທິດສະດີ	📖	
+r17	증거	jeunggeo	ຫຼັກຖານ	🔎	
+r17	현상	hyeonsang	ປະກົດການ	🌈	
+r17	생명	saengmyeong	ຊີວິດ	🌿	
+r17	유전자	yujeonja	ພັນທຸກຳ	🧬	
+r17	바이러스	baireoseu	ໄວຣັສ	🦠	
+r17	진화	jinhwa	ວິວັດທະນາການ	🦕	
+r17	멸종	myeoljong	ການສູນພັນ	🦖	
+r17	인공지능	ingongjineung	ປັນຍາປະດິດ	🤖	
+r17	로봇	robot	ຫຸ່ນຍົນ	🦾	
+r17	데이터	deiteo	ດາຕ້າ	💾	
+r17	프로그램	peurogeuraem	ໂປຣແກຣມ	🖱️	
+r17	스마트폰	seumateupon	ສະມາດໂຟນ	📲	
+r17	지진	jijin	ແຜ່ນດິນໄຫວ	🏚️	
+r17	화산	hwasan	ພູເຂົາໄຟ	🌋	
+r17	대기	daegi	ບັນຍາກາດ	💨	
+r17	산소	sanso	ອົກຊີເຈນ	🅾️	
+r17	탄소	tanso	ກາກບອນ	⚫	
+r17	원자	wonja	ອະຕອມ	⚛️	
+r17	분자	bunja	ໂມເລກຸນ	🧩	
+r17	중력	jungnyeok	ແຮງໂນ້ມຖ່ວງ	🍎	
+r17	속도	sokdo	ຄວາມໄວ	🏎️	
+r17	빛	bit	ແສງ	🔦	
+r17	생태계	saengtaegye	ລະບົບນິເວດ	🐾	
+r17	보호	boho	ການປົກປ້ອງ	🛡️	
+r17	해양	haeyang	ມະຫາສະໝຸດ	🐋	
+r17	미세먼지	misemeonji	ຝຸ່ນລະອອງ	😷	
+r17	플라스틱	peullaseutik	ພລາສຕິກ	🥤	
+r17	발명가	balmyeongga	ນັກປະດິດ	🧑‍🔬	
+r17	실험실	silheomsil	ຫ້ອງທົດລອງ	🧫	
+r17	공학	gonghak	ວິສະວະກຳ	⚙️	
+r17	의학	uihak	ການແພດ	🩺	
+r17	백신	baeksin	ວັກຊີນ	💉	
+
+## r18 (tier 5) — 문화 · 역사 · 마음
+r18	문화	munhwa	ວັດທະນະທຳ	🎎	
+r18	전통	jeontong	ປະເພນີ	🏯	
+r18	예술	yesul	ສິລະປະ	🖼️	
+r18	문학	munhak	ວັນນະຄະດີ	📚	
+r18	종교	jonggyo	ສາສະໜາ	⛩️	
+r18	축제	chukje	ງານບຸນ	🎉	
+r18	명절	myeongjeol	ບຸນປະເພນີ	🧧	
+r18	결혼식	gyeolhonsik	ງານແຕ່ງງານ	💒	
+r18	장례식	jangnyesik	ງານສົບ	⚱️	
+r18	예절	yejeol	ມາລະຍາດ	🙇	
+r18	왕	wang	ກະສັດ	👑	
+r18	시대	sidae	ຍຸກ	⏳	
+r18	고대	godae	ສະໄໝບູຮານ	🏺	
+r18	유적	yujeok	ໂບຮານສະຖານ	🗿	
+r18	독립	dongnip	ເອກະລາດ	🎆	
+r18	소설	soseol	ນະວະນິຍາຍ	📕	
+r18	시	si	ບົດກະວີ	✒️	
+r18	연극	yeongeuk	ລະຄອນ	🎭	
+r18	작가	jakga	ນັກຂຽນ	✍️	
+r18	박물관	bangmulgwan	ພິພິທະພັນ	🏛️	
+r18	감정	gamjeong	ອາລົມຄວາມຮູ້ສຶກ	💗	
+r18	행복	haengbok	ຄວາມສຸກ	😊	
+r18	슬픔	seulpeum	ຄວາມໂສກເສົ້າ	😢	
+r18	분노	bunno	ຄວາມໂກດແຄ້ນ	😡	
+r18	두려움	duryeoum	ຄວາມຢ້ານ	😨	
+r18	희망	huimang	ຄວາມຫວັງ	🌅	
+r18	용기	yonggi	ຄວາມກ້າຫານ	🦁	
+r18	꿈	kkum	ຄວາມຝັນ	💭	
+r18	추억	chueok	ຄວາມຊົງຈຳ	📷	
+r18	사랑	sarang	ຄວາມຮັກ	❤️	
+r18	성격	seonggyeok	ນິໄສ	🧑	
+r18	친절	chinjeol	ຄວາມໃຈດີ	😇	
+r18	정직	jeongjik	ຄວາມຊື່ສັດ	✅	
+r18	인내	innae	ຄວາມອົດທົນ	🐢	
+r18	존경	jongyeong	ຄວາມເຄົາລົບ	🙏	
+r18	생각	saenggak	ຄວາມຄິດ	🤔	
+r18	의견	uigyeon	ຄວາມຄິດເຫັນ	🗨️	
+r18	지식	jisik	ຄວາມຮູ້	🧠	
+r18	지혜	jihye	ປັນຍາ	🦉	
+r18	상상	sangsang	ຈິນຕະນາການ	🌈	
+r18	관계	gwangye	ຄວາມສຳພັນ	🔗	
+r18	우정	ujeong	ມິດຕະພາບ	👭	
+r18	이웃	iut	ເພື່ອນບ້ານ	🏘️	
+r18	세대	sedae	ລຸ້ນຄົນ	👪	
+r18	공동체	gongdongche	ຊຸມຊົນ	🧑‍🤝‍🧑	
+r18	자존심	jajonsim	ສັກສີ	🦚	
+r18	배려	baeryeo	ຄວາມເອົາໃຈໃສ່ຜູ້ອື່ນ	🤲	
+r18	감사	gamsa	ຄວາມກະຕັນຍູ	🙌	
+r18	약속	yaksok	ຄຳສັນຍາ	🤙	
+r18	평생	pyeongsaeng	ຕະຫຼອດຊີວິດ	♾️	
+
+## p-survival (pack) — 생존 필수 단어
+p-survival	네	ne	ແມ່ນ	⭕	ใช่
+p-survival	아니요	aniyo	ບໍ່ແມ່ນ	❌	ไม่ใช่
+p-survival	안녕하세요	annyeonghaseyo	ສະບາຍດີ	🙋	สวัสดี
+p-survival	감사합니다	gamsahamnida	ຂອບໃຈ	🙏	ขอบคุณ
+p-survival	죄송합니다	joesonghamnida	ຂໍໂທດ	🙇	
+p-survival	괜찮아요	gwaenchanayo	ບໍ່ເປັນຫຍັງ	👌	ไม่เป็นไร
+p-survival	몰라요	mollayo	ບໍ່ຮູ້	🤷	
+p-survival	알겠어요	algesseoyo	ເຂົ້າໃຈແລ້ວ	💡	
+p-survival	도와주세요	dowajuseyo	ຊ່ວຍແດ່	🆘	
+p-survival	잠깐만요	jamkkanmanyo	ລໍຖ້າບຶດໜຶ່ງ	✋	
+p-survival	주세요	juseyo	ຂໍແດ່	🤲	
+p-survival	얼마예요?	eolmayeyo	ລາຄາເທົ່າໃດ?	💲	
+p-survival	어디예요?	eodiyeyo	ຢູ່ໃສ?	🗺️	
+p-survival	이거	igeo	ອັນນີ້	👉	
+p-survival	여기	yeogi	ບ່ອນນີ້	📍	
+p-survival	화장실	hwajangsil	ຫ້ອງນ້ຳ	🚻	ห้องน้ำ
+p-survival	물	mul	ນ້ຳ	💧	น้ำ
+p-survival	밥	bap	ເຂົ້າ	🍚	ข้าว
+p-survival	맛있어요	masisseoyo	ແຊບ	😋	อร่อย
+p-survival	아파요	apayo	ບໍ່ສະບາຍ	🤒	ไม่สบาย
+p-survival	병원	byeongwon	ໂຮງໝໍ	🏥	โรงพยาบาล
+p-survival	약	yak	ຢາ	💊	
+p-survival	경찰	gyeongchal	ຕຳຫຼວດ	👮	ตำรวจ
+p-survival	천천히 말해 주세요	cheoncheonhi malhae juseyo	ກະລຸນາເວົ້າຊ້າໆ	🐢	
+p-survival	다시 한 번	dasi han beon	ອີກເທື່ອໜຶ່ງ	🔁	
+
+## p-work (pack) — 한국 일터
+p-work	일	il	ວຽກ	🛠️	
+p-work	회사	hoesa	ບໍລິສັດ	🏢	บริษัท
+p-work	공장	gongjang	ໂຮງງານ	🏭	โรงงาน
+p-work	사장님	sajangnim	ນາຍຈ້າງ	👔	
+p-work	반장님	banjangnim	ຫົວໜ້າທີມ	👷	
+p-work	동료	dongnyo	ເພື່ອນຮ່ວມງານ	👯‍♂️	
+p-work	출근	chulgeun	ເຂົ້າວຽກ	🌅	
+p-work	퇴근	toegeun	ເລີກວຽກ	🌆	
+p-work	쉬는 시간	swineun sigan	ເວລາພັກ	☕	
+p-work	점심시간	jeomsimsigan	ເວລາພັກທ່ຽງ	🍱	
+p-work	월급	wolgeup	ເງິນເດືອນ	💰	
+p-work	야근	yageun	ເຮັດວຽກກາງຄືນ	🌙	
+p-work	휴가	hyuga	ວັນພັກ	🏝️	
+p-work	위험해요	wiheomhaeyo	ອັນຕະລາຍ	⚠️	
+p-work	조심하세요	josimhaseyo	ລະວັງ	🚧	
+p-work	안전모	anjeonmo	ໝວກກັນກະທົບ	⛑️	
+p-work	장갑	janggap	ຖົງມື	🧤	ถุงมือ
+p-work	기계	gigye	ເຄື່ອງຈັກ	⚙️	
+p-work	박스	bakseu	ກ່ອງ	📦	
+p-work	다쳤어요	dachyeosseoyo	ບາດເຈັບ	🤕	
+p-work	빨리	ppalli	ໄວໆ	⚡	
+p-work	천천히	cheoncheonhi	ຊ້າໆ	🐢	
+p-work	끝났어요	kkeunnasseoyo	ສຳເລັດແລ້ວ	✅	
+p-work	몇 시예요?	myeot siyeyo	ຈັກໂມງແລ້ວ?	⏰	
+p-work	계약서	gyeyakseo	ສັນຍາ	✍️	
+
+## p-travel (pack) — 한국 여행
+p-travel	공항	gonghang	ສະໜາມບິນ	🛫	สนามบิน
+p-travel	여권	yeogwon	ໜັງສືຜ່ານແດນ	🛂	
+p-travel	호텔	hotel	ໂຮງແຮມ	🏨	โรงแรม
+p-travel	지하철	jihacheol	ລົດໄຟໃຕ້ດິນ	🚇	รถไฟใต้ดิน
+p-travel	버스	beoseu	ລົດເມ	🚌	รถบัส
+p-travel	택시	taeksi	ລົດແທັກຊີ	🚕	แท็กซี่
+p-travel	역	yeok	ສະຖານີລົດໄຟ	🚉	
+p-travel	표	pyo	ປີ້	🎫	ตั๋ว
+p-travel	지도	jido	ແຜນທີ່	🗺️	แผนที่
+p-travel	길	gil	ທາງ	🛤️	
+p-travel	왼쪽	oenjjok	ຊ້າຍ	⬅️	
+p-travel	오른쪽	oreunjjok	ຂວາ	➡️	
+p-travel	똑바로	ttokbaro	ຊື່ໆ	⬆️	
+p-travel	여기	yeogi	ບ່ອນນີ້	📍	
+p-travel	저기	jeogi	ບ່ອນນັ້ນ	👉	
+p-travel	사진	sajin	ຮູບຖ່າຍ	📷	รูปถ่าย
+p-travel	식당	sikdang	ຮ້ານອາຫານ	🍽️	ร้านอาหาร
+p-travel	메뉴	menyu	ເມນູ	📋	
+p-travel	맛있어요	masisseoyo	ແຊບ	😋	อร่อย
+p-travel	비싸요	bissayo	ແພງ	💎	
+p-travel	싸요	ssayo	ຖືກ	💸	
+p-travel	카드	kadeu	ບັດ	💳	
+p-travel	현금	hyeongeum	ເງິນສົດ	💵	
+p-travel	편의점	pyeonuijeom	ຮ້ານສະດວກຊື້	🏪	ร้านสะดวกซื้อ
+p-travel	환전	hwanjeon	ການແລກເງິນ	💱	
+
+## p-school (pack) — 학교 · 시험
+p-school	학교	hakgyo	ໂຮງຮຽນ	🏫	โรงเรียน
+p-school	선생님	seonsaengnim	ຄູ	👩‍🏫	ครู
+p-school	학생	haksaeng	ນັກຮຽນ	👨‍🎓	นักเรียน
+p-school	교실	gyosil	ຫ້ອງຮຽນ	🚪	
+p-school	책	chaek	ປຶ້ມ	📖	หนังสือ
+p-school	공책	gongchaek	ປຶ້ມຂຽນ	📓	
+p-school	연필	yeonpil	ສໍດຳ	✏️	ดินสอ
+p-school	숙제	sukje	ວຽກບ້ານ	📒	
+p-school	시험	siheom	ການສອບເສັງ	📝	
+p-school	질문	jilmun	ຄຳຖາມ	🙋	
+p-school	대답	daedap	ຄຳຕອບ	💬	
+p-school	문제	munje	ໂຈດ	❓	
+p-school	정답	jeongdap	ຄຳຕອບທີ່ຖືກ	✔️	
+p-school	쉬워요	swiwoyo	ງ່າຍ	🙆	
+p-school	어려워요	eoryeowoyo	ຍາກ	🤯	
+p-school	공부해요	gongbuhaeyo	ຮຽນ	📚	
+p-school	읽어요	ilgeoyo	ອ່ານ	👀	
+p-school	써요	sseoyo	ຂຽນ	✍️	
+p-school	들어요	deureoyo	ຟັງ	🎧	
+p-school	말해요	malhaeyo	ເວົ້າ	🗣️	
+p-school	알아요	arayo	ຮູ້	🧠	
+p-school	몰라요	mollayo	ບໍ່ຮູ້	🤷	
+p-school	한국어	hangugeo	ພາສາເກົາຫຼີ	🇰🇷	
+p-school	단어	daneo	ຄຳສັບ	🔤	
+p-school	점수	jeomsu	ຄະແນນ	💯	
+
+## p-kpop (pack) — K-POP · 드라마
+p-kpop	사랑해요	saranghaeyo	ຂ້ອຍຮັກເຈົ້າ	🥰	ฉันรักคุณ
+p-kpop	보고 싶어요	bogo sipeoyo	ຄິດຮອດ	🥺	
+p-kpop	오빠	oppa	ອ້າຍ (ຍິງເອີ້ນ)	👦	
+p-kpop	언니	eonni	ເອື້ອຍ (ຍິງເອີ້ນ)	👧	
+p-kpop	형	hyeong	ອ້າຍ (ຊາຍເອີ້ນ)	🧑	
+p-kpop	누나	nuna	ເອື້ອຍ (ຊາຍເອີ້ນ)	👩	
+p-kpop	노래	norae	ເພງ	🎵	
+p-kpop	춤	chum	ການເຕັ້ນ	💃	
+p-kpop	가수	gasu	ນັກຮ້ອງ	🎤	นักร้อง
+p-kpop	배우	baeu	ນັກສະແດງ	🎬	
+p-kpop	팬	paen	ແຟນຄລັບ	💖	
+p-kpop	콘서트	konseoteu	ຄອນເສີດ	🎟️	
+p-kpop	드라마	deurama	ລະຄອນ	📺	
+p-kpop	영화	yeonghwa	ຮູບເງົາ	🎞️	หนัง
+p-kpop	멋있어요	meositseoyo	ເທ່	😎	
+p-kpop	귀여워요	gwiyeowoyo	ໜ້າຮັກ	🐰	
+p-kpop	예뻐요	yeppeoyo	ງາມ	🌸	
+p-kpop	대박	daebak	ສຸດຍອດ	🤩	
+p-kpop	진짜?	jinjja	ແທ້ບໍ?	😲	
+p-kpop	화이팅	hwaiting	ສູ້ໆ	💪	
+p-kpop	행복해요	haengbokaeyo	ມີຄວາມສຸກ	😊	
+p-kpop	슬퍼요	seulpeoyo	ເສົ້າໃຈ	😢	เศร้า
+p-kpop	친구	chingu	ໝູ່	👫	เพื่อน
+p-kpop	남자친구	namjachingu	ແຟນຊາຍ	💙	
+p-kpop	여자친구	yeojachingu	ແຟນສາວ	💗	
+
+## p-family (pack) — 가족 · 친구
+p-family	가족	gajok	ຄອບຄົວ	👨‍👩‍👧	ครอบครัว
+p-family	엄마	eomma	ແມ່	👩	แม่
+p-family	아빠	appa	ພໍ່	👨	พ่อ
+p-family	남편	nampyeon	ຜົວ	🤵	
+p-family	아내	anae	ເມຍ	👰	
+p-family	아들	adeul	ລູກຊາຍ	👦	
+p-family	딸	ttal	ລູກສາວ	👧	
+p-family	아기	agi	ແອນ້ອຍ	👶	เด็กทารก
+p-family	할머니	halmeoni	ແມ່ຕູ້	👵	ยาย
+p-family	할아버지	harabeoji	ພໍ່ຕູ້	👴	ปู่
+p-family	친구	chingu	ໝູ່	👫	เพื่อน
+p-family	사랑해요	saranghaeyo	ຂ້ອຍຮັກເຈົ້າ	❤️	ฉันรักคุณ
+p-family	보고 싶어요	bogo sipeoyo	ຄິດຮອດ	🥺	
+p-family	밥 먹었어요?	bap meogeosseoyo	ກິນເຂົ້າແລ້ວບໍ?	🍚	
+p-family	잘 자요	jal jayo	ນອນຫຼັບຝັນດີ	😴	
+p-family	잘 지내요?	jal jinaeyo	ສະບາຍດີບໍ?	🙂	
+p-family	생일 축하해요	saengil chukahaeyo	ສຸກສັນວັນເກີດ	🎂	
+p-family	고마워요	gomawoyo	ຂອບໃຈ	🙏	
+p-family	미안해요	mianhaeyo	ຂໍໂທດ	🙇	
+p-family	괜찮아요?	gwaenchanayo	ບໍ່ເປັນຫຍັງບໍ?	🤗	
+p-family	집	jip	ເຮືອນ	🏠	บ้าน
+p-family	전화해요	jeonhwahaeyo	ໂທຫາ	📞	
+p-family	같이 가요	gachi gayo	ໄປນຳກັນ	👭	
+p-family	맛있게 드세요	masitge deuseyo	ກິນໃຫ້ແຊບເດີ	🍽️	
+p-family	조심히 가요	josimhi gayo	ເດີນທາງປອດໄພ	👋	

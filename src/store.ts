@@ -1,8 +1,9 @@
 // 학습 기록·점수·도장 저장 (기기 안 localStorage)
 // 서버를 붙이면 이 파일의 저장/불러오기 부분만 API 호출로 바꾸면 됩니다.
 import { useSyncExternalStore } from 'react'
-import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, type Purpose, type Round, type Word } from './data/words'
+import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, NATIVES, type Native, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
+import { DEMO_FILL, DEMO_PEOPLE } from './data/friends'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
 export type Order = 'seq' | 'random'
@@ -31,6 +32,8 @@ export interface State {
   /** 수준 테스트로 건너뛴 회차 */
   placedRounds: string[]
   ui: UiLang
+  /** 배우는 사람의 언어 (뜻이 이 언어로 나옴): 라오어 · 태국어 · 베트남어(베타) */
+  native: Native
   nickname: string
   /** 나라 (ISO 2글자, 랭킹용). 기본 라오스 */
   country: string
@@ -78,16 +81,31 @@ export function todayKey(d = new Date()): string {
 }
 const monthOf = (dayKey: string) => dayKey.slice(0, 7)
 
+/** 처음 열 때 브라우저/폰 언어로 학습자 언어를 짐작 (태국어·베트남어 폰이면 그 언어, 나머지는 라오어) */
+function guessNative(): Native {
+  try {
+    const l = (navigator.language || '').toLowerCase()
+    if (l.startsWith('th')) return 'th'
+    if (l.startsWith('vi')) return 'vi'
+  } catch {
+    /* 무시 */
+  }
+  return 'lo'
+}
+const COUNTRY_OF: Record<Native, string> = { lo: 'LA', th: 'TH', vi: 'VN' }
+
 function initial(): State {
   const day = todayKey()
+  const native = guessNative()
   return {
     v: 5,
     started: false,
     placementDone: false,
     placedRounds: [],
-    ui: 'lo',
+    ui: native,
+    native,
     nickname: '',
-    country: 'LA',
+    country: COUNTRY_OF[native],
     purposes: [],
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
     chunkPlays: {},
@@ -118,6 +136,8 @@ function load(): State {
       const parsed = JSON.parse(raw) as Partial<State> & { v?: number }
       const base = initial()
       const merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      // v0.8 이전 기록(라오어만 있던 때)은 라오어로
+      if (!parsed.native || !NATIVES.includes(parsed.native)) merged.native = 'lo'
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈
       if ((parsed.v ?? 0) < 3 && merged.settings.reps === 3) merged.settings = { ...merged.settings, reps: 1 }
       // v4 → v5: 예전에 외운 단어는 STEP 1(5개씩)에서 외운 것으로 옮김
@@ -140,6 +160,7 @@ function load(): State {
 }
 
 let state: State = rollover(load())
+setWordNative(state.native)
 const listeners = new Set<() => void>()
 
 function persist() {
@@ -162,6 +183,7 @@ function rollover(s: State): State {
 
 export function update(fn: (s: State) => State) {
   state = fn(rollover(state))
+  setWordNative(state.native)
   persist()
   listeners.forEach((l) => l())
 }
@@ -197,11 +219,16 @@ export function useStore(): State {
 }
 
 export function resetAll() {
-  const keep = { started: state.started, ui: state.ui, nickname: state.nickname, country: state.country }
+  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, country: state.country }
   // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
   listeners.forEach((l) => l())
+}
+
+/** 학습자 언어 바꾸기: 화면 언어도 같이 (운영자용 한국어 화면이면 그대로) */
+export function setLanguage(native: Native, opts: { country?: boolean } = {}) {
+  update((s) => ({ ...s, native, ui: s.ui === 'ko' ? 'ko' : native, ...(opts.country ? { country: COUNTRY_OF[native] } : {}) }))
 }
 
 export function setSettings(patch: Partial<Settings>) {
@@ -442,21 +469,24 @@ export function recordPromo(tierNo: number, passed: boolean): number {
 
 // ───────── 데모 랭킹 ─────────
 // 서버 연결 전 화면 확인용 예시 데이터입니다. 실제 서비스에서는 서버 랭킹으로 바꿉니다.
-const DEMO_NAMES = ['Noy', 'Keo', 'Bounmy', 'Vanh', 'Souk', 'Phet', 'Dao', 'Mone', 'Kham', 'Nalee', 'Toy', 'Lae', 'Ping', 'Nok']
 export interface RankRow {
   name: string
   points: number
   me?: boolean
   tier: number
+  avatar?: string | null
+  country?: string
 }
 export function demoRanking(s: State): RankRow[] {
   const day = new Date().getDate()
-  const rows: RankRow[] = DEMO_NAMES.map((name, i) => ({
-    name,
-    points: Math.round((3400 - i * 230 + ((i * 37) % 90)) * Math.min(1, 0.25 + day / 30)),
+  const rows: RankRow[] = [...DEMO_PEOPLE, ...DEMO_FILL].map((p, i) => ({
+    name: p.name,
+    avatar: p.avatar,
+    country: p.country,
+    points: Math.round((3400 * 0.88 ** i + ((i * 37) % 40)) * Math.min(1, 0.25 + day / 30)),
     tier: i < 3 ? 2 : 1,
   }))
-  rows.push({ name: s.nickname || 'ຂ້ອຍ', points: s.monthPoints, me: true, tier: currentTierNo(s) })
+  rows.push({ name: s.nickname || ({ lo: 'ຂ້ອຍ', th: 'ฉัน', vi: 'Tôi' } as const)[s.native], points: s.monthPoints, me: true, tier: currentTierNo(s), country: s.country })
   return rows.sort((a, b) => b.points - a.points)
 }
 
