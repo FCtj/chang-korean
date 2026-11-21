@@ -98,7 +98,9 @@ export default function Home() {
                 <Elephant size={46} acc={TIER_ACC[tr.no - 1]} tone={open ? 'pink' : 'grey'} />
                 <div className="tier-head-text">
                   <div className="tier-no">{tf('tierN', tr.no)}</div>
-                  <h2 className="tier-name">{tr.name[ui]}</h2>
+                  <h2 className="tier-name">
+                    {tr.name[ui]} <span className="chip tiny tier-level">{tr.level[ui]}</span>
+                  </h2>
                 </div>
                 {done ? (
                   <span className="chip chip-mint">

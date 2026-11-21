@@ -2392,3 +2392,34 @@ button:disabled {
 .continue-emojis span.known {
   opacity: 0.45;
 }
+
+/* ── 수준 테스트: 5단계 사다리 ── */
+.level-ladder {
+  list-style: none;
+  margin: 0;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 4px 0 var(--line);
+}
+.level-ladder li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ll-name {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-cute);
+  font-size: 0.95rem;
+}
+/* 계급 제목 옆 학년 수준 */
+.tier-level {
+  display: inline-block;
+  margin-left: 6px;
+  vertical-align: middle;
+}

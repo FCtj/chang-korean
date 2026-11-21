@@ -134,7 +134,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.4.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.5.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )
