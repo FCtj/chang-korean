@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:single": "vite build --mode single && node scripts/make-artifact.mjs",
+    "build:single": "vite build --mode single && node scripts/make-artifact.mjs && node scripts/make-standalone.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node scripts/check-words.mjs",
     "android:sync": "npm run build && cap sync android",

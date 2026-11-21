@@ -43,8 +43,17 @@ npm install
 
 npm run dev            # 웹 개발 서버 (http://localhost:5173)
 npm test               # 단어 데이터 검사 (회차당 50개, 중복 없음)
-npm run build:single   # 웹 버전 한 파일 → dist-single/chang-korean-web.html
+npm run build:single   # 웹 버전 한 파일 → dist-web/index.html (글꼴 포함, 인터넷 없이도 동작)
 ```
+
+### 웹 버전을 다른 사람에게 공유하기
+
+`dist-web/chang-korean.html` 은 외부 연결 없이 혼자 동작하는 파일입니다.
+
+- **파일로 보내기**: 메신저·이메일로 보내면 받은 사람이 휴대폰/PC 브라우저로 엽니다.
+- **링크로 공유하기**: `dist-web/` 폴더를 아무 정적 호스팅에 올리면 됩니다.
+  - Netlify Drop(app.netlify.com/drop)에 폴더를 끌어다 놓기
+  - 공개 GitHub 저장소에 `index.html` 을 올리고 Settings → Pages 켜기
 
 ### 안드로이드 APK
 
