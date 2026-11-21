@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
 import type { Lang, Purpose } from '../data/words'
-import { makeT, nativeInfo } from '../i18n'
+import { NATIVE_INFO, makeT, nativeInfo } from '../i18n'
 import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
@@ -121,7 +121,8 @@ export default function SettingsScreen() {
             value={s.ui}
             onChange={(l) => update((st) => ({ ...st, ui: l }))}
             options={[
-              { id: s.native, label: `${me.flag} ${me.name}` },
+              // 화면 언어만 바뀜 (단어 뜻 언어는 위의 '내 언어')
+              ...NATIVE_INFO.map((n) => ({ id: n.id as UiLang, label: `${n.flag} ${n.name}` })),
               { id: 'ko', label: '🇰🇷 한국어' },
             ]}
           />
@@ -232,7 +233,7 @@ export default function SettingsScreen() {
         </a>
       </p>
       <p className="foot-note">
-        Chang Korean v0.12.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.12.1 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )
