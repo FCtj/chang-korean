@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { findRound, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
 import { nativeInfo } from '../i18n'
+import { ShareToGroupButton } from './Community'
 import {
   completeSession,
   getState,
@@ -234,6 +235,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
             <p className="result-line">{all ? (round.pack ? t('packDoneSub') : t('examOpenNow')) : tf('nextStepDesc', sizes[step])}</p>
           </div>
           <StepBar step={all ? final + 1 : step + 1} sizes={sizes} t={t} tf={tf} />
+          <ShareToGroupButton data={all && round.pack ? { type: 'pack', unit: roundId } : { type: 'step', unit: roundId, n: all ? final : step }} />
           {all && round.pack ? (
             <>
               <button className="btn btn-pink btn-block btn-big" onClick={() => replace({ name: 'round', roundId })}>

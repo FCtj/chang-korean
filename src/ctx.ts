@@ -11,7 +11,7 @@ export type Route =
   | { name: 'placement' }
   | { name: 'quiz'; kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }
 
-export type Tab = 'learn' | 'rewards' | 'settings'
+export type Tab = 'learn' | 'community' | 'rewards' | 'settings'
 
 export interface AppCtx {
   ui: UiLang

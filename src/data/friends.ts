@@ -22,29 +22,22 @@ export interface DemoPerson {
   country: 'LA' | 'TH' | 'VN'
 }
 
-// 순서 = 예시 랭킹 순위 (라오스·태국 섞어서)
+// 순서 = 예시 랭킹 순위: 1등 Koy, 2등 Aoy, 그다음 러이 · 아낑 · 토니, 나머지
+// (앱에 실제로 등록한 지인들만. 서버 연결 전 데모용)
 export const DEMO_PEOPLE: DemoPerson[] = [
   { name: "Koytar'r Pmj", avatar: koytar, country: 'LA' },
+  { name: 'Nong Nam Aoy', avatar: aoy, country: 'LA' },
+  { name: 'Loy', avatar: loy, country: 'LA' },
+  { name: 'AKING🪶', avatar: aking, country: 'LA' },
+  { name: 'Thony', avatar: thony, country: 'LA' },
   { name: 'Kanokwan Mhuenklaew', avatar: kanokwan, country: 'TH' },
   { name: "N'in Vongvijit", avatar: nin, country: 'LA' },
-  { name: 'Thony', avatar: thony, country: 'LA' },
   { name: 'กิ่ง กาญจน์', avatar: king, country: 'TH' },
-  { name: 'AKING🪶', avatar: aking, country: 'LA' },
-  { name: 'Nong Nam Aoy', avatar: aoy, country: 'LA' },
-  { name: 'ดาว ศศิวิมล', avatar: dao, country: 'TH' },
-  { name: 'Loy', avatar: loy, country: 'LA' },
-  { name: 'Sujin Sujin', avatar: sujin, country: 'TH' },
   { name: 'Khanthala Khanbaykham', avatar: khanthala, country: 'LA' },
-  { name: 'Reeya Areeya', avatar: reeya, country: 'TH' },
+  { name: 'ดาว ศศิวิมล', avatar: dao, country: 'TH' },
   { name: 'Kod Chanthamee', avatar: kod, country: 'LA' },
-  { name: 'Jana Ganjana', avatar: jana, country: 'TH' },
+  { name: 'Sujin Sujin', avatar: sujin, country: 'TH' },
   { name: 'Bud Saba', avatar: bud, country: 'LA' },
+  { name: 'Reeya Areeya', avatar: reeya, country: 'TH' },
+  { name: 'Jana Ganjana', avatar: jana, country: 'TH' },
 ]
-
-// 지인들 아래쪽을 채우는 예시 이름 (사진 없음 → 글자 아바타)
-const FILL: [string, DemoPerson['country']][] = [
-  ['Noy', 'LA'], ['Ploy', 'TH'], ['Keo', 'LA'], ['Linh', 'VN'], ['Bounmy', 'LA'], ['Fah', 'TH'],
-  ['Vanh', 'LA'], ['Minh', 'VN'], ['Souk', 'LA'], ['Mint', 'TH'], ['Phet', 'LA'], ['Hoa', 'VN'],
-  ['Mone', 'LA'], ['Beam', 'TH'], ['Kham', 'LA'], ['Nok', 'TH'], ['Lan', 'VN'], ['Toy', 'LA'],
-]
-export const DEMO_FILL: DemoPerson[] = FILL.map(([name, country]) => ({ name, avatar: null, country }))

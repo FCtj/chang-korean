@@ -88,10 +88,11 @@ export default function Leaderboard() {
     let c: Ceremony
     if (!me || me.points <= 0) c = { kind: 'norank' }
     else if (me.rank <= 3) c = { kind: (['gold', 'silver', 'bronze'] as const)[me.rank - 1], rank: me.rank, points: me.points }
-    else if (me.rank <= 10) c = { kind: 'top10', rank: me.rank, points: me.points }
+    // 10명 이하일 때 10등 안은 의미가 없으니 '보상권 안' 축하는 11명 이상일 때만
+    else if (me.rank <= 10 && me.total > 10) c = { kind: 'top10', rank: me.rank, points: me.points }
     else {
-      const tenth = list.find((r) => r.rank === 10) ?? list[9]
-      const target = tenth ?? list.find((r) => r.rank === me.rank - 1)
+      const goalRank = Math.min(10, me.rank - 1)
+      const target = list.find((r) => r.rank === goalRank)
       c = { kind: 'encourage', rank: me.rank, points: me.points, goal: target ? target.rank : undefined, gap: target ? Math.max(1, target.points - me.points + 1) : undefined }
     }
     const tm = setTimeout(() => {

@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from 'react'
 import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, NATIVES, type Native, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
-import { DEMO_FILL, DEMO_PEOPLE } from './data/friends'
+import { DEMO_PEOPLE } from './data/friends'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
 /** candy = 분홍 파스텔(기본, 여자 선택) · carbon = 묵직한 블랙(남자 선택) */
@@ -70,6 +70,8 @@ export interface State {
   stamps: string[] // 이번 달 도장 받은 날짜 (YYYY-MM-DD)
   streak: number
   lastStudyDay: string
+  /** 공부한 날 모음 (YYYY-MM-DD). '나의 한국어 이력'의 공부한 날·성실도 계산용 */
+  studyDays: string[]
   totalPoints: number
 }
 
@@ -135,6 +137,7 @@ function initial(): State {
     stamps: [],
     streak: 0,
     lastStudyDay: '',
+    studyDays: [],
     totalPoints: 0,
   }
 }
@@ -146,6 +149,8 @@ function load(): State {
       const parsed = JSON.parse(raw) as Partial<State> & { v?: number }
       const base = initial()
       const merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      // 공부한 날 기록이 생기기 전 사용자: 이번 달 도장 + 마지막 공부한 날로 시작
+      if (!Array.isArray(parsed.studyDays)) merged.studyDays = [...new Set([...(parsed.stamps ?? []), ...(parsed.lastStudyDay ? [parsed.lastStudyDay] : [])])].sort()
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로
       if (!parsed.native || !NATIVES.includes(parsed.native)) merged.native = 'lo'
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈
@@ -397,11 +402,33 @@ export function applyPlacement(placedAt: number) {
 
 // ───────── 점수·도장 ─────────
 
+function markStudyDay(s: State): State {
+  const day = todayKey()
+  return s.studyDays.includes(day) ? s : { ...s, studyDays: [...s.studyDays, day] }
+}
+
+/** 나의 한국어 이력: 꾸준함과 성과 (나중에 일자리·유학 연계의 바탕. 공유는 본인이 허락할 때만) */
+export function learningRecord(s: State) {
+  const since = todayKey(new Date(Date.now() - 29 * 86400000))
+  const recent = s.studyDays.filter((d) => d >= since).length
+  const best = Math.max(0, ...Object.values(s.bestExam))
+  return {
+    days: s.studyDays.length,
+    streak: s.streak,
+    words: Object.keys(s.known).length,
+    rounds: s.passedRounds.length,
+    tier: currentTierNo(s),
+    best,
+    consistency: Math.round((recent / 30) * 100),
+    since: s.studyDays[0] ?? '',
+  }
+}
+
 function addCapped(base: number): number {
   const s = rollover(state)
   const pts = Math.min(base, Math.max(0, DAILY_CAP - s.dayPoints))
   if (pts > 0) {
-    update((st) => ({ ...st, dayPoints: st.dayPoints + pts, monthPoints: st.monthPoints + pts, totalPoints: st.totalPoints + pts }))
+    update((st) => markStudyDay({ ...st, dayPoints: st.dayPoints + pts, monthPoints: st.monthPoints + pts, totalPoints: st.totalPoints + pts }))
     report('study', null, pts)
   }
   return pts
@@ -447,9 +474,9 @@ export function completeSession(): boolean {
   update((s) => {
     const yesterday = todayKey(new Date(Date.now() - 86400000))
     const streak = s.lastStudyDay === day ? s.streak : s.lastStudyDay === yesterday ? s.streak + 1 : 1
-    if (s.stamps.includes(day)) return { ...s, streak, lastStudyDay: day }
+    if (s.stamps.includes(day)) return markStudyDay({ ...s, streak, lastStudyDay: day })
     gotStamp = true
-    return { ...s, stamps: [...s.stamps, day], streak, lastStudyDay: day }
+    return markStudyDay({ ...s, stamps: [...s.stamps, day], streak, lastStudyDay: day })
   })
   return gotStamp
 }
@@ -494,7 +521,7 @@ export interface RankRow {
 }
 export function demoRanking(s: State): RankRow[] {
   const day = new Date().getDate()
-  const rows: RankRow[] = [...DEMO_PEOPLE, ...DEMO_FILL].map((p, i) => ({
+  const rows: RankRow[] = DEMO_PEOPLE.map((p, i) => ({
     name: p.name,
     avatar: p.avatar,
     country: p.country,

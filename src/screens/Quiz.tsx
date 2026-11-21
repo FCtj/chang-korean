@@ -9,6 +9,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { translation, type Word } from '../data/words'
 import { useApp, type QuizKind } from '../ctx'
+import { demoAutoAchievement } from '../community'
 import { awardPractice, completeSession, getState, recordAnswer, recordExam, recordPromo, DAILY_CAP, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { Elephant, Icon, ProgressBar, TopBar, shuffle } from '../ui'
@@ -151,9 +152,12 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
     if (kind === 'exam' && roundId) {
       passed = wrong.length === 0
       bonus = recordExam(roundId, firstTry, total)
+      // 처음 통과(보너스)면 내 그룹에 '인증' 글 (서버는 트리거가, 데모는 여기서)
+      if (bonus > 0) demoAutoAchievement({ type: 'exam', ref: roundId, points: bonus, score: firstTry })
     } else if (kind === 'promo' && tierNo) {
       passed = wrong.length === 0
       bonus = recordPromo(tierNo, passed)
+      if (bonus > 0) demoAutoAchievement({ type: 'promo', ref: String(tierNo), points: bonus })
     }
     if (passed) {
       sfx.levelUp()
@@ -320,6 +324,7 @@ function ResultView({
             <span>/{r.total}</span>
           </div>
           {isTest && r.passed && kind === 'exam' && r.bonus > 0 && <p className="result-line">{t('unlockedNext')}</p>}
+          {isTest && r.passed && r.bonus > 0 && <p className="note">👥 {t('autoShareNote')}</p>}
         </div>
 
         <div className="result-chips">

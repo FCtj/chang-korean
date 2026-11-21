@@ -2,9 +2,17 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode 
 import { useApp } from './ctx'
 import { useStore } from './store'
 
-type IconName = 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart'
+type IconName = 'users' | 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart'
 
 const PATHS: Record<IconName, ReactNode> = {
+  users: (
+    <>
+      <circle cx="9" cy="8.5" r="3.2" />
+      <path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5" />
+      <circle cx="16.5" cy="9.5" r="2.6" />
+      <path d="M15.5 14.2c2.4-.2 4.4 1.3 5 4.3" />
+    </>
+  ),
   back: <path d="M15 5l-7 7 7 7" />,
   play: <path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="currentColor" strokeLinejoin="round" />,
   pause: (

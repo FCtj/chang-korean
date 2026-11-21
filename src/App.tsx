@@ -7,6 +7,7 @@ import { stopSpeaking } from './audio'
 import { Ctx, type AppCtx, type Route, type Tab } from './ctx'
 import { Icon } from './ui'
 import Onboarding from './screens/Onboarding'
+import Community from './screens/Community'
 import Home from './screens/Home'
 import RoundScreen from './screens/RoundScreen'
 import Player from './screens/Player'
@@ -95,6 +96,7 @@ export default function App() {
       <>
         <main className="tab-page">
           {tab === 'learn' && <Home />}
+          {tab === 'community' && <Community />}
           {tab === 'rewards' && <Rewards />}
           {tab === 'settings' && <SettingsScreen />}
         </main>
@@ -102,6 +104,7 @@ export default function App() {
           {(
             [
               ['learn', 'home', t('tabLearn')],
+              ['community', 'users', t('tabCommunity')],
               ['rewards', 'gift', t('tabRewards')],
               ['settings', 'gear', t('tabSettings')],
             ] as const
