@@ -7,11 +7,12 @@
 //   내 언어→한국어: 문제 = 그림 + 뜻,     보기 = 한국어
 //   듣기:          문제 = 소리,          보기 = 그림
 import { useEffect, useRef, useState } from 'react'
-import { translation, type Native, type Word } from '../data/words'
+import { translation, type Word } from '../data/words'
 import { useApp, type QuizKind } from '../ctx'
 import { awardPractice, completeSession, getState, recordAnswer, recordExam, recordPromo, DAILY_CAP, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
-import { Icon, ProgressBar, TopBar, shuffle } from '../ui'
+import { Elephant, Icon, ProgressBar, TopBar, shuffle } from '../ui'
+import { Confetti } from './Player'
 
 type QType = 'k2n' | 'n2k' | 'listen'
 interface Q {
@@ -27,8 +28,8 @@ function pickType(kind: QuizKind, direction: Direction): QType {
   return d === 'ko2n' ? 'k2n' : 'n2k'
 }
 
-function makeQ(word: Word, type: QType, pool: Word[], native: Native, retry = false): Q {
-  const keyOf = (w: Word) => (type === 'listen' ? w.emoji : type === 'k2n' ? translation(w, native) : w.ko)
+function makeQ(word: Word, type: QType, pool: Word[], retry = false): Q {
+  const keyOf = (w: Word) => (type === 'listen' ? w.emoji : type === 'k2n' ? translation(w) : w.ko)
   const seen = new Set([keyOf(word)])
   const distractors: Word[] = []
   for (const w of shuffle(pool)) {
@@ -53,11 +54,11 @@ interface Result {
 
 export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }) {
   const { kind, words, pool, roundId, tierNo, label } = props
-  const { t, tf, native, replace, pop, home } = useApp()
+  const { t, tf, replace, pop, home } = useApp()
   const settings = getState().settings
   const isTest = kind === 'exam' || kind === 'promo'
 
-  const [queue, setQueue] = useState<Q[]>(() => words.map((w) => makeQ(w, pickType(kind, settings.direction), pool, native)))
+  const [queue, setQueue] = useState<Q[]>(() => words.map((w) => makeQ(w, pickType(kind, settings.direction), pool)))
   const [pos, setPos] = useState(0)
   const [picked, setPicked] = useState<Word | 'timeout' | null>(null)
   const [wrongIds, setWrongIds] = useState<string[]>([])
@@ -118,7 +119,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
         setWrongIds(wrongRef.current)
       }
       if (!isTest) {
-        queueRef.current = [...queueRef.current, makeQ(q.word, q.type, pool, native, true)]
+        queueRef.current = [...queueRef.current, makeQ(q.word, q.type, pool, true)]
         setQueue(queueRef.current)
       }
       setTimeout(() => speakWord(q.word), 350)
@@ -200,13 +201,13 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
           {showKoPrompt && (
             <>
               <div className="prompt-word ko">{q.word.ko}</div>
-              <div className="card-rom">{q.word.rom}</div>
+              <div className="rom-pill">{q.word.rom}</div>
             </>
           )}
           {showNativePrompt && (
             <>
               <div className="prompt-emoji" aria-hidden="true">{q.word.emoji}</div>
-              <div className={`prompt-word ${native}`}>{translation(q.word, native)}</div>
+              <div className="prompt-word lo">{translation(q.word)}</div>
             </>
           )}
           {q.type === 'listen' && (
@@ -216,7 +217,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
             </button>
           )}
           {q.type === 'k2n' && (
-            <button className="icon-btn" onClick={() => speakWord(q.word)} aria-label={t('speak')}>
+            <button className="round-btn sm" onClick={() => speakWord(q.word)} aria-label={t('speak')}>
               <Icon name="speaker" />
             </button>
           )}
@@ -233,7 +234,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
                 {q.type === 'k2n' && (
                   <>
                     <span className="opt-emoji">{o.emoji}</span>
-                    <span className={`opt-text ${native}`}>{translation(o, native)}</span>
+                    <span className="opt-text lo">{translation(o)}</span>
                   </>
                 )}
                 {q.type === 'n2k' && <span className="opt-text ko">{o.ko}</span>}
@@ -251,16 +252,16 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
             <div className="feedback-word">
               <span className="feedback-emoji" aria-hidden="true">{q.word.emoji}</span>
               <span className="feedback-text">
-                <span className="ko">{q.word.ko}</span> <span className="card-rom inline">{q.word.rom}</span>
+                <span className="ko">{q.word.ko}</span> <span className="rom-pill sm">{q.word.rom}</span>
                 <br />
-                <span className={native}>{translation(q.word, native)}</span>
+                <span className="lo">{translation(q.word)}</span>
               </span>
-              <button className="icon-btn" onClick={() => speakWord(q.word)} aria-label={t('speak')}>
+              <button className="round-btn sm" onClick={() => speakWord(q.word)} aria-label={t('speak')}>
                 <Icon name="speaker" />
               </button>
             </div>
             {!ok && (
-              <button className="btn btn-primary btn-block" onClick={next} autoFocus>
+              <button className="btn btn-pink btn-block" onClick={next} autoFocus>
                 {t('next')}
               </button>
             )}
@@ -294,19 +295,16 @@ function ResultView({
   tf: ReturnType<typeof useApp>['tf']
 }) {
   const isTest = kind === 'exam' || kind === 'promo'
-  const { native } = useApp()
-  let emoji = '🎉'
   let title = t('quizDone')
-  if (isTest) {
-    emoji = r.passed ? (kind === 'promo' ? '👑' : '🏆') : '💪'
-    title = r.passed ? (kind === 'promo' ? t('promoted') : t('examPass')) : t('examFail')
-  }
+  if (isTest) title = r.passed ? (kind === 'promo' ? t('promoted') : t('examPass')) : t('examFail')
+  const acc = kind === 'promo' && r.passed ? 'crown' : kind === 'exam' && r.passed ? 'grad' : 'bow'
   return (
     <div className="screen">
       <TopBar title={label} onBack={onBack} />
       <div className="page result">
+        {r.passed && <Confetti />}
         <div className={r.passed ? 'result-hero pass' : 'result-hero'}>
-          <div className="result-emoji" aria-hidden="true">{emoji}</div>
+          <Elephant size={120} acc={acc} mood={r.passed ? 'happy' : 'wow'} className="bounce" />
           <h1 className="result-title">{title}</h1>
           <div className="result-score num">
             {r.firstTry}
@@ -316,9 +314,9 @@ function ResultView({
         </div>
 
         <div className="result-chips">
-          {r.earned > 0 && <span className="chip chip-gold num">⭐ {tf('earned', r.earned)}</span>}
-          {r.bonus > 0 && <span className="chip chip-gold num">🎁 {tf('earned', r.bonus)}</span>}
-          {r.stamp && <span className="chip chip-good">☕ {t('stampGot')}</span>}
+          {r.earned > 0 && <span className="chip chip-butter num">⭐ {tf('earned', r.earned)}</span>}
+          {r.bonus > 0 && <span className="chip chip-butter num">🎁 {tf('earned', r.bonus)}</span>}
+          {r.stamp && <span className="chip chip-mint">☕ {t('stampGot')}</span>}
         </div>
         {r.capHit && <p className="note">{t('dailyCap')}</p>}
 
@@ -332,7 +330,7 @@ function ResultView({
                 <li key={w.id}>
                   <span className="wrong-emoji" aria-hidden="true">{w.emoji}</span>
                   <span className="ko">{w.ko}</span>
-                  <span className={`muted ${native}`}>{translation(w, native)}</span>
+                  <span className="muted lo">{translation(w)}</span>
                 </li>
               ))}
             </ul>
@@ -342,7 +340,7 @@ function ResultView({
         <div className="result-actions">
           {isTest && !r.passed && (
             <>
-              <button className="btn btn-primary btn-block" onClick={onPracticeWrong}>
+              <button className="btn btn-pink btn-block" onClick={onPracticeWrong}>
                 {t('practiceWrong')}
               </button>
               <button className="btn btn-soft btn-block" onClick={onAgain}>
@@ -351,13 +349,13 @@ function ResultView({
             </>
           )}
           {isTest && r.passed && (
-            <button className="btn btn-gold btn-block" onClick={onHome}>
+            <button className="btn btn-butter btn-block" onClick={onHome}>
               {t('toHome')}
             </button>
           )}
           {!isTest && (
             <>
-              <button className="btn btn-primary btn-block" onClick={onAgain}>
+              <button className="btn btn-pink btn-block" onClick={onAgain}>
                 {t('again')}
               </button>
               <button className="btn btn-soft btn-block" onClick={onBack}>

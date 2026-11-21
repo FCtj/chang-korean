@@ -9,7 +9,10 @@ if (!styles.length || !scripts.length) throw new Error('빌드 결과에서 styl
 
 const out = `<title>Chang Korean</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="라오스·태국 학습자를 위한 그림·소리 한국어 단어 앱 (MVP 웹 버전)">
+<meta name="description" content="라오스 학습자를 위한 그림·소리 한국어 단어 앱 (MVP 웹 버전)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&display=swap">
 <style>${styles.join('\n')}</style>
 <style>:root{--safe-top:0px}</style>
 <div id="root"></div>

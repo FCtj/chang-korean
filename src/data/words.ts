@@ -1,4 +1,5 @@
 // 단어 데이터 (MVP: 1계급 2회차 + 2계급 2회차 = 200단어)
+// 지금 앱은 라오어만 사용합니다. 태국어(th)는 다음 버전을 위해 데이터만 남겨 둡니다.
 // ⚠️ 라오어·태국어 번역은 초안입니다. 출시 전 반드시 원어민 검수가 필요합니다.
 //
 // 한 줄 형식: [한국어, 로마자 발음, 라오어, 태국어, 이모지]
@@ -337,7 +338,7 @@ export const WORD_BY_ID: Record<string, Word> = Object.fromEntries(ALL_WORDS.map
 /** 녹음 파일이 준비된 단어 id (public/audio/<id>.mp3). 비어 있으면 기기 TTS 사용 */
 export const AUDIO_READY = new Set<string>([])
 
-export const SET_SIZE = 10
+export const SET_SIZE = 5 // 5개씩 묶어서 반복
 export const PROMO_QUESTIONS = 30
 
 export function roundSets(round: Round): Word[][] {
@@ -346,6 +347,7 @@ export function roundSets(round: Round): Word[][] {
   return sets
 }
 
-export function translation(w: Word, native: Native): string {
-  return native === 'lo' ? w.lo : w.th
+/** 학습자 언어 뜻 (지금은 라오어만) */
+export function translation(w: Word): string {
+  return w.lo
 }

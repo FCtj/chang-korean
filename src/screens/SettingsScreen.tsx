@@ -1,41 +1,35 @@
 import { useEffect, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
-import type { Lang, Native } from '../data/words'
+import type { Lang } from '../data/words'
 import { useApp } from '../ctx'
-import { nativeName } from '../i18n'
+import type { UiLang } from '../i18n'
 import { resetAll, setSettings, update, useStore, type Direction, type Order } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Icon, Segmented, Stepper, Toggle } from '../ui'
 
-const SAMPLE: Record<Lang, string> = { ko: '안녕하세요', lo: 'ສະບາຍດີ', th: 'สวัสดี' }
+const SAMPLE: Partial<Record<Lang, string>> = { ko: '안녕하세요', lo: 'ສະບາຍດີ' }
 
 export default function SettingsScreen() {
   const s = useStore()
-  const { t, ui, native } = useApp()
+  const { t } = useApp()
   const [name, setName] = useState(s.nickname)
-  const [voices, setVoices] = useState<Record<Lang, boolean | null>>({ ko: null, lo: null, th: null })
+  const [voices, setVoices] = useState<{ ko: boolean | null; lo: boolean | null }>({ ko: null, lo: null })
   const [confirmReset, setConfirmReset] = useState(false)
 
   useEffect(() => {
     let alive = true
-    ;(['ko', 'lo', 'th'] as Lang[]).forEach((l) =>
-      hasVoice(l).then((ok) => alive && setVoices((v) => ({ ...v, [l]: ok }))),
-    )
+    ;(['ko', 'lo'] as const).forEach((l) => hasVoice(l).then((ok) => alive && setVoices((v) => ({ ...v, [l]: ok }))))
     return () => {
       alive = false
     }
   }, [])
-
-  const ko = t('korean')
-  const nn = nativeName(native, ui)
-  const langLabel: Record<Lang, string> = { ko: '한국어', lo: 'ພາສາລາວ', th: 'ภาษาไทย' }
 
   return (
     <div className="page">
       <h1 className="h1">{t('tabSettings')}</h1>
 
       <section className="panel form">
-        <h2 className="h3">{t('account')}</h2>
+        <h2 className="h3">🐘 {t('account')}</h2>
         <div className="field">
           <label htmlFor="nick-edit">{t('nickname')}</label>
           <input
@@ -48,30 +42,30 @@ export default function SettingsScreen() {
           />
         </div>
         <div className="field">
-          <span className="label">{t('myLang')}</span>
-          <Segmented<Native>
-            name={t('myLang')}
-            value={native}
-            onChange={(n) => update((st) => ({ ...st, native: n, ui: st.ui === 'ko' ? 'ko' : n }))}
-            options={[
-              { id: 'lo', label: '🇱🇦 ລາວ' },
-              { id: 'th', label: '🇹🇭 ไทย' },
-            ]}
-          />
-        </div>
-        <div className="field">
           <span className="label">{t('uiLang')}</span>
-          <Segmented<Lang>
+          <Segmented<UiLang>
             name={t('uiLang')}
-            value={ui}
+            value={s.ui}
             onChange={(l) => update((st) => ({ ...st, ui: l }))}
-            options={(['lo', 'th', 'ko'] as Lang[]).map((l) => ({ id: l, label: langLabel[l] }))}
+            options={[
+              { id: 'lo', label: '🇱🇦 ພາສາລາວ' },
+              { id: 'ko', label: '🇰🇷 한국어' },
+            ]}
           />
         </div>
       </section>
 
       <section className="panel form">
-        <h2 className="h3">{t('study')}</h2>
+        <h2 className="h3">🔁 {t('study')}</h2>
+        <div className="quick-row">
+          <span className="quick-label">{t('repsPerSet')}</span>
+          <Stepper value={s.settings.reps} min={1} max={10} onChange={(reps) => setSettings({ reps })} format={(v) => `${v}${t('times')}`} />
+        </div>
+        <div className="quick-row">
+          <span className="quick-label">{t('cardSec')}</span>
+          <Stepper value={s.settings.cardSec} min={1} max={10} onChange={(cardSec) => setSettings({ cardSec })} format={(v) => `${v}${t('sec')}`} />
+        </div>
+        <Toggle id="set-faster" label={t('autoFaster')} on={s.settings.autoFaster} onChange={(autoFaster) => setSettings({ autoFaster })} />
         <div className="field">
           <span className="label">{t('direction')}</span>
           <Segmented<Direction>
@@ -79,20 +73,11 @@ export default function SettingsScreen() {
             value={s.settings.direction}
             onChange={(direction) => setSettings({ direction })}
             options={[
-              { id: 'ko2n', label: `${ko} → ${nn}` },
-              { id: 'n2ko', label: `${nn} → ${ko}` },
+              { id: 'ko2n', label: `${t('korean')} → ${t('lao')}` },
+              { id: 'n2ko', label: `${t('lao')} → ${t('korean')}` },
               { id: 'mix', label: t('dirMix') },
             ]}
           />
-        </div>
-        <div className="quick-row">
-          <span className="quick-label">{t('cardSec')}</span>
-          <Stepper value={s.settings.cardSec} min={1} max={10} onChange={(cardSec) => setSettings({ cardSec })} format={(v) => `${v}${t('sec')}`} />
-        </div>
-        <Toggle id="set-faster" label={t('autoFaster')} on={s.settings.autoFaster} onChange={(autoFaster) => setSettings({ autoFaster })} />
-        <div className="quick-row">
-          <span className="quick-label">{t('quizSec')}</span>
-          <Stepper value={s.settings.quizSec} min={0} max={20} onChange={(quizSec) => setSettings({ quizSec })} format={(v) => (v === 0 ? t('noLimit') : `${v}${t('sec')}`)} />
         </div>
         <div className="field">
           <span className="label">{t('order')}</span>
@@ -103,25 +88,28 @@ export default function SettingsScreen() {
             options={[
               { id: 'seq', label: t('orderSeq') },
               { id: 'random', label: t('orderRandom') },
-              { id: 'wrong', label: t('orderWrong') },
             ]}
           />
         </div>
         <Toggle id="set-speak" label={t('autoSpeak')} on={s.settings.autoSpeak} onChange={(autoSpeak) => setSettings({ autoSpeak })} />
+        <div className="quick-row">
+          <span className="quick-label">{t('quizSec')}</span>
+          <Stepper value={s.settings.quizSec} min={0} max={20} onChange={(quizSec) => setSettings({ quizSec })} format={(v) => (v === 0 ? t('noLimit') : `${v}${t('sec')}`)} />
+        </div>
       </section>
 
       <section className="panel form">
-        <h2 className="h3">{t('voice')}</h2>
-        {(['ko', 'lo', 'th'] as Lang[]).map((l) => (
+        <h2 className="h3">🔊 {t('voice')}</h2>
+        {(['ko', 'lo'] as const).map((l) => (
           <div key={l} className="voice-row">
-            <span className="voice-name">{langLabel[l]}</span>
-            <span className={voices[l] ? 'chip chip-good' : 'chip'}>{voices[l] === null ? '…' : voices[l] ? t('voiceOk') : t('voiceMissing')}</span>
-            <button className="btn btn-soft sm" onClick={() => speakText(SAMPLE[l], l)}>
+            <span className="voice-name">{l === 'ko' ? '한국어' : 'ພາສາລາວ'}</span>
+            <span className={voices[l] ? 'chip chip-mint' : 'chip'}>{voices[l] === null ? '…' : voices[l] ? t('voiceOk') : t('voiceMissing')}</span>
+            <button className="btn btn-soft sm" onClick={() => speakText(SAMPLE[l]!, l)}>
               <Icon name="speaker" size={16} /> {t('test')}
             </button>
           </div>
         ))}
-        {Capacitor.isNativePlatform() && (voices.ko === false || voices.th === false || voices.lo === false) && (
+        {Capacitor.isNativePlatform() && voices.ko === false && (
           <button className="btn btn-soft btn-block" onClick={openVoiceInstall}>
             {t('installVoice')}
           </button>
@@ -143,7 +131,7 @@ export default function SettingsScreen() {
       </section>
 
       <p className="foot-note">
-        Chang Korean v0.1.0 (MVP) · {t('contentDraft')}
+        Chang Korean v0.2.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )

@@ -3,7 +3,7 @@
   "appName": "Chang Korean",
   "webDir": "dist",
   "android": {
-    "backgroundColor": "#F2F7F3"
+    "backgroundColor": "#FFF4F7"
   },
   "plugins": {
     "SystemBars": {

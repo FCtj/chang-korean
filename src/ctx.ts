@@ -1,20 +1,19 @@
 import { createContext, useContext } from 'react'
-import type { Lang, Native, Word } from './data/words'
-import type { makeT } from './i18n'
+import type { Word } from './data/words'
+import type { makeT, UiLang } from './i18n'
 
 export type QuizKind = 'practice' | 'listen' | 'exam' | 'promo'
 
 export type Route =
   | { name: 'tabs' }
   | { name: 'round'; roundId: string }
-  | { name: 'cards'; roundId: string; words: Word[]; label: string }
+  | { name: 'player'; roundId: string; startChunk: number }
   | { name: 'quiz'; kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }
 
 export type Tab = 'learn' | 'rewards' | 'settings'
 
 export interface AppCtx {
-  ui: Lang
-  native: Native
+  ui: UiLang
   t: ReturnType<typeof makeT>['t']
   tf: ReturnType<typeof makeT>['tf']
   push: (r: Route) => void

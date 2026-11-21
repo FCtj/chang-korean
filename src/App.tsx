@@ -9,7 +9,7 @@ import { Icon } from './ui'
 import Onboarding from './screens/Onboarding'
 import Home from './screens/Home'
 import RoundScreen from './screens/RoundScreen'
-import Cards from './screens/Cards'
+import Player from './screens/Player'
 import Quiz from './screens/Quiz'
 import Rewards from './screens/Rewards'
 import SettingsScreen from './screens/SettingsScreen'
@@ -23,7 +23,7 @@ export default function App() {
   const tabRef = useRef(tab)
   tabRef.current = tab
 
-  const ui = s.ui ?? 'ko'
+  const ui = s.ui
   const { t, tf } = useMemo(() => makeT(ui), [ui])
 
   useEffect(() => {
@@ -53,7 +53,6 @@ export default function App() {
   const ctx: AppCtx = useMemo(
     () => ({
       ui,
-      native: s.native ?? 'lo',
       t,
       tf,
       tab,
@@ -69,10 +68,10 @@ export default function App() {
         if (nextTab) setTab(nextTab)
       },
     }),
-    [ui, s.native, t, tf, tab],
+    [ui, t, tf, tab],
   )
 
-  if (!s.native || !s.ui) return <Onboarding />
+  if (!s.started) return <Onboarding />
 
   let screen
   if (top.name === 'tabs') {
@@ -86,13 +85,15 @@ export default function App() {
         <nav className="tabbar" aria-label="menu">
           {(
             [
-              ['learn', 'book', t('tabLearn')],
+              ['learn', 'home', t('tabLearn')],
               ['rewards', 'gift', t('tabRewards')],
               ['settings', 'gear', t('tabSettings')],
             ] as const
           ).map(([id, icon, label]) => (
             <button key={id} className={tab === id ? 'tab on' : 'tab'} onClick={() => setTab(id)} aria-current={tab === id ? 'page' : undefined}>
-              <Icon name={icon} size={24} />
+              <span className="tab-icon">
+                <Icon name={icon} size={22} />
+              </span>
               <span>{label}</span>
             </button>
           ))}
@@ -100,7 +101,7 @@ export default function App() {
       </>
     )
   } else if (top.name === 'round') screen = <RoundScreen key={top.roundId} roundId={top.roundId} />
-  else if (top.name === 'cards') screen = <Cards key={stack.length} {...top} />
+  else if (top.name === 'player') screen = <Player key={`${stack.length}-${top.roundId}-${top.startChunk}`} roundId={top.roundId} startChunk={top.startChunk} />
   else screen = <Quiz key={`${stack.length}-${top.kind}-${top.words.length}`} {...top} />
 
   return (
