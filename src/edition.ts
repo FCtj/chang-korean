@@ -2,13 +2,14 @@
 //   ko : 외국인이 한국어를 배우는 기본 판 (Chang Korean)
 //   ja : 한국인이 일본어를 배우는 판 — JLPT N5 → N1
 //   en : 한국인이 영어를 배우는 판 — TOEIC 450 → 900+
+//   lo : 한국인이 라오스어를 배우는 판 — 입문 → 중급 + 상황별 (여행·식당·일터)
 // 일본어·영어판은 TOPIK 자리에 시험 레벨이 들어가고(트랙 id 는 그대로 topik-1…5),
 // 한국어판 전용 기능(기초 코스·나라·학습자 언어·서버 로그인)은 끔
-export type Edition = 'ko' | 'ja' | 'en'
+export type Edition = 'ko' | 'ja' | 'en' | 'lo'
 
 const env = (import.meta as unknown as { env?: Record<string, string | undefined> }).env
 const raw = env?.VITE_EDITION
-export const EDITION: Edition = raw === 'ja' || raw === 'en' ? raw : 'ko'
+export const EDITION: Edition = raw === 'ja' || raw === 'en' || raw === 'lo' ? raw : 'ko'
 export const IS_KO = EDITION === 'ko'
 
 interface EdInfo {
@@ -107,6 +108,33 @@ export const ED: Record<Edition, EdInfo> = {
         { title: '중학 기초 (A1)', desc: 'CEFR A1 — 처음 배우는 생활 단어', icon: '🌱' },
         { title: '중학 (A2)', desc: 'CEFR A2 — 중학교 수준 생활 단어', icon: '📗' },
         { title: '고등 (B1)', desc: 'CEFR B1 — 고등학교 수준 단어', icon: '🎓' },
+      ],
+    },
+  },
+  lo: {
+    app: 'Chang Lao',
+    lang: '라오스어',
+    exam: '라오스어',
+    bcp47: 'lo-LA',
+    icon: '🇱🇦',
+    tagline: '그림과 소리로 외우는 라오스어 단어 · 입문~중급 · 여행·식당·일터',
+    levels: 3,
+    levelLabel: (n) => ['입문', '초급', '중급'][n - 1] ?? String(n),
+    levelDesc: ['입문 — 인사·가족·숫자·음식 같은 첫 단어', '초급 — 생활에서 자주 쓰는 단어', '중급 — 일·사회·감정 표현까지'],
+    legend: ['입문·초급', '중급'],
+    sources: [
+      '단어: 한국어 학습용 기본 어휘(국립국어원 등급 참고)로 만든 이 앱의 단원 → 라오어는 라오스 정부 사전(E-Government Center, 라오스 우정통신부 lao-eng-dictionary, MIT)과 위키낱말사전 라오어 목록에 있는 말만',
+      '읽기: 라오 글자 음절 나누기(LaoNLP, Apache-2.0)와 앱의 한글 발음 규칙 — 성조는 표시하지 않음',
+      '예문·상황 문장: 앱에서 새로 씀 (초안 · 원어민 검수 중)',
+    ],
+    daily: {
+      title: '상황별 라오스어',
+      desc: '여행·식당·쇼핑·일터에서 바로 쓰는 말',
+      icon: '🧳',
+      levels: [
+        { title: '여행·관광', desc: '길 찾기 · 숙소 · 관광지', icon: '🧳' },
+        { title: '식당·쇼핑', desc: '주문 · 계산 · 가게', icon: '🍜' },
+        { title: '일·생활', desc: '공장·사무실 · 몸·건강 · 아이', icon: '🏭' },
       ],
     },
   },

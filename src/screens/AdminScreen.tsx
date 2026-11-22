@@ -365,7 +365,7 @@ function Reports({ mask }: { mask: boolean }) {
 }
 
 const FB_CAT: Record<string, string> = { pron: '🔊 발음', meaning: '📖 뜻', example: '💬 예문', picture: '🖼️ 그림', bug: '🐞 오류', idea: '💡 제안', other: '✏️ 기타' }
-const FB_APP: Record<string, string> = { ko: '🇰🇷 한국어판', ja: '🇯🇵 일본어판', en: '🇺🇸 영어판' }
+const FB_APP: Record<string, string> = { ko: '🇰🇷 한국어판', ja: '🇯🇵 일본어판', en: '🇺🇸 영어판', lo: '🇱🇦 라오스어판' }
 
 /** 📮 수정 요청 · 제안: 처리 안 한 것 먼저 → 고침 · 넘김 · 삭제 */
 function FeedbackPanel({ mask }: { mask: boolean }) {
@@ -464,7 +464,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
   const [mask, setMask] = useState(readMask)
   const [open, setOpen] = useState<AdminUser | null>(null)
   const [places, setPlaces] = useState<{ countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] } | null>(null)
-  const [eds, setEds] = useState<Partial<Record<'ja' | 'en', EditionStats>> | null>(null)
+  const [eds, setEds] = useState<Partial<Record<'ja' | 'en' | 'lo', EditionStats>> | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -574,13 +574,13 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
 
         {eds && (
           <section className="panel adm-editions">
-            <h3 className="adm-h">🇯🇵 일본어판 · 💼 영어판 (한국인 학습자)</h3>
-            {(['ja', 'en'] as const).map((k) => {
+            <h3 className="adm-h">🇯🇵 일본어판 · 💼 영어판 · 🇱🇦 라오스어판 (한국인 학습자)</h3>
+            {(['ja', 'en', 'lo'] as const).map((k) => {
               const e = eds[k]
               if (!e) return null
               return (
                 <div key={k} className="adm-ed">
-                  <div className="adm-ed-title">{k === 'ja' ? '🇯🇵 일본어판 (JLPT)' : '💼 영어판 (TOEIC)'}</div>
+                  <div className="adm-ed-title">{k === 'ja' ? '🇯🇵 일본어판 (JLPT)' : k === 'lo' ? '🇱🇦 라오스어판' : '💼 영어판 (TOEIC)'}</div>
                   <div className="note">
                     로그인 {fmtNum(e.users)}명 · 오늘 {fmtNum(e.active_today)}명 · 7일 {fmtNum(e.active_7d)}명 · 30일 {fmtNum(e.active_30d)}명 · 7일 공부 {fmtNum(Math.round(e.seconds_7d / 60))}분
                   </div>

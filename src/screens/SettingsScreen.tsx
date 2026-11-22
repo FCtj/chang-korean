@@ -28,7 +28,7 @@ export default function SettingsScreen() {
         { lang: 'ko', name: '한국어', sample: '안녕하세요' },
         { lang: s.native, name: me.name, sample: me.hello },
       ]
-    : [{ lang: 'ko', name: ED_INFO.lang, sample: EDITION === 'ja' ? 'こんにちは' : 'Hello! Nice to meet you.' }]
+    : [{ lang: 'ko', name: ED_INFO.lang, sample: EDITION === 'ja' ? 'こんにちは' : EDITION === 'lo' ? 'ສະບາຍດີ' : 'Hello! Nice to meet you.' }]
   const [confirmReset, setConfirmReset] = useState(false)
   const [fbOpen, setFbOpen] = useState(false)
   const auth = useAuth()

@@ -3,11 +3,11 @@
 import type { L10n, Tier } from './data/words'
 import { EDITION, IS_KO } from './edition'
 
-// 일본어판 = 시바견 · 영어판 = 흰머리수리 (미국 국조, 토익은 미국식 영어 기준)
+// 일본어판 = 시바견 · 영어판 = 흰머리수리 (미국 국조, 토익은 미국식 영어 기준) · 라오스어판 = 코끼리 (백만 코끼리의 나라)
 export type MascotKind = 'elephant' | 'buffalo' | 'horse' | 'cedar' | 'shiba' | 'eagle'
 
 export const mascotOf = (country: string): MascotKind =>
-  !IS_KO ? (EDITION === 'ja' ? 'shiba' : 'eagle') : country === 'VN' ? 'buffalo' : country === 'MN' ? 'horse' : country === 'LB' ? 'cedar' : 'elephant'
+  !IS_KO ? (EDITION === 'ja' ? 'shiba' : EDITION === 'lo' ? 'elephant' : 'eagle') : country === 'VN' ? 'buffalo' : country === 'MN' ? 'horse' : country === 'LB' ? 'cedar' : 'elephant'
 
 // 백향목 이모지는 없어서 상록수
 export const MASCOT_EMOJI: Record<MascotKind, string> = { elephant: '🐘', buffalo: '🐃', horse: '🐎', cedar: '🌲', shiba: '🐕', eagle: '🦅' }

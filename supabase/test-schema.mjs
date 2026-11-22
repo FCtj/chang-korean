@@ -941,5 +941,21 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('Korean ranking lists members with 0 points', ko.some((r) => r.display_name === '하*' && Number(r.points) === 0), JSON.stringify(ko.slice(-3)))
 }
 
+// ───────── 라오스어판 ('lo') ─────────
+{
+  const L = 'cc111111-1111-1111-1111-111111111111'
+  await q('insert into auth.users values ($1) on conflict do nothing', [L])
+  const ok = async (sql, params = []) => { try { await as(L, () => q(sql, params)); return '' } catch (e) { return String(e.message) } }
+  check('lo: edition_progress accepts lo', (await ok(`insert into edition_progress (user_id, app, data) values ($1, 'lo', '{}')`, [L])) === '')
+  check('lo: log_edition_activity accepts lo', (await ok(`select log_edition_activity('lo', (now() at time zone 'Asia/Seoul')::date, 60, 5, 1, 1)`)) === '')
+  check('lo: award_edition_points accepts lo', (await as(L, async () => (await q(`select award_edition_points('lo', 'study', null, 10) as n`)).rows[0].n)) === 10)
+  check('lo: feedback accepts lo', (await ok(`select submit_feedback('lo', 'word', 'pron', 'x', null, '소리 이상', 'ko')`)) === '')
+  check('lo: still refuses unknown app', (await ok(`insert into edition_progress (user_id, app, data) values ($1, 'xx', '{}')`, [L])) !== '')
+  const lb = (await q(`select display_name, points from get_edition_leaderboard('lo', 'today', 10)`)).rows
+  check('lo: leaderboard', lb.length === 1 && Number(lb[0].points) === 10, JSON.stringify(lb))
+  const ov = (await as(U.ploy, () => q('select admin_edition_overview(7) as o'))).rows[0].o
+  check('lo: admin overview has lo', ov.lo && ov.lo.users === 1 && ov.lo.active_today === 1, JSON.stringify(ov.lo))
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

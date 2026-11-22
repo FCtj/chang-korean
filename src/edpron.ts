@@ -4,11 +4,14 @@
 import { EDITION } from './edition'
 import { ED_PHRASES, ED_READING } from './data/tracks'
 import { kanaToHangul } from './kana'
+import { laoHangul } from './lao'
 
 export function edPron(term: string): string {
   const r = ED_READING[term]
   if (!r) return ''
   if (EDITION === 'en') return ED_PHRASES.has(term) ? '' : `/${r}/`
+  // 라오스어: 단어는 '로마자 · 한글', 문장은 한글 읽기만 (읽기 칸에 한글)
+  if (EDITION === 'lo') return ED_PHRASES.has(term) ? r : `${r} · ${laoHangul(term)}`
   if (ED_PHRASES.has(term)) return r !== term ? r : ''
   const h = kanaToHangul(r)
   return r !== term ? `${r} · ${h}` : h

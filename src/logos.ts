@@ -128,8 +128,39 @@ const EN_CARBON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"
   </g>
 </svg>`
 
-export const LOGO_SVG: Partial<Record<Edition, string>> = { ja: JA, en: EN }
-export const LOGO_SVG_CARBON: Partial<Record<Edition, string>> = { ja: JA_CARBON, en: EN_CARBON }
+/** 라오스어판 마스코트: 코끼리 (백만 코끼리의 나라) — 라오스 국기 색(빨강·파랑·흰 동그라미) 위에 */
+const elephant = (skin = '#C9D2E3', ear = '#B3BDD2', inner = '#F9C9D9', eyes = EYES) => `
+  <g>
+    <ellipse cx="27" cy="57" rx="20" ry="24" fill="${ear}"/>
+    <ellipse cx="93" cy="57" rx="20" ry="24" fill="${ear}"/>
+    <ellipse cx="29" cy="58" rx="12" ry="16" fill="${inner}"/>
+    <ellipse cx="91" cy="58" rx="12" ry="16" fill="${inner}"/>
+    <ellipse cx="60" cy="56" rx="29" ry="27" fill="${skin}"/>
+    <path d="M51 70 Q49 86 55 96 Q60 104 69 99 Q73 96 69 92 Q63 95 62 89 Q60 81 69 70 Z" fill="${skin}"/>
+    <path d="M43 38 q5 -4 10 0 M67 38 q5 -4 10 0" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2.4" stroke-linecap="round"/>
+    ${eyes}
+  </g>`
+const LO = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs><clipPath id="lr"><rect width="120" height="120" rx="28"/></clipPath></defs>
+  <g clip-path="url(#lr)">
+    <rect width="120" height="120" fill="#CE1126"/>
+    <rect y="30" width="120" height="60" fill="#002868"/>
+  </g>
+  <circle cx="60" cy="60" r="41" fill="#FFFFFF"/>
+  <g transform="translate(13 12) scale(0.78)">${elephant()}</g>
+</svg>`
+const LO_CARBON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  ${CARBON_DEFS}
+  <rect width="120" height="120" rx="28" fill="url(#bg)"/>
+  <rect x="0" y="104" width="120" height="3" fill="#CE1126"/>
+  <rect x="0" y="107" width="120" height="3" fill="#3e6ae1"/>
+  <rect x="0" y="110" width="120" height="3" fill="#CE1126"/>
+  <circle cx="60" cy="56" r="42" fill="none" stroke="#d9dde3" stroke-opacity="0.55" stroke-width="2"/>
+  <g transform="translate(10 8) scale(0.84)">${elephant('#9aa3ad', '#6b737d', '#2a2f37', CARBON_EYES)}</g>
+</svg>`
+
+export const LOGO_SVG: Partial<Record<Edition, string>> = { ja: JA, en: EN, lo: LO }
+export const LOGO_SVG_CARBON: Partial<Record<Edition, string>> = { ja: JA_CARBON, en: EN_CARBON, lo: LO_CARBON }
 /** 판 로고 (테마: candy 분홍 / carbon 블랙) */
 export const logoUri = (ed: Edition, theme: 'candy' | 'carbon' = 'candy'): string | null => {
   const svg = (theme === 'carbon' ? LOGO_SVG_CARBON : LOGO_SVG)[ed]

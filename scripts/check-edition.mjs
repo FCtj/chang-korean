@@ -5,8 +5,8 @@ import { resolve } from 'node:path'
 import { existsSync } from 'node:fs'
 import { pathToFileURL } from 'node:url'
 const [lang, file, ...others] = process.argv.slice(2)
-if (!['ja', 'en'].includes(lang) || !file) {
-  console.error('사용: node check-edition.mjs <ja|en> <file.ts> [others.ts ...]')
+if (!['ja', 'en', 'lo'].includes(lang) || !file) {
+  console.error('사용: node check-edition.mjs <ja|en|lo> <file.ts> [others.ts ...]')
   process.exit(2)
 }
 let errors = 0
@@ -20,6 +20,8 @@ if (!EX || typeof EX !== 'object') fail('EX 없음')
 const HANGUL = /[가-힣]/
 const KANA = /^[぀-ゟ゠-ヿー・\s、。？！「」『』〜～…（）()0-9０-９A-Za-zＡ-Ｚａ-ｚ,.?!%％]+$/
 const JA = /[぀-ヿ一-鿿]/
+const LAO = /[\u0E80-\u0EFF]/
+const LAO_ROM = /^[a-z\s-]+$/
 const EN_TERM = /^[A-Za-z0-9À-ÿ][A-Za-z0-9À-ÿ\s'’\-.,?!:;/()&$%]*$/
 const POS = /^\[(명|동|형|부|전|접|대|감|조)(·(명|동|형|부|전|접|대|감))?\] \S/
 const otherTerms = new Map()
@@ -59,7 +61,13 @@ for (const [ui, u] of (UNITS ?? []).entries()) {
       emoji.add(em)
       if (meaning.has(mean)) fail(`${w}: 뜻 "${mean}" 이 단원에 이미 있음`)
       meaning.add(mean)
-      if (lang === 'ja') {
+      if (lang === 'lo') {
+        if (!LAO.test(term)) fail(`${w}: 라오어가 아님`)
+        if (HANGUL.test(term)) fail(`${w}: 라오어 칸에 한글`)
+        if (kind === '단어' && (!reading?.trim() || !LAO_ROM.test(reading))) fail(`${w}: 읽기는 로마자 → ${reading}`)
+        if (kind === '단어' && /\s/.test(term)) fail(`${w}: 단어에 띄어쓰기`)
+        if (kind === '문장' && !HANGUL.test(reading)) fail(`${w}: 문장 읽기는 한글 → ${reading}`)
+      } else if (lang === 'ja') {
         if (!JA.test(term)) fail(`${w}: 일본어가 아님`)
         if (HANGUL.test(term) || HANGUL.test(reading)) fail(`${w}: 일본어 칸에 한글`)
         if (!reading?.trim() || !KANA.test(reading)) fail(`${w}: 읽기는 가나로 → ${reading}`)
@@ -93,7 +101,12 @@ for (const [ui, u] of (UNITS ?? []).entries()) {
     }
     if (!e.ex?.trim() || !HANGUL.test(e.ko ?? '')) fail(`${w}: ex·ko 필요 (ko 는 한국어 번역)`)
     if (HANGUL.test(e.ex ?? '')) fail(`${w}: ex 에 한글`)
-    if (lang === 'ja') {
+    if (lang === 'lo') {
+      if (!LAO.test(e.ex ?? '')) fail(`${w}: ex 는 라오어`)
+      if (!HANGUL.test(e.rom ?? '')) fail(`${w}: rom 은 한글 읽기 → ${e.rom}`)
+      if ((e.ex ?? '').length > 90) fail(`${w}: ex 너무 김 (${e.ex.length}자)`)
+      if (!(e.ex ?? '').includes(term)) warn(`${w}: 예문에 단어가 안 보임 → ${e.ex}`)
+    } else if (lang === 'ja') {
       if (!JA.test(e.ex ?? '')) fail(`${w}: ex 는 일본어`)
       if (!e.rom?.trim() || !KANA.test(e.rom)) fail(`${w}: rom 은 가나 읽기 → ${e.rom}`)
       if ((e.ex ?? '').length > 45) fail(`${w}: ex 너무 김 (${e.ex.length}자, 45자까지)`)

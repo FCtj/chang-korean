@@ -31,7 +31,7 @@ interface Q {
 }
 type Answer = Word | 'idk' | 'timeout'
 
-const plain = (ws: Word[]) => ws.filter((w) => w.kind !== 'phrase' && w.ko.length <= (EDITION === 'en' ? 14 : 7) && !/[?!.。？]/.test(w.ko))
+const plain = (ws: Word[]) => ws.filter((w) => w.kind !== 'phrase' && w.ko.length <= (EDITION === 'en' ? 14 : EDITION === 'lo' ? 10 : 7) && !/[?!.。？]/.test(w.ko))
 const topikWords = (...lv: number[]) => plain(lv.flatMap((n) => topikTrack(n)?.units.flatMap((u) => u.words) ?? []))
 
 /** 난이도 4단계 × 2문제. 홀수 번째는 '뜻 고르기', 짝수 번째는 '한국어 고르기' */
@@ -160,7 +160,7 @@ export default function Intro() {
           <div className="ed-brand">
             <img className="ed-logo float" src={logoUri(EDITION, s.theme) ?? ''} alt="" width={96} height={96} />
             <div className="ed-brand-name">{ED_INFO.app}</div>
-            <div className="ed-brand-sub">{EDITION === 'ja' ? 'JLPT 일본어 단어' : 'TOEIC 영어 단어'}</div>
+            <div className="ed-brand-sub">{EDITION === 'ja' ? 'JLPT 일본어 단어' : EDITION === 'lo' ? '라오스어 단어 · 여행·생활·일터' : 'TOEIC 영어 단어'}</div>
           </div>
           <h1 className="h1 center">회원가입</h1>
           <p className="note center signup-lead">

@@ -7,10 +7,11 @@ const root = new URL('../', import.meta.url)
 
 // 일본어판·영어판: node scripts/make-standalone.mjs ja|en → dist-web/ja/index.html · dist-web/en/index.html
 const ED = process.argv[2]
-if (ED === 'ja' || ED === 'en') {
+if (ED === 'ja' || ED === 'en' || ED === 'lo') {
   const info = {
     ja: { app: 'Chang Japanese', emoji: '🗻', desc: '그림과 소리로 외우는 일본어 단어 · JLPT N5~N1 레벨별 핵심 단어' },
     en: { app: 'Chang English', emoji: '💼', desc: '그림과 소리로 외우는 영어 단어 · TOEIC 450~900+ 점수대별 핵심 단어' },
+    lo: { app: 'Chang Lao', emoji: '🐘', desc: '그림과 소리로 외우는 라오스어 단어 · 입문~중급 · 여행·식당·일터 상황별' },
   }[ED]
   let page = readFileSync(new URL(`dist-single-${ED}/index.html`, root), 'utf8')
   // 판 로고: src/logos.ts (SVG) · store/editions/<판>-icon-180/512.png (홈 화면 아이콘)

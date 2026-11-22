@@ -3,7 +3,7 @@
 import { execSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 
-const FIRST = { ja: 'src/data/ja/n5.ts', en: 'src/data/en/toeic-450.ts' }
+const FIRST = { ja: 'src/data/ja/n5.ts', en: 'src/data/en/toeic-450.ts', lo: 'src/data/lo/level-1.ts' }
 let built = 0
 for (const [ed, file] of Object.entries(FIRST)) {
   if (!existsSync(file)) {

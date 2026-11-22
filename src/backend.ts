@@ -296,11 +296,11 @@ export async function adminAccessPlaces(days = 30): Promise<{ countries: Record<
 }
 export type EditionStats = { users: number; active_today: number; active_7d: number; active_30d: number; seconds_7d: number; days: { day: string; users: number; seconds: number }[] }
 /** 관리자: 일본어판·영어판 사용 현황 (SQL 20261122070000_editions 실행 후) */
-export async function adminEditionOverview(days = 30): Promise<Partial<Record<'ja' | 'en', EditionStats>>> {
+export async function adminEditionOverview(days = 30): Promise<Partial<Record<'ja' | 'en' | 'lo', EditionStats>>> {
   if (!supabase) throw new Error('no_backend')
   const { data, error } = await supabase.rpc('admin_edition_overview', { p_days: days })
   if (error) throw new Error(error.message)
-  return (data ?? {}) as Partial<Record<'ja' | 'en', EditionStats>>
+  return (data ?? {}) as Partial<Record<'ja' | 'en' | 'lo', EditionStats>>
 }
 // ───────── 수정 요청 · 제안 ─────────
 export type FeedbackCategory = 'pron' | 'meaning' | 'example' | 'picture' | 'bug' | 'idea' | 'other'
@@ -323,7 +323,7 @@ export async function submitFeedback(f: FeedbackInput): Promise<string | null> {
 export type AdminFeedback = {
   id: number
   created_at: string
-  app: 'ko' | 'ja' | 'en'
+  app: 'ko' | 'ja' | 'en' | 'lo'
   kind: 'word' | 'app'
   category: FeedbackCategory
   target: string | null

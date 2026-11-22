@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ED_INFO, IS_KO } from '../edition'
+import { ED_INFO, EDITION, IS_KO } from '../edition'
 import { hasVoice, openVoiceInstall } from '../audio'
 import { Capacitor } from '@capacitor/core'
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
@@ -492,13 +492,20 @@ function VoiceHint() {
       <p>
         🔇 이 기기에 <b>{ED_INFO.lang} 음성</b>이 없어서 발음 소리가 안 날 수 있어요.
       </p>
-      <p className="note">
-        안드로이드: 설정 → 일반 관리(또는 접근성) → 텍스트 음성 변환 → Google 음성 엔진 → 음성 데이터 설치에서 {ED_INFO.lang}를 받아 주세요.
-        <br />
-        iPhone: 설정 → 손쉬운 사용 → 읽기 및 말하기 → 음성에서 {ED_INFO.lang} 음성을 받아 주세요.
-      </p>
+      {EDITION === 'lo' ? (
+        // 라오스어 음성은 대부분의 휴대폰(구글·애플 기본 음성)에 없음 → 한글 읽기로 안내
+        <p className="note">
+          라오스어 음성은 대부분의 휴대폰에 들어 있지 않아요. 카드 아래 <b>한글 읽기</b>(예: ສະບາຍດີ → 사바이디)를 보고 따라 읽어 주세요. 원어민 녹음 소리는 준비 중이에요.
+        </p>
+      ) : (
+        <p className="note">
+          안드로이드: 설정 → 일반 관리(또는 접근성) → 텍스트 음성 변환 → Google 음성 엔진 → 음성 데이터 설치에서 {ED_INFO.lang}를 받아 주세요.
+          <br />
+          iPhone: 설정 → 손쉬운 사용 → 읽기 및 말하기 → 음성에서 {ED_INFO.lang} 음성을 받아 주세요.
+        </p>
+      )}
       <div className="quick-row">
-        {Capacitor.isNativePlatform() && (
+        {Capacitor.isNativePlatform() && EDITION !== 'lo' && (
           <button className="btn btn-soft sm" onClick={() => openVoiceInstall()}>
             음성 설치
           </button>
