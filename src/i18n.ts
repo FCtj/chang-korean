@@ -276,6 +276,23 @@ const S = {
   consentNo: { ko: '안 할래요', lo: 'ບໍ່ເອົາ' },
   consentToggle: { ko: '성별·내 언어 서버 저장 (비공개)', lo: 'ບັນທຶກເພດ·ພາສາໄວ້ໃນເຊີບເວີ (ສ່ວນຕົວ)' },
   consentHint: { ko: '맞춤 일자리·유학 추천과 통계에만 쓰고 다른 사람에게는 보이지 않아요', lo: 'ໃຊ້ສະເພາະແນະນຳວຽກ·ການຮຽນຕໍ່ ແລະ ສະຖິຕິ, ຄົນອື່ນບໍ່ເຫັນ' },
+  pParttime: { ko: '한국 식당·가게 알바', lo: 'ວຽກພິເສດຮ້ານເກົາຫຼີ' },
+  tracksTitle: { ko: '목적별 트랙', lo: 'ຫຼັກສູດຕາມເປົ້າໝາຍ' },
+  tracksSub: { ko: '상황별 단어와 문장으로 깊게 배워요', lo: 'ຮຽນເລິກດ້ວຍຄຳສັບ ແລະ ປະໂຫຍກຕາມສະຖານະການ' },
+  moreTracks: { ko: '다른 트랙 보기', lo: 'ເບິ່ງຫຼັກສູດອື່ນ' },
+  phraseTag: { ko: '문장', lo: 'ປະໂຫຍກ' },
+  reviewTitle: { ko: '번역 검수 도와주기', lo: 'ຊ່ວຍກວດຄຳແປ' },
+  reviewIntro: { ko: '원어민이 뜻을 확인해 주면 모든 학습자에게 도움이 돼요. 맞으면 ✅, 어색하면 고쳐 주세요.', lo: 'ຖ້າເຈົ້າຂອງພາສາຊ່ວຍກວດ ຈະຊ່ວຍຜູ້ຮຽນທຸກຄົນ. ຖືກຕ້ອງກົດ ✅, ຖ້າແປກໃຫ້ແກ້ໄຂ.' },
+  reviewLang: { ko: '검수할 언어', lo: 'ພາສາທີ່ຈະກວດ' },
+  reviewUnit: { ko: '단원', lo: 'ບົດ' },
+  reviewOk: { ko: '맞아요', lo: 'ຖືກຕ້ອງ' },
+  reviewFix: { ko: '고칠게요', lo: 'ແກ້ໄຂ' },
+  reviewSkip: { ko: '건너뛰기', lo: 'ຂ້າມ' },
+  reviewSend: { ko: '보내기', lo: 'ສົ່ງ' },
+  reviewPh: { ko: '더 자연스러운 뜻을 적어 주세요', lo: 'ຂຽນຄວາມໝາຍທີ່ເປັນທຳມະຊາດກວ່າ' },
+  reviewDone: { ko: '이 단원 검수 끝! 고마워요 🙏', lo: 'ກວດບົດນີ້ແລ້ວ! ຂອບໃຈ 🙏' },
+  reviewLogin: { ko: '검수는 Facebook으로 로그인하면 할 수 있어요', lo: 'ເຂົ້າສູ່ລະບົບດ້ວຍ Facebook ເພື່ອຊ່ວຍກວດ' },
+  reviewCurrent: { ko: '지금 뜻', lo: 'ຄວາມໝາຍຕອນນີ້' },
 } satisfies Record<string, Str>
 
 const F = {
@@ -345,6 +362,10 @@ const F = {
   durMin: { ko: (m: number) => `${m}분`, lo: (m: number) => `${m} ນາທີ` },
   durHM: { ko: (h: number, m: number) => `${h}시간 ${m}분`, lo: (h: number, m: number) => `${h} ຊມ ${m} ນທ` },
   roundsPassedN: { ko: (n: number) => `통과 ${n}회차`, lo: (n: number) => `ຜ່ານ ${n} ບົດ` },
+  unitN: { ko: (n: number) => `${n}단원`, lo: (n: number) => `ບົດທີ ${n}` },
+  unitsDone: { ko: (a: number, b: number) => `${a}/${b}단원 완료`, lo: (a: number, b: number) => `ສຳເລັດ ${a}/${b} ບົດ` },
+  itemsCount: { ko: (w: number, p: number) => `단어 ${w} · 문장 ${p}`, lo: (w: number, p: number) => `ຄຳສັບ ${w} · ປະໂຫຍກ ${p}` },
+  reviewedN: { ko: (a: number, b: number) => `검수 ${a}/${b}`, lo: (a: number, b: number) => `ກວດແລ້ວ ${a}/${b}` },
 } satisfies Record<string, Fn>
 
 /** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */

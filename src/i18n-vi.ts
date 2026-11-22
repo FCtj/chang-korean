@@ -264,6 +264,23 @@ export const S_VI: Record<StrKey, string> = {
   consentNo: 'Không, cảm ơn',
   consentToggle: 'Lưu giới tính·ngôn ngữ lên máy chủ (riêng tư)',
   consentHint: 'Chỉ dùng để gợi ý việc làm, du học và thống kê; người khác không thấy',
+  pParttime: 'Làm thêm ở quán Hàn',
+  tracksTitle: 'Lộ trình theo mục tiêu',
+  tracksSub: 'Học sâu bằng từ và câu theo tình huống',
+  moreTracks: 'Xem lộ trình khác',
+  phraseTag: 'Câu',
+  reviewTitle: 'Giúp kiểm tra bản dịch',
+  reviewIntro: 'Người bản xứ kiểm tra sẽ giúp mọi người học. Đúng thì bấm ✅, chưa tự nhiên thì sửa giúp.',
+  reviewLang: 'Ngôn ngữ kiểm tra',
+  reviewUnit: 'Bài',
+  reviewOk: 'Đúng rồi',
+  reviewFix: 'Sửa',
+  reviewSkip: 'Bỏ qua',
+  reviewSend: 'Gửi',
+  reviewPh: 'Viết nghĩa tự nhiên hơn',
+  reviewDone: 'Xong bài này! Cảm ơn bạn 🙏',
+  reviewLogin: 'Đăng nhập Facebook để kiểm tra',
+  reviewCurrent: 'Nghĩa hiện tại',
 }
 
 export const F_VI: FnTable = {
@@ -322,4 +339,8 @@ export const F_VI: FnTable = {
   durMin: (m: number) => `${m} phút`,
   durHM: (h: number, m: number) => `${h} giờ ${m} phút`,
   roundsPassedN: (n: number) => `Đạt ${n} bài`,
+  unitN: (n: number) => `Bài ${n}`,
+  unitsDone: (a: number, b: number) => `Xong ${a}/${b} bài`,
+  itemsCount: (w: number, p: number) => `${w} từ · ${p} câu`,
+  reviewedN: (a: number, b: number) => `Đã kiểm ${a}/${b}`,
 }

@@ -57,7 +57,7 @@ await db.exec(`
   grant select on all tables in schema public to anon, authenticated;
   grant insert, update on public.profiles, public.progress to authenticated;
   -- 위 일괄 grant 는 예전 테스트용. 새 비공개 테이블은 schema.sql 권한 그대로 둠 (anon 은 아무것도 없음)
-  revoke select on public.daily_activity, public.profile_private from anon;
+  revoke select on public.daily_activity, public.profile_private, public.translation_reviews from anon;
 `)
 
 const U = { noy: '11111111-1111-1111-1111-111111111111', keo: '22222222-2222-2222-2222-222222222222', ploy: '33333333-3333-3333-3333-333333333333' }
@@ -560,6 +560,39 @@ check(
   "delete_my_data leaves other users' rows",
   (await q('select count(*)::int n from daily_activity where user_id = any($1)', [[A.lin, A.tou]])).rows[0].n === 3 && (await privRow(A.tou))?.native === 'lo',
 )
+
+// ───────── 번역 검수 ─────────
+const R = { rev1: 'dddddddd-0000-0000-0000-000000000001', rev2: 'dddddddd-0000-0000-0000-000000000002' }
+for (const id of Object.values(R)) await q('insert into auth.users values ($1)', [id])
+const review = (uid, ko, verdict, suggestion = '') =>
+  as(uid, () =>
+    q(
+      `insert into translation_reviews (unit_id, ko, lang, current_text, verdict, suggestion) values ('t-restaurant-greet', $1, 'lo', 'ສະບາຍດີ', $2, $3)
+       on conflict (user_id, unit_id, ko, lang) do update set verdict = excluded.verdict, suggestion = excluded.suggestion, updated_at = now()`,
+      [ko, verdict, suggestion],
+    ),
+  )
+await review(R.rev1, '어서 오세요', 'ok')
+await review(R.rev1, '어서 오세요', 'fix', 'ຍິນດີຕ້ອນຮັບ')
+const myRev = (await as(R.rev1, () => q('select verdict, suggestion from translation_reviews'))).rows
+check('reviewer can save and update own review (one row per item)', myRev.length === 1 && myRev[0].verdict === 'fix' && myRev[0].suggestion === 'ຍິນດີຕ້ອນຮັບ', JSON.stringify(myRev))
+check("reviewer cannot see others' reviews", (await as(R.rev2, () => q('select * from translation_reviews'))).rows.length === 0)
+e = await asErr(R.rev2, `insert into translation_reviews (user_id, unit_id, ko, lang, verdict) values ($1, 'u', '가', 'lo', 'ok')`, [R.rev1])
+check('cannot write a review as someone else', e !== '', e)
+e = await asErr(R.rev2, `insert into translation_reviews (unit_id, ko, lang, verdict) values ('u', '가', 'ko', 'ok')`)
+check('review language must be lo/th/vi', e.includes('translation_reviews_lang_check'), e)
+e = await errOf(async () => {
+  await db.exec('set role anon')
+  try {
+    await q('select * from translation_reviews')
+  } finally {
+    await db.exec('reset role')
+  }
+})
+check('anon cannot read reviews', e !== '', e)
+await review(R.rev2, '어서 오세요', 'ok')
+await as(R.rev1, () => q('select delete_my_review_data()'))
+check('delete_my_review_data removes only own reviews', (await q('select user_id from translation_reviews')).rows.map((r) => r.user_id).join() === R.rev2)
 
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

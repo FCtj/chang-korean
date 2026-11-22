@@ -11,6 +11,8 @@ import Community from './screens/Community'
 import LoginError from './screens/LoginError'
 import Home from './screens/Home'
 import RoundScreen from './screens/RoundScreen'
+import TrackScreen from './screens/TrackScreen'
+import ReviewScreen from './screens/ReviewScreen'
 import Player from './screens/Player'
 import Placement from './screens/Placement'
 import Quiz from './screens/Quiz'
@@ -122,6 +124,8 @@ export default function App() {
       </>
     )
   } else if (top.name === 'round') screen = <RoundScreen key={top.roundId} roundId={top.roundId} />
+  else if (top.name === 'track') screen = <TrackScreen key={top.trackId} trackId={top.trackId} />
+  else if (top.name === 'review') screen = <ReviewScreen />
   else if (top.name === 'player')
     screen = <Player key={`${stack.length}-${top.roundId}-${top.startChunk}-${!!top.review}`} roundId={top.roundId} startChunk={top.startChunk} review={top.review} />
   else if (top.name === 'placement') screen = <Placement ui={ui} mode="retake" onBack={() => ctx.pop()} onDone={() => ctx.home('learn')} />

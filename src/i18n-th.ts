@@ -263,6 +263,23 @@ export const S_TH: Record<StrKey, string> = {
   consentNo: 'ไม่เป็นไร',
   consentToggle: 'บันทึกเพศ·ภาษาบนเซิร์ฟเวอร์ (ส่วนตัว)',
   consentHint: 'ใช้เฉพาะแนะนำงาน·เรียนต่อและสถิติ คนอื่นไม่เห็น',
+  pParttime: 'พาร์ตไทม์ร้านเกาหลี',
+  tracksTitle: 'คอร์สตามเป้าหมาย',
+  tracksSub: 'เรียนลึกด้วยคำศัพท์และประโยคตามสถานการณ์',
+  moreTracks: 'ดูคอร์สอื่น',
+  phraseTag: 'ประโยค',
+  reviewTitle: 'ช่วยตรวจคำแปล',
+  reviewIntro: 'ถ้าเจ้าของภาษาช่วยตรวจ จะช่วยผู้เรียนทุกคน ถูกต้องกด ✅ ถ้าแปลกช่วยแก้ไข',
+  reviewLang: 'ภาษาที่จะตรวจ',
+  reviewUnit: 'บท',
+  reviewOk: 'ถูกต้อง',
+  reviewFix: 'แก้ไข',
+  reviewSkip: 'ข้าม',
+  reviewSend: 'ส่ง',
+  reviewPh: 'เขียนความหมายที่เป็นธรรมชาติกว่า',
+  reviewDone: 'ตรวจบทนี้เสร็จแล้ว! ขอบคุณ 🙏',
+  reviewLogin: 'เข้าสู่ระบบด้วย Facebook เพื่อช่วยตรวจ',
+  reviewCurrent: 'ความหมายตอนนี้',
 }
 
 export const F_TH: FnTable = {
@@ -320,4 +337,8 @@ export const F_TH: FnTable = {
   durMin: (m: number) => `${m} นาที`,
   durHM: (h: number, m: number) => `${h} ชม. ${m} นาที`,
   roundsPassedN: (n: number) => `ผ่าน ${n} บท`,
+  unitN: (n: number) => `บทที่ ${n}`,
+  unitsDone: (a: number, b: number) => `สำเร็จ ${a}/${b} บท`,
+  itemsCount: (w: number, p: number) => `คำศัพท์ ${w} · ประโยค ${p}`,
+  reviewedN: (a: number, b: number) => `ตรวจแล้ว ${a}/${b}`,
 }

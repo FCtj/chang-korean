@@ -372,7 +372,8 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
               aria-label={t('tapToReveal')}
             >
               <span className="fcard-inner">
-                <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))}`}>
+                <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''}`}>
+                  {word.kind === 'phrase' && <span className="phrase-tag">💬 {t('phraseTag')}</span>}
                   <span className="flash-blob" aria-hidden="true">
                     <span className="flash-emoji">{word.emoji}</span>
                   </span>
@@ -386,7 +387,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   )}
                   <span className="flip-hint">↻ {t('tapToReveal')}</span>
                 </span>
-                <span className={`fcard-face back c-${pastel(batchWords.indexOf(word))}`}>
+                <span className={`fcard-face back c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''}`}>
                   <span className="back-top">
                     <span className="back-emoji" aria-hidden="true">{word.emoji}</span>
                     <span className={koFirst ? 'back-q ko' : 'back-q lo'}>{koFirst ? word.ko : translation(word)}</span>

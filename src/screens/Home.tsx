@@ -1,9 +1,10 @@
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
-import { update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { recommendedTracks, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
 import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
+import { TRACKS, type Track } from '../data/tracks'
 
 export default function Home() {
   const s = useStore()
@@ -147,6 +148,28 @@ export default function Home() {
         )}
       </section>
 
+      <section className="packs tracks">
+        <div className="packs-head">
+          <h2 className="h3">🎯 {t('tracksTitle')}</h2>
+          <span className="note">{t('tracksSub')}</span>
+        </div>
+        <div className="track-list">
+          {(recommendedTracks(s).length ? recommendedTracks(s) : TRACKS).map((tr) => (
+            <TrackCard key={tr.id} track={tr} />
+          ))}
+        </div>
+        {recommendedTracks(s).length > 0 && TRACKS.length > recommendedTracks(s).length && (
+          <details className="more-packs">
+            <summary>{t('moreTracks')}</summary>
+            <div className="track-list">
+              {TRACKS.filter((tr) => !recommendedTracks(s).includes(tr)).map((tr) => (
+                <TrackCard key={tr.id} track={tr} />
+              ))}
+            </div>
+          </details>
+        )}
+      </section>
+
       <div className="path">
         {TIERS.map((tr) => {
           const open = isTierOpen(s, tr.no)
@@ -249,6 +272,31 @@ function unitProgress(s: ReturnType<typeof useStore>, r: Round): number {
   if (stepsDone(s, r.id)) return 1
   const st = stepOf(s, r.id)
   return ((st - 1) * r.words.length + stepKnownCount(s, r, st)) / (n * r.words.length)
+}
+
+function TrackCard({ track }: { track: Track }) {
+  const s = useStore()
+  const { tf, ui, push } = useApp()
+  const done = track.units.filter((u) => stepsDone(s, u.id)).length
+  const items = track.units.reduce((n, u) => n + u.words.length, 0)
+  const phrases = track.units.reduce((n, u) => n + u.words.filter((w) => w.kind === 'phrase').length, 0)
+  return (
+    <button className="track-card" onClick={() => push({ name: 'track', trackId: track.id })}>
+      <span className="track-icon" aria-hidden="true">
+        {track.icon}
+      </span>
+      <span className="track-body">
+        <span className="track-title">{track.title[ui]}</span>
+        <span className="track-desc">{track.desc[ui]}</span>
+        <span className="track-meta">
+          {tf('unitsDone', done, track.units.length)} · {tf('itemsCount', items - phrases, phrases)}
+        </span>
+        <span className="pack-bar" aria-hidden="true">
+          <span style={{ width: `${Math.round((done / track.units.length) * 100)}%` }} />
+        </span>
+      </span>
+    </button>
+  )
 }
 
 function PackCard({ pack, badge }: { pack: Round; badge?: string }) {

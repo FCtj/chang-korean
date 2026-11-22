@@ -13,6 +13,7 @@ import { PACK_SURVIVAL, PACK_WORK, PACK_TRAVEL, PACK_SCHOOL, PACK_KPOP, PACK_FAM
 import { TH } from './tr-th.ts'
 import { VI } from './tr-vi.ts'
 import { TITLE_TH, TITLE_VI } from './tr-titles.ts'
+import { TRACKS } from './tracks.ts'
 
 export type Lang = 'ko' | 'lo' | 'th' | 'vi'
 /** 학습자 언어 (뜻이 나오는 언어) */
@@ -29,6 +30,8 @@ export interface Word {
   vi: string
   emoji: string
   roundId: string
+  /** 상황 문장 카드 (트랙 단원의 문장) */
+  kind?: 'phrase'
 }
 
 export interface Round {
@@ -39,9 +42,11 @@ export interface Round {
   words: Word[]
   /** 바로 쓰는 단어팩이면 아이콘·목적 (계급 순서와 상관없이 언제든 열림) */
   pack?: { icon: string; purpose: Purpose | null; desc: L10n }
+  /** 목적별 트랙 단원이면 트랙 id */
+  track?: string
 }
 
-export type Purpose = 'work' | 'travel' | 'school' | 'kpop' | 'family'
+export type Purpose = 'work' | 'parttime' | 'travel' | 'school' | 'kpop' | 'family'
 
 export interface Tier {
   no: number
@@ -391,7 +396,7 @@ export const PACKS: Round[] = [
   makePack('family', '👨‍👩‍👧', 'family', t('가족 · 친구', 'ຄອບຄົວ · ໝູ່'), t('밥 먹었어요? · 보고 싶어요 · 잘 자요', 'ກິນເຂົ້າແລ້ວບໍ? · ຄິດຮອດ · ຝັນດີ'), PACK_FAMILY),
 ]
 
-const ROUND_MAP: Record<string, Round> = Object.fromEntries([...ROUNDS, ...PACKS].map((r) => [r.id, r]))
+const ROUND_MAP: Record<string, Round> = Object.fromEntries([...ROUNDS, ...PACKS, ...TRACKS.flatMap((t) => t.units)].map((r) => [r.id, r]))
 /** 회차 또는 단어팩 찾기 */
 export function findRound(id: string): Round {
   return ROUND_MAP[id]

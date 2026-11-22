@@ -213,6 +213,14 @@ export default function SettingsScreen() {
       )}
 
       <section className="panel form">
+        <h2 className="h3">🔍 {t('reviewTitle')}</h2>
+        <p className="note">{t('reviewIntro')}</p>
+        <button className="btn btn-soft btn-block" onClick={() => push({ name: 'review' })}>
+          🔍 {t('reviewTitle')} →
+        </button>
+      </section>
+
+      <section className="panel form">
         <button className="btn btn-soft btn-block" onClick={() => push({ name: 'placement' })}>
           ✏️ {t('retakeTest')}
         </button>
@@ -245,8 +253,9 @@ export default function SettingsScreen() {
   )
 }
 
-const PURPOSES: { id: Purpose; icon: string; key: 'pWork' | 'pTravel' | 'pSchool' | 'pKpop' | 'pFamily' }[] = [
+const PURPOSES: { id: Purpose; icon: string; key: 'pWork' | 'pParttime' | 'pTravel' | 'pSchool' | 'pKpop' | 'pFamily' }[] = [
   { id: 'work', icon: '💼', key: 'pWork' },
+  { id: 'parttime', icon: '🍜', key: 'pParttime' },
   { id: 'travel', icon: '✈️', key: 'pTravel' },
   { id: 'school', icon: '🎓', key: 'pSchool' },
   { id: 'kpop', icon: '🎤', key: 'pKpop' },

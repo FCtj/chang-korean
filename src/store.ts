@@ -4,6 +4,7 @@ import { useSyncExternalStore } from 'react'
 import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, NATIVES, type Native, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
 import { DEMO_PEOPLE } from './data/friends'
+import { TRACKS, type Track } from './data/tracks'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
 /** candy = 분홍 파스텔(기본, 여자 선택) · carbon = 묵직한 블랙(남자 선택) */
@@ -378,9 +379,20 @@ export function recommendedPacks(s: State): Round[] {
   return PACKS.filter((p) => p.pack!.purpose === null || s.purposes.includes(p.pack!.purpose))
 }
 
-/** 이어서 할 것: 아직 안 끝낸 추천 단어팩이 있으면 그것 먼저, 없으면 지금 회차 */
+/** 내 목적에 맞는 트랙 (목적을 고르지 않았으면 없음) */
+export function recommendedTracks(s: State): Track[] {
+  return TRACKS.filter((t) => s.purposes.includes(t.purpose))
+}
+
+/** 이어서 할 것: 추천 단어팩 → 내 목적 트랙의 다음 단원 → 지금 회차 */
 export function nextUnit(s: State): Round | null {
-  return recommendedPacks(s).find((p) => !stepsDone(s, p.id)) ?? currentRound(s)
+  return (
+    recommendedPacks(s).find((p) => !stepsDone(s, p.id)) ??
+    recommendedTracks(s)
+      .flatMap((t) => t.units)
+      .find((u) => !stepsDone(s, u.id)) ??
+    currentRound(s)
+  )
 }
 
 /** 지금 공부해야 할 회차 (열려 있고 아직 통과 못 한 첫 회차) */

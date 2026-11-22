@@ -108,6 +108,7 @@ export async function deleteMyData(): Promise<boolean> {
   if (!supabase || auth.status !== 'in') return false
   const { error } = await supabase.rpc('delete_my_data')
   if (error) return false
+  await supabase.rpc('delete_my_review_data').then(undefined, () => {})
   await signOut()
   return true
 }
