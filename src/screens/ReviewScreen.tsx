@@ -17,6 +17,8 @@ export default function ReviewScreen() {
   const auth = useAuth()
   const { t, tf, ui } = useApp()
   const [lang, setLang] = useState<Native>(s.native)
+  // 내 언어가 맨 앞
+  const [langOrder] = useState(() => [...NATIVE_INFO].sort((a, b) => Number(b.id === s.native) - Number(a.id === s.native)))
   const groups = useMemo(
     () => [
       ...TRACKS.filter((tr) => tr.units.length).map((tr) => ({ label: `${tr.icon} ${tr.title[ui]}`, units: tr.units })),
@@ -95,7 +97,7 @@ export default function ReviewScreen() {
 
         <div className="field">
           <span className="label">{t('reviewLang')}</span>
-          <Segmented<Native> name={t('reviewLang')} value={lang} onChange={setLang} options={NATIVE_INFO.map((n) => ({ id: n.id, label: `${n.flag} ${n.name}` }))} />
+          <Segmented<Native> name={t('reviewLang')} value={lang} onChange={setLang} options={langOrder.map((n) => ({ id: n.id, label: `${n.flag} ${n.name}` }))} />
         </div>
         <div className="field">
           <label htmlFor="review-unit">{t('reviewUnit')}</label>

@@ -125,12 +125,16 @@ export function todayKey(d = new Date()): string {
 }
 const monthOf = (dayKey: string) => dayKey.slice(0, 7)
 
-/** 처음 열 때 브라우저/폰 언어로 학습자 언어를 짐작 (태국어·베트남어 폰이면 그 언어, 나머지는 라오어) */
+/** 처음 열 때 폰/브라우저 언어로 학습자 언어를 짐작 (몽골어 폰이면 몽골어 · 나라 · 말 마스코트까지). 모르는 언어면 라오어 */
 function guessNative(): Native {
   try {
-    const l = (navigator.language || '').toLowerCase()
-    if (l.startsWith('th')) return 'th'
-    if (l.startsWith('vi')) return 'vi'
+    const langs = (navigator.languages?.length ? navigator.languages : [navigator.language || '']).map((l) => l.toLowerCase())
+    for (const l of langs) {
+      if (l.startsWith('mn')) return 'mn'
+      if (l.startsWith('th')) return 'th'
+      if (l.startsWith('vi')) return 'vi'
+      if (l.startsWith('lo')) return 'lo'
+    }
   } catch {
     /* 무시 */
   }
@@ -302,7 +306,8 @@ export function resetAll() {
 
 /** 학습자 언어 바꾸기: 화면 언어도 같이 (운영자용 한국어 화면이면 그대로) */
 export function setLanguage(native: Native, opts: { country?: boolean } = {}) {
-  update((s) => ({ ...s, native, ui: s.ui === 'ko' ? 'ko' : native, ...(opts.country ? { country: COUNTRY_OF[native] } : {}) }))
+  // 나라를 따로 바꾼 적이 없으면(= 이전 언어의 기본 나라) 언어를 따라 나라·마스코트도 바뀜
+  update((s) => ({ ...s, native, ui: s.ui === 'ko' ? 'ko' : native, ...(opts.country || s.country === COUNTRY_OF[s.native] ? { country: COUNTRY_OF[native] } : {}) }))
 }
 
 /** 체험 중 외운 단어 포인트 (기기 포인트. 랭킹 점수와는 별개) */

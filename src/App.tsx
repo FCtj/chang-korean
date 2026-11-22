@@ -5,6 +5,7 @@ import { makeT } from './i18n'
 import { update, useStore } from './store'
 import { applyUpdate, useUpdateReady } from './update'
 import { NEWS, NEWS_ID } from './data/news'
+import { personalizeCountry } from './data/country-words'
 import { stopSpeaking } from './audio'
 import { Ctx, type AppCtx, type Route, type Tab } from './ctx'
 import { Icon, TopBar } from './ui'
@@ -28,6 +29,8 @@ import SettingsScreen from './screens/SettingsScreen'
 
 export default function App() {
   const s = useStore()
+  // 자기소개 문장 등을 내 나라로 (렌더 전에, 바뀔 때만)
+  personalizeCountry(s.country)
   const [stack, setStack] = useState<Route[]>([{ name: 'tabs' }])
   const [tab, setTab] = useState<Tab>('learn')
   const stackRef = useRef(stack)

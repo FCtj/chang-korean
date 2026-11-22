@@ -6389,3 +6389,25 @@ body {
 .act-row .btn {
   white-space: nowrap;
 }
+
+/* ═════════ 베트남어·몽골어도 처음부터 그 언어로 만든 것처럼: 같은 둥근 글꼴 ═════════ */
+:root {
+  --font-round: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+:root[data-ui='vi'],
+:root[data-ui='mn'] {
+  --font-cute: var(--font-round);
+  --font-body: var(--font-round);
+}
+:root[data-native='vi'],
+:root[data-native='mn'] {
+  --font-lo: var(--font-round);
+}
+.nf-vi,
+.nf-mn {
+  font-family: var(--font-round);
+}
+/* 내 언어: 네 언어 같은 크기 (2×2) */
+.native-picker.four {
+  grid-template-columns: 1fr 1fr;
+}
