@@ -18,6 +18,8 @@ export const CONTACT_EMAIL = 'iamexample2@gmail.com'
  * 단어팩·트랙·계급·커뮤니티·랭킹은 그대로 있고 '더 배우기' / '랭킹 보기' 안에 접혀 있음. false 면 전체 화면.
  */
 export const SIMPLE_MODE = true
+/** 커뮤니티(게시판·그룹·댓글·공유) — 지금은 단어 외우기에 집중하려고 꺼 둠. true 로 바꾸면 다시 보임 (코드·DB 는 그대로) */
+export const COMMUNITY_ENABLED = false
 /** 체험을 마치면 주는 환영 포인트 */
 export const WELCOME_POINTS = 100
 /** 테스트 기간 예시 데이터: 지인 15명을 랭킹에 섞고, 포인트 교환 내역(커피·치킨 등) 예시를 보여 줌.

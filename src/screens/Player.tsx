@@ -9,6 +9,7 @@ import { findRound, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
 import { nativeInfo } from '../i18n'
 import { ShareToGroupButton } from './Community'
+import { COMMUNITY_ENABLED } from '../config'
 import { touchStudy, useStudyClock } from '../activity'
 import WordHelp from './WordHelp'
 import {
@@ -251,7 +252,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
             <p className="result-line">{all ? t('examOpenNow') : tf('nextStepDesc', sizes[step])}</p>
           </div>
           <StepBar step={all ? final + 1 : step + 1} sizes={sizes} t={t} tf={tf} />
-          <ShareToGroupButton data={all && round.pack ? { type: 'pack', unit: roundId } : { type: 'step', unit: roundId, n: all ? final : step }} />
+          {COMMUNITY_ENABLED && <ShareToGroupButton data={all && round.pack ? { type: 'pack', unit: roundId } : { type: 'step', unit: roundId, n: all ? final : step }} />}
           {all ? (
             <>
               <button className="btn btn-butter btn-block btn-big" onClick={() => replace({ name: 'round', roundId })}>

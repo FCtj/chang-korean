@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import { translation, type Word } from '../data/words'
 import { useApp, type QuizKind } from '../ctx'
 import { demoAutoAchievement } from '../community'
+import { COMMUNITY_ENABLED } from '../config'
 import { awardPractice, passMark, capState, completeSession, getState, recordAnswer, recordExam, recordPromo, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { useStudyClock } from '../activity'
@@ -163,11 +164,11 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
       passed = firstTry >= passMark(total)
       bonus = recordExam(roundId, firstTry, total)
       // 처음 통과(보너스)면 내 그룹에 '인증' 글 (서버는 트리거가, 데모는 여기서)
-      if (bonus > 0) demoAutoAchievement({ type: 'exam', ref: roundId, points: bonus, score: firstTry })
+      if (bonus > 0 && COMMUNITY_ENABLED) demoAutoAchievement({ type: 'exam', ref: roundId, points: bonus, score: firstTry })
     } else if (kind === 'promo' && tierNo) {
       passed = wrong.length === 0
       bonus = recordPromo(tierNo, passed)
-      if (bonus > 0) demoAutoAchievement({ type: 'promo', ref: String(tierNo), points: bonus })
+      if (bonus > 0 && COMMUNITY_ENABLED) demoAutoAchievement({ type: 'promo', ref: String(tierNo), points: bonus })
     }
     if (passed) {
       sfx.levelUp()

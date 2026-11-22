@@ -21,7 +21,7 @@ import Intro from './screens/Intro'
 import RankingScreen from './screens/RankingScreen'
 import MockExam from './screens/MockExam'
 import AdminScreen from './screens/AdminScreen'
-import { SIMPLE_MODE } from './config'
+import { COMMUNITY_ENABLED, SIMPLE_MODE } from './config'
 import Player from './screens/Player'
 import Placement from './screens/Placement'
 import Quiz from './screens/Quiz'
@@ -146,7 +146,7 @@ export default function App() {
           {tab === 'learn' && <Home />}
           {tab === 'ranking' && <RankingScreen />}
           {tab === 'points' && <PointsScreen />}
-          {tab === 'community' && <Community />}
+          {tab === 'community' && (COMMUNITY_ENABLED ? <Community /> : <Home />)}
           {tab === 'rewards' && <Rewards />}
           {tab === 'settings' && <SettingsScreen />}
         </main>
@@ -160,7 +160,7 @@ export default function App() {
               ] as const)
             : ([
                 ['learn', 'home', t('tabLearn')],
-                ['community', 'users', t('tabCommunity')],
+                ...(COMMUNITY_ENABLED ? ([['community', 'users', t('tabCommunity')]] as const) : []),
                 ['rewards', 'gift', t('tabRewards')],
                 ['settings', 'gear', t('tabSettings')],
               ] as const)
@@ -181,11 +181,13 @@ export default function App() {
   else if (top.name === 'mock') screen = <MockExam />
   else if (top.name === 'admin') screen = <AdminScreen onClose={() => ctx.pop()} />
   else if (top.name === 'community')
-    screen = (
+    screen = COMMUNITY_ENABLED ? (
       <div className="screen">
         <TopBar title={`👥 ${t('tabCommunity')}`} />
         <Community />
       </div>
+    ) : (
+      <Home />
     )
   else if (top.name === 'player')
     screen = <Player key={`${stack.length}-${top.roundId}-${top.startChunk}-${!!top.review}-${top.nonce ?? 0}`} roundId={top.roundId} startChunk={top.startChunk} review={top.review} />

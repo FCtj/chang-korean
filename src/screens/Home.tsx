@@ -8,7 +8,7 @@ import { GenderPicker } from './ProfileFields'
 import { findTrack } from '../data/tracks'
 import { JOB_TRACKS, TOPIK_LEVELS, findCourse, jobTrack, topikTrack, type CourseId } from '../data/courses'
 import { nextShopItem } from '../data/shop'
-import { SIMPLE_MODE } from '../config'
+import { COMMUNITY_ENABLED, SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
 import { CourseSheet, OtherCourses, courseProgress } from './CoursePicker'
 import { RewardTicker } from './RecentRewards'
@@ -146,7 +146,7 @@ export default function Home() {
           </span>
         </div>
       )}
-      {SIMPLE_MODE && (
+      {SIMPLE_MODE && COMMUNITY_ENABLED && (
         <button className="community-card" onClick={() => push({ name: 'community' })}>
           <span aria-hidden="true">👥</span> {t('communityCard')} →
         </button>
