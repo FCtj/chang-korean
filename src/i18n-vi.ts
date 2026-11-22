@@ -8,6 +8,7 @@ export const S_VI: Record<StrKey, string> = {
   nicknamePh: 'Tên hiện trên bảng xếp hạng',
   start: 'Bắt đầu',
   tabLearn: 'Học',
+  tabRanking: 'Xếp hạng',
   tabRewards: 'Phần thưởng',
   tabSettings: 'Cài đặt',
   korean: 'Tiếng Hàn',

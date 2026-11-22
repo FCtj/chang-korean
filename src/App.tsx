@@ -15,6 +15,7 @@ import TrackScreen from './screens/TrackScreen'
 import ReviewScreen from './screens/ReviewScreen'
 import PointsScreen from './screens/PointsScreen'
 import Intro from './screens/Intro'
+import RankingScreen from './screens/RankingScreen'
 import MockExam from './screens/MockExam'
 import { SIMPLE_MODE } from './config'
 import Player from './screens/Player'
@@ -111,6 +112,7 @@ export default function App() {
         <main className="tab-page">
           <LoginError />
           {tab === 'learn' && <Home />}
+          {tab === 'ranking' && <RankingScreen />}
           {tab === 'points' && <PointsScreen />}
           {tab === 'community' && <Community />}
           {tab === 'rewards' && <Rewards />}
@@ -120,6 +122,7 @@ export default function App() {
           {(SIMPLE_MODE
             ? ([
                 ['learn', 'home', t('tabLearn')],
+                ['ranking', 'trophy', t('tabRanking')],
                 ['points', 'gift', t('tabPoints')],
                 ['settings', 'gear', t('tabSettings')],
               ] as const)

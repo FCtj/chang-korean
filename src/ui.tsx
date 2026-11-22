@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode 
 import { useApp } from './ctx'
 import { useStore } from './store'
 
-type IconName = 'users' | 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart'
+type IconName = 'users' | 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart' | 'trophy'
 
 const PATHS: Record<IconName, ReactNode> = {
   users: (
@@ -53,6 +53,12 @@ const PATHS: Record<IconName, ReactNode> = {
   minus: <path d="M6 12h12" />,
   plus: <path d="M6 12h12M12 6v12" />,
   repeat: <path d="M17 4l3 3-3 3M4 11V9a2 2 0 012-2h14M7 20l-3-3 3-3M20 13v2a2 2 0 01-2 2H4" />,
+  trophy: (
+    <>
+      <path d="M8 4h8v5a4 4 0 01-8 0z" />
+      <path d="M8 6H5a3 3 0 003 4M16 6h3a3 3 0 01-3 4M12 13v4M8.5 20h7M10 17h4" />
+    </>
+  ),
   heart: <path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z" fill="currentColor" />,
 }
 

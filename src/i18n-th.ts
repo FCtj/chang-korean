@@ -8,6 +8,7 @@ export const S_TH: Record<StrKey, string> = {
   nicknamePh: 'ชื่อที่จะแสดงในอันดับ',
   start: 'เริ่มเลย',
   tabLearn: 'เรียน',
+  tabRanking: 'อันดับ',
   tabRewards: 'รางวัล',
   tabSettings: 'ตั้งค่า',
   korean: 'เกาหลี',

@@ -18,6 +18,7 @@ const S = {
   nicknamePh: { ko: '랭킹에 보일 이름', lo: 'ຊື່ທີ່ຈະສະແດງໃນອັນດັບ' },
   start: { ko: '시작하기', lo: 'ເລີ່ມຕົ້ນ' },
   tabLearn: { ko: '학습', lo: 'ຮຽນ' },
+  tabRanking: { ko: '랭킹', lo: 'ອັນດັບ' },
   tabRewards: { ko: '보상', lo: 'ລາງວັນ' },
   tabSettings: { ko: '설정', lo: 'ຕັ້ງຄ່າ' },
   korean: { ko: '한국어', lo: 'ເກົາຫຼີ' },
