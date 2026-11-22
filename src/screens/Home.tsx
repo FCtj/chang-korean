@@ -267,6 +267,19 @@ export default function Home() {
           )
         })}
       </div>
+      <button className="mock-card" onClick={() => push({ name: 'mock' })}>
+        <span className="mock-card-icon" aria-hidden="true">
+          🇰🇷
+        </span>
+        <span className="unit-body">
+          <span className="unit-title">
+            {t('pCitizen')} · {t('mockTitle')}
+          </span>
+          <span className="unit-meta">{t('mockDesc')}</span>
+          {s.bestMock > 0 && <span className="unit-no">{tf('mockBest', s.bestMock)}</span>}
+        </span>
+        <span className="pack-badge">{t('mockStart')}</span>
+      </button>
       {SIMPLE_MODE && (
         <button className="community-card" onClick={() => push({ name: 'community' })}>
           <span aria-hidden="true">👥</span> {t('communityCard')} →

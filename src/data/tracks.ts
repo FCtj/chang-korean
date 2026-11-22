@@ -4,7 +4,8 @@
 import { TRACK_RESTAURANT } from './track-restaurant.ts'
 import { TRACK_WORK_A } from './track-work-a.ts'
 import { TRACK_WORK_B } from './track-work-b.ts'
-import { TRACK_CITIZEN } from './track-citizen.ts'
+// 🇰🇷 국적·영주 트랙 내용(track-citizen.ts)이 들어오면 아래 import 와 TRACK_SOURCES 항목을 켭니다
+// import { TRACK_CITIZEN } from './track-citizen.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 
@@ -34,19 +35,19 @@ export const TRACK_SOURCES: TrackSource[] = [
     desc: { ko: '출근 · 공장 · 안전 · 농장 · 건설 · 월급 · 생활 · 서류', lo: 'ເຂົ້າວຽກ · ໂຮງງານ · ຄວາມປອດໄພ · ສວນ · ກໍ່ສ້າງ · ເງິນເດືອນ · ຊີວິດ · ເອກະສານ', th: 'เข้างาน · โรงงาน · ความปลอดภัย · ฟาร์ม · ก่อสร้าง · เงินเดือน · ชีวิต · เอกสาร', vi: 'Đi làm · Nhà máy · An toàn · Nông trại · Xây dựng · Lương · Sinh hoạt · Giấy tờ' },
     units: [...TRACK_WORK_A, ...TRACK_WORK_B],
   },
-  {
-    id: 'citizen',
-    purpose: 'citizen',
-    icon: '🇰🇷',
-    title: { ko: '한국 국적·영주 준비', lo: 'ກະກຽມສັນຊາດ·ພັກເຊົາຖາວອນເກົາຫຼີ', th: 'เตรียมสัญชาติ·พำนักถาวรเกาหลี', vi: 'Chuẩn bị quốc tịch·thường trú Hàn' },
-    desc: {
-      ko: '사회통합프로그램·귀화 면접 대비 · 국가 상징 · 정치 · 법 · 역사 · 지리 · 경제 · 문화 · 면접 표현 + 모의 평가',
-      lo: 'ກຽມສອບ KIIP·ສຳພາດ · ສັນຍາລັກຊາດ · ການເມືອງ · ກົດໝາຍ · ປະຫວັດສາດ · ພູມສາດ · ເສດຖະກິດ · ວັດທະນະທຳ + ທົດສອບຈຳລອງ',
-      th: 'เตรียมสอบ KIIP·สัมภาษณ์ · สัญลักษณ์ชาติ · การเมือง · กฎหมาย · ประวัติศาสตร์ · ภูมิศาสตร์ · เศรษฐกิจ · วัฒนธรรม + แบบทดสอบจำลอง',
-      vi: 'Ôn KIIP·phỏng vấn nhập tịch · Biểu tượng quốc gia · Chính trị · Pháp luật · Lịch sử · Địa lý · Kinh tế · Văn hóa + Thi thử',
-    },
-    units: TRACK_CITIZEN,
-  },
+  //   {
+  //     id: 'citizen',
+  //     purpose: 'citizen',
+  //     icon: '🇰🇷',
+  //     title: { ko: '한국 국적·영주 준비', lo: 'ກະກຽມສັນຊາດ·ພັກເຊົາຖາວອນເກົາຫຼີ', th: 'เตรียมสัญชาติ·พำนักถาวรเกาหลี', vi: 'Chuẩn bị quốc tịch·thường trú Hàn' },
+  //     desc: {
+  //       ko: '사회통합프로그램·귀화 면접 대비 · 국가 상징 · 정치 · 법 · 역사 · 지리 · 경제 · 문화 · 면접 표현 + 모의 평가',
+  //       lo: 'ກຽມສອບ KIIP·ສຳພາດ · ສັນຍາລັກຊາດ · ການເມືອງ · ກົດໝາຍ · ປະຫວັດສາດ · ພູມສາດ · ເສດຖະກິດ · ວັດທະນະທຳ + ທົດສອບຈຳລອງ',
+  //       th: 'เตรียมสอบ KIIP·สัมภาษณ์ · สัญลักษณ์ชาติ · การเมือง · กฎหมาย · ประวัติศาสตร์ · ภูมิศาสตร์ · เศรษฐกิจ · วัฒนธรรม + แบบทดสอบจำลอง',
+  //       vi: 'Ôn KIIP·phỏng vấn nhập tịch · Biểu tượng quốc gia · Chính trị · Pháp luật · Lịch sử · Địa lý · Kinh tế · Văn hóa + Thi thử',
+  //     },
+  //     units: TRACK_CITIZEN,
+  //   },
 ]
 
 export interface Track {
