@@ -7309,3 +7309,105 @@ body {
 .btn.danger {
   color: var(--bad);
 }
+
+/* ═════════ 🏅 계급 동물: 🐣 → 🐰 → 🦊 → 🐯 → 🐲 ═════════ */
+.rank-animal {
+  flex: none;
+  display: block;
+  filter: drop-shadow(0 3px 0 rgba(91, 67, 102, 0.12));
+}
+.rank-animal.locked {
+  filter: grayscale(1) opacity(0.38);
+}
+.tier-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.tier-tag-animal {
+  margin-inline-start: -2px;
+}
+.rank-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 12px 12px;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, var(--butter-soft), var(--pink-soft));
+  border: 2px solid var(--line);
+}
+.rank-ladder .h3 {
+  margin: 0 4px;
+}
+.rank-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: end;
+  gap: 4px;
+}
+.rank-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  text-align: center;
+  padding: 6px 2px;
+  border-radius: 14px;
+}
+.rank-step.now {
+  background: var(--surface);
+  box-shadow: 0 3px 0 var(--pink-deep);
+  border: 2px solid var(--pink);
+}
+.rank-step-no {
+  font-size: 0.66rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.rank-step-name {
+  font-family: var(--font-cute);
+  font-size: 0.7rem;
+  line-height: 1.15;
+  color: var(--ink);
+  word-break: keep-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.rank-step.next .rank-step-name {
+  color: var(--muted);
+}
+.rank-up {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.rank-up-arrow {
+  font-size: 1.6rem;
+  color: var(--muted);
+}
+[dir='rtl'] .rank-up-arrow {
+  transform: scaleX(-1);
+}
+.rank-up-line {
+  font-family: var(--font-cute);
+  font-size: 1.1rem;
+}
+.level-animals {
+  position: relative;
+  display: inline-block;
+}
+.level-rank-animal {
+  position: absolute;
+  inset-inline-end: -26px;
+  bottom: -6px;
+}
+:root[data-theme='carbon'] .rank-ladder {
+  background: var(--surface);
+}

@@ -12,7 +12,8 @@ import { SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
 import { CourseSheet, OtherCourses, courseProgress } from './CoursePicker'
 import { RewardTicker } from './RecentRewards'
-import { MASCOT_EMOJI, mascotOf, tierName } from '../mascot'
+import { MASCOT_EMOJI, RANK_ANIMALS, mascotOf, tierName } from '../mascot'
+import { RankAnimal } from '../rankAnimals'
 
 export default function Home() {
   const s = useStore()
@@ -42,6 +43,7 @@ export default function Home() {
         <div className="home-head-text">
           <div className="home-hi">{tf('hi', s.nickname)}</div>
           <div className="tier-tag">
+            <RankAnimal tier={tier.no} size={24} className="tier-tag-animal" />
             {tf('tierN', tier.no)} · {tierName(tier, mascot)![ui]}
           </div>
         </div>
@@ -261,6 +263,31 @@ function TopikBody() {
   )
 }
 
+/** 계급 동물 사다리: 🐣 → 🐰 → 🦊 → 🐯 → 🐲 (지금 계급 강조, 앞으로 갈 계급은 회색) */
+function RankLadder() {
+  const s = useStore()
+  const { t, tf, ui } = useApp()
+  const cur = currentTierNo(s)
+  return (
+    <section className="rank-ladder" aria-label={t('rankLadder')}>
+      <h2 className="h3">🏅 {t('rankLadder')}</h2>
+      <ol className="rank-steps">
+        {RANK_ANIMALS.map((a, i) => {
+          const no = i + 1
+          const state = s.passedTiers.includes(no) ? 'done' : no === cur ? 'now' : no < cur ? 'done' : 'next'
+          return (
+            <li key={no} className={`rank-step ${state}`} aria-current={state === 'now' ? 'step' : undefined}>
+              <RankAnimal tier={no} size={state === 'now' ? 56 : 44} locked={state === 'next'} />
+              <span className="rank-step-no">{tf('tierN', no)}</span>
+              <span className="rank-step-name">{a.name[ui]}</span>
+            </li>
+          )
+        })}
+      </ol>
+    </section>
+  )
+}
+
 /** 기초 코스: 꼭 필요한 단어팩 + 1~5계급 */
 function BasicBody() {
   const s = useStore()
@@ -281,6 +308,7 @@ function BasicBody() {
         </div>
       </section>
 
+      <RankLadder />
       <div className="path">
         {TIERS.map((tr) => {
           const open = isTierOpen(s, tr.no)
@@ -289,7 +317,7 @@ function BasicBody() {
           return (
             <section key={tr.no} className={`tier ${open ? 'open' : 'closed'}`}>
               <div className="tier-head">
-                <Elephant size={46} acc={TIER_ACC[tr.no - 1]} tone={open ? 'pink' : 'grey'} />
+                <RankAnimal tier={tr.no} size={54} locked={!open} />
                 <div className="tier-head-text">
                   <div className="tier-no">{tf('tierN', tr.no)}</div>
                   <h2 className="tier-name">

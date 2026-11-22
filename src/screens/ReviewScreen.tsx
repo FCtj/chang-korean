@@ -9,6 +9,7 @@ import { TRACKS } from '../data/tracks'
 import { useStore } from '../store'
 import { Segmented, TopBar, Pron } from '../ui'
 import { sfx } from '../audio'
+import { rankEmoji } from '../mascot'
 
 type Verdict = 'ok' | 'fix'
 
@@ -23,7 +24,7 @@ export default function ReviewScreen() {
     () => [
       ...TRACKS.filter((tr) => tr.units.length).map((tr) => ({ label: `${tr.icon} ${tr.title[ui]}`, units: tr.units })),
       { label: `⚡ ${t('packsTitle')}`, units: PACKS },
-      ...TIERS.map((tier) => ({ label: `${tier.badge} ${tf('tierN', tier.no)}`, units: tier.rounds })),
+      ...TIERS.map((tier) => ({ label: `${rankEmoji(tier.no)} ${tf('tierN', tier.no)}`, units: tier.rounds })),
     ],
     [ui, t, tf],
   )

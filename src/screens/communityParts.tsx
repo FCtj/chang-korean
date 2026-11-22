@@ -7,7 +7,7 @@ import { learningRecord, useStore } from '../store'
 import { TIERS, findRound } from '../data/words'
 import { sfx } from '../audio'
 import { burstFrom } from '../fx'
-import { mascotOf, tierName } from '../mascot'
+import { mascotOf, rankEmoji, tierName } from '../mascot'
 import { Avatar } from '../ui'
 import {
   CATEGORIES,
@@ -88,7 +88,7 @@ export function useDescribe() {
         return { icon: '⭐', text: tf('bragPoints', d.n ?? 0) }
       case 'tier': {
         const tr = TIERS.find((x) => x.no === d.n)
-        return { icon: tierBadge(tr?.badge, theme) ?? '🏅', text: `${tf('bragTier', d.n ?? 1)}${tr ? ` ${tierName(tr, mascotOf(country))![ui]}` : ''}` }
+        return { icon: rankEmoji(d.n ?? 1), text: `${tf('bragTier', d.n ?? 1)}${tr ? ` ${tierName(tr, mascotOf(country))![ui]}` : ''}` }
       }
       case 'step': {
         const r = d.unit ? findRound(d.unit) : undefined

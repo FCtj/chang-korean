@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { ROUNDS, TIERS, translation, type Word } from '../data/words'
 import { makeT, type UiLang } from '../i18n'
 import { tierName } from '../mascot'
+import { RankAnimal } from '../rankAnimals'
 import { applyPlacement } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { Elephant, Icon, TIER_ACC, shuffle, useHeart, useMascot, Pron } from '../ui'
@@ -168,7 +169,10 @@ export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mo
         <div className="page level-result">
           <div className="result-hero pass">
             <div className="eyebrow">{t('levelResult')}</div>
-            <Elephant size={130} acc={TIER_ACC[tier.no - 1]} mood="happy" className="bounce" />
+            <span className="level-animals">
+              <Elephant size={110} acc={TIER_ACC[tier.no - 1]} mood="happy" className="bounce" />
+              <RankAnimal tier={tier.no} size={72} className="level-rank-animal" />
+            </span>
             <div className="level-tier">
               {tf('tierN', tier.no)} · {tierName(tier, mascot)![ui]}
             </div>

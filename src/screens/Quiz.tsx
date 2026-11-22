@@ -16,6 +16,8 @@ import { useStudyClock } from '../activity'
 import WordHelp from './WordHelp'
 import { Elephant, Icon, ProgressBar, TopBar, shuffle, Pron } from '../ui'
 import { Confetti } from './Player'
+import { RankAnimal } from '../rankAnimals'
+import { RANK_ANIMALS, rankEmoji } from '../mascot'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 
 type QType = 'k2n' | 'n2k' | 'listen'
@@ -181,6 +183,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
     return (
       <ResultView
         kind={kind}
+        tierNo={tierNo}
         r={{ ...result, earned }}
         label={label}
         onAgain={() => replace({ name: 'quiz', ...props, words: shuffle(words) })}
@@ -296,6 +299,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
 
 function ResultView({
   kind,
+  tierNo,
   r,
   label,
   onAgain,
@@ -306,6 +310,7 @@ function ResultView({
   tf,
 }: {
   kind: QuizKind
+  tierNo?: number
   r: Result
   label: string
   onAgain: () => void
@@ -316,6 +321,7 @@ function ResultView({
   tf: ReturnType<typeof useApp>['tf']
 }) {
   const [helpWord, setHelpWord] = useState<Word | null>(null)
+  const { ui } = useApp()
   const isTest = kind === 'exam' || kind === 'promo'
   let title = t('quizDone')
   if (isTest) title = r.passed ? (kind === 'promo' ? t('promoted') : t('examPass')) : t('examFail')
@@ -326,13 +332,23 @@ function ResultView({
       <div className="page result">
         {r.passed && <Confetti />}
         <div className={r.passed ? 'result-hero pass' : 'result-hero'}>
-          <Elephant size={120} acc={acc} mood={r.passed ? 'happy' : 'wow'} className="bounce" />
+          {kind === 'promo' && r.passed && tierNo ? (
+            // 승급: 지금 동물 → 다음 계급 동물
+            <div className="rank-up" aria-hidden="true">
+              <RankAnimal tier={tierNo} size={58} />
+              <span className="rank-up-arrow">→</span>
+              <RankAnimal tier={Math.min(5, tierNo + 1)} size={112} className="bounce" />
+            </div>
+          ) : (
+            <Elephant size={120} acc={acc} mood={r.passed ? 'happy' : 'wow'} className="bounce" />
+          )}
           <h1 className="result-title">{title}</h1>
           <div className="result-score num">
             {r.firstTry}
             <span>/{r.total}</span>
           </div>
           {isTest && r.passed && kind === 'exam' && r.bonus > 0 && <p className="result-line">{t('unlockedNext')}</p>}
+          {kind === 'promo' && r.passed && tierNo && tierNo < 5 ? <p className="result-line rank-up-line">{rankEmoji(tierNo + 1)} {tf('becameAnimal', RANK_ANIMALS[tierNo].name[ui] ?? RANK_ANIMALS[tierNo].name.ko)}</p> : null}
           {isTest && r.passed && r.bonus > 0 && <p className="note">👥 {t('autoShareNote')}</p>}
         </div>
 

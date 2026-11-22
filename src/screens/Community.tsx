@@ -6,10 +6,10 @@ import { backendReady, signInWithFacebook, useAuth, useMyPublic } from '../backe
 import { learningRecord, useStore } from '../store'
 import { sfx } from '../audio'
 import { burstFrom } from '../fx'
-import { mascotOf, tierName } from '../mascot'
+import { mascotOf, rankEmoji, tierName } from '../mascot'
 import { Avatar, Segmented } from '../ui'
 import { TIERS } from '../data/words'
-import { PostCard, ThreadSheet, WriteSheet, tierBadge, useBragOptions, useDescribe } from './communityParts'
+import { PostCard, ThreadSheet, WriteSheet, useBragOptions, useDescribe } from './communityParts'
 import { MyActivityView, PublicBoard, newCommentCount, readSeen } from './Board'
 export { useDescribe }
 import {
@@ -212,7 +212,7 @@ function RecordCard() {
           <span className="record-label">CHANG KOREAN · RECORD</span>
           <span className="record-name">{pub.name}</span>
           <span className="record-tier">
-            {tierBadge(tier?.badge, s.theme)} {tf('tierN', r.tier)} · {tierName(tier, mascotOf(s.country))?.[ui]} · {tf('roundsPassedN', r.rounds)}
+            {rankEmoji(r.tier)} {tf('tierN', r.tier)} · {tierName(tier, mascotOf(s.country))?.[ui]} · {tf('roundsPassedN', r.rounds)}
           </span>
         </div>
       </div>
