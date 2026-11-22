@@ -17,6 +17,7 @@ import { Elephant, Icon, Pron, shuffle } from '../ui'
 import CoursePicker from './CoursePicker'
 import { LoginButtons } from './SettingsScreen'
 import { SITE_URL } from '../config'
+import { logoUri } from '../logos'
 
 const PER_RIGHT = 10
 const SECONDS = 20
@@ -156,8 +157,11 @@ export default function Intro() {
     return (
       <div className="app">
         <main className="intro intro-signup">
-          <span className="chip chip-butter signup-brand">{ED_INFO.app}</span>
-          <Elephant size={110} acc="crown" mood="happy" className="float" />
+          <div className="ed-brand">
+            <img className="ed-logo float" src={logoUri(EDITION) ?? ''} alt="" width={96} height={96} />
+            <div className="ed-brand-name">{ED_INFO.app}</div>
+            <div className="ed-brand-sub">{EDITION === 'ja' ? 'JLPT 일본어 단어' : 'TOEIC 영어 단어'}</div>
+          </div>
           <h1 className="h1 center">회원가입</h1>
           <p className="note center signup-lead">
             카카오 계정으로 간편하게 가입하고

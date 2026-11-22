@@ -1,7 +1,7 @@
 // 누구나 열 수 있는 웹 버전 한 파일 만들기 (글꼴까지 모두 들어 있음, 인터넷 없어도 동작)
 // 결과: dist-web/index.html          ← 호스팅용 (Netlify, GitHub Pages, 아무 웹서버)
 //       dist-web/chang-korean.html   ← 메신저·이메일로 바로 보내는 용도 (내용 동일)
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync } from 'node:fs'
 
 const root = new URL('../', import.meta.url)
 
@@ -13,12 +13,21 @@ if (ED === 'ja' || ED === 'en') {
     en: { app: 'Chang English', emoji: '💼', desc: '그림과 소리로 외우는 영어 단어 · TOEIC 450~900+ 점수대별 핵심 단어' },
   }[ED]
   let page = readFileSync(new URL(`dist-single-${ED}/index.html`, root), 'utf8')
+  // 판 로고: src/logos.ts (SVG) · store/editions/<판>-icon-180/512.png (홈 화면 아이콘)
+  const { LOGO_SVG } = await import(new URL('src/logos.ts', root).href)
+  const favicon = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(LOGO_SVG[ED])}`
+  mkdirSync(new URL(`dist-web/${ED}/`, root), { recursive: true })
+  for (const px of [180, 512]) copyFileSync(new URL(`store/editions/${ED}-icon-${px}.png`, root), new URL(`dist-web/${ED}/icon-${px}.png`, root))
+  const pageUrl = `https://fctj.github.io/chang-korean/${ED}/`
   const juaFont = readFileSync(new URL('node_modules/@fontsource/jua/files/jua-korean-400-normal.woff2', root)).toString('base64')
   const head = `
     <meta name="description" content="${info.desc}" />
     <meta property="og:title" content="${info.app} ${info.emoji}" />
     <meta property="og:description" content="${info.desc}" />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="${pageUrl}icon-512.png" />
+    <link rel="icon" type="image/svg+xml" href="${favicon}" />
+    <link rel="apple-touch-icon" href="icon-180.png" />
     <style>@font-face{font-family:'Jua';font-style:normal;font-weight:400;font-display:swap;src:url(data:font/woff2;base64,${juaFont}) format('woff2')}</style>`
   if (!page.includes('<title>Chang Korean</title>')) throw new Error(`dist-single-${ED}/index.html 형식이 예상과 다릅니다`)
   page = page.replace('<title>Chang Korean</title>', `<title>${info.app}</title>${head}`).replace('<html lang="ko"', `<html lang="${ED}"`)
