@@ -5379,3 +5379,91 @@ body {
 :root[data-theme='carbon'] .wallet-mini {
   background: rgba(212, 169, 74, 0.14);
 }
+
+/* 🇰🇷 국적·영주 모의 평가 */
+.mock-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 16px;
+  border-radius: 22px;
+  border: 2px solid var(--butter);
+  background: linear-gradient(135deg, var(--surface) 45%, var(--butter-soft));
+  color: var(--ink);
+  box-shadow: 0 4px 0 #ffe7a3;
+}
+.mock-card .pack-badge {
+  position: absolute;
+  top: -9px;
+  right: 12px;
+}
+.mock-card-icon {
+  font-family: var(--font-emoji);
+  font-size: 2.2rem;
+  flex: none;
+}
+.mock-q {
+  gap: 8px;
+}
+.mock-q-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mock-topic {
+  font-family: var(--font-emoji);
+  font-size: 1.6rem;
+}
+.mock-q-ko {
+  margin: 0;
+  font-size: clamp(1.3rem, 5.8vw, 1.6rem);
+  line-height: 1.4;
+  word-break: keep-all;
+}
+.mock-q-tr {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.mock-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mock-opt {
+  min-height: 56px;
+  font-size: 1.1rem;
+}
+.mock-opt-no {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--lilac-soft);
+  color: var(--lilac-deep);
+  font-size: 0.9rem;
+}
+.mock-opt.dim {
+  opacity: 0.5;
+}
+.mock .feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mock .feedback p {
+  margin: 0;
+}
+:root[data-theme='carbon'] .mock-card {
+  border-width: 1px;
+  border-radius: 14px;
+  border-color: rgba(212, 169, 74, 0.45);
+  background: linear-gradient(135deg, #16181c 45%, rgba(212, 169, 74, 0.14));
+  box-shadow: none;
+}

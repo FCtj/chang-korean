@@ -15,6 +15,7 @@ import TrackScreen from './screens/TrackScreen'
 import ReviewScreen from './screens/ReviewScreen'
 import PointsScreen from './screens/PointsScreen'
 import Intro from './screens/Intro'
+import MockExam from './screens/MockExam'
 import { SIMPLE_MODE } from './config'
 import Player from './screens/Player'
 import Placement from './screens/Placement'
@@ -142,6 +143,7 @@ export default function App() {
   } else if (top.name === 'round') screen = <RoundScreen key={top.roundId} roundId={top.roundId} />
   else if (top.name === 'track') screen = <TrackScreen key={top.trackId} trackId={top.trackId} />
   else if (top.name === 'review') screen = <ReviewScreen />
+  else if (top.name === 'mock') screen = <MockExam />
   else if (top.name === 'community')
     screen = (
       <div className="screen">

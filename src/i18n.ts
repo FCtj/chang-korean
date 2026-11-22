@@ -318,6 +318,17 @@ const S = {
   haveAccount: { ko: 'Facebook으로 계속하기 (기록 저장)', lo: 'ສືບຕໍ່ດ້ວຍ Facebook (ບັນທຶກ)' },
   communityCard: { ko: '친구 그룹 · 나의 한국어 이력', lo: 'ກຸ່ມໝູ່ · ປະຫວັດການຮຽນ' },
   savePoints: { ko: 'Facebook으로 로그인하면 포인트가 안전하게 저장돼요', lo: 'ເຂົ້າສູ່ລະບົບດ້ວຍ Facebook ເພື່ອບັນທຶກຄະແນນໃຫ້ປອດໄພ' },
+  pCitizen: { ko: '한국 국적·영주 준비', lo: 'ກະກຽມສັນຊາດ·ພັກເຊົາຖາວອນເກົາຫຼີ' },
+  mockTitle: { ko: '모의 평가', lo: 'ແບບທົດສອບຈຳລອງ' },
+  mockDesc: { ko: '20문항 · 60점 이상 합격 · 한국 사회·문화·법 상식', lo: '20 ຂໍ້ · 60 ຄະແນນຂຶ້ນໄປຜ່ານ · ຄວາມຮູ້ສັງຄົມ·ວັດທະນະທຳ·ກົດໝາຍເກົາຫຼີ' },
+  mockNote: { ko: '연습용으로 직접 만든 문제예요. 실제 시험(사회통합프로그램 종합평가·귀화 면접)과 다를 수 있어요.', lo: 'ເປັນຄຳຖາມທີ່ສ້າງຂຶ້ນເພື່ອຝຶກ. ອາດຕ່າງຈາກການສອບຈິງ.' },
+  mockStart: { ko: '모의 평가 시작', lo: 'ເລີ່ມທົດສອບ' },
+  mockPass: { ko: '합격이에요! 🎉', lo: 'ຜ່ານແລ້ວ! 🎉' },
+  mockFail: { ko: '조금만 더! 다시 도전해요', lo: 'ອີກໜ້ອຍດຽວ! ລອງໃໝ່' },
+  mockShowTr: { ko: '번역 보기', lo: 'ເບິ່ງຄຳແປ' },
+  mockRetry: { ko: '다시 보기', lo: 'ສອບອີກຄັ້ງ' },
+  mockCorrect: { ko: '정답!', lo: 'ຖືກຕ້ອງ!' },
+  mockWrongAns: { ko: '정답은', lo: 'ຄຳຕອບທີ່ຖືກແມ່ນ' },
 } satisfies Record<string, Str>
 
 const F = {
@@ -393,6 +404,8 @@ const F = {
   reviewedN: { ko: (a: number, b: number) => `검수 ${a}/${b}`, lo: (a: number, b: number) => `ກວດແລ້ວ ${a}/${b}` },
   pointsN: { ko: (n: number) => `${n.toLocaleString()}P`, lo: (n: number) => `${n.toLocaleString()}P` },
   toReward: { ko: (name: string, n: number) => `${name}까지 ${n.toLocaleString()}P`, lo: (name: string, n: number) => `ອີກ ${n.toLocaleString()}P ຈະໄດ້ ${name}` },
+  mockBest: { ko: (n: number) => `최고 ${n}점`, lo: (n: number) => `ສູງສຸດ ${n} ຄະແນນ` },
+  mockScore: { ko: (n: number) => `${n}점`, lo: (n: number) => `${n} ຄະແນນ` },
 } satisfies Record<string, Fn>
 
 /** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */

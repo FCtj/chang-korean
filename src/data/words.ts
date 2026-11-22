@@ -46,7 +46,7 @@ export interface Round {
   track?: string
 }
 
-export type Purpose = 'work' | 'parttime' | 'travel' | 'school' | 'kpop' | 'family'
+export type Purpose = 'work' | 'parttime' | 'citizen' | 'travel' | 'school' | 'kpop' | 'family'
 
 export interface Tier {
   no: number

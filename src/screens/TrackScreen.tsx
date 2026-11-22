@@ -27,6 +27,19 @@ export default function TrackScreen({ trackId }: { trackId: string }) {
         <div className="track-progress" aria-hidden="true">
           <span style={{ width: `${Math.round((done / track.units.length) * 100)}%` }} />
         </div>
+        {track.id === 'citizen' && (
+          <button className="mock-card" onClick={() => push({ name: 'mock' })}>
+            <span className="mock-card-icon" aria-hidden="true">
+              📝
+            </span>
+            <span className="unit-body">
+              <span className="unit-title">{t('mockTitle')}</span>
+              <span className="unit-meta">{t('mockDesc')}</span>
+              {s.bestMock > 0 && <span className="unit-no">{tf('mockBest', s.bestMock)}</span>}
+            </span>
+            <span className="pack-badge">{t('mockStart')}</span>
+          </button>
+        )}
         <ol className="unit-list">
           {track.units.map((u) => {
             const pct = progress(s, u)

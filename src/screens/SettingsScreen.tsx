@@ -253,9 +253,10 @@ export default function SettingsScreen() {
   )
 }
 
-const PURPOSES: { id: Purpose; icon: string; key: 'pWork' | 'pParttime' | 'pTravel' | 'pSchool' | 'pKpop' | 'pFamily' }[] = [
+const PURPOSES: { id: Purpose; icon: string; key: 'pWork' | 'pParttime' | 'pCitizen' | 'pTravel' | 'pSchool' | 'pKpop' | 'pFamily' }[] = [
   { id: 'work', icon: '💼', key: 'pWork' },
   { id: 'parttime', icon: '🍜', key: 'pParttime' },
+  { id: 'citizen', icon: '🇰🇷', key: 'pCitizen' },
   { id: 'travel', icon: '✈️', key: 'pTravel' },
   { id: 'school', icon: '🎓', key: 'pSchool' },
   { id: 'kpop', icon: '🎤', key: 'pKpop' },

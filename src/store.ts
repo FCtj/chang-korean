@@ -82,6 +82,8 @@ export interface State {
   studyDays: string[]
   /** 하루 활동 요약 (최근 60일): 공부 시간(초)·본 단어·푼 문제·앱 연 횟수. 로그인하면 서버 daily_activity 에도 쌓임 */
   activity: Record<string, DayActivity>
+  /** 국적·영주 모의 평가 최고 점수 (100점 만점) */
+  bestMock: number
   /** 처음 30초 체험(+환영 포인트)을 마쳤는지 */
   introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
@@ -154,6 +156,7 @@ function initial(): State {
     studyDays: [],
     activity: {},
     introDone: false,
+    bestMock: 0,
     profileConsent: null,
     totalPoints: 0,
   }
@@ -581,6 +584,13 @@ export function setLastChunk(roundId: string, chunk: number) {
 }
 
 /** 문제 정답 점수. 하루 상한을 넘으면 0점. 이미 통과한 회차는 절반 */
+/** 모의 평가 끝: 최고 점수 저장 + 맞힌 문제마다 2점 (하루 상한 안에서) */
+export function recordMock(correct: number, total: number): { score: number; points: number } {
+  const score = Math.round((correct / total) * 100)
+  update((s) => ({ ...s, bestMock: Math.max(s.bestMock, score) }))
+  return { score, points: correct > 0 ? addCapped(correct * 2) : 0 }
+}
+
 export function awardPractice(roundId: string): number {
   return addCapped(state.passedRounds.includes(roundId) ? 1 : 2)
 }

@@ -306,6 +306,17 @@ export const S_VI: Record<StrKey, string> = {
   haveAccount: 'Tiếp tục với Facebook (lưu lại)',
   communityCard: 'Nhóm bạn · Hồ sơ học',
   savePoints: 'Đăng nhập Facebook để lưu điểm an toàn',
+  pCitizen: 'Chuẩn bị quốc tịch·thường trú Hàn',
+  mockTitle: 'Thi thử',
+  mockDesc: '20 câu · từ 60 điểm là đạt · kiến thức xã hội·văn hóa·pháp luật Hàn',
+  mockNote: 'Đây là câu hỏi tự soạn để luyện tập, có thể khác với kỳ thi thật.',
+  mockStart: 'Bắt đầu thi thử',
+  mockPass: 'Đạt rồi! 🎉',
+  mockFail: 'Cố thêm chút nữa! Thử lại nhé',
+  mockShowTr: 'Xem bản dịch',
+  mockRetry: 'Thi lại',
+  mockCorrect: 'Đúng rồi!',
+  mockWrongAns: 'Đáp án đúng là',
 }
 
 export const F_VI: FnTable = {
@@ -370,4 +381,6 @@ export const F_VI: FnTable = {
   reviewedN: (a: number, b: number) => `Đã kiểm ${a}/${b}`,
   pointsN: (n: number) => `${n.toLocaleString()}P`,
   toReward: (name: string, n: number) => `Còn ${n.toLocaleString()}P để đổi ${name}`,
+  mockBest: (n: number) => `Cao nhất ${n} điểm`,
+  mockScore: (n: number) => `${n} điểm`,
 }

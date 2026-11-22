@@ -305,6 +305,17 @@ export const S_TH: Record<StrKey, string> = {
   haveAccount: 'ดำเนินการต่อด้วย Facebook (บันทึก)',
   communityCard: 'กลุ่มเพื่อน · ประวัติการเรียน',
   savePoints: 'เข้าสู่ระบบด้วย Facebook เพื่อเก็บพอยต์อย่างปลอดภัย',
+  pCitizen: 'เตรียมสัญชาติ·พำนักถาวรเกาหลี',
+  mockTitle: 'แบบทดสอบจำลอง',
+  mockDesc: '20 ข้อ · 60 คะแนนขึ้นไปผ่าน · ความรู้สังคม·วัฒนธรรม·กฎหมายเกาหลี',
+  mockNote: 'เป็นคำถามที่สร้างขึ้นเพื่อฝึก อาจต่างจากการสอบจริง',
+  mockStart: 'เริ่มทดสอบ',
+  mockPass: 'ผ่านแล้ว! 🎉',
+  mockFail: 'อีกนิดเดียว! ลองใหม่',
+  mockShowTr: 'ดูคำแปล',
+  mockRetry: 'สอบอีกครั้ง',
+  mockCorrect: 'ถูกต้อง!',
+  mockWrongAns: 'คำตอบที่ถูกคือ',
 }
 
 export const F_TH: FnTable = {
@@ -368,4 +379,6 @@ export const F_TH: FnTable = {
   reviewedN: (a: number, b: number) => `ตรวจแล้ว ${a}/${b}`,
   pointsN: (n: number) => `${n.toLocaleString()}P`,
   toReward: (name: string, n: number) => `อีก ${n.toLocaleString()}P ได้ ${name}`,
+  mockBest: (n: number) => `สูงสุด ${n} คะแนน`,
+  mockScore: (n: number) => `${n} คะแนน`,
 }
