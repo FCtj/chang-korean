@@ -347,12 +347,31 @@ async function reportGeo() {
   }
 }
 
+/** 마지막으로 서버에 공부 기록을 보낸 결과 (관리자 화면 '기록 점검'에서 봄) */
+export let lastActivityReport: { at: number; ok: boolean; error?: string; sec: number } | null = null
+
 function reportActivity(_day: string, d: DayActivity) {
   if (!supabase || auth.status !== 'in') return
   reportGeo().catch(() => {})
   supabase
-    .rpc('log_activity', { p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: d.words, p_questions: d.questions, p_sessions: d.sessions })
-    .then(undefined, () => {})
+    .rpc('log_activity', { p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: Math.round(d.words), p_questions: Math.round(d.questions), p_sessions: Math.round(d.sessions) })
+    .then(
+      ({ error }) => {
+        lastActivityReport = { at: Date.now(), ok: !error, error: error?.message, sec: Math.round(d.sec) }
+        if (error) console.warn('log_activity failed:', error.message)
+      },
+      (e) => {
+        lastActivityReport = { at: Date.now(), ok: false, error: String((e as Error)?.message ?? e), sec: Math.round(d.sec) }
+      },
+    )
+}
+
+/** 기록 점검: 테스트 기록 한 번 보내고(앱 연 횟수 +1), 서버에 저장된 내 최근 기록을 읽어 옴 */
+export async function checkActivityLogging(): Promise<{ send: string | null; rows: { day: string; study_seconds: number; sessions: number; last_seen: string }[]; readError: string | null }> {
+  if (!supabase || auth.status !== 'in') return { send: 'not_logged_in', rows: [], readError: null }
+  const { error } = await supabase.rpc('log_activity', { p_day: vientianeDay(), p_seconds: 0, p_words: 0, p_questions: 0, p_sessions: 1 })
+  const r = await supabase.from('daily_activity').select('day, study_seconds, sessions, last_seen').order('day', { ascending: false }).limit(5)
+  return { send: error ? error.message : null, rows: (r.data ?? []) as { day: string; study_seconds: number; sessions: number; last_seen: string }[], readError: r.error ? r.error.message : null }
 }
 
 async function pullActivity() {

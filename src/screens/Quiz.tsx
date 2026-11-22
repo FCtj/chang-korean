@@ -1,6 +1,6 @@
 // 고르기 · 듣기 · 졸업시험 · 승급시험 공통 화면
 // - 연습(고르기/듣기): 틀린 단어는 맨 뒤에 다시 나와서, 모두 맞혀야 끝남
-// - 졸업시험(50문제)·승급시험(30문제): 다시 나오지 않음. 전부 맞혀야 통과
+// - 졸업시험(단원 문제 전부): 다시 나오지 않음. 첫 번에 90% 이상 맞히면 통과 · 승급시험(30문제): 전부 맞혀야 통과
 //
 // 그림이 정답을 알려주지 않도록:
 //   한국어→내 언어: 문제 = 한국어(+발음), 보기 = 그림 + 뜻
@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import { translation, type Word } from '../data/words'
 import { useApp, type QuizKind } from '../ctx'
 import { demoAutoAchievement } from '../community'
-import { awardPractice, capState, completeSession, getState, recordAnswer, recordExam, recordPromo, type Direction } from '../store'
+import { awardPractice, passMark, capState, completeSession, getState, recordAnswer, recordExam, recordPromo, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { useStudyClock } from '../activity'
 import WordHelp from './WordHelp'
@@ -160,7 +160,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
     let bonus = 0
     let passed = true
     if (kind === 'exam' && roundId) {
-      passed = wrong.length === 0
+      passed = firstTry >= passMark(total)
       bonus = recordExam(roundId, firstTry, total)
       // 처음 통과(보너스)면 내 그룹에 '인증' 글 (서버는 트리거가, 데모는 여기서)
       if (bonus > 0) demoAutoAchievement({ type: 'exam', ref: roundId, points: bonus, score: firstTry })

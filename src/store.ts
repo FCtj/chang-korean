@@ -394,13 +394,22 @@ export function knownCount(s: State, round: Round): number {
 
 // ───────── STEP (5개씩 → 25개씩 → 50개씩) ─────────
 
-export const STEP_SIZES = [5, 25, 50] as const
+/** STEP 1 = 5개씩 · STEP 2 = 25개씩 (2단계). 다 외우면 문제를 풀어 통과해야 단원 완료 */
+export const STEP_SIZES = [5, 25] as const
 
 /** 회차의 STEP별 묶음 크기: 50개 → [5, 25, 50], 25개 단어팩 → [5, 25] */
 export function stepSizesOf(round: Round): number[] {
   const n = round.words.length
-  return [...STEP_SIZES.filter((k) => k < n), n]
+  if (n <= 5) return [n]
+  if (n <= 25) return [5, n]
+  return [5, 25]
 }
+
+/** 졸업시험(단원 문제) 통과선: 첫 번에 90% 이상 */
+export const PASS_RATIO = 0.9
+export const passMark = (total: number) => Math.max(1, Math.ceil(total * PASS_RATIO))
+/** 단원 통과 = 문제를 풀어 통과선 넘김 (외우기만으로는 안 됨) */
+export const unitPassed = (s: State, id: string) => s.passedRounds.includes(id)
 export const finalStep = (round: Round) => stepSizesOf(round).length
 
 /** 회차의 지금 STEP: 1부터, 마지막 STEP을 끝내면 finalStep+1 (통과한 회차도) */
@@ -497,8 +506,8 @@ export function courseUnits(s: State, id: CourseId = currentCourse(s)): Round[] 
 /** 이어서 할 것: 지금 코스의 다음 단원 (기초는 추천 단어팩 → 지금 회차) */
 export function nextUnit(s: State): Round | null {
   const c = currentCourse(s)
-  if (c === 'basic') return recommendedPacks(s).find((p) => !stepsDone(s, p.id)) ?? currentRound(s)
-  return courseUnits(s, c).find((u) => !stepsDone(s, u.id)) ?? null
+  if (c === 'basic') return recommendedPacks(s).find((p) => !unitPassed(s, p.id)) ?? currentRound(s)
+  return courseUnits(s, c).find((u) => !unitPassed(s, u.id)) ?? null
 }
 
 /** 지금 공부해야 할 회차 (열려 있고 아직 통과 못 한 첫 회차) */
@@ -757,7 +766,7 @@ export function recordExam(roundId: string, score: number, total: number): numbe
   update((s) => {
     const best = Math.max(s.bestExam[roundId] ?? 0, score)
     let next: State = { ...s, bestExam: { ...s.bestExam, [roundId]: best } }
-    if (score === total && !s.passedRounds.includes(roundId)) {
+    if (score >= passMark(total) && !s.passedRounds.includes(roundId)) {
       bonus = EXAM_BONUS
       next = { ...next, passedRounds: [...s.passedRounds, roundId], monthPoints: s.monthPoints + bonus, totalPoints: s.totalPoints + bonus }
     }

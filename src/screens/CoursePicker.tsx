@@ -9,7 +9,7 @@ import { MASCOT_EMOJI, mascotOf } from '../mascot'
 /** 코스 진행: 끝낸 단원 / 전체 단원 */
 export function courseProgress(s: State, id: CourseId): { done: number; total: number } {
   const units: Round[] = id === 'basic' ? [...PACKS, ...ROUNDS] : courseTracks(id).flatMap((t) => t.units)
-  const done = units.filter((u) => stepsDone(s, u.id) || s.passedRounds.includes(u.id)).length
+  const done = units.filter((u) => s.passedRounds.includes(u.id)).length
   return { done, total: units.length }
 }
 

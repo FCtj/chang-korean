@@ -1,15 +1,16 @@
 // 트랙 단원 목록 (홈의 코스 화면 · 트랙 화면에서 같이 씀)
 import { useApp } from '../ctx'
-import { stepOf, stepsDone, stepKnownCount, stepSizesOf, useStore } from '../store'
+import { stepOf, stepsDone, stepKnownCount, stepSizesOf, unitPassed, useStore } from '../store'
 import type { Round } from '../data/words'
 import type { Track } from '../data/tracks'
 
-/** STEP 진행률 0~1 (STEP마다 전체 단어 수만큼 칸) */
+/** 진행률 0~1: 외우기(STEP)가 90%, 문제 통과가 마지막 10% — 문제를 풀어야 1 */
 export function unitProgress(s: ReturnType<typeof useStore>, r: Round): number {
+  if (unitPassed(s, r.id)) return 1
+  if (stepsDone(s, r.id)) return 0.9
   const n = stepSizesOf(r).length
-  if (stepsDone(s, r.id)) return 1
   const st = stepOf(s, r.id)
-  return ((st - 1) * r.words.length + stepKnownCount(s, r, st)) / (n * r.words.length)
+  return (0.9 * ((st - 1) * r.words.length + stepKnownCount(s, r, st))) / (n * r.words.length)
 }
 
 export function MockCard() {
@@ -33,7 +34,7 @@ export function MockCard() {
 export default function UnitList({ track }: { track: Track }) {
   const s = useStore()
   const { t, tf, ui, push } = useApp()
-  const next = track.units.find((u) => !stepsDone(s, u.id))
+  const next = track.units.find((u) => !unitPassed(s, u.id))
   return (
     <ol className="unit-list">
       {track.units.map((u) => {
@@ -54,7 +55,7 @@ export default function UnitList({ track }: { track: Track }) {
                   <span style={{ width: `${Math.round(pct * 100)}%` }} />
                 </span>
               </span>
-              {next?.id === u.id && <span className="pack-badge">{t('startFirst')}</span>}
+              {!isDone && stepsDone(s, u.id) ? <span className="pack-badge quiz">📝 {t('quizToPass')}</span> : next?.id === u.id && <span className="pack-badge">{t('startFirst')}</span>}
             </button>
           </li>
         )

@@ -1,7 +1,7 @@
 // 외우기 화면 (자동 반복)
 // STEP 1: 5개씩 — 지금 5개 중 못 외운 단어만 반복, 5개를 다 외우면 다음 5개
 // STEP 2: 25개씩 — 같은 방식으로 1~25 → 26~50
-// STEP 3: 50개씩 — 50개 전부, 다 외우면 문제·졸업시험이 열림
+// (STEP 3 없음) STEP 2 까지 다 외우면 문제·졸업시험이 열림 — 문제를 풀어 통과해야 단원 완료
 // STEP마다 처음엔 모두 '못 외움'에서 시작 (다시 확인하며 외우기)
 // review=true: 외운 단어까지 5개씩 계속 복습
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -247,21 +247,12 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
         <div className="page">
           <div className="result-hero pass">
             <Elephant size={130} acc={all ? 'crown' : 'star'} mood="happy" className="bounce" />
-            <h1 className="result-title">🎉 {all ? (round.pack ? t('packDone') : t('allStepsDone')) : tf('stepDone', step)}</h1>
-            <p className="result-line">{all ? (round.pack ? t('packDoneSub') : t('examOpenNow')) : tf('nextStepDesc', sizes[step])}</p>
+            <h1 className="result-title">🎉 {all ? t('allStepsDone') : tf('stepDone', step)}</h1>
+            <p className="result-line">{all ? t('examOpenNow') : tf('nextStepDesc', sizes[step])}</p>
           </div>
           <StepBar step={all ? final + 1 : step + 1} sizes={sizes} t={t} tf={tf} />
           <ShareToGroupButton data={all && round.pack ? { type: 'pack', unit: roundId } : { type: 'step', unit: roundId, n: all ? final : step }} />
-          {all && round.pack ? (
-            <>
-              <button className="btn btn-pink btn-block btn-big" onClick={() => replace({ name: 'round', roundId })}>
-                🎯 {t('practice')}
-              </button>
-              <button className="btn btn-soft btn-block" onClick={() => replace({ name: 'tabs' })}>
-                🏠 {t('toHome')}
-              </button>
-            </>
-          ) : all ? (
+          {all ? (
             <>
               <button className="btn btn-butter btn-block btn-big" onClick={() => replace({ name: 'round', roundId })}>
                 🎓 {t('goExam')}
@@ -272,7 +263,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
             </>
           ) : (
             <>
-              <button className="btn btn-pink btn-block btn-big" onClick={() => replace({ name: 'player', roundId, startChunk: 0 })}>
+              <button className="btn btn-pink btn-block btn-big" onClick={() => replace({ name: 'player', roundId, startChunk: 0, nonce: Date.now() })}>
                 <Icon name="play" size={22} /> {tf('startStep', step + 1)}
               </button>
               <button className="btn btn-soft btn-block" onClick={() => replace({ name: 'round', roundId })}>

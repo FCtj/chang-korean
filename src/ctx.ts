@@ -12,7 +12,7 @@ export type Route =
   | { name: 'community' }
   | { name: 'mock' }
   | { name: 'admin' }
-  | { name: 'player'; roundId: string; startChunk: number; review?: boolean }
+  | { name: 'player'; roundId: string; startChunk: number; review?: boolean; /** 다음 STEP 을 새로 시작할 때 화면을 새로 만들기 위한 값 */ nonce?: number }
   | { name: 'placement' }
   | { name: 'quiz'; kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }
 

@@ -10,7 +10,7 @@ export default function TrackScreen({ trackId }: { trackId: string }) {
   const { t, tf, ui } = useApp()
   const track = findTrack(trackId)
   if (!track) return null
-  const done = track.units.filter((u) => stepsDone(s, u.id)).length
+  const done = track.units.filter((u) => s.passedRounds.includes(u.id)).length
   const total = Math.max(1, track.units.length)
   return (
     <div className="screen">

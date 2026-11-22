@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
-import { courseUnits, currentCourse, currentJobTrack, setCourse, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { courseUnits, currentCourse, currentJobTrack, setCourse, unitPassed, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
 import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
@@ -163,7 +163,7 @@ function CourseHead({ onChange }: { onChange: () => void }) {
   const id = currentCourse(s)
   const c = findCourse(id)
   const lv = id === 'topik' ? topikTrack(s.topikLevel) : id === 'job' ? jobTrack(currentJobTrack(s)) : undefined
-  const { done, total } = lv ? { done: lv.units.filter((u) => stepsDone(s, u.id)).length, total: lv.units.length } : courseProgress(s, id)
+  const { done, total } = lv ? { done: lv.units.filter((u) => unitPassed(s, u.id)).length, total: lv.units.length } : courseProgress(s, id)
   return (
     <section className="course-head">
       <span className="course-head-icon" aria-hidden="true">
@@ -211,7 +211,7 @@ function JobBody() {
       <div className="job-tracks" role="tablist" aria-label={findCourse('job').title[ui]}>
         {JOB_TRACKS.map((tr) => {
           const total = tr.units.length
-          const done = tr.units.filter((u) => stepsDone(s, u.id)).length
+          const done = tr.units.filter((u) => unitPassed(s, u.id)).length
           const on = tr.id === cur
           return (
             <button key={tr.id} role="tab" aria-selected={on} className={`job-tr ${on ? 'on' : ''}`} onClick={() => setCourse('job', tr.id)}>
@@ -243,7 +243,7 @@ function TopikBody() {
         {TOPIK_LEVELS.map((n) => {
           const tr = topikTrack(n)
           const total = tr?.units.length ?? 0
-          const done = tr ? tr.units.filter((u) => stepsDone(s, u.id)).length : 0
+          const done = tr ? tr.units.filter((u) => unitPassed(s, u.id)).length : 0
           const on = n === s.topikLevel
           return (
             <button key={n} role="tab" aria-selected={on} className={`topik-lv ${on ? 'on' : ''} ${total ? '' : 'soon'} ${n <= 2 ? 'lv-i' : 'lv-ii'}`} onClick={() => setCourse('topik', n)}>
@@ -432,7 +432,7 @@ function WalletCard() {
 function PackCard({ pack, badge }: { pack: Round; badge?: string }) {
   const s = useStore()
   const { t, ui, push } = useApp()
-  const done = stepsDone(s, pack.id)
+  const done = unitPassed(s, pack.id)
   const pct = unitProgress(s, pack)
   return (
     <button className={done ? 'pack-card done' : 'pack-card'} onClick={() => push({ name: 'round', roundId: pack.id })}>

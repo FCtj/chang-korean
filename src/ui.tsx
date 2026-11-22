@@ -217,28 +217,26 @@ function HorseHead({ c }: { c: Tone }) {
 }
 
 /** 레바논: 줄무늬 하이에나 — 크고 둥근 귀 · 이마와 볼의 줄무늬 · 짙은 코 */
-// 🌲 레바논 백향목 (국기 · 나라 상징): 세모 몸통 + 옆으로 뾰족하게 뻗은 가지 3단 (국기 속 나무 모양) · 얼굴은 몸통 위
-const CEDAR_BODY = 'M60 12 L99 85 Q60 95 21 85 Z'
-const CEDAR_BRANCHES =
-  'M46 32 C37 37 27 41 17 45 C28 46 39 43 48 40 Z M74 32 C83 37 93 41 103 45 C92 46 81 43 72 40 Z ' +
-  'M35 53 C24 59 12 63 3 67 C16 69 30 66 39 62 Z M85 53 C96 59 108 63 117 67 C104 69 90 66 81 62 Z ' +
-  'M26 74 C17 80 8 84 1 89 C14 91 28 88 33 85 Z M94 74 C103 80 112 84 119 89 C106 91 92 88 87 85 Z'
-const CEDAR_BASE = 'M21 85 Q60 95 99 85 L95 91 Q60 101 25 91 Z'
+// 🌲 레바논 백향목 (국기 · 나라 상징): 통통한 나무 기둥에 얼굴, 그 위에 국기처럼 뾰족한 가지 3층
+const CEDAR_TRUNK = 'M30 60 Q30 42 48 42 H72 Q90 42 90 60 V92 Q90 106 76 106 H44 Q30 106 30 92 Z'
+const CEDAR_T1 = 'M2 44 L22 34 L40 37 L60 30 L80 37 L98 34 L118 44 L98 48 L80 45 L60 50 L40 45 L22 48 Z'
+const CEDAR_T2 = 'M14 30 L32 22 L46 25 L60 18 L74 25 L88 22 L106 30 L88 34 L74 31 L60 36 L46 31 L32 34 Z'
+const CEDAR_T3 = 'M30 17 L44 11 L52 13 L60 3 L68 13 L76 11 L90 17 L76 21 L68 19 L60 23 L52 19 L44 21 Z'
+const CEDAR_BARK = 'M37 64 v18 M83 64 v18 M40 96 q4 3 8 2 M80 96 q-4 3 -8 2'
 
 function CedarHead({ c }: { c: Tone }) {
-  // 캔디 테마는 민트빛 초록 (회색 톤이면 회색 그대로)
+  // 캔디 테마: 나무색 기둥 + 초록 가지 (회색 톤이면 회색 그대로)
   const grey = c.body === TONES.grey.body
-  const leaf = grey ? c.body : '#79D3B0'
-  const deep = grey ? c.ear : '#3FAE8A'
-  const trunk = grey ? c.line : '#C9A27E'
+  const wood = grey ? c.muzzle : '#F1D2A8'
+  const bark = grey ? c.line : '#D9AE7E'
   return (
     <>
-      <rect x="54" y="90" width="12" height="24" rx="4" fill={trunk} />
-      <path d={CEDAR_BRANCHES} fill={deep} />
-      <path d={CEDAR_BODY} fill={leaf} stroke={leaf} strokeWidth="10" strokeLinejoin="round" />
-      <path d={CEDAR_BASE} fill={deep} opacity="0.55" />
-      <path d="M57 22 L44 46" fill="none" stroke="#fff" strokeWidth="3.4" strokeLinecap="round" opacity={grey ? 0.35 : 0.55} />
-      <path d="M54 74 q6 5 12 0" fill="none" stroke={grey ? c.line : '#2F7F6B'} strokeWidth="2.4" strokeLinecap="round" />
+      <path d={CEDAR_TRUNK} fill={wood} />
+      <path d={CEDAR_BARK} fill="none" stroke={bark} strokeWidth="3" strokeLinecap="round" />
+      <path d={CEDAR_T1} fill={grey ? c.ear : '#2FA37C'} strokeLinejoin="round" />
+      <path d={CEDAR_T2} fill={grey ? c.body : '#45BE91'} />
+      <path d={CEDAR_T3} fill={grey ? c.muzzle : '#6DD4AA'} />
+      <path d="M54 74 q6 5 12 0" fill="none" stroke={grey ? c.line : '#9A6A45'} strokeWidth="2.4" strokeLinecap="round" />
     </>
   )
 }
@@ -343,11 +341,12 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
         </>
       ) : kind === 'cedar' ? (
         <>
-          <rect x="54" y="90" width="12" height="24" rx="4" fill={E} stroke={edge} strokeWidth="1" />
-          <path d={CEDAR_BRANCHES} fill={E} stroke={edge} strokeWidth="1" />
-          <path d={CEDAR_BODY} fill={B} stroke={B} strokeWidth="10" strokeLinejoin="round" />
-          <path d={CEDAR_BASE} fill="#0d0f12" opacity="0.5" />
-          <path d="M57 22 L44 46" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2.2" strokeLinecap="round" />
+          {/* 기둥: 금속 · 가지: 짙은 초록 금속 + 은색 테두리 */}
+          <path d={CEDAR_TRUNK} fill={B} />
+          <path d="M36 60 Q38 48 50 47" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2.2" strokeLinecap="round" />
+          <path d={CEDAR_T1} fill="#1f4a3f" stroke={silver} strokeOpacity="0.5" strokeWidth="1.2" strokeLinejoin="round" />
+          <path d={CEDAR_T2} fill="#2b6655" stroke={silver} strokeOpacity="0.5" strokeWidth="1.2" strokeLinejoin="round" />
+          <path d={CEDAR_T3} fill="#3a8a72" stroke={silver} strokeOpacity="0.6" strokeWidth="1.2" strokeLinejoin="round" />
           <path d="M54 76 q6 4 12 0" fill="none" stroke={nostril} strokeWidth="2" strokeLinecap="round" />
         </>
       ) : kind === 'horse' ? (
@@ -390,6 +389,12 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
         <g fill={eye} filter={glow}>
           <rect x="42" y="50" width="10" height="11" rx="4.5" />
           <rect x="68" y="50" width="10" height="11" rx="4.5" />
+        </g>
+      ) : kind === 'cedar' ? (
+        // 백향목: 화난 눈 대신 수평으로 빛나는 차분한 눈 (멋있게)
+        <g fill="none" stroke={eye} strokeWidth="4.2" strokeLinecap="round" filter={glow}>
+          <path d="M41 56.5 Q47 54.8 53 56.5" />
+          <path d="M67 56.5 Q73 54.8 79 56.5" />
         </g>
       ) : (
         <g fill="none" stroke={eye} strokeWidth="4" strokeLinecap="round" filter={glow}>

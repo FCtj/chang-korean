@@ -8,6 +8,8 @@ import { NATIVE_INFO } from '../i18n'
 import { COURSES } from '../data/courses'
 import { maskName } from '../privacy'
 import {
+  checkActivityLogging,
+  lastActivityReport,
   adminAccessPlaces,
   adminModerate,
   adminReports,
@@ -246,6 +248,51 @@ function UserSheet({ user, mask, onClose }: { user: AdminUser; mask: boolean; on
   )
 }
 
+/** 🩺 기록 점검: 이 기기에서 공부 기록이 서버에 잘 저장되는지 */
+function LoggingCheck() {
+  const auth = useAuth()
+  const [res, setRes] = useState<Awaited<ReturnType<typeof checkActivityLogging>> | null>(null)
+  const [busy, setBusy] = useState(false)
+  const last = lastActivityReport
+  return (
+    <section className="panel adm-check">
+      <h3 className="adm-h">🩺 기록 점검 (이 기기)</h3>
+      <p className="note">로그인: {auth.status === 'in' ? `✓ ${auth.me?.id.slice(0, 8)}…` : '✗ 로그인 안 됨 — 로그인해야 서버에 기록돼요'}</p>
+      <p className="note">
+        마지막 자동 기록: {last ? `${last.ok ? '✓ 성공' : `✗ 실패 (${last.error})`} · ${ago(new Date(last.at).toISOString())} · ${last.sec}초` : '아직 없음 (공부 화면에서 1분마다 보내요)'}
+      </p>
+      <button
+        className="btn btn-soft btn-block"
+        disabled={busy}
+        onClick={async () => {
+          setBusy(true)
+          setRes(await checkActivityLogging())
+          setBusy(false)
+        }}
+      >
+        {busy ? '확인 중…' : '지금 기록 보내고 서버에서 읽어 보기'}
+      </button>
+      {res && (
+        <div className="adm-check-res">
+          <p className={res.send ? 'adm-flag' : 'note'}>{res.send ? `✗ 보내기 실패: ${res.send}` : '✓ 보내기 성공'}</p>
+          {res.readError && <p className="adm-flag">✗ 읽기 실패: {res.readError}</p>}
+          <ul className="adm-events">
+            {res.rows.map((r) => (
+              <li key={r.day} className="adm-place">
+                <span>{fmtDay(r.day)}</span>
+                <span>
+                  {fmtDur(r.study_seconds)} · 앱 연 횟수 {r.sessions} · {ago(r.last_seen)}
+                </span>
+              </li>
+            ))}
+            {!res.readError && res.rows.length === 0 && <li className="note">서버에 내 기록이 없어요</li>}
+          </ul>
+        </div>
+      )}
+    </section>
+  )
+}
+
 const REASON_KO: Record<string, string> = { spam: '광고·스팸', abuse: '욕설·괴롭힘', sexual: '성적인 내용', privacy: '개인정보', other: '기타' }
 
 /** 🚩 신고된 글·댓글: 3명 이상이면 자동으로 숨겨져 있음 → 숨김 유지 · 되살리기 · 삭제 */
@@ -430,6 +477,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
         )}
 
         <Reports mask={mask} />
+        <LoggingCheck />
 
         <section className="panel adm-users">
           <h3 className="adm-h">사용자별 사용 현황 {total ? <small className="note">· {fmtNum(total)}명</small> : null}</h3>

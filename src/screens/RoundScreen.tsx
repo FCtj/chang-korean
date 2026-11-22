@@ -1,6 +1,6 @@
 import { findRound, roundSets, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
-import { isQuizOpen, isStepKnown, setStepKnown, stepKnownCount, stepOf, stepSizesOf, useStore } from '../store'
+import { isQuizOpen, isStepKnown, passMark, setStepKnown, stepKnownCount, stepOf, stepSizesOf, useStore } from '../store'
 import { Icon, ProgressBar, TopBar, pastel, shuffle } from '../ui'
 import { StepBar } from './Player'
 import WordHelp from './WordHelp'
@@ -21,6 +21,43 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
   const known = done ? round.words.length : stepKnownCount(s, round, step)
   const isK = (w: Word) => done || isStepKnown(s, w, step)
 
+  const label0 = round.pack ? round.title[ui] : tf('roundN', round.no)
+  // 문제 풀어 통과하기: 다 외웠는데 아직 통과 전이면 맨 위에, 통과했으면 아래에
+  const examCard = quizOpen ? (
+          <section className={passed ? 'exam-card passed' : 'exam-card'}>
+            <div className="exam-top">
+              <span className="exam-icon" aria-hidden="true">
+                🎓
+              </span>
+              <div>
+                <h2 className="exam-title">
+                  {t('exam')} {!passed && <span className="chip chip-pink tiny">{t('newBadge')}</span>}
+                </h2>
+                <p className="exam-desc">{tf('examPassRule', round.words.length, passMark(round.words.length))}</p>
+              </div>
+            </div>
+            <div className="exam-meta">
+              <span className="chip num">{tf('questions', round.words.length)}</span>
+              {best !== undefined && <span className="chip num">{tf('bestScore', best)}</span>}
+              {passed && (
+                <span className="chip chip-mint">
+                  <Icon name="check" size={14} /> {t('passed')}
+                </span>
+              )}
+            </div>
+            <div className="exam-actions">
+              <button className="btn btn-soft" onClick={() => quiz('practice', shuffle(round.words), `${label0} · ${t('practice')}`)}>
+                {t('practice')}
+              </button>
+              <button
+                className="btn btn-butter"
+                onClick={() => push({ name: 'quiz', kind: 'exam', words: shuffle(round.words), pool: round.words, roundId, label: `${t('exam')} · ${label0}` })}
+              >
+                {t('startExam')}
+              </button>
+            </div>
+          </section>
+  ) : null
   const play = (review = false) => push({ name: 'player', roundId, startChunk: review ? 0 : -1, review })
   const quiz = (kind: 'practice' | 'listen', words: Word[], label: string) => push({ name: 'quiz', kind, words, pool: round.words, roundId, label })
 
@@ -62,6 +99,7 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
           {!quizOpen && <p className="hint">🎁 {round.pack ? t('packsSub') : tf('stepHint', round.words.length)}</p>}
         </section>
 
+        {!passed && examCard}
         <ol className="sets">
           {sets.map((words, i) => {
             const k = words.filter(isK).length
@@ -108,41 +146,7 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
           })}
         </ol>
 
-        {quizOpen && !round.pack && (
-          <section className={passed ? 'exam-card passed' : 'exam-card'}>
-            <div className="exam-top">
-              <span className="exam-icon" aria-hidden="true">
-                🎓
-              </span>
-              <div>
-                <h2 className="exam-title">
-                  {t('exam')} {!passed && <span className="chip chip-pink tiny">{t('newBadge')}</span>}
-                </h2>
-                <p className="exam-desc">{t('examDesc')}</p>
-              </div>
-            </div>
-            <div className="exam-meta">
-              <span className="chip num">{tf('questions', round.words.length)}</span>
-              {best !== undefined && <span className="chip num">{tf('bestScore', best)}</span>}
-              {passed && (
-                <span className="chip chip-mint">
-                  <Icon name="check" size={14} /> {t('passed')}
-                </span>
-              )}
-            </div>
-            <div className="exam-actions">
-              <button className="btn btn-soft" onClick={() => quiz('practice', shuffle(round.words), `${tf('roundN', round.no)} · ${t('practice')}`)}>
-                {t('practice')}
-              </button>
-              <button
-                className="btn btn-butter"
-                onClick={() => push({ name: 'quiz', kind: 'exam', words: shuffle(round.words), pool: round.words, roundId, label: `${t('exam')} · ${tf('roundN', round.no)}` })}
-              >
-                {t('startExam')}
-              </button>
-            </div>
-          </section>
-        )}
+        {passed && examCard}
       </div>
       {helpWord && <WordHelp word={helpWord} onClose={() => setHelpWord(null)} />}
     </div>
