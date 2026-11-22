@@ -253,6 +253,9 @@ export const S_VI: Record<StrKey, string> = {
   themeCardSub: 'Nữ = hồng, Nam = đen. Đổi bất cứ lúc nào trong Cài đặt',
   privacyPolicy: 'Chính sách quyền riêng tư',
   dataDeletion: 'Hướng dẫn xóa dữ liệu',
+  loginErrEmail: 'Không nhận được email từ Facebook. Hãy cho phép chia sẻ email rồi thử lại',
+  loginErrBrowser: 'Chưa hoàn tất đăng nhập. Hãy bắt đầu lại trên cùng một trình duyệt',
+  loginErrSignup: 'Hiện chưa thể đăng ký mới (cần quản trị viên cài đặt)',
 }
 
 export const F_VI: FnTable = {

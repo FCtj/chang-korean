@@ -252,6 +252,9 @@ export const S_TH: Record<StrKey, string> = {
   themeCardSub: 'หญิง = ชมพู ชาย = ดำ เปลี่ยนได้ตลอดในการตั้งค่า',
   privacyPolicy: 'นโยบายความเป็นส่วนตัว',
   dataDeletion: 'วิธีลบข้อมูล',
+  loginErrEmail: 'ไม่ได้รับอีเมลจาก Facebook โปรดอนุญาตให้ใช้อีเมลแล้วลองใหม่',
+  loginErrBrowser: 'เข้าสู่ระบบไม่สำเร็จ โปรดเริ่มใหม่ในเบราว์เซอร์เดียวกัน',
+  loginErrSignup: 'ตอนนี้ยังสมัครใหม่ไม่ได้ (ต้องให้ผู้ดูแลตั้งค่า)',
 }
 
 export const F_TH: FnTable = {

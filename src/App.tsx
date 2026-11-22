@@ -8,6 +8,7 @@ import { Ctx, type AppCtx, type Route, type Tab } from './ctx'
 import { Icon } from './ui'
 import Onboarding from './screens/Onboarding'
 import Community from './screens/Community'
+import LoginError from './screens/LoginError'
 import Home from './screens/Home'
 import RoundScreen from './screens/RoundScreen'
 import Player from './screens/Player'
@@ -95,6 +96,7 @@ export default function App() {
     screen = (
       <>
         <main className="tab-page">
+          <LoginError />
           {tab === 'learn' && <Home />}
           {tab === 'community' && <Community />}
           {tab === 'rewards' && <Rewards />}

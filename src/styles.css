@@ -4782,3 +4782,22 @@ body {
 .theme-card .note {
   margin: 0;
 }
+
+/* 로그인 실패 안내 */
+.login-error {
+  margin: 12px var(--gutter-r) 0 var(--gutter-l);
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--peach-soft);
+  border: 1.5px solid var(--peach);
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.92rem;
+}
+.login-error-raw {
+  font-size: 0.72rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}

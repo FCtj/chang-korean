@@ -123,7 +123,9 @@ export async function setCountry(country: string) {
 async function onSession(session: Session | null) {
   if (!supabase) return
   if (!session) {
-    setAuth({ status: 'out', me: null })
+    // 로그인에서 돌아왔는데(code 있음) 세션이 없으면 마무리 실패 — 보통 다른 브라우저/앱에서 돌아온 경우
+    const error = auth.error ?? (returnedWithCode ? 'code_exchange_failed' : undefined)
+    setAuth({ status: 'out', me: null, error })
     return
   }
   const u = session.user
@@ -282,8 +284,29 @@ export function subscribeLeaderboard(onChange: () => void): () => void {
 
 // ───────── 시작 ─────────
 
+/** 웹: Facebook → Supabase 에서 돌아온 주소에 붙은 오류(error_description)를 읽고 주소를 깨끗하게 */
+let returnedWithCode = false
+function readAuthReturn(): string | undefined {
+  if (native || typeof window === 'undefined') return undefined
+  const q = new URLSearchParams(window.location.search)
+  const h = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+  returnedWithCode = q.has('code')
+  const err = q.get('error_description') || h.get('error_description') || q.get('error') || h.get('error')
+  if (err) {
+    try {
+      window.history.replaceState(null, '', window.location.pathname)
+    } catch {
+      /* 무시 */
+    }
+    return err.replace(/\+/g, ' ')
+  }
+  return undefined
+}
+
 export function initBackend() {
   if (!supabase) return
+  const returnError = readAuthReturn()
+  if (returnError) setAuth({ ...auth, error: returnError })
   setPointsReporter(reportPoints)
   subscribe(schedulePush)
   supabase.auth.onAuthStateChange((event, session) => {

@@ -4,6 +4,7 @@ import { makeT, nativeInfo, type UiLang } from '../i18n'
 import { getState, setLanguage, update } from '../store'
 import type { Native, Purpose } from '../data/words'
 import NativePicker from './NativePicker'
+import { loginErrorKey } from './LoginError'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import { PurposePicker } from './SettingsScreen'
 import { Avatar, Elephant, useHeart } from '../ui'
@@ -137,7 +138,13 @@ export default function Onboarding() {
                   <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
                 </button>
                 <p className="note center">{t('fbLoginHint')}</p>
-                {auth.error && <p className="note center err">{t('loginFailed')}</p>}
+                {auth.error && (
+                  <p className="note center err">
+                    {t(loginErrorKey(auth.error))}
+                    <br />
+                    <code className="login-error-raw">{auth.error}</code>
+                  </p>
+                )}
                 <div className="or-line">{t('orNickname')}</div>
               </>
             )
