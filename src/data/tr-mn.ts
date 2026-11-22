@@ -2,6 +2,13 @@
 // 나눠 번역한 파일(tr-mn-1..6.ts, tr-mn-titles.ts)을 아래 PARTS 에 넣어 합침
 // (scripts 도 이 파일을 불러오므로 import.meta.glob 대신 고정 import)
 // @mn-imports
+// 일·알바 트랙: 한 파일에 단어·문장·제목이 같이 있어 PARTS·TITLE_PARTS 둘 다에 넣음
+import { MN_JOB_EPS_A } from './tr-mn-job-eps-a.ts'
+import { MN_JOB_EPS_B } from './tr-mn-job-eps-b.ts'
+import { MN_JOB_STORE } from './tr-mn-job-store.ts'
+import { MN_JOB_HOTEL } from './tr-mn-job-hotel.ts'
+import { MN_JOB_MASSAGE } from './tr-mn-job-massage.ts'
+import { MN_JOB_GUIDE } from './tr-mn-job-guide.ts'
 import { TITLE_AR } from './tr-ar.ts'
 import { TITLE_MN as TITLE_PART } from './tr-mn-titles.ts'
 import { MN_6 } from './tr-mn-6.ts'
@@ -18,10 +25,22 @@ const PARTS: Record<string, string>[] = [
   MN_3,
   MN_5,
   MN_6,
+  MN_JOB_EPS_A,
+  MN_JOB_EPS_B,
+  MN_JOB_STORE,
+  MN_JOB_HOTEL,
+  MN_JOB_MASSAGE,
+  MN_JOB_GUIDE,
   // @mn-parts
 ]
 const TITLE_PARTS: Record<string, string>[] = [
   TITLE_PART,
+  MN_JOB_EPS_A,
+  MN_JOB_EPS_B,
+  MN_JOB_STORE,
+  MN_JOB_HOTEL,
+  MN_JOB_MASSAGE,
+  MN_JOB_GUIDE,
   // @mn-title-parts
 ]
 

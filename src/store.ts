@@ -5,7 +5,7 @@ import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, 
 import type { UiLang } from './i18n'
 import { DEMO_PEOPLE } from './data/friends'
 import { TRACKS, findTrack, type Track } from './data/tracks'
-import { COURSE_IDS, topikTrack, type CourseId } from './data/courses'
+import { COURSE_IDS, isJobTrack, jobTrack, topikTrack, type CourseId } from './data/courses'
 import { NEWS_ID } from './data/news'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
@@ -90,6 +90,8 @@ export interface State {
   course: CourseId | null
   /** TOPIK 코스에서 보고 있는 급 (1~6) */
   topikLevel: number
+  /** 일·알바 코스에서 고른 트랙 (eps · work · restaurant · store · hotel · massage · guide, 비어 있으면 목적으로 추정) */
+  jobTrack: string
   /** 마지막으로 본 '새로워졌어요' 소식 (data/news.ts 의 NEWS_ID) */
   newsSeen: string
   /** 오늘 단원별 연습 문제 포인트 (하루 상한용, 날이 바뀌면 비움) */
@@ -194,6 +196,7 @@ function initial(): State {
     bestMock: 0,
     course: null,
     topikLevel: 1,
+    jobTrack: '',
     newsSeen: '',
     unitDayPts: {},
     mockDay: '',
@@ -214,12 +217,16 @@ function load(): State {
     if (raw) {
       const parsed = JSON.parse(raw) as Partial<State> & { v?: number }
       const base = initial()
-      const merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
+      let merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
       // 공부한 날 기록이 생기기 전 사용자: 이번 달 도장 + 마지막 공부한 날로 시작
       if (!Array.isArray(parsed.studyDays)) merged.studyDays = [...new Set([...(parsed.stamps ?? []), ...(parsed.lastStudyDay ? [parsed.lastStudyDay] : [])])].sort()
       // 체험이 생기기 전에 이미 시작한 사람은 체험을 건너뜀
       if (parsed.introDone === undefined) merged.introDone = !!parsed.started
       // 코스·TOPIK 급은 아는 값만
+      // 예전 코스 '한국 일자리'·'식당 알바' → 일·알바 코스의 그 트랙
+      const oldCourse = merged.course as string | null
+      if (oldCourse === 'work' || oldCourse === 'restaurant') merged = { ...merged, course: 'job', jobTrack: oldCourse }
+      if (!isJobTrack(merged.jobTrack ?? '')) merged.jobTrack = ''
       if (merged.course !== null && !COURSE_IDS.includes(merged.course)) merged.course = null
       if (!(merged.topikLevel >= 1 && merged.topikLevel <= 6)) merged.topikLevel = 1
       // 나라는 라오스 · 태국 · 베트남 · 몽골 · 레바논 · 기타만
@@ -465,17 +472,25 @@ export function recommendedTracks(s: State): Track[] {
 export function currentCourse(s: State): CourseId {
   if (s.course) return s.course
   const p = s.purposes
-  return p.includes('citizen') ? 'citizen' : p.includes('work') ? 'work' : p.includes('parttime') ? 'restaurant' : p.includes('school') ? 'topik' : 'basic'
+  return p.includes('citizen') ? 'citizen' : p.includes('work') || p.includes('parttime') ? 'job' : p.includes('school') ? 'topik' : 'basic'
 }
 
-export function setCourse(id: CourseId, topikLevel?: number) {
-  update((s) => ({ ...s, course: id, ...(topikLevel ? { topikLevel } : {}) }))
+/** 일·알바 코스의 지금 트랙: 고른 것 → 알바 목적이면 식당 → EPS 단어집 */
+export function currentJobTrack(s: State): string {
+  if (s.jobTrack && isJobTrack(s.jobTrack)) return s.jobTrack
+  return s.purposes.includes('parttime') && !s.purposes.includes('work') ? 'restaurant' : 'eps'
+}
+
+/** 코스 바꾸기 — TOPIK 은 급(숫자), 일·알바는 트랙 id 도 함께 */
+export function setCourse(id: CourseId, sub?: number | string) {
+  update((s) => ({ ...s, course: id, ...(id === 'topik' && typeof sub === 'number' ? { topikLevel: sub } : {}), ...(id === 'job' && typeof sub === 'string' ? { jobTrack: sub } : {}) }))
 }
 
 /** 코스 안의 단원들 (기초 = 추천 단어팩 + 회차) */
 export function courseUnits(s: State, id: CourseId = currentCourse(s)): Round[] {
   if (id === 'basic') return [...recommendedPacks(s), ...ROUNDS]
   if (id === 'topik') return topikTrack(s.topikLevel)?.units ?? []
+  if (id === 'job') return jobTrack(currentJobTrack(s))?.units ?? []
   return findTrack(id)?.units ?? []
 }
 

@@ -5,6 +5,13 @@ import { TRACK_RESTAURANT } from './track-restaurant.ts'
 import { TRACK_WORK_A } from './track-work-a.ts'
 import { TRACK_WORK_B } from './track-work-b.ts'
 import { TRACK_CITIZEN } from './track-citizen.ts'
+// 💼 일·알바: EPS-TOPIK 단어집 · 편의점·카페 · 호텔 · 마사지샵 · 여행 가이드 (+ 위의 한국 일자리 · 식당 알바)
+import { TRACK_EPS_A, TRACK_EPS_A_META } from './track-eps-a.ts'
+import { TRACK_EPS_B } from './track-eps-b.ts'
+import { TRACK_STORE, TRACK_STORE_META } from './track-store.ts'
+import { TRACK_HOTEL, TRACK_HOTEL_META } from './track-hotel.ts'
+import { TRACK_MASSAGE, TRACK_MASSAGE_META } from './track-massage.ts'
+import { TRACK_GUIDE, TRACK_GUIDE_META } from './track-guide.ts'
 // 📝 TOPIK 1~6급: 급별 파일(track-topik-N.ts)이 들어오면 import 하고 TOPIK_UNITS 에 넣음
 import { TRACK_TOPIK_1 } from './track-topik-1.ts'
 import { TRACK_TOPIK_4 } from './track-topik-4.ts'
@@ -19,8 +26,8 @@ import { AR } from './tr-ar.ts'
 
 export interface TrackSource {
   id: string
-  /** TOPIK 급별 트랙은 'topik' 으로 묶어서 한 코스로 보여 줌 */
-  group?: 'topik'
+  /** TOPIK 급별 트랙은 'topik', 일·알바 트랙은 'job' 으로 묶어서 한 코스로 보여 줌 */
+  group?: 'topik' | 'job'
   level?: number
   purpose: Purpose
   icon: string
@@ -54,23 +61,40 @@ function TOPIK_SOURCES(): TrackSource[] {
   }))
 }
 
+const WORK_TITLE: TitleL10n = { ko: '한국 일자리 (고용허가제)', lo: 'ວຽກຢູ່ເກົາຫຼີ (EPS)', th: 'ทำงานที่เกาหลี (EPS)', vi: 'Việc làm tại Hàn (EPS)' }
+const WORK_DESC: TitleL10n = { ko: '출근 · 공장 · 안전 · 농장 · 건설 · 월급 · 생활 · 서류', lo: 'ເຂົ້າວຽກ · ໂຮງງານ · ຄວາມປອດໄພ · ສວນ · ກໍ່ສ້າງ · ເງິນເດືອນ · ຊີວິດ · ເອກະສານ', th: 'เข้างาน · โรงงาน · ความปลอดภัย · ฟาร์ม · ก่อสร้าง · เงินเดือน · ชีวิต · เอกสาร', vi: 'Đi làm · Nhà máy · An toàn · Nông trại · Xây dựng · Lương · Sinh hoạt · Giấy tờ' }
+
 export const TRACK_SOURCES: TrackSource[] = [
   {
+    id: 'eps',
+    group: 'job',
+    purpose: 'work',
+    icon: '📗',
+    ...TRACK_EPS_A_META,
+    units: [...TRACK_EPS_A, ...TRACK_EPS_B],
+  },
+  {
+    id: 'work',
+    group: 'job',
+    purpose: 'work',
+    icon: '🏭',
+    title: WORK_TITLE,
+    desc: WORK_DESC,
+    units: [...TRACK_WORK_A, ...TRACK_WORK_B],
+  },
+  {
     id: 'restaurant',
+    group: 'job',
     purpose: 'parttime',
     icon: '🍜',
     title: { ko: '한국 식당·가게 알바', lo: 'ວຽກພິເສດຮ້ານອາຫານເກົາຫຼີ', th: 'พาร์ตไทม์ร้านอาหารเกาหลี', vi: 'Làm thêm ở quán Hàn' },
     desc: { ko: '손님 맞이 · 주문 · 메뉴 · 주방 · 계산 · 근무', lo: 'ຕ້ອນຮັບ · ສັ່ງອາຫານ · ເມນູ · ເຮືອນຄົວ · ຈ່າຍເງິນ · ການເຮັດວຽກ', th: 'ต้อนรับ · รับออร์เดอร์ · เมนู · ครัว · คิดเงิน · การทำงาน', vi: 'Đón khách · Gọi món · Thực đơn · Bếp · Thanh toán · Ca làm' },
     units: TRACK_RESTAURANT,
   },
-  {
-    id: 'work',
-    purpose: 'work',
-    icon: '🏭',
-    title: { ko: '한국 일자리 (고용허가제)', lo: 'ວຽກຢູ່ເກົາຫຼີ (EPS)', th: 'ทำงานที่เกาหลี (EPS)', vi: 'Việc làm tại Hàn (EPS)' },
-    desc: { ko: '출근 · 공장 · 안전 · 농장 · 건설 · 월급 · 생활 · 서류', lo: 'ເຂົ້າວຽກ · ໂຮງງານ · ຄວາມປອດໄພ · ສວນ · ກໍ່ສ້າງ · ເງິນເດືອນ · ຊີວິດ · ເອກະສານ', th: 'เข้างาน · โรงงาน · ความปลอดภัย · ฟาร์ม · ก่อสร้าง · เงินเดือน · ชีวิต · เอกสาร', vi: 'Đi làm · Nhà máy · An toàn · Nông trại · Xây dựng · Lương · Sinh hoạt · Giấy tờ' },
-    units: [...TRACK_WORK_A, ...TRACK_WORK_B],
-  },
+  { id: 'store', group: 'job', purpose: 'parttime', icon: '🏪', ...TRACK_STORE_META, units: TRACK_STORE },
+  { id: 'hotel', group: 'job', purpose: 'work', icon: '🏨', ...TRACK_HOTEL_META, units: TRACK_HOTEL },
+  { id: 'massage', group: 'job', purpose: 'parttime', icon: '💆', ...TRACK_MASSAGE_META, units: TRACK_MASSAGE },
+  { id: 'guide', group: 'job', purpose: 'work', icon: '🧳', ...TRACK_GUIDE_META, units: TRACK_GUIDE },
     {
       id: 'citizen',
       purpose: 'citizen',
@@ -89,7 +113,7 @@ export const TRACK_SOURCES: TrackSource[] = [
 
 export interface Track {
   id: string
-  group?: 'topik'
+  group?: 'topik' | 'job'
   level?: number
   purpose: Purpose
   icon: string

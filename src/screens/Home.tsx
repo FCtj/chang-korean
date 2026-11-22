@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
-import { courseUnits, currentCourse, setCourse, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { courseUnits, currentCourse, currentJobTrack, setCourse, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
 import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
 import { findTrack } from '../data/tracks'
-import { TOPIK_LEVELS, findCourse, topikTrack, type CourseId } from '../data/courses'
+import { JOB_TRACKS, TOPIK_LEVELS, findCourse, jobTrack, topikTrack, type CourseId } from '../data/courses'
 import { nextShopItem } from '../data/shop'
 import { SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
@@ -125,7 +125,7 @@ export default function Home() {
       })()}
       {!cur && courseUnits(s, course).length > 0 && <p className="panel center-panel">{t('courseDone')}</p>}
 
-      {course === 'basic' ? <BasicBody /> : course === 'topik' ? <TopikBody /> : <TrackBody id={course} />}
+      {course === 'basic' ? <BasicBody /> : course === 'topik' ? <TopikBody /> : course === 'job' ? <JobBody /> : <TrackBody id={course} />}
 
       <OtherCourses />
 
@@ -160,8 +160,8 @@ function CourseHead({ onChange }: { onChange: () => void }) {
   const { t, tf, ui } = useApp()
   const id = currentCourse(s)
   const c = findCourse(id)
-  const lv = topikTrack(s.topikLevel)
-  const { done, total } = id === 'topik' && lv ? { done: lv.units.filter((u) => stepsDone(s, u.id)).length, total: lv.units.length } : courseProgress(s, id)
+  const lv = id === 'topik' ? topikTrack(s.topikLevel) : id === 'job' ? jobTrack(currentJobTrack(s)) : undefined
+  const { done, total } = lv ? { done: lv.units.filter((u) => stepsDone(s, u.id)).length, total: lv.units.length } : courseProgress(s, id)
   return (
     <section className="course-head">
       <span className="course-head-icon" aria-hidden="true">
@@ -171,7 +171,7 @@ function CourseHead({ onChange }: { onChange: () => void }) {
         <span className="course-head-label">{t('myCourse')}</span>
         <span className="course-head-title">{c.title[ui]}</span>
         <span className="course-head-meta num">
-          {id === 'topik' ? `${tf('topikLevel', s.topikLevel)} · ` : ''}
+          {id === 'topik' ? `${tf('topikLevel', s.topikLevel)} · ` : id === 'job' && lv ? `${lv.icon} ${lv.title[ui]} · ` : ''}
           {total ? tf('unitsDone', done, total) : t('comingSoon')}
         </span>
         <span className="pack-bar" aria-hidden="true">
@@ -194,6 +194,38 @@ function TrackBody({ id }: { id: CourseId }) {
     <section className="course-units">
       {id === 'citizen' && <MockCard />}
       {track.units.length ? <UnitList track={track} /> : <p className="panel center-panel">{t('levelSoon')}</p>}
+    </section>
+  )
+}
+
+/** 일·알바 코스: 일 종류 고르기(EPS 단어집 · 일자리 · 식당 · 편의점·카페 · 호텔 · 마사지샵 · 가이드) + 그 트랙의 단원 */
+function JobBody() {
+  const s = useStore()
+  const { t, ui } = useApp()
+  const cur = currentJobTrack(s)
+  const track = jobTrack(cur)
+  return (
+    <section className="course-units">
+      <div className="job-tracks" role="tablist" aria-label={findCourse('job').title[ui]}>
+        {JOB_TRACKS.map((tr) => {
+          const total = tr.units.length
+          const done = tr.units.filter((u) => stepsDone(s, u.id)).length
+          const on = tr.id === cur
+          return (
+            <button key={tr.id} role="tab" aria-selected={on} className={`job-tr ${on ? 'on' : ''}`} onClick={() => setCourse('job', tr.id)}>
+              <span className="job-tr-icon" aria-hidden="true">
+                {tr.icon}
+              </span>
+              <span className="job-tr-name">{tr.title[ui]}</span>
+              <span className="job-tr-sub num">
+                {done}/{total}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+      {track && <p className="note">{track.desc[ui]}</p>}
+      {track?.units.length ? <UnitList track={track} /> : <p className="panel center-panel">{t('levelSoon')}</p>}
     </section>
   )
 }
