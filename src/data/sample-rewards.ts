@@ -1,4 +1,4 @@
-// 테스트 기간 예시: 지인 15명의 포인트 교환 내역 (config.ts 의 SAMPLE_DATA 로 켜고 끔)
+// 테스트 기간 예시: 지인들의 포인트 교환 내역 (config.ts 의 SAMPLE_DATA 로 켜고 끔)
 // 시간은 '지금으로부터 몇 시간 전' — 언제 열어도 최근처럼 보임. 화면에는 '예시' 표시가 붙음
 import { DEMO_PEOPLE, type DemoPerson } from './friends'
 import { SHOP, type ShopItem } from './shop'
