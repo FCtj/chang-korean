@@ -1,9 +1,10 @@
 // 🇰🇷 국적·영주 준비 — 모의 평가 문제 (연습용 · 직접 만든 문제, 실제 시험 문항 아님)
 // ⚠️ 라오어·태국어·베트남어 번역은 초안 — 원어민 검수 필요
 import type { TitleL10n } from './track-types'
+import { MOCK_MORE } from './citizen-quiz-more.ts'
 
 export interface MockQuestion {
-  id: string            // 'q01' … 'q60'
+  id: string            // 'q01' … 'q60' (기본) · 'q061' … 'q400' (citizen-quiz-more.ts)
   topic: 'symbols' | 'democracy' | 'law' | 'history' | 'geography' | 'economy' | 'culture' | 'life'
   q: TitleL10n          // question: ko + natural lo / th / vi translation
   options: [string, string, string, string]   // answer choices in KOREAN (short)
@@ -11,7 +12,7 @@ export interface MockQuestion {
   explain: TitleL10n    // one short sentence explaining the answer, in ko / lo / th / vi
 }
 
-export const MOCK_QUESTIONS: MockQuestion[] = [
+const BASE: MockQuestion[] = [
   // ───────── 상징 (symbols) ─────────
   {
     id: 'q01',
@@ -1108,3 +1109,29 @@ export const MOCK_QUESTIONS: MockQuestion[] = [
     },
   },
 ]
+
+/** 문제 은행 전체 (기본 60 + 추가) */
+export const MOCK_QUESTIONS: MockQuestion[] = [...BASE, ...MOCK_MORE]
+
+// ───────── 회차: 주제마다 정해진 개수씩 20문항 (주제 안 순서는 고정된 섞기 → 회차마다 늘 같은 문제) ─────────
+const QUOTA: Record<MockQuestion['topic'], number> = { symbols: 2, democracy: 3, law: 3, history: 3, geography: 2, economy: 3, culture: 2, life: 2 }
+function seeded(list: MockQuestion[], seed: number): MockQuestion[] {
+  const a = [...list]
+  let x = seed
+  for (let i = a.length - 1; i > 0; i--) {
+    x = (x * 1103515245 + 12345) % 2147483648
+    const j = x % (i + 1)
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+const BY_TOPIC = (Object.keys(QUOTA) as MockQuestion['topic'][]).map((t, k) => [t, seeded(MOCK_QUESTIONS.filter((q) => q.topic === t), 7919 * (k + 1))] as const)
+/** 만들 수 있는 회차 수 (400문항이면 20회) */
+export const MOCK_ROUND_COUNT = Math.min(...BY_TOPIC.map(([t, list]) => Math.floor(list.length / QUOTA[t])))
+/** n회 (1부터) 문제 20개 — 주제가 섞이게 번갈아 놓음 */
+export function mockRound(n: number): MockQuestion[] {
+  const parts = BY_TOPIC.map(([t, list]) => list.slice((n - 1) * QUOTA[t], n * QUOTA[t]))
+  const out: MockQuestion[] = []
+  for (let k = 0; out.length < parts.reduce((a, p) => a + p.length, 0); k++) for (const p of parts) if (p[k]) out.push(p[k])
+  return out
+}

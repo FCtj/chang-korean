@@ -13,7 +13,7 @@ import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
-import { backendReady, checkAdmin, COUNTRIES, setCountry, signInWithFacebook, signOut, syncPublicProfile, useAuth, useMyPublic } from '../backend'
+import { backendReady, checkAdmin, COUNTRIES, setCountry, signInWithFacebook, signInWithKakao, signOut, useProviders, syncPublicProfile, useAuth, useMyPublic } from '../backend'
 
 
 export default function SettingsScreen() {
@@ -76,9 +76,7 @@ export default function SettingsScreen() {
             </div>
           ) : (
             <>
-              <button className="fb-btn" onClick={() => signInWithFacebook()}>
-                <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
-              </button>
+              <LoginButtons />
               <p className="note">{t(PUBLIC_PROFILE ? 'fbLoginHint' : 'fbLoginPlain')}</p>
             </>
           ))}
@@ -324,4 +322,25 @@ export function PurposePicker({ ui, value, onChange, big = false }: { ui: UiLang
       })}
     </div>
   )
+}
+
+/** 로그인 버튼: 서버에 켜져 있는 방법만 (카카오는 Supabase 대시보드에서 켜면 나타남). 일본어·영어판은 카카오 먼저 */
+export function LoginButtons({ big = false }: { big?: boolean }) {
+  const { t } = useApp()
+  const p = useProviders()
+  const kakao = p.kakao ? (
+    <button key="kakao" className={big ? 'kakao-btn big' : 'kakao-btn'} onClick={() => signInWithKakao()}>
+      <svg className="kakao-logo" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path d="M12 3.5C6.75 3.5 2.5 6.86 2.5 11c0 2.65 1.75 4.98 4.38 6.31l-.9 3.33c-.08.3.26.54.52.37l3.97-2.63c.5.06 1.01.1 1.53.1 5.25 0 9.5-3.36 9.5-7.48S17.25 3.5 12 3.5Z" fill="#191919" />
+      </svg>
+      {t('kakaoLogin')}
+    </button>
+  ) : null
+  const fb =
+    p.facebook !== false ? (
+      <button key="fb" className={big ? 'fb-btn big' : 'fb-btn'} onClick={() => signInWithFacebook()}>
+        <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
+      </button>
+    ) : null
+  return <div className="login-buttons">{IS_KO ? [fb, kakao] : [kakao, fb]}</div>
 }

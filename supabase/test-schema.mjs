@@ -783,5 +783,51 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('delete_my_data removes my comments and posts', (await q('select count(*)::int n from comments where user_id = $1', [C.b])).rows[0].n === 0 && (await q('select count(*)::int n from posts where user_id = $1', [C.b])).rows[0].n === 0)
 }
 
+// ───────── 일본어판·영어판: 판마다 따로 저장 ─────────
+{
+  const E = { a: 'e1111111-1111-1111-1111-111111111111', b: 'e2222222-2222-2222-2222-222222222222' }
+  for (const id of Object.values(E)) await q('insert into auth.users values ($1) on conflict do nothing', [id])
+  const one = (uid, sql, params = []) => as(uid, async () => (await q(sql, params)).rows[0])
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message)
+    }
+  }
+  await as(E.a, () => q(`insert into edition_progress (user_id, app, data) values ($1, 'ja', '{"n":1}'), ($1, 'en', '{"n":2}')`, [E.a]))
+  await as(E.a, () => q(`insert into progress (user_id, data) values ($1, '{"ko":true}') on conflict (user_id) do update set data = excluded.data`, [E.a]))
+  const mine = await as(E.a, async () => (await q(`select app, data->>'n' as n from edition_progress order by app`)).rows)
+  check('edition progress: ja and en kept apart for the same user', mine.length === 2 && mine[0].app === 'en' && mine[0].n === '2' && mine[1].n === '1', JSON.stringify(mine))
+  const korean = (await q('select data from progress where user_id = $1', [E.a])).rows[0]?.data
+  check('edition progress does not touch Korean progress', korean?.ko === true, JSON.stringify(korean))
+  const other = await as(E.b, async () => (await q('select count(*)::int n from edition_progress')).rows[0].n)
+  check('edition progress: others cannot read it (RLS)', other === 0, String(other))
+  check('edition progress: cannot write for someone else', (await err(() => as(E.b, () => q(`insert into edition_progress (user_id, app) values ($1, 'ja')`, [E.a])))) !== '')
+  check('edition progress: only ja / en', (await err(() => as(E.a, () => q(`insert into edition_progress (user_id, app) values ($1, 'ko')`, [E.a])))) !== '')
+  // 하루 기록 (한국 시간)
+  const today = `(now() at time zone 'Asia/Seoul')::date`
+  await one(E.a, `select log_edition_activity('ja', ${today}, 120, 10, 5, 1)`)
+  await one(E.a, `select log_edition_activity('ja', ${today}, 99999, 10, 5, 1)`)
+  await one(E.a, `select log_edition_activity('en', ${today}, 60, 3, 0, 1)`)
+  const act = (await q(`select app, study_seconds, words_seen, sessions from edition_activity where user_id = $1 order by app`, [E.a])).rows
+  check('log_edition_activity: per app, adds up, caps one call at 3600s', act.length === 2 && act[1].app === 'ja' && act[1].study_seconds === 3720 && act[1].words_seen === 20 && act[1].sessions === 2 && act[0].study_seconds === 60, JSON.stringify(act))
+  check('log_edition_activity: bad app refused', (await err(() => one(E.a, `select log_edition_activity('ko', ${today}, 1, 1, 1, 1)`))).includes('bad_app'))
+  check('log_edition_activity: old day refused', (await err(() => one(E.a, `select log_edition_activity('ja', ${today} - 5, 1, 1, 1, 1)`))).includes('bad_day'))
+  check('edition_activity not writable directly', (await err(() => as(E.a, () => q(`insert into edition_activity (user_id, app, day) values ($1, 'ja', current_date - 3)`, [E.a])))) !== '')
+  const fx = (await q(`select has_function_privilege('anon', 'public.log_edition_activity(text,date,int,int,int,int)', 'execute') as anon,
+    has_function_privilege('authenticated', 'public.log_edition_activity(text,date,int,int,int,int)', 'execute') as auth`)).rows[0]
+  check('log_edition_activity: authenticated only', fx.anon === false && fx.auth === true, JSON.stringify(fx))
+  // 관리자 현황
+  const ov = (await one(U.ploy, 'select admin_edition_overview(14) as o')).o
+  check('admin_edition_overview: users and today per app', ov.ja.users >= 1 && ov.ja.active_today >= 1 && ov.en.users >= 1 && ov.ja.seconds_7d >= 3720 && Array.isArray(ov.ja.days), JSON.stringify(ov))
+  check('admin_edition_overview: non-admin refused', (await err(() => one(E.b, 'select admin_edition_overview(14)'))).includes('not_admin'))
+  // 내 데이터 삭제 → 판 기록도
+  await as(E.a, () => q('select delete_my_data()'))
+  const left = (await q(`select (select count(*) from edition_progress where user_id = $1)::int + (select count(*) from edition_activity where user_id = $1)::int as n`, [E.a])).rows[0].n
+  check('delete_my_data removes edition progress and activity', left === 0, String(left))
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

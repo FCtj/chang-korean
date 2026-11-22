@@ -3,7 +3,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { POINTS_ENABLED } from '../config'
 import { useApp } from '../ctx'
-import { MOCK_QUESTIONS, type MockQuestion } from '../data/citizen-quiz'
+import { MOCK_QUESTIONS, MOCK_ROUND_COUNT, mockRound, type MockQuestion } from '../data/citizen-quiz'
 import { addActivity, recordMock, useStore } from '../store'
 import { sfx, speakText } from '../audio'
 import { burstFrom, fireworks, sparkleRain } from '../fx'
@@ -22,10 +22,11 @@ const TOPIC_ICON: Record<MockQuestion['topic'], string> = {
 }
 const COUNT = 20
 // 몽골어 질문·설명 (있으면)
-const MOCK_MN: Record<string, { q: string; explain: string }> =
-  Object.values(import.meta.glob<{ MOCK_MN: Record<string, { q: string; explain: string }> }>('../data/citizen-quiz-mn.ts', { eager: true }))[0]?.MOCK_MN ?? {}
-const MOCK_AR: Record<string, { q: string; explain: string }> =
-  Object.values(import.meta.glob<{ MOCK_AR: Record<string, { q: string; explain: string }> }>('../data/citizen-quiz-ar.ts', { eager: true }))[0]?.MOCK_AR ?? {}
+// 몽골어·아랍어 문항 번역: citizen-quiz-mn*.ts · citizen-quiz-ar*.ts (기본 + 추가 문제) 를 모두 합침
+type MockTr = Record<string, { q: string; explain: string }>
+const mergeTr = (mods: Record<string, Record<string, unknown>>): MockTr => Object.assign({}, ...Object.values(mods).flatMap((m) => Object.values(m)))
+const MOCK_MN: MockTr = mergeTr(import.meta.glob<Record<string, unknown>>('../data/citizen-quiz-mn*.ts', { eager: true }))
+const MOCK_AR: MockTr = mergeTr(import.meta.glob<Record<string, unknown>>('../data/citizen-quiz-ar*.ts', { eager: true }))
 const MOCK_EXTRA = { mn: MOCK_MN, ar: MOCK_AR }
 const PASS = 60
 
@@ -47,8 +48,10 @@ export default function MockExam() {
   const s = useStore()
   const { t, tf, ui, pop } = useApp()
   useStudyClock()
+  // 회차: 1…20 (고정 문제) · 0 = 무작위 20문항 · null = 회차 고르는 화면
+  const [mockNo, setMockNo] = useState<number | null>(null)
   const [round, setRound] = useState(0)
-  const questions = useMemo(pick, [round])
+  const questions = useMemo(() => (mockNo ? mockRound(mockNo) : pick()), [round, mockNo])
   const [i, setI] = useState(0)
   const [chosen, setChosen] = useState<number | null>(null)
   const [right, setRight] = useState(0)
@@ -80,7 +83,7 @@ export default function MockExam() {
       setChosen(null)
       return
     }
-    const r = recordMock(right, questions.length)
+    const r = recordMock(right, questions.length, mockNo || undefined)
     setResult(r)
     if (r.score >= PASS) {
       sfx.levelUp()
@@ -91,12 +94,41 @@ export default function MockExam() {
     }
   }
 
-  const restart = () => {
+  const start = (no: number | null) => {
+    setMockNo(no)
     setRound((n) => n + 1)
     setI(0)
     setChosen(null)
     setRight(0)
     setResult(null)
+  }
+  const restart = () => start(mockNo)
+
+  // 회차 고르기
+  if (mockNo === null) {
+    return (
+      <div className="screen">
+        <TopBar title={`📝 ${t('mockTitle')}`} />
+        <div className="page mock-pick">
+          <p className="note">{t('mockPick')}</p>
+          <div className="mock-rounds">
+            {Array.from({ length: MOCK_ROUND_COUNT }, (_, k) => k + 1).map((n) => {
+              const best = s.mockRounds?.[n]
+              return (
+                <button key={n} className={`mock-round ${best == null ? '' : best >= PASS ? 'pass' : 'tried'}`} onClick={() => start(n)}>
+                  <span className="mock-round-no">{tf('mockRoundN', n)}</span>
+                  <span className="mock-round-best num">{best == null ? '–' : `${best >= PASS ? '✅' : '📝'} ${best}`}</span>
+                </button>
+              )
+            })}
+          </div>
+          <button className="btn btn-soft btn-block" onClick={() => start(0)}>
+            {t('mockRandom')}
+          </button>
+          <p className="note">{t('mockNote')}</p>
+        </div>
+      </div>
+    )
   }
 
   if (result) {
@@ -122,8 +154,16 @@ export default function MockExam() {
             </div>
           )}
           <p className="note">{t('mockNote')}</p>
-          <button className="btn btn-pink btn-block btn-big" onClick={restart}>
+          {mockNo > 0 && mockNo < MOCK_ROUND_COUNT && (
+            <button className="btn btn-pink btn-block btn-big" onClick={() => start(mockNo + 1)}>
+              {t('mockNextRound')} · {tf('mockRoundN', mockNo + 1)} →
+            </button>
+          )}
+          <button className={mockNo > 0 && mockNo < MOCK_ROUND_COUNT ? 'btn btn-soft btn-block' : 'btn btn-pink btn-block btn-big'} onClick={restart}>
             🔁 {t('mockRetry')}
+          </button>
+          <button className="btn btn-soft btn-block" onClick={() => setMockNo(null)}>
+            📋 {t('mockList')}
           </button>
           <button className="btn btn-soft btn-block" onClick={pop}>
             {t('back')}
@@ -135,7 +175,7 @@ export default function MockExam() {
 
   return (
     <div className="screen">
-      <TopBar title={`📝 ${t('mockTitle')}`} sub={`${i + 1}/${questions.length}`} />
+      <TopBar title={`📝 ${t('mockTitle')}${mockNo ? ` · ${tf('mockRoundN', mockNo)}` : ''}`} sub={`${i + 1}/${questions.length}`} onBack={() => setMockNo(null)} />
       <div className="page mock">
         <div className="track-progress" aria-hidden="true">
           <span style={{ width: `${Math.round((i / questions.length) * 100)}%` }} />

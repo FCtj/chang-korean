@@ -7515,3 +7515,69 @@ body {
   font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
   letter-spacing: 0;
 }
+
+/* 카카오 로그인 (카카오 디자인 가이드: #FEE500 바탕 · 검은 말풍선 · 85% 검정 글자) */
+.login-buttons {
+  display: grid;
+  gap: 8px;
+}
+.kakao-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  border: 0;
+  border-radius: 12px;
+  background: #fee500;
+  color: rgba(0, 0, 0, 0.85);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.kakao-btn.big {
+  min-height: 56px;
+  font-size: 1.05rem;
+}
+.kakao-btn:active {
+  transform: scale(0.98);
+}
+
+/* 모의 평가 회차 고르기 (1~20회) */
+.mock-rounds {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+.mock-round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 4px;
+  border-radius: 14px;
+  border: 2px solid var(--line, #f3d6e2);
+  background: var(--card, #fff);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.mock-round.pass {
+  border-color: #6fd3b0;
+  background: #effbf6;
+}
+.mock-round.tried {
+  border-color: #ffc56b;
+}
+.mock-round-no {
+  font-weight: 800;
+}
+.mock-round-best {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+:root[data-theme='carbon'] .mock-round.pass {
+  background: #10261e;
+}

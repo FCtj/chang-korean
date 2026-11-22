@@ -1,7 +1,7 @@
 // 서버 연결 (Supabase): Facebook 로그인 · 프로필 · 학습 기록 동기화 · 점수 · 랭킹(실시간)
 // 빌드할 때 VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY 가 없으면 서버 없이(예시 랭킹) 동작합니다.
 // 설정 방법: docs/backend-setup.md
-import { IS_KO } from './edition'
+import { EDITION, IS_KO } from './edition'
 import { useSyncExternalStore } from 'react'
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js'
 import { Capacitor } from '@capacitor/core'
@@ -32,7 +32,7 @@ const KEY = isPublicKey(envKey) ? envKey : SUPABASE_PUBLISHABLE_KEY
 const native = Capacitor.isNativePlatform()
 
 /** 서버 설정이 들어 있는지 */
-export const backendReady = IS_KO && isUrl(URL_) && isPublicKey(KEY)
+export const backendReady = isUrl(URL_) && isPublicKey(KEY)
 
 export const supabase: SupabaseClient | null = backendReady
   ? createClient(URL_!, KEY!, {
@@ -76,21 +76,60 @@ export function useAuth(): AuthState {
   )
 }
 
-export async function signInWithFacebook(): Promise<void> {
+export type LoginProvider = 'facebook' | 'kakao'
+const SCOPES: Record<LoginProvider, string> = { facebook: 'public_profile', kakao: 'profile_nickname profile_image' }
+
+/** 서버(Supabase)에 켜져 있는 로그인 방법 — 카카오는 대시보드에서 켜야 버튼이 보임 */
+let providers: Partial<Record<LoginProvider, boolean>> | null = null
+const providerListeners = new Set<() => void>()
+export function loadProviders() {
+  if (providers || !backendReady) return
+  providers = {}
+  fetch(`${URL_}/auth/v1/settings`, { headers: { apikey: KEY ?? '' } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((j: { external?: Record<string, boolean> } | null) => {
+      providers = { facebook: !!j?.external?.facebook, kakao: !!j?.external?.kakao }
+      providerListeners.forEach((f) => f())
+    })
+    .catch(() => {
+      providers = { facebook: true }
+      providerListeners.forEach((f) => f())
+    })
+}
+export function useProviders(): Partial<Record<LoginProvider, boolean>> {
+  loadProviders()
+  return useSyncExternalStore(
+    (f) => {
+      providerListeners.add(f)
+      return () => providerListeners.delete(f)
+    },
+    () => providers ?? {},
+    () => ({}),
+  )
+}
+
+export function signInWithFacebook(): Promise<void> {
+  return signInWith('facebook')
+}
+export function signInWithKakao(): Promise<void> {
+  return signInWith('kakao')
+}
+
+async function signInWith(provider: LoginProvider): Promise<void> {
   if (!supabase) return
   try {
     if (native) {
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'facebook',
-        options: { redirectTo: NATIVE_REDIRECT, skipBrowserRedirect: true, scopes: 'public_profile' },
+        provider,
+        options: { redirectTo: NATIVE_REDIRECT, skipBrowserRedirect: true, scopes: SCOPES[provider] },
       })
       if (error || !data.url) throw error ?? new Error('no url')
       const { Browser } = await import('@capacitor/browser')
       await Browser.open({ url: data.url })
     } else {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'facebook',
-        options: { redirectTo: window.location.origin + window.location.pathname, scopes: 'public_profile' },
+        provider,
+        options: { redirectTo: window.location.origin + window.location.pathname, scopes: SCOPES[provider] },
       })
       if (error) throw error
     }
@@ -255,6 +294,14 @@ export async function adminAccessPlaces(days = 30): Promise<{ countries: Record<
   if (error) throw new Error(error.message)
   return data as { countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] }
 }
+export type EditionStats = { users: number; active_today: number; active_7d: number; active_30d: number; seconds_7d: number; days: { day: string; users: number; seconds: number }[] }
+/** 관리자: 일본어판·영어판 사용 현황 (SQL 20261122070000_editions 실행 후) */
+export async function adminEditionOverview(days = 30): Promise<Partial<Record<'ja' | 'en', EditionStats>>> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_edition_overview', { p_days: days })
+  if (error) throw new Error(error.message)
+  return (data ?? {}) as Partial<Record<'ja' | 'en', EditionStats>>
+}
 /** 관리자 전용 계정(이메일·비밀번호, Supabase 대시보드에서 만든 계정)으로 로그인 — 실패하면 오류 문구 */
 export async function signInWithEmail(email: string, password: string): Promise<string | null> {
   if (!supabase) return 'no_backend'
@@ -283,29 +330,36 @@ async function onSession(session: Session | null) {
   }
   const u = session.user
   const meta = (u.user_metadata ?? {}) as Record<string, string | undefined>
-  const name = meta.full_name || meta.name || getState().nickname || 'User'
+  const name = meta.full_name || meta.name || meta.nickname || meta.preferred_username || getState().nickname || 'User'
   const avatar = meta.avatar_url || meta.picture || null
   let country = getState().country || 'LA'
   try {
     const { data: prof } = await supabase.from('profiles').select('country').eq('id', u.id).maybeSingle()
     if (prof?.country) country = prof.country
     const st = getState()
-    await supabase.from('profiles').upsert({ id: u.id, display_name: publicName(name, st.hideName), avatar_url: publicAvatar(avatar, st.hidePhoto), country, updated_at: new Date().toISOString() })
+    // 일본어·영어판: 한국어판에서 만든 프로필은 그대로 (처음 로그인이면 새로 만듦)
+    if (IS_KO || !prof)
+      await supabase.from('profiles').upsert({ id: u.id, display_name: publicName(name, st.hideName), avatar_url: publicAvatar(avatar, st.hidePhoto), country, updated_at: new Date().toISOString() })
   } catch {
     /* 네트워크 오류여도 로그인 상태는 유지 */
   }
-  update((s) => ({ ...s, nickname: name, country }))
+  update((s) => ({ ...s, nickname: name, ...(IS_KO ? { country } : {}) }))
   setAuth({ status: 'in', me: { id: u.id, name, avatar, country } })
   await pullProgress(u.id)
   reportGeo().catch(() => {})
   pullActivity().catch(() => {})
   lastPrivate = ''
-  syncPrivateProfile().catch(() => {})
+  if (IS_KO) syncPrivateProfile().catch(() => {})
 }
 
 // ───────── 하루 활동 요약 (daily_activity) ─────────
 /** 서버의 '하루' 기준(라오스 시간, UTC+7) 날짜 */
-const vientianeDay = (offsetDays = 0) => new Date(Date.now() + 7 * 3600_000 - offsetDays * 86400_000).toISOString().slice(0, 10)
+const vientianeDay = (offsetDays = 0) => new Date(Date.now() + (IS_KO ? 7 : 9) * 3600_000 - offsetDays * 86400_000).toISOString().slice(0, 10)
+// 일본어·영어판은 판마다 따로 (edition_progress · edition_activity · log_edition_activity, 날짜는 한국 시간 UTC+9)
+const ACTIVITY_TABLE = IS_KO ? 'daily_activity' : 'edition_activity'
+const logActivity = (a: { p_day: string; p_seconds: number; p_words: number; p_questions: number; p_sessions: number }) =>
+  supabase!.rpc(IS_KO ? 'log_activity' : 'log_edition_activity', IS_KO ? a : { p_app: EDITION, ...a })
+const progressQuery = () => (IS_KO ? supabase!.from('progress') : supabase!.from('edition_progress'))
 
 // ───────── 접속 위치 (대략적인 나라·도시, 관리자 화면용) ─────────
 // 로그인한 사람만 하루 한 번. IP 위치 서비스(GeoJS)에 물어 나라·도시 이름만 서버에 보냄 — IP 주소는 저장하지 않음
@@ -313,7 +367,7 @@ const vientianeDay = (offsetDays = 0) => new Date(Date.now() + 7 * 3600_000 - of
 const GEO_KEY = 'chang-korean:geo-day'
 let geoBusy = false
 async function reportGeo() {
-  if (!supabase || auth.status !== 'in' || geoBusy) return
+  if (!IS_KO || !supabase || auth.status !== 'in' || geoBusy) return
   const day = vientianeDay()
   try {
     if (localStorage.getItem(GEO_KEY) === `${auth.me?.id}:${day}`) return
@@ -354,8 +408,7 @@ export let lastActivityReport: { at: number; ok: boolean; error?: string; sec: n
 function reportActivity(_day: string, d: DayActivity) {
   if (!supabase || auth.status !== 'in') return
   reportGeo().catch(() => {})
-  supabase
-    .rpc('log_activity', { p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: Math.round(d.words), p_questions: Math.round(d.questions), p_sessions: Math.round(d.sessions) })
+  logActivity({ p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: Math.round(d.words), p_questions: Math.round(d.questions), p_sessions: Math.round(d.sessions) })
     .then(
       ({ error }) => {
         lastActivityReport = { at: Date.now(), ok: !error, error: error?.message, sec: Math.round(d.sec) }
@@ -370,14 +423,18 @@ function reportActivity(_day: string, d: DayActivity) {
 /** 기록 점검: 테스트 기록 한 번 보내고(앱 연 횟수 +1), 서버에 저장된 내 최근 기록을 읽어 옴 */
 export async function checkActivityLogging(): Promise<{ send: string | null; rows: { day: string; study_seconds: number; sessions: number; last_seen: string }[]; readError: string | null }> {
   if (!supabase || auth.status !== 'in') return { send: 'not_logged_in', rows: [], readError: null }
-  const { error } = await supabase.rpc('log_activity', { p_day: vientianeDay(), p_seconds: 0, p_words: 0, p_questions: 0, p_sessions: 1 })
-  const r = await supabase.from('daily_activity').select('day, study_seconds, sessions, last_seen').order('day', { ascending: false }).limit(5)
+  const { error } = await logActivity({ p_day: vientianeDay(), p_seconds: 0, p_words: 0, p_questions: 0, p_sessions: 1 })
+  let rq = supabase.from(ACTIVITY_TABLE).select('day, study_seconds, sessions, last_seen')
+  if (!IS_KO) rq = rq.eq('app', EDITION)
+  const r = await rq.order('day', { ascending: false }).limit(5)
   return { send: error ? error.message : null, rows: (r.data ?? []) as { day: string; study_seconds: number; sessions: number; last_seen: string }[], readError: r.error ? r.error.message : null }
 }
 
 async function pullActivity() {
   if (!supabase) return
-  const { data } = await supabase.from('daily_activity').select('day, study_seconds, words_seen, questions, sessions').gte('day', vientianeDay(59))
+  let rq = supabase.from(ACTIVITY_TABLE).select('day, study_seconds, words_seen, questions, sessions').gte('day', vientianeDay(59))
+  if (!IS_KO) rq = rq.eq('app', EDITION)
+  const { data } = await rq
   if (data)
     mergeServerActivity(
       (data as { day: string; study_seconds: number; words_seen: number; questions: number; sessions: number }[]).map((r) => ({
@@ -416,7 +473,7 @@ function schedulePrivateSync() {
 // 기기 기록과 서버 기록을 합쳐서(외운 단어·통과한 회차는 합집합, STEP은 큰 쪽) 양쪽에 저장
 
 // 뒤쪽 course…cheat 는 합치지 않고 올리기만 함 (관리자 사용 현황 화면용)
-const SYNC_KEYS = ['purposes', 'studyDays', 'passedRounds', 'passedTiers', 'quizOpen', 'placedRounds', 'placementDone', 'bestExam', 'known', 'steps', 'stepKnown', 'wordStats', 'lastChunk', 'streak', 'lastStudyDay', 'course', 'topikLevel', 'totalPoints', 'native', 'ui', 'cheat'] as const
+const SYNC_KEYS = ['purposes', 'studyDays', 'passedRounds', 'passedTiers', 'quizOpen', 'placedRounds', 'placementDone', 'bestExam', 'known', 'steps', 'stepKnown', 'wordStats', 'lastChunk', 'streak', 'lastStudyDay', 'course', 'topikLevel', 'totalPoints', 'native', 'ui', 'cheat', 'mockRounds'] as const
 type Synced = Pick<State, (typeof SYNC_KEYS)[number]>
 
 function snapshot(s: State): Synced {
@@ -465,7 +522,9 @@ export function mergeProgress(local: State, remote: Partial<Synced>): State {
 async function pullProgress(uid: string) {
   if (!supabase) return
   try {
-    const { data } = await supabase.from('progress').select('data').eq('user_id', uid).maybeSingle()
+    let rq = progressQuery().select('data').eq('user_id', uid)
+    if (!IS_KO) rq = rq.eq('app', EDITION)
+    const { data } = await rq.maybeSingle()
     if (data?.data) update((s) => mergeProgress(s, data.data as Partial<Synced>))
   } catch {
     /* 무시 */
@@ -478,7 +537,7 @@ async function pushProgress() {
   if (!supabase || auth.status !== 'in' || !auth.me || pushing) return
   pushing = true
   try {
-    await supabase.from('progress').upsert({ user_id: auth.me.id, data: snapshot(getState()), updated_at: new Date().toISOString() })
+    await progressQuery().upsert({ user_id: auth.me.id, ...(IS_KO ? {} : { app: EDITION }), data: snapshot(getState()), updated_at: new Date().toISOString() })
   } catch {
     /* 다음에 다시 */
   } finally {
@@ -497,7 +556,7 @@ function schedulePush() {
 // 서버(award_points)가 하루 상한·한 번에 최대 10점·보너스 중복을 막음
 
 function reportPoints(kind: 'study' | 'exam' | 'promo', ref: string | null, points: number) {
-  if (!supabase || auth.status !== 'in') return
+  if (!IS_KO || !supabase || auth.status !== 'in') return
   const calls = kind === 'study' ? Array.from({ length: Math.ceil(points / 10) }, (_, i) => Math.min(10, points - i * 10)) : [points]
   for (const p of calls) supabase.rpc('award_points', { p_kind: kind, p_ref: ref, p_points: p }).then(undefined, () => {})
 }

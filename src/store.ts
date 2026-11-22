@@ -87,6 +87,8 @@ export interface State {
   activity: Record<string, DayActivity>
   /** 국적·영주 모의 평가 최고 점수 (100점 만점) */
   bestMock: number
+  /** 모의 평가 회차별 최고 점수 ('1' … '20') */
+  mockRounds: Record<string, number>
   /** 지금 공부하는 코스 (null = 아직 안 고름 → 목적으로 추정) */
   course: CourseId | null
   /** TOPIK 코스에서 보고 있는 급 (1~6) */
@@ -196,6 +198,7 @@ function initial(): State {
     activity: {},
     introDone: false,
     bestMock: 0,
+    mockRounds: {},
     course: null,
     topikLevel: 1,
     jobTrack: '',
@@ -709,11 +712,16 @@ export function setLastChunk(roundId: string, chunk: number) {
 
 /** 문제 정답 점수. 하루 상한을 넘으면 0점. 이미 통과한 회차는 절반 */
 /** 모의 평가 끝: 최고 점수 저장 + 60점 이상이면 맞힌 문제마다 1P (하루 한 번, 상한 안에서) */
-export function recordMock(correct: number, total: number): { score: number; points: number } {
+export function recordMock(correct: number, total: number, round?: number): { score: number; points: number } {
   const score = Math.round((correct / total) * 100)
   const day = todayKey()
   const eligible = score >= MOCK_PASS && state.mockDay !== day
-  update((s) => ({ ...s, bestMock: Math.max(s.bestMock, score), ...(eligible ? { mockDay: day } : {}) }))
+  update((s) => ({
+    ...s,
+    bestMock: Math.max(s.bestMock, score),
+    ...(round ? { mockRounds: { ...s.mockRounds, [round]: Math.max(s.mockRounds?.[round] ?? 0, score) } } : {}),
+    ...(eligible ? { mockDay: day } : {}),
+  }))
   // 60점 이상일 때만, 하루 한 번: 맞힌 문제마다 1P
   return { score, points: eligible ? addCapped(correct) : 0 }
 }

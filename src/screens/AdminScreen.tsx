@@ -11,6 +11,8 @@ import {
   checkActivityLogging,
   lastActivityReport,
   adminAccessPlaces,
+  adminEditionOverview,
+  type EditionStats,
   adminModerate,
   adminReports,
   adminOverview,
@@ -371,6 +373,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
   const [mask, setMask] = useState(readMask)
   const [open, setOpen] = useState<AdminUser | null>(null)
   const [places, setPlaces] = useState<{ countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] } | null>(null)
+  const [eds, setEds] = useState<Partial<Record<'ja' | 'en', EditionStats>> | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -381,6 +384,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
       setUsers(u)
       // 접속 위치는 서버에 새 함수가 없으면(SQL 실행 전) 조용히 건너뜀
       adminAccessPlaces(Number(days)).then(setPlaces, () => setPlaces(null))
+      // 일본어판·영어판 현황도 SQL 실행 전이면 조용히 건너뜀
+      adminEditionOverview(Number(days)).then(setEds, () => setEds(null))
     } catch (e) {
       setErr(String((e as Error).message ?? e))
     } finally {
@@ -474,6 +479,25 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
               </div>
             )}
           </>
+        )}
+
+        {eds && (
+          <section className="panel adm-editions">
+            <h3 className="adm-h">🇯🇵 일본어판 · 💼 영어판 (한국인 학습자)</h3>
+            {(['ja', 'en'] as const).map((k) => {
+              const e = eds[k]
+              if (!e) return null
+              return (
+                <div key={k} className="adm-ed">
+                  <div className="adm-ed-title">{k === 'ja' ? '🇯🇵 일본어판 (JLPT)' : '💼 영어판 (TOEIC)'}</div>
+                  <div className="note">
+                    로그인 {fmtNum(e.users)}명 · 오늘 {fmtNum(e.active_today)}명 · 7일 {fmtNum(e.active_7d)}명 · 30일 {fmtNum(e.active_30d)}명 · 7일 공부 {fmtNum(Math.round(e.seconds_7d / 60))}분
+                  </div>
+                  {e.days.length > 0 && <DayBars title="날짜별 공부한 사람" data={e.days.map((d) => ({ day: d.day, v: d.users }))} unit="명" />}
+                </div>
+              )
+            })}
+          </section>
         )}
 
         <Reports mask={mask} />

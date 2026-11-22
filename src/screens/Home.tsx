@@ -55,7 +55,7 @@ export default function Home() {
       </header>
       {SIMPLE_MODE && POINTS_ENABLED && <WalletCard />}
 
-      {backendReady && auth.status === 'in' && s.profileConsent === null && (
+      {IS_KO && backendReady && auth.status === 'in' && s.profileConsent === null && (
         <section className="panel consent-card">
           <h2 className="h3">🔒 {t('consentTitle')}</h2>
           <p className="note">{t('consentBody')}</p>
