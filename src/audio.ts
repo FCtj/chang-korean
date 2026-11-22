@@ -2,7 +2,7 @@
 // 1순위: 녹음 파일(public/audio/<id>.mp3, AUDIO_READY 목록)
 // 2순위: 안드로이드 앱 → 기기 TTS 엔진 (@capacitor-community/text-to-speech)
 //        웹 → 브라우저 음성 합성 (speechSynthesis)
-import { ED_INFO, IS_KO } from './edition'
+import { ED_INFO, EDITION, IS_KO } from './edition'
 import { Capacitor } from '@capacitor/core'
 import { TextToSpeech } from '@capacitor-community/text-to-speech'
 import { AUDIO_READY, type Lang, type Word } from './data/words'
@@ -27,9 +27,10 @@ if (!native && typeof window !== 'undefined' && 'speechSynthesis' in window) {
 
 function pickWebVoice(lang: Lang): SpeechSynthesisVoice | undefined {
   const prefix = BCP47[lang].slice(0, 2).toLowerCase()
+  if (webVoices.length === 0) refreshVoices()
   const list = webVoices.filter((v) => v.lang.toLowerCase().replace('_', '-').startsWith(prefix))
-  // 구글/네트워크 음성이 보통 더 자연스러움
-  return list.find((v) => /google|natural|online/i.test(v.name)) ?? list[0]
+  // 기기에 설치된 음성이 먼저 (온라인 음성은 더 자연스럽지만 가끔 소리 없이 실패함) → 그다음 구글/자연스러운 음성
+  return list.find((v) => v.localService && /google|natural|enhanced|premium/i.test(v.name)) ?? list.find((v) => v.localService) ?? list.find((v) => /google|natural|online/i.test(v.name)) ?? list[0]
 }
 
 export async function hasVoice(lang: Lang): Promise<boolean> {
@@ -64,16 +65,24 @@ export function stopSpeaking() {
   }
 }
 
+let speakSeq = 0
 /** 텍스트를 읽어줌. 말이 끝나면(또는 최대 4초 후) resolve */
 export async function speakText(text: string, lang: Lang, rate = 0.9): Promise<void> {
+  const my = ++speakSeq
+  const ss = !native && typeof window !== 'undefined' ? window.speechSynthesis : undefined
+  // 크롬: 말하는 중에 cancel() 하고 바로 speak() 하면 새 말이 무시되는 일이 있음 → 끊고 잠깐 쉬었다가 말함
+  const busy = !!ss && (ss.speaking || ss.pending)
   stopSpeaking()
-  const timeout = new Promise<void>((r) => setTimeout(r, 4000))
+  if (busy) await new Promise((r) => setTimeout(r, 90))
+  if (my !== speakSeq) return // 그사이 다른 말을 요청함
+  const timeout = new Promise<void>((r) => setTimeout(r, Math.max(4000, text.length * 180)))
   try {
     if (native) {
       await Promise.race([TextToSpeech.speak({ text, lang: BCP47[lang], rate, category: 'playback' }), timeout])
       return
     }
-    if (!('speechSynthesis' in window)) return
+    if (!ss) return
+    ss.resume?.()
     const done = new Promise<void>((resolve) => {
       const u = new SpeechSynthesisUtterance(text)
       u.lang = BCP47[lang]
@@ -108,7 +117,16 @@ export async function speakWord(w: Word, rate = 0.9): Promise<void> {
       /* TTS로 대체 */
     }
   }
-  return speakText(w.ko, 'ko', rate)
+  return speakText(speechOf(w), 'ko', rate)
+}
+
+/** 소리 내어 읽을 글자: 일본어판은 가나 읽기(한자 읽기 실수 · 기호 건너뜀 방지), 물결표 ～ 와 괄호 메모는 뺌 */
+function speechOf(w: Word): string {
+  if (IS_KO) return w.ko
+  // 가나 한 글자 읽기(歯 → は)는 조사(わ)로 읽힐 수 있어 한자 그대로
+  const kana = w.rom.replace(/[～〜\s]/g, '')
+  const base = EDITION === 'ja' && w.kind !== 'phrase' && kana.length > 1 ? w.rom : w.ko
+  return base.replace(/[～〜]/g, '').replace(/\s*\([^)]*\)/g, '').replace(/\//g, ', ').trim() || w.ko
 }
 
 // ───────── 효과음 (Web Audio, 파일 없음) ─────────

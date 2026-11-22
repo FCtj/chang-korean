@@ -7637,3 +7637,11 @@ body {
   font-size: 0.85rem;
   opacity: 0.7;
 }
+
+/* 일본어·영어판: 기기에 음성이 없을 때 안내 */
+.voice-hint {
+  border: 2px dashed #ffc56b;
+}
+.voice-hint p {
+  margin: 0 0 6px;
+}

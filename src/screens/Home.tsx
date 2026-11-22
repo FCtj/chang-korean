@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ED_INFO, IS_KO } from '../edition'
+import { hasVoice, openVoiceInstall } from '../audio'
+import { Capacitor } from '@capacitor/core'
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
 import { courseUnits, currentCourse, currentJobTrack, setCourse, unitPassed, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
@@ -78,6 +80,7 @@ export default function Home() {
       )}
 
       <CourseHead onChange={() => setSheet(true)} />
+      {!IS_KO && <VoiceHint />}
 
       {course === 'basic' && !s.placementDone && (
         <button className="level-card" onClick={() => push({ name: 'placement' })}>
@@ -449,5 +452,61 @@ function PackCard({ pack, badge }: { pack: Round; badge?: string }) {
         <span style={{ width: `${Math.round(pct * 100)}%` }} />
       </span>
     </button>
+  )
+}
+
+/** 일본어·영어판: 이 기기에 배울 말 음성(TTS)이 없으면 설치 안내 (한 번 닫으면 다시 안 보임) */
+function VoiceHint() {
+  const KEY = 'chang-ed-voice-hint'
+  const [missing, setMissing] = useState(false)
+  const [hidden, setHidden] = useState(() => {
+    try {
+      return localStorage.getItem(KEY) === '1'
+    } catch {
+      return false
+    }
+  })
+  useEffect(() => {
+    if (hidden) return
+    let alive = true
+    const check = () => hasVoice('ko').then((v) => alive && setMissing(!v))
+    // 음성 목록이 늦게 오는 브라우저가 있어 한 번 더 확인
+    const t = setTimeout(check, 1500)
+    check()
+    return () => {
+      alive = false
+      clearTimeout(t)
+    }
+  }, [hidden])
+  if (hidden || !missing) return null
+  const close = () => {
+    setHidden(true)
+    try {
+      localStorage.setItem(KEY, '1')
+    } catch {
+      /* 무시 */
+    }
+  }
+  return (
+    <section className="panel voice-hint" role="status">
+      <p>
+        🔇 이 기기에 <b>{ED_INFO.lang} 음성</b>이 없어서 발음 소리가 안 날 수 있어요.
+      </p>
+      <p className="note">
+        안드로이드: 설정 → 일반 관리(또는 접근성) → 텍스트 음성 변환 → Google 음성 엔진 → 음성 데이터 설치에서 {ED_INFO.lang}를 받아 주세요.
+        <br />
+        iPhone: 설정 → 손쉬운 사용 → 읽기 및 말하기 → 음성에서 {ED_INFO.lang} 음성을 받아 주세요.
+      </p>
+      <div className="quick-row">
+        {Capacitor.isNativePlatform() && (
+          <button className="btn btn-soft sm" onClick={() => openVoiceInstall()}>
+            음성 설치
+          </button>
+        )}
+        <button className="link-btn" onClick={close}>
+          닫기
+        </button>
+      </div>
+    </section>
   )
 }
