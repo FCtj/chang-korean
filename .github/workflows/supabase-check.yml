@@ -29,7 +29,7 @@ jobs:
           missing=0
           # 로그인 전(anon)에도 읽혀야 하는 테이블: profiles, point_events (랭킹) → 200 이어야 함
           # 나머지는 로그인한 사람만 → 로그인 전에는 "permission denied"(42501)가 정상 (테이블은 있음)
-          for t in profiles point_events progress groups group_members posts reactions daily_activity profile_private; do
+          for t in profiles point_events progress groups group_members posts reactions daily_activity profile_private translation_reviews; do
             code=$(curl -s -o body.json -w '%{http_code}' --max-time 20 "$URL/rest/v1/$t?select=*&limit=0" -H "apikey: $KEY")
             case "$t" in profiles|point_events) public=1;; *) public=0;; esac
             if [ "$code" = "200" ]; then echo "✓ 테이블 $t"
