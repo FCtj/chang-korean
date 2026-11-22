@@ -7,6 +7,8 @@ import { localPron } from '../pron'
 import { useStore } from '../store'
 import { speakText, speakWord } from '../audio'
 import { Icon, Pron } from '../ui'
+import { useState } from 'react'
+import FeedbackSheet from './Feedback'
 
 /** 예문에서 단어(동사·형용사는 '-다' 를 뗀 줄기)를 굵게 */
 function highlight(sentence: string, ko: string) {
@@ -30,6 +32,8 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
   // 몽골어·아랍어: 예문 파일 안 → 따로 번역한 파일 순서로
   const exTr = !entry ? '' : n === 'mn' ? entry.mn ?? mn?.mn ?? '' : n === 'ar' ? entry.ar ?? ar?.ar ?? '' : entry[n]
   const tipTr = n === 'mn' ? entry?.tip?.mn ?? mn?.tip : n === 'ar' ? entry?.tip?.ar ?? ar?.tip : entry?.tip?.[n]
+  const [fb, setFb] = useState(false)
+  if (fb) return <FeedbackSheet word={word} onClose={() => setFb(false)} />
   return (
     <div className="sheet-backdrop" onClick={onClose}>
       <section className="sheet word-help" role="dialog" aria-label={t('wordHelp')} onClick={(e) => e.stopPropagation()}>
@@ -76,6 +80,9 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
         )}
         <button className="btn btn-soft btn-block" onClick={onClose}>
           {t('ok')}
+        </button>
+        <button className="fb-link" onClick={() => setFb(true)}>
+          {t('fbOpenWord')}
         </button>
       </section>
     </div>

@@ -15,6 +15,9 @@ import {
   type EditionStats,
   adminModerate,
   adminReports,
+  adminFeedback,
+  adminFeedbackSet,
+  type AdminFeedback,
   adminOverview,
   adminUserDetail,
   adminUsers,
@@ -361,6 +364,94 @@ function Reports({ mask }: { mask: boolean }) {
   )
 }
 
+const FB_CAT: Record<string, string> = { pron: '🔊 발음', meaning: '📖 뜻', example: '💬 예문', picture: '🖼️ 그림', bug: '🐞 오류', idea: '💡 제안', other: '✏️ 기타' }
+const FB_APP: Record<string, string> = { ko: '🇰🇷 한국어판', ja: '🇯🇵 일본어판', en: '🇺🇸 영어판' }
+
+/** 📮 수정 요청 · 제안: 처리 안 한 것 먼저 → 고침 · 넘김 · 삭제 */
+function FeedbackPanel({ mask }: { mask: boolean }) {
+  const [rows, setRows] = useState<AdminFeedback[] | null>(null)
+  const [err, setErr] = useState('')
+  const [all, setAll] = useState(false)
+  const load = useCallback(() => {
+    adminFeedback(all ? null : 'new', 200).then(setRows, (e) => {
+      setErr(String((e as Error).message ?? e))
+      setRows([])
+    })
+  }, [all])
+  useEffect(() => {
+    load()
+  }, [load])
+  const act = async (id: number, a: 'done' | 'skip' | 'new' | 'delete') => {
+    if (a === 'delete' && !confirm('삭제할까요?')) return
+    try {
+      await adminFeedbackSet(id, a)
+      load()
+    } catch (e) {
+      setErr(String((e as Error).message ?? e))
+    }
+  }
+  const missing = err.includes('admin_feedback') || err.includes('function')
+  return (
+    <section className="panel adm-feedback">
+      <h3 className="adm-h">
+        📮 수정 요청 · 제안 {rows && rows.length > 0 && <small className="note">· {rows.length}건</small>}
+      </h3>
+      {missing ? (
+        <p className="adm-flag">서버에 수정 요청 SQL(20261122080000_feedback.sql)을 아직 실행하지 않았어요</p>
+      ) : (
+        <>
+          <Toggle id="fb-all" label="처리한 것도 보기" on={all} onChange={setAll} />
+          {rows === null && <p className="note">…</p>}
+          {rows && rows.length === 0 && <p className="note">{all ? '아직 받은 요청이 없어요' : '새 요청이 없어요 👍'}</p>}
+          {err && <p className="adm-flag">{err}</p>}
+          <ul className="adm-list">
+            {rows?.map((r) => (
+              <li key={r.id} className={`adm-report fb-row fb-${r.status}`}>
+                <div className="adm-report-top">
+                  <span className="chip">{FB_APP[r.app] ?? r.app}</span>
+                  <span className="chip chip-pink">{FB_CAT[r.category] ?? r.category}</span>
+                  {r.status !== 'new' && <span className="chip chip-mint">{r.status === 'done' ? '고침' : '넘김'}</span>}
+                  <span className="note">{new Date(r.created_at).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
+                {r.target && (
+                  <p className="fb-target">
+                    <b>{r.target}</b> {r.context && <span className="note">· {r.context}</span>}
+                  </p>
+                )}
+                <p className="adm-report-body" dir="auto">
+                  {r.message}
+                </p>
+                <p className="note">
+                  {r.user_id ? (mask ? maskName(r.display_name || '—') : r.display_name || '(이름 없음)') : '로그인 안 함'} · 화면 언어 {r.ui ?? '—'}
+                </p>
+                <div className="adm-report-actions">
+                  {r.status === 'new' ? (
+                    <>
+                      <button className="btn btn-soft sm" onClick={() => act(r.id, 'done')}>
+                        ✅ 고침
+                      </button>
+                      <button className="btn btn-soft sm" onClick={() => act(r.id, 'skip')}>
+                        넘김
+                      </button>
+                    </>
+                  ) : (
+                    <button className="btn btn-soft sm" onClick={() => act(r.id, 'new')}>
+                      다시 열기
+                    </button>
+                  )}
+                  <button className="btn btn-soft sm danger" onClick={() => act(r.id, 'delete')}>
+                    삭제
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+  )
+}
+
 function Dashboard({ onClose }: { onClose?: () => void }) {
   const [days, setDays] = useState<'7' | '30' | '90'>('30')
   const [ov, setOv] = useState<AdminOverview | null>(null)
@@ -500,6 +591,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
           </section>
         )}
 
+        <FeedbackPanel mask={mask} />
         <Reports mask={mask} />
         <LoggingCheck />
 

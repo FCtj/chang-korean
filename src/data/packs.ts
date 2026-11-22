@@ -87,7 +87,7 @@ export const PACK_TRAVEL: Row[] = [
   ['현금', 'hyeongeum', 'ເງິນສົດ', '', '💵'],
   ['편의점', 'pyeonuijeom', 'ຮ້ານສະດວກຊື້', '', '🏪'],
   ['환전', 'hwanjeon', 'ການແລກເງິນ', '', '💱'],
-  ['교통카드', 'gyotongkadeu', 'ບັດໂດຍສານ', 'บัตรโดยสาร', '🪪'],
+  ['교통카드', 'gyotongkadeu', 'ບັດໂດຍສານ', 'บัตรโดยสาร', '🚏'],
 ]
 
 export const PACK_SCHOOL: Row[] = [

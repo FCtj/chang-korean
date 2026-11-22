@@ -123,10 +123,18 @@ export async function speakWord(w: Word, rate = 0.9): Promise<void> {
 /** 소리 내어 읽을 글자: 일본어판은 가나 읽기(한자 읽기 실수 · 기호 건너뜀 방지), 물결표 ～ 와 괄호 메모는 뺌 */
 function speechOf(w: Word): string {
   if (IS_KO) return w.ko
-  // 가나 한 글자 읽기(歯 → は)는 조사(わ)로 읽힐 수 있어 한자 그대로
-  const kana = w.rom.replace(/[～〜\s]/g, '')
-  const base = EDITION === 'ja' && w.kind !== 'phrase' && kana.length > 1 ? w.rom : w.ko
-  return base.replace(/[～〜]/g, '').replace(/\s*\([^)]*\)/g, '').replace(/\//g, ', ').trim() || w.ko
+  if (EDITION === 'ja' && w.kind !== 'phrase' && w.rom) {
+    const kana = w.rom.replace(/[～〜\s]/g, '')
+    // 가나 한 글자(歯 は · 二 に · 戸 と)는 히라가나면 조사(わ·え)로, 한자면 다른 읽기(し·じ)로 읽혀서
+    // 가타카나(ハ · ニ · ト)로 읽힘 — 가타카나는 조사로 읽히지 않음
+    const say = kana.length === 1 ? toKatakana(kana) : w.rom
+    return say.replace(/[～〜]/g, '').replace(/\s*\([^)]*\)/g, '').replace(/\//g, ', ').trim() || w.ko
+  }
+  return w.ko.replace(/[～〜]/g, '').replace(/\s*\([^)]*\)/g, '').replace(/\//g, ', ').trim() || w.ko
+}
+
+function toKatakana(s: string): string {
+  return s.replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
 }
 
 // ───────── 효과음 (Web Audio, 파일 없음) ─────────

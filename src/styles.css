@@ -7672,3 +7672,91 @@ body {
 .voice-hint p {
   margin: 0 0 6px;
 }
+
+/* 수정 요청 · 제안 */
+.fb-link {
+  align-self: center;
+  background: none;
+  border: 0;
+  padding: 6px 10px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.fb-word {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: var(--surface-2, var(--bg));
+  border: 1px solid var(--line);
+}
+.fb-word-emoji {
+  font-family: var(--font-emoji);
+  font-size: 1.6rem;
+}
+.fb-word-ko {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.fb-word-tr {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-inline-start: auto;
+  text-align: end;
+}
+.fb-cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.fb-cat {
+  padding: 8px 13px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.fb-cat.on {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  color: var(--pink-deep);
+  font-weight: 700;
+}
+.fb-text {
+  width: 100%;
+  min-height: 96px;
+  padding: 12px 16px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.fb-actions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+}
+.fb-err {
+  margin: 0;
+  color: var(--bad, #d6455d);
+  font-size: 0.9rem;
+}
+.fb-done {
+  margin: 8px 0;
+  font-size: 1.05rem;
+  text-align: center;
+}
+.fb-target {
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+}
+.fb-row.fb-done,
+.fb-row.fb-skip {
+  opacity: 0.6;
+}

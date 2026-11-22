@@ -9,6 +9,7 @@ import type { UiLang } from '../i18n'
 import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
 import NativePicker from './NativePicker'
 import { PUBLIC_PROFILE, SITE_URL } from '../config'
+import FeedbackSheet from './Feedback'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
@@ -29,6 +30,7 @@ export default function SettingsScreen() {
       ]
     : [{ lang: 'ko', name: ED_INFO.lang, sample: EDITION === 'ja' ? 'こんにちは' : 'Hello! Nice to meet you.' }]
   const [confirmReset, setConfirmReset] = useState(false)
+  const [fbOpen, setFbOpen] = useState(false)
   const auth = useAuth()
   const pub = useMyPublic()
   const [isAdmin, setIsAdmin] = useState(false)
@@ -253,6 +255,15 @@ export default function SettingsScreen() {
           </ul>
         </section>
       )}
+
+      <section className="panel form">
+        <h2 className="h3">{t('fbTitle')}</h2>
+        <p className="note">{t('fbAppIntro')}</p>
+        <button className="btn btn-soft btn-block" onClick={() => setFbOpen(true)}>
+          {t('fbOpenApp')}
+        </button>
+      </section>
+      {fbOpen && <FeedbackSheet onClose={() => setFbOpen(false)} />}
 
       <section className="panel form">
         <h2 className="h3">🔍 {t('reviewTitle')}</h2>

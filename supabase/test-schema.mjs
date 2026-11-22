@@ -829,5 +829,58 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('delete_my_data removes edition progress and activity', left === 0, String(left))
 }
 
+// ───────── 수정 요청 · 제안 ─────────
+{
+  const F = { a: 'f1111111-1111-1111-1111-111111111111', b: 'f2222222-2222-2222-2222-222222222222' }
+  for (const id of Object.values(F)) await q('insert into auth.users values ($1) on conflict do nothing', [id])
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message)
+    }
+  }
+  const asAnon = async (fn) => {
+    await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)
+    try {
+      return await fn()
+    } finally {
+      await db.exec('reset role;')
+    }
+  }
+  const send = `select submit_feedback($1, $2, $3, $4, $5, $6, $7) as id`
+  const id1 = (await as(F.a, () => q(send, ['ja', 'word', 'pron', 'ja-n5-歯', '歯 · は · 이', '치라고 읽혀요', 'ko']))).rows[0].id
+  const id2 = (await asAnon(() => q(send, ['ko', 'app', 'idea', null, null, '  다크 모드 더 진하게  ', 'lo']))).rows[0].id
+  const rows = (await q('select id, user_id, app, message from feedback order by id')).rows
+  check('submit_feedback: logged in keeps user id, anon has none, message trimmed', rows.length === 2 && rows[0].user_id === F.a && rows[1].user_id === null && rows[1].message === '다크 모드 더 진하게' && id1 && id2, JSON.stringify(rows))
+  check('submit_feedback: empty message refused', (await err(() => as(F.a, () => q(send, ['ko', 'app', 'bug', null, null, '   ', 'ko'])))).includes('empty_message'))
+  check('submit_feedback: bad category refused', (await err(() => as(F.a, () => q(send, ['ko', 'app', 'hack', null, null, 'x', 'ko'])))) !== '')
+  check('submit_feedback: long message cut to 1000', (await as(F.a, async () => (await q(send, ['en', 'word', 'meaning', 'x', null, 'a'.repeat(1500), 'ko'])).rows[0].id)) && (await q(`select max(char_length(message))::int n from feedback`)).rows[0].n === 1000)
+  // 하루 30건까지
+  for (let i = 0; i < 28; i++) await as(F.a, () => q(send, ['ko', 'app', 'other', null, null, `m${i}`, 'ko']))
+  check('submit_feedback: 31st in a day refused', (await err(() => as(F.a, () => q(send, ['ko', 'app', 'other', null, null, 'one more', 'ko'])))).includes('too_many'))
+  // (이 테스트는 위에서 모든 표에 select 를 일괄로 줬음 → 그래도 RLS 로 한 줄도 안 보여야 함)
+  const seen = (await as(F.b, () => q('select count(*)::int n from feedback'))).rows[0].n
+  const e2 = await err(() => asAnon(() => q(`insert into feedback (app, kind, category, message) values ('ko','app','bug','x')`)))
+  const e3 = await err(() => as(F.b, () => q(`insert into feedback (app, kind, category, message) values ('ko','app','bug','x')`)))
+  check('feedback table: rows hidden, no direct insert', seen === 0 && e2 !== '' && e3 !== '', `${seen} | ${e2} | ${e3}`)
+  const fx = (await q(`select has_function_privilege('anon', 'public.submit_feedback(text,text,text,text,text,text,text)', 'execute') as anon,
+    has_function_privilege('anon', 'public.admin_feedback(text,int)', 'execute') as anon_admin`)).rows[0]
+  check('submit_feedback open to anon; admin_feedback is not', fx.anon === true && fx.anon_admin === false, JSON.stringify(fx))
+  // 관리자
+  const list = (await as(U.ploy, () => q('select * from admin_feedback(null, 10)'))).rows
+  check('admin_feedback: admin sees newest first, limited', list.length === 10 && list[0].status === 'new', String(list.length))
+  check('admin_feedback: non-admin refused', (await err(() => as(F.b, () => q('select * from admin_feedback(null, 10)')))).includes('not_admin'))
+  await as(U.ploy, () => q(`select admin_feedback_set($1, 'done')`, [id1]))
+  check('admin_feedback_set: marks done', (await q('select status from feedback where id = $1', [id1])).rows[0].status === 'done')
+  check('admin_feedback_set: non-admin refused', (await err(() => as(F.b, () => q(`select admin_feedback_set($1, 'skip')`, [id2])))).includes('not_admin'))
+  await as(U.ploy, () => q(`select admin_feedback_set($1, 'delete')`, [id2]))
+  check('admin_feedback_set: delete', (await q('select count(*)::int n from feedback where id = $1', [id2])).rows[0].n === 0)
+  // 내 정보 삭제 → 내가 보낸 요청도
+  await as(F.a, () => q('select delete_my_data()'))
+  check('delete_my_data removes my feedback', (await q('select count(*)::int n from feedback where user_id = $1', [F.a])).rows[0].n === 0)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

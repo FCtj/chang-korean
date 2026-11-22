@@ -302,6 +302,50 @@ export async function adminEditionOverview(days = 30): Promise<Partial<Record<'j
   if (error) throw new Error(error.message)
   return (data ?? {}) as Partial<Record<'ja' | 'en', EditionStats>>
 }
+// ───────── 수정 요청 · 제안 ─────────
+export type FeedbackCategory = 'pron' | 'meaning' | 'example' | 'picture' | 'bug' | 'idea' | 'other'
+export type FeedbackInput = { kind: 'word' | 'app'; category: FeedbackCategory; target?: string; context?: string; message: string }
+/** 보내기 (로그인 안 해도 됨). 실패하면 이유: no_backend · too_many · 그 밖의 오류 문구 */
+export async function submitFeedback(f: FeedbackInput): Promise<string | null> {
+  if (!supabase) return 'no_backend'
+  const { error } = await supabase.rpc('submit_feedback', {
+    p_app: IS_KO ? 'ko' : EDITION,
+    p_kind: f.kind,
+    p_category: f.category,
+    p_target: f.target?.slice(0, 200) || null,
+    p_context: f.context?.slice(0, 300) || null,
+    p_message: f.message.slice(0, 1000),
+    p_ui: getState().ui,
+  })
+  if (!error) return null
+  return error.message.includes('too_many') ? 'too_many' : error.message
+}
+export type AdminFeedback = {
+  id: number
+  created_at: string
+  app: 'ko' | 'ja' | 'en'
+  kind: 'word' | 'app'
+  category: FeedbackCategory
+  target: string | null
+  context: string | null
+  message: string
+  ui: string | null
+  status: 'new' | 'done' | 'skip'
+  user_id: string | null
+  display_name: string | null
+}
+export async function adminFeedback(status: 'new' | 'done' | 'skip' | null = null, limit = 100): Promise<AdminFeedback[]> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_feedback', { p_status: status, p_limit: limit })
+  if (error) throw new Error(error.message)
+  return (data ?? []) as AdminFeedback[]
+}
+export async function adminFeedbackSet(id: number, status: 'new' | 'done' | 'skip' | 'delete'): Promise<void> {
+  if (!supabase) throw new Error('no_backend')
+  const { error } = await supabase.rpc('admin_feedback_set', { p_id: id, p_status: status })
+  if (error) throw new Error(error.message)
+}
+
 /** 관리자 전용 계정(이메일·비밀번호, Supabase 대시보드에서 만든 계정)으로 로그인 — 실패하면 오류 문구 */
 export async function signInWithEmail(email: string, password: string): Promise<string | null> {
   if (!supabase) return 'no_backend'

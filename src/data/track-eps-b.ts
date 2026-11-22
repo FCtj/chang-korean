@@ -77,7 +77,7 @@ export const TRACK_EPS_B: TrackUnitSrc[] = [
       ['쓴 공구는 제자리에 갖다 놓으세요.', 'sseun gongguneun jejarie gatda noeuseyo.', 'ເຄື່ອງມືທີ່ໃຊ້ແລ້ວ ໃຫ້ເອົາໄປໄວ້ບ່ອນເກົ່າ', 'เครื่องมือที่ใช้แล้วให้เก็บเข้าที่', 'Dụng cụ dùng xong thì để lại chỗ cũ.', '📥'],
       ['줄자로 길이를 재 보세요.', 'juljaro giireul jae boseyo.', 'ເອົາສາຍວັດວັດຄວາມຍາວເບິ່ງ', 'ลองวัดความยาวด้วยตลับเมตร', 'Đo thử chiều dài bằng thước cuộn.', '📐'],
       ['그라인더를 쓸 때는 보안경을 쓰세요.', 'geuraindeoreul sseul ttaeneun boangyeongeul sseuseyo.', 'ຕອນໃຊ້ເຄື່ອງຈຽ ໃຫ້ໃສ່ແວ່ນຕານິລະໄພ', 'เวลาใช้เครื่องเจียรให้ใส่แว่นตานิรภัย', 'Khi dùng máy mài thì hãy đeo kính bảo hộ.', '🥽'],
-      ['지게차는 면허가 있는 사람만 운전할 수 있어요.', 'jigechaneun myeonheoga inneun saramman unjeonhal su isseoyo.', 'ລົດຍົກ ຄົນທີ່ມີໃບຂັບຂີ່ເທົ່ານັ້ນຈຶ່ງຂັບໄດ້', 'รถยกขับได้เฉพาะคนที่มีใบขับขี่', 'Chỉ người có bằng lái mới được lái xe nâng.', '🪪'],
+      ['지게차는 면허가 있는 사람만 운전할 수 있어요.', 'jigechaneun myeonheoga inneun saramman unjeonhal su isseoyo.', 'ລົດຍົກ ຄົນທີ່ມີໃບຂັບຂີ່ເທົ່ານັ້ນຈຶ່ງຂັບໄດ້', 'รถยกขับได้เฉพาะคนที่มีใบขับขี่', 'Chỉ người có bằng lái mới được lái xe nâng.', '📇'],
     ],
   },
   {
@@ -187,7 +187,7 @@ export const TRACK_EPS_B: TrackUnitSrc[] = [
       ['박다', 'bakda', 'ຕອກ', 'ตอก', 'đóng (đinh)', '🔨'],
       ['묶다', 'mukda', 'ມັດ', 'มัด', 'buộc', '🪢'],
       ['뚫다', 'ttulta', 'ເຈາະ', 'เจาะ', 'khoan (lỗ)', '🕳️'],
-      ['붓다', 'butda', 'ເທ', 'เท', 'đổ (nước, vữa)', '🫗'],
+      ['붓다', 'butda', 'ເທ', 'เท', 'đổ (nước, vữa)', '💦'],
     ],
     phrases: [
       ['철근을 철사로 단단히 묶으세요.', 'cheolgeuneul cheolsaro dandanhi mukkeuseyo.', 'ມັດເຫຼັກເສັ້ນດ້ວຍລວດໃຫ້ແໜ້ນ', 'มัดเหล็กเส้นด้วยลวดให้แน่น', 'Buộc cốt thép thật chặt bằng dây thép.', '➰'],

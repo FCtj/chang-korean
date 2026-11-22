@@ -42,7 +42,7 @@ export const TRACK_WORK_A: TrackUnitSrc[] = [
       ['오늘 조퇴해도 돼요?', 'oneul jotoehaedo dwaeyo?', 'ມື້ນີ້ຂໍກັບກ່ອນເວລາໄດ້ບໍ່?', 'วันนี้ขอกลับก่อนเวลาได้ไหม?', 'Hôm nay tôi xin về sớm được không?', '🙋'],
       ['오늘 잔업 있어요?', 'oneul janeop isseoyo?', 'ມື້ນີ້ມີວຽກລ່ວງເວລາບໍ່?', 'วันนี้มีโอทีไหม?', 'Hôm nay có tăng ca không?', '❓'],
       ['몇 시에 끝나요?', 'myeot sie kkeunnayo?', 'ເລີກວຽກຈັກໂມງ?', 'เลิกงานกี่โมง?', 'Mấy giờ tan làm?', '🕔'],
-      ['출근 카드를 찍으세요.', 'chulgeun kadeureul jjigeuseyo.', 'ຕອກບັດເຂົ້າວຽກເດີ້', 'ตอกบัตรเข้างานด้วยนะ', 'Hãy quẹt thẻ chấm công.', '🪪'],
+      ['출근 카드를 찍으세요.', 'chulgeun kadeureul jjigeuseyo.', 'ຕອກບັດເຂົ້າວຽກເດີ້', 'ตอกบัตรเข้างานด้วยนะ', 'Hãy quẹt thẻ chấm công.', '📇'],
     ],
   },
   {
@@ -137,7 +137,7 @@ export const TRACK_WORK_A: TrackUnitSrc[] = [
     words: [
       ['옮기다', 'omgida', 'ຍ້າຍ', 'ย้าย', 'chuyển', '🚚'],
       ['쌓다', 'ssata', 'ວາງຊ້ອນກັນ', 'วางซ้อน', 'xếp chồng', '🧱'],
-      ['가져오다', 'gajyeooda', 'ເອົາມາ', 'เอามา', 'mang đến', '🫴'],
+      ['가져오다', 'gajyeooda', 'ເອົາມາ', 'เอามา', 'mang đến', '🤲'],
       ['자르다', 'jareuda', 'ຕັດ', 'ตัด', 'cắt', '✂️'],
       ['붙이다', 'buchida', 'ຕິດ', 'ติด', 'dán', '🏷️'],
       ['확인하다', 'hwaginhada', 'ກວດເບິ່ງ', 'ตรวจดู', 'kiểm tra', '✅'],

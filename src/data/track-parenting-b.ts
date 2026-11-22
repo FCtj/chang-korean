@@ -159,7 +159,7 @@ export const TRACK_PARENTING_B: TrackUnitSrc[] = [
       ['한국어 교육', 'hangugeo gyoyuk', 'ການສອນພາສາເກົາຫຼີ', 'การสอนภาษาเกาหลี', 'lớp học tiếng Hàn', '🇰🇷'],
       ['방문 교육', 'bangmun gyoyuk', 'ການສອນທີ່ບ້ານ (ຄູມາຫາເຖິງບ້ານ)', 'การสอนถึงบ้าน (ครูมาที่บ้าน)', 'lớp học tại nhà (giáo viên đến nhà)', '🚪'],
       ['이중언어', 'ijungeoneo', 'ສອງພາສາ', 'สองภาษา', 'song ngữ', '🔤'],
-      ['외국인등록증', 'oegugindeungnokjeung', 'ບັດປະຈຳຕົວຄົນຕ່າງປະເທດ', 'บัตรประจำตัวคนต่างชาติ', 'thẻ đăng ký người nước ngoài', '🪪'],
+      ['외국인등록증', 'oegugindeungnokjeung', 'ບັດປະຈຳຕົວຄົນຕ່າງປະເທດ', 'บัตรประจำตัวคนต่างชาติ', 'thẻ đăng ký người nước ngoài', '📇'],
       ['비자 연장', 'bija yeonjang', 'ການຕໍ່ວີຊາ', 'การต่อวีซ่า', 'gia hạn visa', '🛂'],
       ['귀화', 'gwihwa', 'ການຂໍເອົາສັນຊາດ', 'การแปลงสัญชาติ', 'nhập quốc tịch', '🆔'],
       ['가족관계증명서', 'gajokgwangyejeungmyeongseo', 'ໃບຢັ້ງຢືນສາຍພົວພັນຄອບຄົວ', 'หนังสือรับรองความสัมพันธ์ในครอบครัว', 'giấy chứng nhận quan hệ gia đình', '📜'],
