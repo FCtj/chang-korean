@@ -379,11 +379,13 @@ async function onSession(session: Session | null) {
   let country = getState().country || 'LA'
   try {
     const { data: prof } = await supabase.from('profiles').select('country').eq('id', u.id).maybeSingle()
-    if (prof?.country) country = prof.country
+    // 'ZZ' = 가입할 때 서버가 자동으로 만든 프로필(나라 모름) → 앱에서 고른 나라로
+    if (prof?.country && prof.country !== 'ZZ') country = prof.country
     const st = getState()
-    // 일본어·영어판: 한국어판에서 만든 프로필은 그대로 (처음 로그인이면 새로 만듦)
     if (IS_KO || !prof)
-      await supabase.from('profiles').upsert({ id: u.id, display_name: publicName(name, st.hideName), avatar_url: publicAvatar(avatar, st.hidePhoto), country, updated_at: new Date().toISOString() })
+      await supabase.from('profiles').upsert({ id: u.id, display_name: publicName(name, st.hideName), avatar_url: publicAvatar(avatar, st.hidePhoto), country: IS_KO ? country : prof?.country || 'ZZ', updated_at: new Date().toISOString() })
+    // 일본어·영어판: 나라는 그대로 두고 공개 이름·사진만 (가린 값으로)
+    else await supabase.from('profiles').update({ display_name: publicName(name, st.hideName), avatar_url: publicAvatar(avatar, st.hidePhoto), updated_at: new Date().toISOString() }).eq('id', u.id)
   } catch {
     /* 네트워크 오류여도 로그인 상태는 유지 */
   }

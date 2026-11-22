@@ -14,7 +14,7 @@ const check = (name, ok, detail = '') => {
 await db.exec(`
   create role anon nologin; create role authenticated nologin;
   create schema auth;
-  create table auth.users (id uuid primary key);
+  create table auth.users (id uuid primary key, raw_user_meta_data jsonb, raw_app_meta_data jsonb);
   create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
   grant usage on schema auth to anon, authenticated;
   grant execute on function auth.uid() to anon, authenticated;
@@ -62,7 +62,7 @@ await db.exec(`
 
 const U = { noy: '11111111-1111-1111-1111-111111111111', keo: '22222222-2222-2222-2222-222222222222', ploy: '33333333-3333-3333-3333-333333333333' }
 for (const id of Object.values(U)) await q('insert into auth.users values ($1)', [id])
-await q(`insert into profiles (id, display_name, country) values ($1,'Noy','LA'),($2,'Keo','LA'),($3,'Ploy','TH')`, [U.noy, U.keo, U.ploy])
+await q(`insert into profiles (id, display_name, country) values ($1,'Noy','LA'),($2,'Keo','LA'),($3,'Ploy','TH') on conflict (id) do update set display_name = excluded.display_name, country = excluded.country`, [U.noy, U.keo, U.ploy])
 
 const as = async (uid, fn) => {
   await db.exec(`set role authenticated; select set_config('request.jwt.claim.sub', '${uid}', false);`)
@@ -151,7 +151,7 @@ const G = {
 }
 for (const id of Object.values(G)) await q('insert into auth.users values ($1)', [id])
 await q(
-  `insert into profiles (id, display_name, avatar_url, country) values ($1,'Bee','https://img/bee.jpg','LA'),($2,'Mai',null,'TH'),($3,'Som',null,'LA'),($4,'Nok',null,'LA'),($5,'Dao',null,'TH')`,
+  `insert into profiles (id, display_name, avatar_url, country) values ($1,'Bee','https://img/bee.jpg','LA'),($2,'Mai',null,'TH'),($3,'Som',null,'LA'),($4,'Nok',null,'LA'),($5,'Dao',null,'TH') on conflict (id) do update set display_name = excluded.display_name, country = excluded.country, avatar_url = excluded.avatar_url`,
   Object.values(G),
 )
 // 오류 메시지 ('' = 오류 없음)
@@ -697,7 +697,7 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
 {
   const C = { a: 'c1111111-1111-1111-1111-111111111111', b: 'c2222222-2222-2222-2222-222222222222', c: 'c3333333-3333-3333-3333-333333333333', d: 'c4444444-4444-4444-4444-444444444444' }
   for (const id of Object.values(C)) await q('insert into auth.users values ($1) on conflict do nothing', [id])
-  await q(`insert into profiles (id, display_name, country) values ($1,'Ana','LA'),($2,'Bee','TH'),($3,'Cat','VN'),($4,'Dee','LA') on conflict do nothing`, [C.a, C.b, C.c, C.d])
+  await q(`insert into profiles (id, display_name, country) values ($1,'Ana','LA'),($2,'Bee','TH'),($3,'Cat','VN'),($4,'Dee','LA') on conflict (id) do update set display_name = excluded.display_name, country = excluded.country`, [C.a, C.b, C.c, C.d])
   const rpc1 = (uid, sql, params = []) => as(uid, async () => (await q(sql, params)).rows[0])
   const err = async (fn) => {
     try {
@@ -886,7 +886,7 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
 {
   const R = { a: 'aa111111-1111-1111-1111-111111111111', b: 'aa222222-2222-2222-2222-222222222222', c: 'aa333333-3333-3333-3333-333333333333' }
   for (const id of Object.values(R)) await q('insert into auth.users values ($1) on conflict do nothing', [id])
-  await q(`insert into profiles (id, display_name, country) values ($1,'하나','ZZ'),($2,'두리','ZZ'),($3,'세나','ZZ') on conflict (id) do nothing`, [R.a, R.b, R.c])
+  await q(`insert into profiles (id, display_name, country) values ($1,'하나','ZZ'),($2,'두리','ZZ'),($3,'세나','ZZ') on conflict (id) do update set display_name = excluded.display_name, country = excluded.country`, [R.a, R.b, R.c])
   const err = async (fn) => {
     try {
       await fn()
@@ -919,6 +919,26 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('edition leaderboard open to anon; awarding is not', fx.lb === true && fx.aw === false, JSON.stringify(fx))
   await as(R.a, () => q('select delete_my_data()'))
   check('delete_my_data removes edition points', (await q('select count(*)::int n from edition_points where user_id = $1', [R.a])).rows[0].n === 0)
+}
+
+// ───────── 가입하면 바로 프로필 · 0점 가입자도 랭킹에 ─────────
+{
+  const N = { a: 'bb111111-1111-1111-1111-111111111111', b: 'bb222222-2222-2222-2222-222222222222' }
+  await q(`insert into auth.users (id, raw_user_meta_data) values ($1, '{"full_name":"Kim Minsu"}'), ($2, '{"nickname":"하늘"}')`, [N.a, N.b])
+  const prof = (await q('select id, display_name, country from profiles where id = any($1) order by id', [[N.a, N.b]])).rows
+  check('signup creates profile right away, name masked, country ZZ', prof.length === 2 && prof[0].display_name === 'K*m M***u' && prof[1].display_name === '하*' && prof.every((r) => r.country === 'ZZ'), JSON.stringify(prof))
+  check('mask_name', (await q(`select mask_name('  김하나  Jo ') as m`)).rows[0].m === '김*나 J*')
+  // 판을 쓰기만 한(점수 0) 가입자도 판 랭킹에
+  await as(N.a, () => q(`insert into edition_progress (user_id, app, data) values ($1, 'en', '{}')`, [N.a]))
+  const en = (await q(`select display_name, points from get_edition_leaderboard('en', 'today', 50)`)).rows
+  check('edition ranking lists members with 0 points', en.some((r) => r.display_name === 'K*m M***u' && Number(r.points) === 0) && Number(en[0].points) > 0, JSON.stringify(en))
+  const mineEn = (await as(N.a, () => q(`select * from get_my_edition_rank('en', 'today')`))).rows[0]
+  check('my edition rank with 0 points', mineEn && Number(mineEn.points) === 0 && Number(mineEn.total) >= 2, JSON.stringify(mineEn))
+  check('edition-only member not in Korean ranking', !(await q(`select display_name from get_leaderboard('month', null, 100)`)).rows.some((r) => r.display_name === 'K*m M***u'))
+  // 한국어판: 학습 기록만 있어도 (0점) 보임
+  await as(N.b, () => q(`insert into progress (user_id, data) values ($1, '{}')`, [N.b]))
+  const ko = (await q(`select display_name, points from get_leaderboard('today', null, 100)`)).rows
+  check('Korean ranking lists members with 0 points', ko.some((r) => r.display_name === '하*' && Number(r.points) === 0), JSON.stringify(ko.slice(-3)))
 }
 
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
