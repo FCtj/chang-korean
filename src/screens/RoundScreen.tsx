@@ -3,10 +3,13 @@ import { useApp } from '../ctx'
 import { isQuizOpen, isStepKnown, setStepKnown, stepKnownCount, stepOf, stepSizesOf, useStore } from '../store'
 import { Icon, ProgressBar, TopBar, pastel, shuffle } from '../ui'
 import { StepBar } from './Player'
+import WordHelp from './WordHelp'
+import { useState } from 'react'
 
 export default function RoundScreen({ roundId }: { roundId: string }) {
   const s = useStore()
   const { t, tf, ui, push } = useApp()
+  const [helpWord, setHelpWord] = useState<Word | null>(null)
   const round = findRound(roundId)
   const sizes = stepSizesOf(round)
   const sets = roundSets(round)
@@ -83,6 +86,9 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
                             <Icon name="check" size={13} />
                           </span>
                         </button>
+                        <button className="mw-help" onClick={() => setHelpWord(w)} aria-label={`${w.ko} ${t('wordHelp')}`}>
+                          ?
+                        </button>
                       </li>
                     )
                   })}
@@ -138,6 +144,7 @@ export default function RoundScreen({ roundId }: { roundId: string }) {
           </section>
         )}
       </div>
+      {helpWord && <WordHelp word={helpWord} onClose={() => setHelpWord(null)} />}
     </div>
   )
 }

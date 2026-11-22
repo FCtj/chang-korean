@@ -329,6 +329,10 @@ const S = {
   mockRetry: { ko: '다시 보기', lo: 'ສອບອີກຄັ້ງ' },
   mockCorrect: { ko: '정답!', lo: 'ຖືກຕ້ອງ!' },
   mockWrongAns: { ko: '정답은', lo: 'ຄຳຕອບທີ່ຖືກແມ່ນ' },
+  wordHelp: { ko: '단어 설명', lo: 'ຄຳອະທິບາຍ' },
+  meaningLabel: { ko: '뜻', lo: 'ຄວາມໝາຍ' },
+  exampleLabel: { ko: '예문', lo: 'ຕົວຢ່າງປະໂຫຍກ' },
+  exampleSoon: { ko: '예문을 준비하고 있어요', lo: 'ກຳລັງກະກຽມຕົວຢ່າງ' },
 } satisfies Record<string, Str>
 
 const F = {

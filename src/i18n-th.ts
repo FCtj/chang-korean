@@ -316,6 +316,10 @@ export const S_TH: Record<StrKey, string> = {
   mockRetry: 'สอบอีกครั้ง',
   mockCorrect: 'ถูกต้อง!',
   mockWrongAns: 'คำตอบที่ถูกคือ',
+  wordHelp: 'คำอธิบายคำศัพท์',
+  meaningLabel: 'ความหมาย',
+  exampleLabel: 'ประโยคตัวอย่าง',
+  exampleSoon: 'กำลังเตรียมประโยคตัวอย่าง',
 }
 
 export const F_TH: FnTable = {

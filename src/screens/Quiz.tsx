@@ -13,6 +13,7 @@ import { demoAutoAchievement } from '../community'
 import { awardPractice, completeSession, getState, recordAnswer, recordExam, recordPromo, DAILY_CAP, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { useStudyClock } from '../activity'
+import WordHelp from './WordHelp'
 import { Elephant, Icon, ProgressBar, TopBar, shuffle } from '../ui'
 import { Confetti } from './Player'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
@@ -309,6 +310,7 @@ function ResultView({
   t: ReturnType<typeof useApp>['t']
   tf: ReturnType<typeof useApp>['tf']
 }) {
+  const [helpWord, setHelpWord] = useState<Word | null>(null)
   const isTest = kind === 'exam' || kind === 'promo'
   let title = t('quizDone')
   if (isTest) title = r.passed ? (kind === 'promo' ? t('promoted') : t('examPass')) : t('examFail')
@@ -347,6 +349,9 @@ function ResultView({
                   <span className="wrong-emoji" aria-hidden="true">{w.emoji}</span>
                   <span className="ko">{w.ko}</span>
                   <span className="muted lo">{translation(w)}</span>
+                  <button className="mw-help" onClick={() => setHelpWord(w)} aria-label={`${w.ko} ?`}>
+                    ?
+                  </button>
                 </li>
               ))}
             </ul>
@@ -381,6 +386,7 @@ function ResultView({
           )}
         </div>
       </div>
+      {helpWord && <WordHelp word={helpWord} onClose={() => setHelpWord(null)} />}
     </div>
   )
 }

@@ -317,6 +317,10 @@ export const S_VI: Record<StrKey, string> = {
   mockRetry: 'Thi lại',
   mockCorrect: 'Đúng rồi!',
   mockWrongAns: 'Đáp án đúng là',
+  wordHelp: 'Giải thích từ',
+  meaningLabel: 'Nghĩa',
+  exampleLabel: 'Câu ví dụ',
+  exampleSoon: 'Đang chuẩn bị câu ví dụ',
 }
 
 export const F_VI: FnTable = {

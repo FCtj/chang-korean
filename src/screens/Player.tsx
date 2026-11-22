@@ -10,6 +10,7 @@ import { useApp } from '../ctx'
 import { nativeInfo } from '../i18n'
 import { ShareToGroupButton } from './Community'
 import { touchStudy, useStudyClock } from '../activity'
+import WordHelp from './WordHelp'
 import {
   addActivity,
   completeSession,
@@ -74,6 +75,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
   const [pos, setPos] = useState(0)
   const [phase, setPhase] = useState<'front' | 'back'>('front')
   const [playing, setPlaying] = useState(true)
+  const [helpWord, setHelpWord] = useState<Word | null>(null)
   const [loop, setLoop] = useState(1)
   const [pending, setPending] = useState<number | null>(null)
   const [view, setView] = useState<'play' | 'stepDone' | 'allDone'>(first ? 'play' : startStep > final ? 'allDone' : 'stepDone')
@@ -398,6 +400,16 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                 </span>
               </span>
             </button>
+            <button
+              className="fcard-help"
+              onClick={() => {
+                setPlaying(false)
+                setHelpWord(word)
+              }}
+              aria-label={t('wordHelp')}
+            >
+              ?
+            </button>
             <button className="fcard-speak" onClick={() => speakWord(word)} aria-label={t('speak')}>
               <Icon name="speaker" size={22} />
             </button>
@@ -429,6 +441,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
         {!review && <p className="note center">💡 {t('markHint')}</p>}
       </div>
 
+      {helpWord && <WordHelp word={helpWord} onClose={() => setHelpWord(null)} />}
       {sheet && (
         <div className="sheet-backdrop" onClick={() => setSheet(false)}>
           <section className="sheet" role="dialog" aria-label={t('study')} onClick={(e) => e.stopPropagation()}>
