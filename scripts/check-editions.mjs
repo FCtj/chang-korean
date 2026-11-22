@@ -9,7 +9,7 @@ const SETS = [
   ['en', ['toeic-450', 'toeic-600', 'toeic-700', 'toeic-800', 'toeic-900']],
   ['ja', ['daily-1', 'daily-2', 'daily-3']],
   ['en', ['daily-a1', 'daily-a2', 'daily-b1']],
-  ['lo', ['level-1', 'level-2', 'level-3']],
+  ['lo', ['level-1', 'freq-1', 'level-2', 'freq-2', 'level-3']],
   ['lo', ['daily-1', 'daily-2', 'daily-3']],
 ]
 let failed = false
