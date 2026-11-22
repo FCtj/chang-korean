@@ -75,7 +75,9 @@ export default function Intro() {
   const auth = useAuth()
   const { t, tf, ui } = useApp()
   const test = useMemo(makeTest, [])
-  const [stage, setStage] = useState<'cover' | 'test' | 'result' | 'gift' | 'shop' | 'course' | 'signup'>('cover')
+  const [stage, setStage] = useState<'cover' | 'test' | 'result' | 'gift' | 'shop' | 'course'>('cover')
+  // 일본어·영어판: 맨 처음 회원가입(로그인) 화면 → '로그인 없이 시작하기'를 누르면 건너뜀
+  const [skipSignup, setSkipSignup] = useState(false)
   const [qi, setQi] = useState(0)
   const [picked, setPicked] = useState<Answer | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -149,8 +151,8 @@ export default function Intro() {
     finishIntro(earned + WELCOME_POINTS)
   }
 
-  // ───────── 회원가입 (일본어·영어판) ─────────
-  if (stage === 'signup') {
+  // ───────── 회원가입 (일본어·영어판, 맨 처음) — 로그인하고 돌아오면 실력 테스트, 기록이 있던 사람은 바로 홈 ─────────
+  if (!IS_KO && backendReady && auth.status !== 'in' && !skipSignup && stage === 'cover') {
     return (
       <div className="app">
         <main className="intro intro-signup">
@@ -167,8 +169,8 @@ export default function Intro() {
             <li>📈 레벨·단원 진도와 외운 단어가 저장돼요</li>
             <li>🔒 닉네임과 프로필 사진만 받아요</li>
           </ul>
-          <LoginButtons big before={() => finishEd()} />
-          <button className="link-btn center" onClick={() => finishEd()}>
+          <LoginButtons big />
+          <button className="link-btn center" onClick={() => setSkipSignup(true)}>
             로그인 없이 시작하기
           </button>
           <p className="note center signup-legal">
@@ -336,11 +338,10 @@ export default function Intro() {
           <button
             className="btn btn-pink btn-block btn-big"
             onClick={() => {
-              // 일본어·영어판: 코스가 하나 → 회원가입(로그인) 화면 → 추천 레벨에서 바로 시작
+              // 일본어·영어판: 코스가 하나 → 추천 레벨에서 바로 시작 (회원가입은 맨 처음에)
               if (!IS_KO) {
                 sfx.pop()
-                if (backendReady && auth.status !== 'in') setStage('signup')
-                else finishEd()
+                finishEd()
                 return
               }
               setStage(POINTS_ENABLED ? 'gift' : 'course')

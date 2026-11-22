@@ -509,6 +509,7 @@ export function mergeProgress(local: State, remote: Partial<Synced>): State {
     placedRounds: union(local.placedRounds, remote.placedRounds),
     placementDone: local.placementDone || !!remote.placementDone,
     bestExam: maxMap(local.bestExam, remote.bestExam),
+    mockRounds: maxMap(local.mockRounds ?? {}, remote.mockRounds ?? {}),
     known: { ...(remote.known ?? {}), ...local.known },
     steps: maxMap(local.steps, remote.steps),
     stepKnown,
@@ -525,7 +526,13 @@ async function pullProgress(uid: string) {
     let rq = progressQuery().select('data').eq('user_id', uid)
     if (!IS_KO) rq = rq.eq('app', EDITION)
     const { data } = await rq.maybeSingle()
-    if (data?.data) update((s) => mergeProgress(s, data.data as Partial<Synced>))
+    if (data?.data) {
+      const remote = data.data as Partial<Synced>
+      update((s) => mergeProgress(s, remote))
+      // 일본어·영어판: 이 판에서 공부한 기록이 있는 계정이면 실력 테스트 없이 그 레벨로 바로 홈
+      if (!IS_KO && ((remote.studyDays?.length ?? 0) > 0 || Object.keys(remote.steps ?? {}).length > 0))
+        update((s) => (s.introDone ? s : { ...s, introDone: true, course: 'topik', topikLevel: remote.topikLevel ?? s.topikLevel }))
+    }
   } catch {
     /* 무시 */
   }
