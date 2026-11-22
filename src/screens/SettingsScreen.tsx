@@ -213,12 +213,6 @@ export default function SettingsScreen() {
           <span className="h3">🔒 {t('privacyMore')}</span>
           <span className="privacy-chev" aria-hidden="true">›</span>
         </summary>
-          {backendReady && auth.status === 'in' && (
-            <>
-              <Toggle id="set-consent" label={`🔒 ${t('consentToggle')}`} on={s.profileConsent === 'yes'} onChange={(on) => update((st) => ({ ...st, profileConsent: on ? 'yes' : 'no' }))} />
-              <p className="note">{t('consentHint')}</p>
-            </>
-          )}
           <div className="field">
             <span className="label">👀 {t('publicLook')}</span>
             <div className="public-preview">
