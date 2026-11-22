@@ -45,6 +45,8 @@ export default function App() {
   useEffect(() => {
     const el = document.documentElement
     el.lang = ui
+    // 아랍어 화면은 오른쪽 → 왼쪽
+    el.dir = ui === 'ar' ? 'rtl' : 'ltr'
     el.dataset.ui = ui
     el.dataset.native = s.native
   }, [ui, s.native])

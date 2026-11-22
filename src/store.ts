@@ -137,6 +137,7 @@ function guessNative(): Native {
     const langs = (navigator.languages?.length ? navigator.languages : [navigator.language || '']).map((l) => l.toLowerCase())
     for (const l of langs) {
       if (l.startsWith('mn')) return 'mn'
+      if (l.startsWith('ar')) return 'ar'
       if (l.startsWith('th')) return 'th'
       if (l.startsWith('vi')) return 'vi'
       if (l.startsWith('lo')) return 'lo'
@@ -146,7 +147,7 @@ function guessNative(): Native {
   }
   return 'lo'
 }
-const COUNTRY_OF: Record<Native, string> = { lo: 'LA', th: 'TH', vi: 'VN', mn: 'MN' }
+const COUNTRY_OF: Record<Native, string> = { lo: 'LA', th: 'TH', vi: 'VN', mn: 'MN', ar: 'LB' }
 
 function initial(): State {
   const day = todayKey()
@@ -213,8 +214,8 @@ function load(): State {
       // 코스·TOPIK 급은 아는 값만
       if (merged.course !== null && !COURSE_IDS.includes(merged.course)) merged.course = null
       if (!(merged.topikLevel >= 1 && merged.topikLevel <= 6)) merged.topikLevel = 1
-      // 나라는 라오스 · 태국 · 베트남 · 몽골 · 기타만
-      if (!['LA', 'TH', 'VN', 'MN', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
+      // 나라는 라오스 · 태국 · 베트남 · 몽골 · 레바논 · 기타만
+      if (!['LA', 'TH', 'VN', 'MN', 'LB', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로
       if (!parsed.native || !NATIVES.includes(parsed.native)) merged.native = 'lo'
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈
@@ -773,7 +774,7 @@ export function demoRanking(s: State): RankRow[] {
     points: Math.round((3400 * 0.88 ** i + ((i * 37) % 40)) * Math.min(1, 0.25 + day / 30)),
     tier: i < 3 ? 2 : 1,
   }))
-  rows.push({ name: s.nickname || ({ lo: 'ຂ້ອຍ', th: 'ฉัน', vi: 'Tôi', mn: 'Би' } as const)[s.native], points: s.monthPoints, me: true, tier: currentTierNo(s), country: s.country })
+  rows.push({ name: s.nickname || ({ lo: 'ຂ້ອຍ', th: 'ฉัน', vi: 'Tôi', mn: 'Би', ar: 'أنا' } as const)[s.native], points: s.monthPoints, me: true, tier: currentTierNo(s), country: s.country })
   return rows.sort((a, b) => b.points - a.points)
 }
 

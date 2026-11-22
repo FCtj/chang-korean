@@ -564,6 +564,8 @@ check(
 // 몽골어 학습자 (v0.20): native 'mn' 허용, 모르는 값은 막음
 await as(A.lin, () => q(`insert into profile_private (gender, native) values ('f', 'mn')`))
 check("profile_private accepts native 'mn'", (await privRow(A.lin))?.native === 'mn')
+await as(A.lin, () => q(`update profile_private set native = 'ar' where user_id = $1`, [A.lin]))
+check("profile_private accepts native 'ar'", (await privRow(A.lin))?.native === 'ar')
 e = await asErr(A.lin, `update profile_private set native = 'xx' where user_id = $1`, [A.lin])
 check('profile_private rejects unknown native', !!e, e)
 await as(A.lin, () => q('delete from profile_private where user_id=$1', [A.lin]))

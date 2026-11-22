@@ -7,7 +7,7 @@ export interface ShopItem {
   id: string
   icon: string
   points: number
-  name: TitleL10n & { mn: string }
+  name: TitleL10n & { mn: string; ar: string }
 }
 
 export const SHOP: ShopItem[] = [

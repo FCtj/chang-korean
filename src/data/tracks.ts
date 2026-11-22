@@ -15,6 +15,7 @@ import { TRACK_TOPIK_6 } from './track-topik-6.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 import { MN, withMn } from './tr-mn.ts'
+import { AR } from './tr-ar.ts'
 
 export interface TrackSource {
   id: string
@@ -105,6 +106,7 @@ function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
     ko: r[0],
     rom: r[1],
     mn: MN[r[0]] || '',
+    ar: AR[r[0]] || '',
     lo: r[2],
     th: r[3],
     vi: r[4],

@@ -11,6 +11,8 @@ export interface TitleL10n {
   vi: string
   /** 몽골어 — 원본에는 없고 tr-mn.ts 의 TITLE_MN 으로 채움 */
   mn?: string
+  /** 아랍어 — tr-ar.ts 의 TITLE_AR 로 채움 */
+  ar?: string
 }
 
 export interface TrackUnitSrc {

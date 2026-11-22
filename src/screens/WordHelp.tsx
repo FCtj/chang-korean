@@ -24,8 +24,11 @@ function highlight(sentence: string, ko: string) {
 export default function WordHelp({ word, onClose }: { word: Word; onClose: () => void }) {
   const s = useStore()
   const { t } = useApp()
-  const { entry, mn, ready } = useExample(word.ko)
+  const { entry, mn, ar, ready } = useExample(word.ko)
   const n = s.native
+  // 몽골어·아랍어: 예문 파일 안 → 따로 번역한 파일 순서로
+  const exTr = !entry ? '' : n === 'mn' ? entry.mn ?? mn?.mn ?? '' : n === 'ar' ? entry.ar ?? ar?.ar ?? '' : entry[n]
+  const tipTr = n === 'mn' ? entry?.tip?.mn ?? mn?.tip : n === 'ar' ? entry?.tip?.ar ?? ar?.tip : entry?.tip?.[n]
   return (
     <div className="sheet-backdrop" onClick={onClose}>
       <section className="sheet word-help" role="dialog" aria-label={t('wordHelp')} onClick={(e) => e.stopPropagation()}>
@@ -58,16 +61,16 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
                   </button>
                 </div>
                 <span className={`wh-ex-rom nf-${n}`}>{localPron(entry.ex, n)}</span>
-                <p className={`wh-ex-tr nf-${n}`}>{n === 'mn' ? entry.mn ?? mn?.mn ?? '' : entry[n]}</p>
+                <p className={`wh-ex-tr nf-${n}`}>{exTr}</p>
               </>
             ) : (
               <p className="note">{ready ? t('exampleSoon') : '…'}</p>
             )}
           </div>
         )}
-        {(n === 'mn' ? entry?.tip?.mn ?? mn?.tip : entry?.tip?.[n]) && (
+        {tipTr && (
           <div className={`wh-tip nf-${n}`}>
-            💡 {n === 'mn' ? entry?.tip?.mn ?? mn?.tip : entry?.tip?.[n]}
+            💡 {tipTr}
           </div>
         )}
         <button className="btn btn-soft btn-block" onClick={onClose}>

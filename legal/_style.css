@@ -14,3 +14,7 @@ table{border-collapse:collapse;width:100%;font-size:.92rem}
 td,th{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
 .note{background:#fff3cc;border-radius:12px;padding:10px 12px;font-size:.9rem}
 a{color:var(--pink)}
+[dir="rtl"] th,
+[dir="rtl"] td {
+  text-align: right;
+}

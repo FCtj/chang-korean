@@ -16,6 +16,7 @@ export const S_TH: Record<StrKey, string> = {
   thai: 'ไทย',
   viet: 'เวียดนาม',
   mongol: 'ภาษามองโกเลีย',
+  arabic: 'ภาษาอาหรับ',
   myLang: 'ภาษาของฉัน',
   myLangHint: 'ความหมายคำศัพท์และหน้าจอจะเป็นภาษานี้',
   beta: 'เบต้า',

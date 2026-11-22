@@ -2,6 +2,7 @@
 // 나눠 번역한 파일(tr-mn-1..6.ts, tr-mn-titles.ts)을 아래 PARTS 에 넣어 합침
 // (scripts 도 이 파일을 불러오므로 import.meta.glob 대신 고정 import)
 // @mn-imports
+import { TITLE_AR } from './tr-ar.ts'
 import { TITLE_MN as TITLE_PART } from './tr-mn-titles.ts'
 import { MN_6 } from './tr-mn-6.ts'
 import { MN_5 } from './tr-mn-5.ts'
@@ -27,7 +28,7 @@ const TITLE_PARTS: Record<string, string>[] = [
 export const MN: Record<string, string> = Object.assign({}, ...PARTS)
 export const TITLE_MN: Record<string, string> = Object.assign({}, ...TITLE_PARTS)
 
-/** 제목·설명(L10n)에 몽골어 채우기: 이미 있으면 그대로, 없으면 TITLE_MN → 없으면 한국어 */
-export function withMn<T extends { ko: string; mn?: string }>(x: T): T & { mn: string } {
-  return { ...x, mn: x.mn || TITLE_MN[x.ko] || x.ko }
+/** 제목·설명(L10n)에 몽골어·아랍어 채우기: 이미 있으면 그대로, 없으면 TITLE_MN/TITLE_AR → 없으면 한국어 */
+export function withMn<T extends { ko: string; mn?: string; ar?: string }>(x: T): T & { mn: string; ar: string } {
+  return { ...x, mn: x.mn || TITLE_MN[x.ko] || x.ko, ar: x.ar || TITLE_AR[x.ko] || x.ko }
 }

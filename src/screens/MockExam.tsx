@@ -23,6 +23,9 @@ const COUNT = 20
 // 몽골어 질문·설명 (있으면)
 const MOCK_MN: Record<string, { q: string; explain: string }> =
   Object.values(import.meta.glob<{ MOCK_MN: Record<string, { q: string; explain: string }> }>('../data/citizen-quiz-mn.ts', { eager: true }))[0]?.MOCK_MN ?? {}
+const MOCK_AR: Record<string, { q: string; explain: string }> =
+  Object.values(import.meta.glob<{ MOCK_AR: Record<string, { q: string; explain: string }> }>('../data/citizen-quiz-ar.ts', { eager: true }))[0]?.MOCK_AR ?? {}
+const MOCK_EXTRA = { mn: MOCK_MN, ar: MOCK_AR }
 const PASS = 60
 
 /** 주제마다 고르게 뽑기 */
@@ -53,7 +56,10 @@ export default function MockExam() {
   const optRefs = useRef<(HTMLButtonElement | null)[]>([])
   const native = s.native
   const lang = ui === 'ko' ? native : ui
-  const tr = (l: { ko: string; lo: string; th: string; vi: string }, mn?: string) => (lang === 'mn' ? mn || l.ko : l[lang] || l[native === 'mn' ? 'lo' : native])
+  const isExtra = (x: string): x is 'mn' | 'ar' => x === 'mn' || x === 'ar'
+  // 몽골어·아랍어는 따로 번역한 파일에서 (문항 id 로)
+  const tr = (l: { ko: string; lo: string; th: string; vi: string }, id: string, part: 'q' | 'explain') =>
+    isExtra(lang) ? MOCK_EXTRA[lang][id]?.[part] || l.ko : l[lang] || l[isExtra(native) ? 'lo' : native]
   const q = questions[i]
 
   const choose = (k: number) => {
@@ -143,7 +149,7 @@ export default function MockExam() {
             </button>
           </div>
           <p className="mock-q-ko ko">{q.q.ko}</p>
-          {showTr && <p className={`mock-q-tr nf-${native}`}>{tr(q.q, MOCK_MN[q.id]?.q)}</p>}
+          {showTr && <p className={`mock-q-tr nf-${native}`}>{tr(q.q, q.id, 'q')}</p>}
           <button className="link-btn" onClick={() => setShowTr((v) => !v)}>
             {showTr ? '🙈' : '👀'} {t('mockShowTr')}
           </button>
@@ -171,7 +177,7 @@ export default function MockExam() {
           <section className={chosen === q.answer ? 'feedback good' : 'feedback bad'}>
             <strong>{chosen === q.answer ? `✅ ${t('mockCorrect')}` : `❌ ${t('mockWrongAns')} ${q.options[q.answer]}`}</strong>
             <p className="ko">{q.explain.ko}</p>
-            <p className={`nf-${native}`}>{tr(q.explain, MOCK_MN[q.id]?.explain)}</p>
+            <p className={`nf-${native}`}>{tr(q.explain, q.id, 'explain')}</p>
             <button className="btn btn-pink btn-block" onClick={next}>
               {t('nextLabel')} →
             </button>

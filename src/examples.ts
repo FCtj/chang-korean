@@ -6,8 +6,11 @@ import type { ExampleEntry, ExampleMap } from './data/example-types'
 const files = import.meta.glob<Record<string, unknown>>('./data/ex-*.ts')
 // 몽골어 예문 번역 (키 = 단어 한국어, 값 = { mn, tip? })
 const mnFiles = import.meta.glob<Record<string, unknown>>('./data/exmn-*.ts')
+// 아랍어 예문 번역 (키 = 단어 한국어, 값 = { ar, tip? })
+const arFiles = import.meta.glob<Record<string, unknown>>('./data/exar-*.ts')
 export type MnExample = { mn: string; tip?: string }
-type Loaded = { map: ExampleMap; mn: Record<string, MnExample> }
+export type ArExample = { ar: string; tip?: string }
+type Loaded = { map: ExampleMap; mn: Record<string, MnExample>; ar: Record<string, ArExample> }
 let cache: Loaded | null = null
 let loading: Promise<Loaded> | null = null
 
@@ -23,15 +26,16 @@ export function loadExamples(): Promise<Loaded> {
     loading = Promise.all([
       Promise.all(Object.values(files).map((load) => load().catch(() => ({})))),
       Promise.all(Object.values(mnFiles).map((load) => load().catch(() => ({})))),
-    ]).then(([mods, mnMods]) => {
-      cache = { map: merge<ExampleEntry>(mods), mn: merge<MnExample>(mnMods) }
+      Promise.all(Object.values(arFiles).map((load) => load().catch(() => ({})))),
+    ]).then(([mods, mnMods, arMods]) => {
+      cache = { map: merge<ExampleEntry>(mods), mn: merge<MnExample>(mnMods), ar: merge<ArExample>(arMods) }
       return cache
     })
   return loading
 }
 
-type State = { entry: ExampleEntry | null; mn: MnExample | null; ready: boolean }
-const pick = (c: Loaded | null, ko: string | null): State => ({ entry: ko && c ? c.map[ko] ?? null : null, mn: ko && c ? c.mn[ko] ?? null : null, ready: !!c })
+type State = { entry: ExampleEntry | null; mn: MnExample | null; ar: ArExample | null; ready: boolean }
+const pick = (c: Loaded | null, ko: string | null): State => ({ entry: ko && c ? c.map[ko] ?? null : null, mn: ko && c ? c.mn[ko] ?? null : null, ar: ko && c ? c.ar[ko] ?? null : null, ready: !!c })
 
 export function useExample(ko: string | null): State {
   const [state, setState] = useState<State>(() => pick(cache, ko))

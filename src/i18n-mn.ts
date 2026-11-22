@@ -16,6 +16,7 @@ export const S_MN: Record<StrKey, string> = {
   thai: 'Тайланд хэл',
   viet: 'Вьетнам хэл',
   mongol: 'Монгол хэл',
+  arabic: 'Араб хэл',
   myLang: 'Миний хэл',
   myLangHint: 'Үгийн утга болон дэлгэц энэ хэлээр харагдана',
   beta: 'Бета',

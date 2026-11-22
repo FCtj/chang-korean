@@ -1,4 +1,4 @@
-// 한국어 발음을 학습자 글자로: 라오 문자 · 태국 문자 · 베트남식 표기 · 몽골 키릴 문자
+// 한국어 발음을 학습자 글자로: 라오 문자 · 태국 문자 · 베트남식 표기 · 몽골 키릴 문자 · 아랍 문자
 // 1) 한글을 소리 나는 대로 바꿈 (연음 · 거센소리 · 비음화 · 유음화 · 구개음화 · 받침 대표음)
 // 2) 소리 난 음절(첫소리 + 모음 + 받침)을 각 언어 글자 규칙으로 씀
 // ⚠️ 규칙으로 만든 근사 표기 — 원어민 검수로 다듬을 수 있음 (각 표의 값만 바꾸면 됨)
@@ -196,6 +196,29 @@ function mn(s: Syl, p: Pos): string {
   return C + v + (MN_F[s.f] ?? '')
 }
 
+// 아랍어 (아랍 문자, 오른쪽→왼쪽): 모음은 장모음 글자(ا و ي)로, ㅡ 는 짧게(글자 없이)
+const AR_V: Record<string, string> = {
+  ㅏ: 'ا', ㅓ: 'و', ㅗ: 'و', ㅜ: 'و', ㅡ: '', ㅣ: 'ي', ㅐ: 'اي', ㅔ: 'ي', ㅑ: 'يا', ㅕ: 'يو', ㅛ: 'يو', ㅠ: 'يو', ㅒ: 'يي', ㅖ: 'يي',
+  ㅘ: 'وا', ㅙ: 'وي', ㅚ: 'وي', ㅞ: 'وي', ㅝ: 'وو', ㅟ: 'وي', ㅢ: 'ئي',
+}
+// 말 첫머리의 모음 (첫소리 ㅇ): 함자를 얹어서
+const AR_V0: Record<string, string> = { ㅏ: 'أ', ㅓ: 'أو', ㅗ: 'أو', ㅜ: 'أو', ㅡ: 'إ', ㅣ: 'إي', ㅐ: 'أي', ㅔ: 'إي', ㅢ: 'إي' }
+const AR_F: Record<string, string> = { ㄱ: 'ك', ㄴ: 'ن', ㄷ: 'ت', ㄹ: 'ل', ㅁ: 'م', ㅂ: 'ب', ㅇ: 'نغ' }
+function ar(s: Syl, p: Pos): string {
+  const soft = !p.start && p.afterVoiced
+  let v = AR_V[s.v]
+  if ((s.i === 'ㅅ' || s.i === 'ㅆ') && Y_PLAIN[s.v]) return 'ش' + AR_V[Y_PLAIN[s.v]] + (AR_F[s.f] ?? '') // 셔 → شو
+  let C =
+    ({ ㄱ: 'ك', ㄲ: 'ك', ㅋ: 'ك', ㄴ: 'ن', ㄷ: soft ? 'د' : 'ت', ㄸ: 'ت', ㅌ: 'ت', ㄹ: p.afterL ? 'ل' : 'ر', ㅁ: 'م', ㅂ: 'ب', ㅃ: 'ب', ㅍ: 'ب', ㅅ: 'س', ㅆ: 'س', ㅇ: '', ㅈ: 'ج', ㅉ: 'ج', ㅊ: 'تش', ㅎ: 'ه' } as Record<string, string>)[s.i] ?? ''
+  if (!C) {
+    if (p.start && AR_V0[s.v]) {
+      C = ''
+      v = AR_V0[s.v]
+    } else if (s.v === 'ㅡ') v = 'ئ'
+  }
+  return C + v + (AR_F[s.f] ?? '')
+}
+
 const cache = new Map<string, string>()
 /** 한국어 → 학습자 글자 발음 */
 export function localPron(ko: string, n: Native): string {
@@ -213,7 +236,7 @@ export function localPron(ko: string, n: Native): string {
     }
     const s = pc.syl
     const p: Pos = { start: pc.wordStart || !prev, afterVoiced: !prev || prev.f === '' || ['ㄴ', 'ㄹ', 'ㅁ', 'ㅇ'].includes(prev.f), afterL: prev?.f === 'ㄹ' }
-    const part = n === 'th' ? th(s, p) : n === 'lo' ? lo(s, p) : n === 'vi' ? vi(s, p) : mn(s, p)
+    const part = n === 'th' ? th(s, p) : n === 'lo' ? lo(s, p) : n === 'vi' ? vi(s, p) : n === 'ar' ? ar(s, p) : mn(s, p)
     out += n === 'vi' && prev ? '-' + part : part
     prev = s
   }

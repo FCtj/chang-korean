@@ -6411,3 +6411,53 @@ body {
 .native-picker.four {
   grid-template-columns: 1fr 1fr;
 }
+
+/* ═════════ 아랍어: 오른쪽 → 왼쪽 ═════════ */
+:root[data-ui='ar'] {
+  --font-cute: 'Baloo Bhaijaan 2', var(--font-round);
+  --font-body: 'Baloo Bhaijaan 2', var(--font-round);
+}
+:root[data-native='ar'] {
+  --font-lo: 'Baloo Bhaijaan 2', var(--font-round);
+}
+.nf-ar {
+  font-family: 'Baloo Bhaijaan 2', var(--font-round);
+}
+/* 한국어·발음·숫자는 방향을 따로 (섞여도 순서가 뒤집히지 않게) */
+.ko,
+.rom-pill,
+.num,
+.card-word,
+.prompt-word {
+  unicode-bidi: isolate;
+}
+/* 화살표 아이콘은 거울처럼 */
+:root[dir='rtl'] :is(.icon-back, .icon-next, .icon-prev) {
+  transform: scaleX(-1);
+}
+/* 왼쪽 정렬이던 글은 오른쪽 정렬로 */
+:root[dir='rtl'] .brag-opt,
+:root[dir='rtl'] .community-card,
+:root[dir='rtl'] .continue,
+:root[dir='rtl'] .course-card,
+:root[dir='rtl'] .fb-btn,
+:root[dir='rtl'] .level-card,
+:root[dir='rtl'] .mw,
+:root[dir='rtl'] .opt,
+:root[dir='rtl'] .other-card,
+:root[dir='rtl'] .pack-card,
+:root[dir='rtl'] .promo-card,
+:root[dir='rtl'] .purpose,
+:root[dir='rtl'] .result .panel,
+:root[dir='rtl'] .round-card,
+:root[dir='rtl'] .set-main,
+:root[dir='rtl'] .track-card,
+:root[dir='rtl'] .unit-card,
+:root[dir='rtl'] .wallet-card,
+:root[dir='rtl'] .mock-card {
+  text-align: right;
+}
+/* 한 줄로 자르는 한국어는 왼→오 방향 그대로: 말줄임(…)이 앞이 아니라 끝에 붙게 */
+:root[dir='rtl'] :is(.mw-ko, .wl-ko, .wchip-ko) {
+  direction: ltr;
+}
