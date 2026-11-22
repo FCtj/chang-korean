@@ -2,6 +2,7 @@
 // 기초(단어팩 + 1~5계급) · TOPIK(1~6급) · 한국 일자리 · 식당 알바 · 국적·영주
 import { TRACKS, findTrack, type Track } from './tracks.ts'
 import type { TitleL10n } from './track-types.ts'
+import { withMn } from './tr-mn.ts'
 
 export type CourseId = 'basic' | 'topik' | 'work' | 'restaurant' | 'citizen'
 export const COURSE_IDS: CourseId[] = ['basic', 'topik', 'work', 'restaurant', 'citizen']
@@ -34,7 +35,7 @@ function fromTrack(id: CourseId): Course {
   return { id, icon: t.icon, title: t.title, desc: t.desc }
 }
 
-export const COURSES: Course[] = [BASIC, TOPIK, fromTrack('work'), fromTrack('restaurant'), fromTrack('citizen')]
+export const COURSES: Course[] = [BASIC, TOPIK, fromTrack('work'), fromTrack('restaurant'), fromTrack('citizen')].map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
 export const findCourse = (id: CourseId): Course => COURSES.find((c) => c.id === id) ?? BASIC
 
 /** 코스에 들어 있는 트랙 (기초는 트랙이 아니라 단어팩·계급이라 빈 배열) */

@@ -13,13 +13,15 @@ import { PACK_SURVIVAL, PACK_WORK, PACK_TRAVEL, PACK_SCHOOL, PACK_KPOP, PACK_FAM
 import { TH } from './tr-th.ts'
 import { VI } from './tr-vi.ts'
 import { TITLE_TH, TITLE_VI } from './tr-titles.ts'
+import { MN, TITLE_MN } from './tr-mn.ts'
 import { TRACKS } from './tracks.ts'
 
-export type Lang = 'ko' | 'lo' | 'th' | 'vi'
+export type Lang = 'ko' | 'lo' | 'th' | 'vi' | 'mn'
 /** 학습자 언어 (뜻이 나오는 언어) */
-export type Native = 'lo' | 'th' | 'vi'
-export const NATIVES: Native[] = ['lo', 'th', 'vi']
-export type L10n = Record<Lang, string>
+export type Native = 'lo' | 'th' | 'vi' | 'mn'
+export const NATIVES: Native[] = ['lo', 'th', 'vi', 'mn']
+/** 화면 글: 한국어·라오·태국·베트남은 꼭 있음, 몽골어는 데이터를 불러올 때 채움 (tr-mn.ts withMn) */
+export type L10n = { ko: string; lo: string; th: string; vi: string; mn?: string }
 
 export interface Word {
   id: string
@@ -28,6 +30,8 @@ export interface Word {
   lo: string
   th: string
   vi: string
+  /** 몽골어 (tr-mn.ts) */
+  mn: string
   emoji: string
   roundId: string
   /** 상황 문장 카드 (트랙 단원의 문장) */
@@ -304,13 +308,14 @@ function makeRound(id: string, tier: number, no: number, title: L10n, rows: Row[
       lo,
       th: th || TH[ko] || '',
       vi: VI[ko] || '',
+      mn: MN[ko] || '',
       emoji,
       roundId: id,
     })),
   }
 }
 
-const t = (ko: string, lo: string, th = ''): L10n => ({ ko, lo, th: th || TITLE_TH[ko] || '', vi: TITLE_VI[ko] || '' })
+const t = (ko: string, lo: string, th = ''): L10n => ({ ko, lo, th: th || TITLE_TH[ko] || '', vi: TITLE_VI[ko] || '', mn: TITLE_MN[ko] || ko })
 
 export const TIERS: Tier[] = [
   {
@@ -384,7 +389,7 @@ export const ROUNDS: Round[] = TIERS.flatMap((t) => t.rounds)
 function makePack(key: string, icon: string, purpose: Purpose | null, title: L10n, desc: L10n, rows: Row[]): Round {
   // 설명은 단어 묶음("네 · 주세요 · …")이라 각 단어 뜻으로 태국어·베트남어를 만듦
   const fromWords = (m: Record<string, string>) => desc.ko.split(' · ').map((k) => m[k] ?? k).join(' · ')
-  return { ...makeRound(`p-${key}`, 0, 0, title, rows), pack: { icon, purpose, desc: { ...desc, th: desc.th || fromWords(TH), vi: fromWords(VI) } } }
+  return { ...makeRound(`p-${key}`, 0, 0, title, rows), pack: { icon, purpose, desc: { ...desc, th: desc.th || fromWords(TH), vi: fromWords(VI), mn: fromWords(MN) } } }
 }
 
 export const PACKS: Round[] = [

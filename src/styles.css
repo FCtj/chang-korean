@@ -6000,3 +6000,15 @@ body {
 :root[data-theme='carbon'] .rr-row {
   border-radius: 12px;
 }
+
+/* ═════════ 몽골어 (키릴 문자): 시스템 글꼴 ═════════ */
+:root[data-native='mn'] {
+  --font-lo: var(--font-latin-vi);
+}
+:root[data-ui='mn'] {
+  --font-cute: var(--font-latin-vi);
+  --font-body: var(--font-latin-vi);
+}
+.nf-mn {
+  font-family: var(--font-latin-vi);
+}

@@ -15,6 +15,7 @@ export const S_VI: Record<StrKey, string> = {
   lao: 'Tiếng Lào',
   thai: 'Tiếng Thái',
   viet: 'Tiếng Việt',
+  mongol: 'Tiếng Mông Cổ',
   myLang: 'Ngôn ngữ của bạn',
   myLangHint: 'Nghĩa của từ và giao diện sẽ hiện bằng ngôn ngữ này',
   beta: 'Beta',

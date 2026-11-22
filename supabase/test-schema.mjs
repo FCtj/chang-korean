@@ -561,6 +561,13 @@ check(
   (await q('select count(*)::int n from daily_activity where user_id = any($1)', [[A.lin, A.tou]])).rows[0].n === 3 && (await privRow(A.tou))?.native === 'lo',
 )
 
+// 몽골어 학습자 (v0.20): native 'mn' 허용, 모르는 값은 막음
+await as(A.lin, () => q(`insert into profile_private (gender, native) values ('f', 'mn')`))
+check("profile_private accepts native 'mn'", (await privRow(A.lin))?.native === 'mn')
+e = await asErr(A.lin, `update profile_private set native = 'xx' where user_id = $1`, [A.lin])
+check('profile_private rejects unknown native', !!e, e)
+await as(A.lin, () => q('delete from profile_private where user_id=$1', [A.lin]))
+
 // ───────── 번역 검수 ─────────
 const R = { rev1: 'dddddddd-0000-0000-0000-000000000001', rev2: 'dddddddd-0000-0000-0000-000000000002' }
 for (const id of Object.values(R)) await q('insert into auth.users values ($1)', [id])
@@ -581,6 +588,9 @@ e = await asErr(R.rev2, `insert into translation_reviews (user_id, unit_id, ko, 
 check('cannot write a review as someone else', e !== '', e)
 e = await asErr(R.rev2, `insert into translation_reviews (unit_id, ko, lang, verdict) values ('u', '가', 'ko', 'ok')`)
 check('review language must be lo/th/vi', e.includes('translation_reviews_lang_check'), e)
+await as(R.rev2, () => q(`insert into translation_reviews (unit_id, ko, lang, current_text, verdict) values ('t-topik-1-greet', '안녕하세요', 'mn', 'Сайн байна уу', 'ok')`))
+check("translation_reviews accepts lang 'mn'", (await q(`select count(*)::int n from translation_reviews where lang = 'mn'`)).rows[0].n === 1)
+await q(`delete from translation_reviews where lang = 'mn'`) // 아래 개수 검사에 영향 없게
 e = await errOf(async () => {
   await db.exec('set role anon')
   try {

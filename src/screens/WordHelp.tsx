@@ -23,7 +23,7 @@ function highlight(sentence: string, ko: string) {
 export default function WordHelp({ word, onClose }: { word: Word; onClose: () => void }) {
   const s = useStore()
   const { t } = useApp()
-  const { entry, ready } = useExample(word.ko)
+  const { entry, mn, ready } = useExample(word.ko)
   const n = s.native
   return (
     <div className="sheet-backdrop" onClick={onClose}>
@@ -57,16 +57,16 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
                   </button>
                 </div>
                 <span className="wh-ex-rom">{entry.rom}</span>
-                <p className={`wh-ex-tr nf-${n}`}>{entry[n]}</p>
+                <p className={`wh-ex-tr nf-${n}`}>{n === 'mn' ? mn?.mn ?? '' : entry[n]}</p>
               </>
             ) : (
               <p className="note">{ready ? t('exampleSoon') : '…'}</p>
             )}
           </div>
         )}
-        {entry?.tip && (
+        {(n === 'mn' ? mn?.tip : entry?.tip?.[n]) && (
           <div className={`wh-tip nf-${n}`}>
-            💡 {entry.tip[n]}
+            💡 {n === 'mn' ? mn?.tip : entry?.tip?.[n]}
           </div>
         )}
         <button className="btn btn-soft btn-block" onClick={onClose}>

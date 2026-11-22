@@ -14,6 +14,7 @@ import { TRACK_TOPIK_3 } from './track-topik-3.ts'
 import { TRACK_TOPIK_6 } from './track-topik-6.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
+import { MN, withMn } from './tr-mn.ts'
 
 export interface TrackSource {
   id: string
@@ -103,6 +104,7 @@ function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
     id: `${id}-${String(j + 1).padStart(2, '0')}`,
     ko: r[0],
     rom: r[1],
+    mn: MN[r[0]] || '',
     lo: r[2],
     th: r[3],
     vi: r[4],
@@ -110,8 +112,8 @@ function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
     roundId: id,
     ...(phrase ? { kind: 'phrase' as const } : {}),
   }))
-  return { id, tier: 0, no: i + 1, title: u.title, words, pack: { icon: u.icon, purpose: t.purpose, desc: t.title }, track: t.id }
+  return { id, tier: 0, no: i + 1, title: withMn(u.title), words, pack: { icon: u.icon, purpose: t.purpose, desc: withMn(t.title) }, track: t.id }
 }
 
-export const TRACKS: Track[] = TRACK_SOURCES.map((t) => ({ ...t, units: t.units.map((u, i) => buildUnit(t, u, i)) }))
+export const TRACKS: Track[] = TRACK_SOURCES.map((t) => ({ ...t, title: withMn(t.title), desc: withMn(t.desc), units: t.units.map((u, i) => buildUnit(t, u, i)) }))
 export const findTrack = (id: string) => TRACKS.find((t) => t.id === id)

@@ -420,7 +420,7 @@ export function useDescribe() {
       }
       case 'pack': {
         const r = d.unit ? findRound(d.unit) : undefined
-        return { icon: r?.pack?.icon ?? '🎒', text: tf('bragPack', r ? r.title[ui] : '') }
+        return { icon: r?.pack?.icon ?? '🎒', text: tf('bragPack', r ? (r.title[ui] ?? r.title.ko) : '') }
       }
       case 'exam': {
         const r = d.ref ? findRound(d.ref) : undefined

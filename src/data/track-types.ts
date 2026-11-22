@@ -9,6 +9,8 @@ export interface TitleL10n {
   lo: string
   th: string
   vi: string
+  /** 몽골어 — 원본에는 없고 tr-mn.ts 의 TITLE_MN 으로 채움 */
+  mn?: string
 }
 
 export interface TrackUnitSrc {

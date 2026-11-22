@@ -6,7 +6,7 @@ import { S_TH, F_TH } from './i18n-th'
 import { S_VI, F_VI } from './i18n-vi'
 import type { Native } from './data/words'
 
-export type UiLang = 'lo' | 'th' | 'vi' | 'ko'
+export type UiLang = 'lo' | 'th' | 'vi' | 'mn' | 'ko'
 type Base = 'lo' | 'ko'
 type Str = Record<Base, string>
 type Fn = Record<Base, (...a: any[]) => string>
@@ -25,6 +25,7 @@ const S = {
   lao: { ko: '라오어', lo: 'ລາວ' },
   thai: { ko: '태국어', lo: 'ໄທ' },
   viet: { ko: '베트남어', lo: 'ຫວຽດນາມ' },
+  mongol: { ko: '몽골어', lo: 'ພາສາມົງໂກລີ' },
   myLang: { ko: '내 언어', lo: 'ພາສາຂອງຂ້ອຍ' },
   myLangHint: { ko: '단어 뜻과 화면이 이 언어로 나와요', lo: 'ຄວາມໝາຍຂອງຄຳສັບ ແລະ ໜ້າຈໍ ຈະເປັນພາສານີ້' },
   beta: { ko: '베타', lo: 'ທົດລອງ' },
@@ -427,11 +428,12 @@ const F = {
   agoD: { ko: (n: number) => `${n}일 전`, lo: (n: number) => `${n} ມື້ກ່ອນ` },
 } satisfies Record<string, Fn>
 
-/** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */
-export const NATIVE_INFO: { id: Native; flag: string; name: string; country: string; key: 'lao' | 'thai' | 'viet'; me: string; hello: string; beta?: boolean }[] = [
+/** 학습자 언어: 라오어·태국어가 중심, 베트남어·몽골어는 베타 */
+export const NATIVE_INFO: { id: Native; flag: string; name: string; country: string; key: 'lao' | 'thai' | 'viet' | 'mongol'; me: string; hello: string; beta?: boolean }[] = [
   { id: 'lo', flag: '🇱🇦', name: 'ພາສາລາວ', country: 'LA', key: 'lao', me: 'ຂ້ອຍ', hello: 'ສະບາຍດີ' },
   { id: 'th', flag: '🇹🇭', name: 'ภาษาไทย', country: 'TH', key: 'thai', me: 'ฉัน', hello: 'สวัสดี' },
   { id: 'vi', flag: '🇻🇳', name: 'Tiếng Việt', country: 'VN', key: 'viet', me: 'Tôi', hello: 'Xin chào', beta: true },
+  { id: 'mn', flag: '🇲🇳', name: 'Монгол хэл', country: 'MN', key: 'mongol', me: 'Би', hello: 'Сайн байна уу', beta: true },
 ]
 export const nativeInfo = (n: Native) => NATIVE_INFO.find((x) => x.id === n) ?? NATIVE_INFO[0]
 
@@ -440,15 +442,21 @@ export type FnKey = keyof typeof F
 /** 다른 언어 파일(i18n-th.ts, i18n-vi.ts)이 채워야 하는 함수 문구 모양 */
 export type FnTable = { [K in FnKey]: (typeof F)[K]['ko'] }
 
-const MORE: Record<'th' | 'vi', { s: Record<StrKey, string>; f: FnTable }> = {
+// 몽골어 화면 문구(i18n-mn.ts)는 있으면 불러옴 (앱 빌드에서만 쓰는 파일이라 glob)
+const MN_MOD = Object.values(import.meta.glob<{ S_MN: Record<StrKey, string>; F_MN: FnTable }>('./i18n-mn.ts', { eager: true }))[0]
+
+const MORE: Partial<Record<'th' | 'vi' | 'mn', { s: Record<StrKey, string>; f: FnTable }>> = {
   th: { s: S_TH, f: F_TH },
   vi: { s: S_VI, f: F_VI },
+  ...(MN_MOD ? { mn: { s: MN_MOD.S_MN, f: MN_MOD.F_MN } } : {}),
 }
 
 export function makeT(ui: UiLang) {
-  const t = (k: StrKey): string => (ui === 'lo' || ui === 'ko' ? S[k][ui] : (MORE[ui].s[k] ?? S[k].lo))
+  // 아직 없는 몽골어 문구는 한국어로 (라오어보다 나음)
+  const fb: 'lo' | 'ko' = ui === 'mn' ? 'ko' : 'lo'
+  const t = (k: StrKey): string => (ui === 'lo' || ui === 'ko' ? S[k][ui] : (MORE[ui]?.s[k] ?? S[k][fb]))
   const tf = <K extends FnKey>(k: K, ...args: Parameters<FnTable[K]>): string => {
-    const fn = ui === 'lo' || ui === 'ko' ? F[k][ui] : (MORE[ui].f[k] ?? F[k].lo)
+    const fn = ui === 'lo' || ui === 'ko' ? F[k][ui] : (MORE[ui]?.f[k] ?? F[k][fb])
     return (fn as (...a: unknown[]) => string)(...args)
   }
   return { t, tf }

@@ -1,6 +1,7 @@
 // 나라별 마스코트: 라오스·태국(·기타) = 코끼리 · 베트남 = 물소 · 몽골 = 말
 // 그림(ui.tsx 의 Elephant)·계급 이름·코스 아이콘이 모두 이 값을 따라감
 import type { L10n, Tier } from './data/words'
+import { TITLE_MN } from './data/tr-mn'
 
 export type MascotKind = 'elephant' | 'buffalo' | 'horse'
 
@@ -8,7 +9,7 @@ export const mascotOf = (country: string): MascotKind => (country === 'VN' ? 'bu
 
 export const MASCOT_EMOJI: Record<MascotKind, string> = { elephant: '🐘', buffalo: '🐃', horse: '🐎' }
 
-const l = (ko: string, lo: string, th: string, vi: string): L10n => ({ ko, lo, th, vi })
+const l = (ko: string, lo: string, th: string, vi: string): L10n => ({ ko, lo, th, vi, mn: TITLE_MN[ko] || ko })
 
 /** 계급 이름 (코끼리는 words.ts 의 원래 이름) */
 const TIER_NAMES: Record<Exclude<MascotKind, 'elephant'>, L10n[]> = {

@@ -122,7 +122,7 @@ function guessNative(): Native {
   }
   return 'lo'
 }
-const COUNTRY_OF: Record<Native, string> = { lo: 'LA', th: 'TH', vi: 'VN' }
+const COUNTRY_OF: Record<Native, string> = { lo: 'LA', th: 'TH', vi: 'VN', mn: 'MN' }
 
 function initial(): State {
   const day = todayKey()
@@ -693,7 +693,7 @@ export function demoRanking(s: State): RankRow[] {
     points: Math.round((3400 * 0.88 ** i + ((i * 37) % 40)) * Math.min(1, 0.25 + day / 30)),
     tier: i < 3 ? 2 : 1,
   }))
-  rows.push({ name: s.nickname || ({ lo: 'ຂ້ອຍ', th: 'ฉัน', vi: 'Tôi' } as const)[s.native], points: s.monthPoints, me: true, tier: currentTierNo(s), country: s.country })
+  rows.push({ name: s.nickname || ({ lo: 'ຂ້ອຍ', th: 'ฉัน', vi: 'Tôi', mn: 'Би' } as const)[s.native], points: s.monthPoints, me: true, tier: currentTierNo(s), country: s.country })
   return rows.sort((a, b) => b.points - a.points)
 }
 

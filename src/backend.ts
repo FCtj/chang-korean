@@ -383,11 +383,11 @@ export function initBackend() {
 
 // ───────── 나라 목록 ─────────
 
-export const COUNTRIES: { code: string; flag: string; ko: string; lo: string; th: string; vi: string }[] = [
-  { code: 'LA', flag: '🇱🇦', ko: '라오스', lo: 'ລາວ', th: 'ลาว', vi: 'Lào' },
-  { code: 'TH', flag: '🇹🇭', ko: '태국', lo: 'ໄທ', th: 'ไทย', vi: 'Thái Lan' },
-  { code: 'VN', flag: '🇻🇳', ko: '베트남', lo: 'ຫວຽດນາມ', th: 'เวียดนาม', vi: 'Việt Nam' },
-  { code: 'MN', flag: '🇲🇳', ko: '몽골', lo: 'ມົງໂກລີ', th: 'มองโกเลีย', vi: 'Mông Cổ' },
-  { code: 'ZZ', flag: '🌏', ko: '기타', lo: 'ອື່ນໆ', th: 'อื่น ๆ', vi: 'Khác' },
+export const COUNTRIES: { code: string; flag: string; ko: string; lo: string; th: string; vi: string; mn: string }[] = [
+  { code: 'LA', flag: '🇱🇦', ko: '라오스', lo: 'ລາວ', th: 'ลาว', vi: 'Lào', mn: 'Лаос' },
+  { code: 'TH', flag: '🇹🇭', ko: '태국', lo: 'ໄທ', th: 'ไทย', vi: 'Thái Lan', mn: 'Тайланд' },
+  { code: 'VN', flag: '🇻🇳', ko: '베트남', lo: 'ຫວຽດນາມ', th: 'เวียดนาม', vi: 'Việt Nam', mn: 'Вьетнам' },
+  { code: 'MN', flag: '🇲🇳', ko: '몽골', lo: 'ມົງໂກລີ', th: 'มองโกเลีย', vi: 'Mông Cổ', mn: 'Монгол' },
+  { code: 'ZZ', flag: '🌏', ko: '기타', lo: 'ອື່ນໆ', th: 'อื่น ๆ', vi: 'Khác', mn: 'Бусад' },
 ]
 export const countryOf = (code: string) => COUNTRIES.find((c) => c.code === code) ?? COUNTRIES[COUNTRIES.length - 1]
