@@ -1,7 +1,7 @@
 // 목적별 트랙: 단원(단어 25 + 상황 문장) 여러 개를 한 목적으로 묶음
 // 원본: track-restaurant.ts (🍜 한국 식당·가게 알바), track-work-a/b.ts (🏭 한국 일자리)
 // ⚠️ 라오어·태국어·베트남어는 초안 — 원어민 검수 필요
-import { ED_LEVELS } from './edition-data.ts'
+import { ED_DAILY, ED_LEVELS } from './edition-data.ts'
 import type { EdUnit } from './edition-types.ts'
 import { ED_INFO, IS_KO, levelName } from '../edition.ts'
 import type { ExampleEntry } from './example-types.ts'
@@ -182,13 +182,22 @@ const ED_TRACKS = (): Track[] =>
     return { id, group: 'topik' as const, level: n, purpose: 'school' as const, icon: ED_ICON[i] ?? '📘', title, desc: L1(`${ED_INFO.levelDesc[i] ?? ''} · ${lv.UNITS.reduce((a, u) => a + u.words.length, 0).toLocaleString()}단어`), units: lv.UNITS.map((u, j) => buildEdUnit(id, title, u, j)) }
   })
 
-export const TRACKS: Track[] = IS_KO ? KO_TRACKS() : ED_TRACKS()
+// 두 번째 코스(생활·학교) = 일·알바 자리 (group 'job', 레벨마다 트랙 하나)
+const ED_DAILY_TRACKS = (): Track[] =>
+  ED_DAILY.map((lv, i) => {
+    const info = ED_INFO.daily.levels[i] ?? { title: `${i + 1}`, desc: '', icon: '📗' }
+    const id = `daily-${i + 1}`
+    const title = L1(info.title)
+    return { id, group: 'job' as const, purpose: 'school' as const, icon: info.icon, title, desc: L1(`${info.desc} · ${lv.UNITS.reduce((a, u) => a + u.words.length, 0).toLocaleString()}단어`), units: lv.UNITS.map((u, j) => buildEdUnit(id, title, u, j)) }
+  }).filter((t) => t.units.length)
+
+export const TRACKS: Track[] = IS_KO ? KO_TRACKS() : [...ED_TRACKS(), ...ED_DAILY_TRACKS()]
 /** 일본어·영어판: 말 → 읽기 (가나 · IPA) */
-export const ED_READING: Record<string, string> = Object.fromEntries(ED_LEVELS.flatMap((lv) => lv.UNITS.flatMap((u) => [...u.words, ...u.phrases].map((r) => [r[0], r[1]]))))
+export const ED_READING: Record<string, string> = Object.fromEntries([...ED_LEVELS, ...ED_DAILY].flatMap((lv) => lv.UNITS.flatMap((u) => [...u.words, ...u.phrases].map((r) => [r[0], r[1]]))))
 /** 일본어·영어판: 문장 카드 */
-export const ED_PHRASES = new Set(ED_LEVELS.flatMap((lv) => lv.UNITS.flatMap((u) => u.phrases.map((r) => r[0]))))
+export const ED_PHRASES = new Set([...ED_LEVELS, ...ED_DAILY].flatMap((lv) => lv.UNITS.flatMap((u) => u.phrases.map((r) => r[0]))))
 /** 일본어·영어판 예문 (한국어 번역을 학습자 언어 칸 모두에) */
 export const ED_EXAMPLES: Record<string, ExampleEntry> = Object.fromEntries(
-  ED_LEVELS.flatMap((lv) => Object.entries(lv.EX).map(([k, e]) => [k, { ex: e.ex, rom: e.rom, lo: e.ko, th: e.ko, vi: e.ko, mn: e.ko, ar: e.ko }])),
+  [...ED_DAILY, ...ED_LEVELS].flatMap((lv) => Object.entries(lv.EX).map(([k, e]) => [k, { ex: e.ex, rom: e.rom, lo: e.ko, th: e.ko, vi: e.ko, mn: e.ko, ar: e.ko }])),
 )
 export const findTrack = (id: string) => TRACKS.find((t) => t.id === id)

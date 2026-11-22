@@ -7,3 +7,5 @@ export interface EdLevel {
   EX: EdExampleMap
 }
 export const ED_LEVELS: EdLevel[] = []
+/** 두 번째 코스(생활·학교) 레벨 */
+export const ED_DAILY: EdLevel[] = []

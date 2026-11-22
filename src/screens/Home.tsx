@@ -7,7 +7,7 @@ import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCoun
 import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
 import { findTrack } from '../data/tracks'
-import { JOB_TRACKS, TOPIK_LEVELS, findCourse, jobTrack, topikTrack, type CourseId } from '../data/courses'
+import { COURSES, JOB_TRACKS, TOPIK_LEVELS, findCourse, jobTrack, topikTrack, type CourseId } from '../data/courses'
 import { nextShopItem } from '../data/shop'
 import { COMMUNITY_ENABLED, POINTS_ENABLED, SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
@@ -132,7 +132,7 @@ export default function Home() {
 
       {course === 'basic' ? <BasicBody /> : course === 'topik' ? <TopikBody /> : course === 'job' ? <JobBody /> : <TrackBody id={course} />}
 
-      {IS_KO && <OtherCourses />}
+      {(IS_KO || COURSES.length > 1) && <OtherCourses />}
 
       {!SIMPLE_MODE && POINTS_ENABLED && (
         <div className="mini-stamps" aria-label={t('stampCard')}>
@@ -183,7 +183,7 @@ function CourseHead({ onChange }: { onChange: () => void }) {
           <span style={{ width: `${total ? Math.round((done / total) * 100) : 0}%` }} />
         </span>
       </span>
-      {IS_KO && (
+      {(IS_KO || COURSES.length > 1) && (
         <button className="course-change" onClick={onChange}>
           <span aria-hidden="true">⇄</span> {t('changeCourse')}
         </button>

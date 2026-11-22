@@ -7,7 +7,7 @@ import type { TitleL10n } from './track-types.ts'
 import { withMn } from './tr-mn.ts'
 
 export type CourseId = 'basic' | 'topik' | 'job' | 'parenting' | 'citizen'
-export const COURSE_IDS: CourseId[] = IS_KO ? ['basic', 'topik', 'job', 'parenting', 'citizen'] : ['topik']
+export const COURSE_IDS: CourseId[] = IS_KO ? ['basic', 'topik', 'job', 'parenting', 'citizen'] : ['topik', 'job']
 
 export interface Course {
   id: CourseId
@@ -60,7 +60,9 @@ const EXAM: Course = {
   title: L1(`${ED_INFO.exam} ${levelLabel(1)}~${levelLabel(LEVELS.length)}`),
   desc: L1(ED_INFO.lang === '일본어' ? '일본어능력시험 레벨별 핵심 단어 · 레벨마다 300단어 + 상황 문장' : '토익 목표 점수대별 핵심 단어 · 레벨마다 300단어 + 실전 문장'),
 }
-export const COURSES: Course[] = (IS_KO ? [BASIC, TOPIK, JOB, fromTrack('parenting'), fromTrack('citizen')] : [EXAM]).map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
+/** 일본어·영어판 두 번째 코스: 생활 일본어 · 일상·학교 영어 (일·알바 자리) */
+const DAILY: Course = { id: 'job', icon: ED_INFO.daily.icon || '💬', title: L1(ED_INFO.daily.title), desc: L1(ED_INFO.daily.desc) }
+export const COURSES: Course[] = (IS_KO ? [BASIC, TOPIK, JOB, fromTrack('parenting'), fromTrack('citizen')] : [EXAM, ...(JOB_TRACKS.length ? [DAILY] : [])]).map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
 export const findCourse = (id: CourseId): Course => COURSES.find((c) => c.id === id) ?? COURSES[0]
 
 /** 일·알바 코스에서 지금 고른 트랙 */

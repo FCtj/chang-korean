@@ -3,13 +3,16 @@
 import { execFileSync } from 'node:child_process'
 import { existsSync } from 'node:fs'
 
-const SETS = {
-  ja: ['n5', 'n4', 'n3', 'n2', 'n1'],
-  en: ['450', '600', '700', '800', '900'],
-}
+// 시험 코스 · 생활 코스는 따로 검사 (두 코스 사이에는 같은 단어가 있어도 됨)
+const SETS = [
+  ['ja', ['n5', 'n4', 'n3', 'n2', 'n1']],
+  ['en', ['toeic-450', 'toeic-600', 'toeic-700', 'toeic-800', 'toeic-900']],
+  ['ja', ['daily-1', 'daily-2', 'daily-3']],
+  ['en', ['daily-a1', 'daily-a2', 'daily-b1']],
+]
 let failed = false
-for (const [lang, levels] of Object.entries(SETS)) {
-  const files = levels.map((l) => `src/data/${lang}/${lang === 'ja' ? l : `toeic-${l}`}.ts`).filter((f) => existsSync(f))
+for (const [lang, levels] of SETS) {
+  const files = levels.map((l) => `src/data/${lang}/${l}.ts`).filter((f) => existsSync(f))
   if (!files.length) continue
   files.forEach((f, i) => {
     try {

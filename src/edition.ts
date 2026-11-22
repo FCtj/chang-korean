@@ -27,6 +27,8 @@ interface EdInfo {
   legend: [string, string]
   /** 단어 출처 (설정 화면에 표시) */
   sources: string[]
+  /** 두 번째 코스: 생활·학교 (일본어 생활 회화 · 영어 중·고 수준) */
+  daily: { title: string; desc: string; icon: string; levels: { title: string; desc: string; icon: string }[] }
 }
 
 const TOEIC_SCORE = ['450', '600', '700', '800', '900+']
@@ -44,6 +46,7 @@ export const ED: Record<Edition, EdInfo> = {
     levelDesc: [],
     legend: ['TOPIK I · 1–2', 'TOPIK II · 3–6'],
     sources: [],
+    daily: { title: '', desc: '', icon: '', levels: [] },
   },
   ja: {
     app: 'Chang Japanese',
@@ -59,8 +62,19 @@ export const ED: Record<Edition, EdInfo> = {
     sources: [
       '단어 목록: Jonathan Waller의 JLPT N5~N3 목록 (tanos.co.uk, CC BY) — open-anki-jlpt-decks 판 (MIT)',
       '단원 순서: Jiten 빈도 목록 (jiten.moe, CC BY-SA 4.0) — 자주 쓰는 단어부터',
+      '생활 일본어: JMdict 상용어 표시(news1·ichi1·spec·gai1, EDRDG, CC BY-SA 4.0) 중 JLPT 목록에 없는 말 · Jiten 빈도 순',
       '뜻·예문: 앱에서 새로 씀 (초안 · 검수 중)',
     ],
+    daily: {
+      title: '생활 일본어',
+      desc: 'JLPT 목록 밖에서 실제로 자주 쓰는 말 · 회화 · 요즘 말',
+      icon: '💬',
+      levels: [
+        { title: '생활 회화 ①', desc: '가장 자주 쓰는 300개', icon: '💬' },
+        { title: '생활 회화 ②', desc: '자주 쓰는 301~600위', icon: '🗨️' },
+        { title: '생활 회화 ③', desc: '자주 쓰는 601~900위', icon: '💭' },
+      ],
+    },
   },
   en: {
     app: 'Chang English',
@@ -82,8 +96,19 @@ export const ED: Record<Edition, EdInfo> = {
     sources: [
       '단어 목록: TOEIC Service List 1.2 (토익 전용 1,250개) + New General Service List 1.2 701~2,809위 — Browne, Culligan & Phillips (CC BY-SA 4.0)',
       '발음: CMU Pronouncing Dictionary (Carnegie Mellon University)',
+      '일상·학교 영어: CEFR-J Vocabulary Profile 1.5 (Tono Laboratory, TUFS) A1~B1 — 중학교·고등학교 수준',
       '뜻·예문: 앱에서 새로 씀 (초안 · 검수 중) · 이 단어 데이터는 CC BY-SA 4.0',
     ],
+    daily: {
+      title: '일상·학교 영어',
+      desc: '중·고등학교 수준 생활 영어 · CEFR-J A1~B1',
+      icon: '🏫',
+      levels: [
+        { title: '중학 기초 (A1)', desc: 'CEFR A1 — 처음 배우는 생활 단어', icon: '🌱' },
+        { title: '중학 (A2)', desc: 'CEFR A2 — 중학교 수준 생활 단어', icon: '📗' },
+        { title: '고등 (B1)', desc: 'CEFR B1 — 고등학교 수준 단어', icon: '🎓' },
+      ],
+    },
   },
 }
 

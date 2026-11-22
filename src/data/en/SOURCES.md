@@ -4,11 +4,13 @@
 |---|---|---|
 | TOEIC Service List 1.2 (토익 전용 1,250개, 순위) | Browne, C., & Culligan, B. — https://www.newgeneralservicelist.com/toeic-service-list | CC BY-SA 4.0 |
 | New General Service List 1.2 (701~2,809위) | Browne, C., Culligan, B., & Phillips, J. — https://www.newgeneralservicelist.com/ | CC BY-SA 4.0 |
+| 일상·학교 영어 (CEFR A1 · A2 · B1) | CEFR-J Vocabulary Profile 1.5 — Tono Laboratory, Tokyo University of Foreign Studies (http://www.cefr-j.org/, https://github.com/openlanguageprofiles/olp-en-cefrj) | 연구·상업 용도 무료 (출처 표시) |
 | 발음 (IPA) | CMU Pronouncing Dictionary — https://github.com/cmusphinx/cmudict (ARPAbet 을 IPA 로 변환) | BSD 형식 (Carnegie Mellon University) |
 | 한국어 뜻 · 품사 · 예문 · 예문 번역 · 그림 | 이 앱에서 새로 씀 (초안, 검수 전) | 아래 |
 
 - NGSL 상위 700개(the, go, time 같은 아주 기초 단어)는 토익 학습자가 이미 아는 말로 보고 넣지 않았습니다.
 - 레벨: 두 목록 안의 빈도 순위를 각각 5등분해서 450 · 600 · 700 · 800 · 900+ 에 나눴습니다. 레벨 안 단원(Day)은 자주 쓰는 순입니다.
+- 일상·학교 영어: CEFR-J A1(중학 기초) · A2(중학) · B1(고등). 관사·인칭대명사는 뺌. 주제(CEFR-J 주제 표시)가 있는 단어는 주제 단원, 나머지는 NGSL 빈도 순 Day 단원. 토익 코스와 겹치는 단어는 같은 뜻·예문.
 - CMU 사전에 없는 몇 단어(e-book, résumé 등)의 발음은 새로 적었습니다.
 - NGSL · TSL 을 가공한 이 데이터(`toeic-*.ts`)는 **CC BY-SA 4.0** 으로 배포합니다.
 

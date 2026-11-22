@@ -6,7 +6,7 @@ import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, 
 import type { UiLang } from './i18n'
 import { DEMO_PEOPLE } from './data/friends'
 import { TRACKS, findTrack, type Track } from './data/tracks'
-import { COURSE_IDS, isJobTrack, jobTrack, topikTrack, type CourseId } from './data/courses'
+import { COURSE_IDS, JOB_TRACKS, isJobTrack, jobTrack, topikTrack, type CourseId } from './data/courses'
 import { NEWS_ID } from './data/news'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
@@ -494,6 +494,7 @@ export function currentCourse(s: State): CourseId {
 /** 일·알바 코스의 지금 트랙: 고른 것 → 알바 목적이면 식당 → EPS 단어집 */
 export function currentJobTrack(s: State): string {
   if (s.jobTrack && isJobTrack(s.jobTrack)) return s.jobTrack
+  if (!IS_KO) return JOB_TRACKS[0]?.id ?? ''
   return s.purposes.includes('parttime') && !s.purposes.includes('work') ? 'restaurant' : 'eps'
 }
 
