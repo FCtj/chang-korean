@@ -20,7 +20,7 @@ if (!EX || typeof EX !== 'object') fail('EX 없음')
 const HANGUL = /[가-힣]/
 const KANA = /^[぀-ゟ゠-ヿー・\s、。？！「」『』〜～…（）()0-9０-９A-Za-zＡ-Ｚａ-ｚ,.?!%％]+$/
 const JA = /[぀-ヿ一-鿿]/
-const EN_TERM = /^[A-Za-z0-9][A-Za-z0-9\s'’\-.,?!:;/()&$%]*$/
+const EN_TERM = /^[A-Za-z0-9À-ÿ][A-Za-z0-9À-ÿ\s'’\-.,?!:;/()&$%]*$/
 const POS = /^\[(명|동|형|부|전|접|대|감|조)(·(명|동|형|부|전|접|대|감))?\] \S/
 const otherTerms = new Map()
 for (const f of others) if (existsSync(f)) for (const u of (await load(f)).UNITS ?? []) for (const r of [...u.words, ...u.phrases]) otherTerms.set(r[0], f.split('/').pop())
@@ -35,7 +35,8 @@ for (const [ui, u] of (UNITS ?? []).entries()) {
   if (keys.has(u.key)) fail(`${where}: key 중복`)
   keys.add(u.key)
   if (!u.icon) fail(`${where}: icon 없음`)
-  if (!HANGUL.test(u.title ?? '')) fail(`${where}: title 은 한국어`)
+  // 제목: 한국어 주제 이름 또는 출처 목록 순서의 'Day 01'
+  if (!HANGUL.test(u.title ?? '') && !/^Day \d{2,3}$/.test(u.title ?? '')) fail(`${where}: title 은 한국어 또는 'Day 01'`)
   // 단원: 단어 1~25 (출처 목록을 25개씩 나눈 마지막 단원은 적을 수 있음) · 문장 0~5
   if ((u.words ?? []).length < 1 || (u.words ?? []).length > 25) fail(`${where}: 단어 ${(u.words ?? []).length}개 (1~25개)`)
   if ((u.phrases ?? []).length > 5) fail(`${where}: 문장 ${(u.phrases ?? []).length}개 (5개까지)`)

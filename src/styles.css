@@ -7581,3 +7581,34 @@ body {
 :root[data-theme='carbon'] .mock-round.pass {
   background: #10261e;
 }
+
+/* 일본어·영어판 회원가입 화면 */
+.intro-signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+.intro-signup .login-buttons {
+  width: 100%;
+}
+.signup-lead {
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+.signup-points {
+  list-style: none;
+  margin: 4px 0 6px;
+  padding: 14px 16px;
+  width: 100%;
+  border-radius: 16px;
+  background: var(--card, #fff);
+  text-align: left;
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+.signup-legal {
+  font-size: 0.8rem;
+}

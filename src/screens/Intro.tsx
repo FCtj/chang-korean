@@ -2,7 +2,7 @@
 // 표지 → 문제 (문제 번호 · 진행 막대 · 20초 · 몰라요) → 결과 (점수 · 내 수준 · 정답 확인 · 추천 코스)
 // → 환영 선물 → 포인트 교환소 미리보기 → 코스 고르기 (추천 코스 표시)
 // 포인트(맞힌 문제 × 10 + 환영 선물)는 끝까지 마쳤을 때 한 번에 들어감
-import { EDITION, IS_KO, levelLabel, levelName } from '../edition'
+import { ED_INFO, EDITION, IS_KO, levelLabel, levelName } from '../edition'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { PACKS, ROUNDS, translation, type Word } from '../data/words'
@@ -15,6 +15,8 @@ import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 import { backendReady, signInWithFacebook, useAuth } from '../backend'
 import { Elephant, Icon, Pron, shuffle } from '../ui'
 import CoursePicker from './CoursePicker'
+import { LoginButtons } from './SettingsScreen'
+import { SITE_URL } from '../config'
 
 const PER_RIGHT = 10
 const SECONDS = 20
@@ -73,7 +75,7 @@ export default function Intro() {
   const auth = useAuth()
   const { t, tf, ui } = useApp()
   const test = useMemo(makeTest, [])
-  const [stage, setStage] = useState<'cover' | 'test' | 'result' | 'gift' | 'shop' | 'course'>('cover')
+  const [stage, setStage] = useState<'cover' | 'test' | 'result' | 'gift' | 'shop' | 'course' | 'signup'>('cover')
   const [qi, setQi] = useState(0)
   const [picked, setPicked] = useState<Answer | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
@@ -135,6 +137,52 @@ export default function Intro() {
     )
   }
 
+  /** 일본어·영어판 체험 끝: 추천 레벨(단어가 있는 레벨까지)에서 시작 */
+  function finishEd() {
+    const lvls = TOPIK_TRACKS.map((t) => t.units.length > 0)
+    const want = Math.max(1, lv.topik ?? 1)
+    // 추천 레벨에 아직 단어가 없으면 그 아래에서 단어가 있는 가장 가까운 레벨, 그래도 없으면 단어가 있는 첫 레벨
+    let n = want
+    while (n > 1 && !lvls[n - 1]) n--
+    if (!lvls[n - 1]) n = Math.max(1, lvls.indexOf(true) + 1)
+    setCourse('topik', n)
+    finishIntro(earned + WELCOME_POINTS)
+  }
+
+  // ───────── 회원가입 (일본어·영어판) ─────────
+  if (stage === 'signup') {
+    return (
+      <div className="app">
+        <main className="intro intro-signup">
+          <span className="chip chip-butter signup-brand">{ED_INFO.app}</span>
+          <Elephant size={110} acc="crown" mood="happy" className="float" />
+          <h1 className="h1 center">회원가입</h1>
+          <p className="note center signup-lead">
+            카카오 계정으로 간편하게 가입하고
+            <br />
+            학습 기록을 안전하게 저장하세요
+          </p>
+          <ul className="signup-points">
+            <li>☁️ 휴대폰을 바꿔도 이어서 공부해요</li>
+            <li>📈 레벨·단원 진도와 외운 단어가 저장돼요</li>
+            <li>🔒 닉네임과 프로필 사진만 받아요</li>
+          </ul>
+          <LoginButtons big before={() => finishEd()} />
+          <button className="link-btn center" onClick={() => finishEd()}>
+            로그인 없이 시작하기
+          </button>
+          <p className="note center signup-legal">
+            가입하면{' '}
+            <a href={`${SITE_URL}privacy.html`} target="_blank" rel="noreferrer">
+              개인정보처리방침
+            </a>
+            에 동의하게 돼요.
+          </p>
+        </main>
+      </div>
+    )
+  }
+
   // ───────── 표지 ─────────
   if (stage === 'cover') {
     return (
@@ -153,7 +201,7 @@ export default function Intro() {
             ))}
           </ol>
           <p className="note center">{t('testCoverNote')}</p>
-          <button className="btn btn-pink btn-block btn-big" onClick={() => setStage('test')}>
+          <button className="btn btn-pink btn-block btn-big" onClick={() => (!IS_KO && test.length === 0 ? finishEd() : setStage('test'))}>
             ▶ {t('testStart')}
           </button>
         </main>
@@ -288,13 +336,11 @@ export default function Intro() {
           <button
             className="btn btn-pink btn-block btn-big"
             onClick={() => {
-              // 일본어·영어판: 코스가 하나 → 추천 레벨에서 바로 시작
+              // 일본어·영어판: 코스가 하나 → 회원가입(로그인) 화면 → 추천 레벨에서 바로 시작
               if (!IS_KO) {
                 sfx.pop()
-                // 아직 단어가 없는 레벨(예: N2·N1)이면 단어가 있는 가장 높은 레벨로
-                const have = TOPIK_TRACKS.filter((t) => t.units.length).length || 1
-                setCourse('topik', Math.min(lv.topik ?? 1, have))
-                finishIntro(earned + WELCOME_POINTS)
+                if (backendReady && auth.status !== 'in') setStage('signup')
+                else finishEd()
                 return
               }
               setStage(POINTS_ENABLED ? 'gift' : 'course')

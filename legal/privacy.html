@@ -23,6 +23,7 @@
 <table>
 <tr><th>구분</th><th>항목</th><th>언제</th></tr>
 <tr><td>Facebook 로그인 (선택)</td><td>이름, 프로필 사진 주소, Facebook 사용자 ID, Facebook이 제공하는 경우 이메일</td><td>Facebook으로 로그인할 때</td></tr>
+<tr><td>카카오 로그인 (선택)</td><td>닉네임, 프로필 사진 주소, 카카오 회원번호, 카카오가 제공하는 경우 이메일</td><td>카카오로 로그인할 때</td></tr>
 <tr><td>프로필</td><td>나라(라오스·태국·베트남·몽골·레바논·기타)</td><td>로그인 후</td></tr>
 <tr><td>학습 기록</td><td>학습 단계, 외운 단어, 통과한 회차, 시험 점수, 공부한 날, 학습 목적</td><td>로그인 후 자동 동기화</td></tr>
 <tr><td>점수</td><td>점수를 얻은 시각과 점수</td><td>로그인 후 공부할 때</td></tr>
@@ -57,6 +58,7 @@
 <li>Supabase — 데이터베이스와 로그인 서버</li>
 <li>GeoJS — IP 주소로 대략적인 나라·도시 확인 (로그인한 경우 하루 한 번)</li>
 <li>Meta (Facebook 로그인) — 로그인 확인</li>
+<li>카카오 (카카오 로그인) — 로그인 확인</li>
 <li>GitHub Pages — 웹사이트 호스팅 (접속 기록이 남을 수 있음)</li>
 </ul>
 <h3>5. 보관과 삭제</h3>
@@ -77,6 +79,7 @@
 <h3>1. Information we collect</h3>
 <ul>
 <li><b>Facebook Login (optional):</b> name, profile picture URL, Facebook user ID, and email address if Facebook provides it.</li>
+<li><b>Kakao Login (optional):</b> nickname, profile picture URL, Kakao member ID, and email address if Kakao provides it.</li>
 <li><b>Profile:</b> country (Laos, Thailand, Vietnam, Mongolia, Lebanon or Other).</li>
 <li><b>Learning records:</b> study steps, memorized words, passed lessons, exam scores, study days, learning purpose — synced after login.</li>
 <li><b>Points:</b> the time and amount of points earned.</li>
@@ -106,7 +109,7 @@
 <li>Public posts and comments are visible to <b>everyone</b> (including people who are not logged in) with your name, picture and country. Group posts and comments are visible only to that group’s members.</li>
 </ul>
 <h3>4. Service providers</h3>
-<p>GeoJS (approximate country/city from IP address, once a day when logged in), Supabase (database and authentication), Meta (Facebook Login), GitHub Pages (website hosting; access logs may be kept).</p>
+<p>GeoJS (approximate country/city from IP address, once a day when logged in), Supabase (database and authentication), Meta (Facebook Login), Kakao (Kakao Login), GitHub Pages (website hosting; access logs may be kept).</p>
 <h3>5. Retention and deletion</h3>
 <p>We keep your data until you ask us to delete it. You can request deletion at any time by email (see Contact); within 30 days we remove your profile, learning records, points, daily activity summary, gender and language, group posts, reactions and memberships. See <a href="delete-data.html">Data deletion instructions</a>.</p>
 <h3>6. Children</h3>
@@ -125,6 +128,7 @@
 <h3>1. ຂໍ້ມູນທີ່ເກັບ</h3>
 <ul>
 <li><b>ເຂົ້າສູ່ລະບົບດ້ວຍ Facebook (ບໍ່ບັງຄັບ):</b> ຊື່, ທີ່ຢູ່ຮູບໂປຣໄຟລ໌, ID ຜູ້ໃຊ້ Facebook, ອີເມວ (ຖ້າ Facebook ໃຫ້ມາ).</li>
+<li><b>ເຂົ້າສູ່ລະບົບດ້ວຍ Kakao (ບໍ່ບັງຄັບ):</b> ຊື່ຫຼິ້ນ, ທີ່ຢູ່ຮູບໂປຣໄຟລ໌, ເລກສະມາຊິກ Kakao, ອີເມວ (ຖ້າ Kakao ໃຫ້).</li>
 <li><b>ໂປຣໄຟລ໌:</b> ປະເທດ.</li>
 <li><b>ບັນທຶກການຮຽນ:</b> ຂັ້ນຕອນການຮຽນ, ຄຳທີ່ຈື່ໄດ້, ບົດທີ່ຜ່ານ, ຄະແນນສອບເສັງ, ມື້ທີ່ຮຽນ.</li>
 <li><b>ຄະແນນ:</b> ເວລາ ແລະ ຈຳນວນຄະແນນທີ່ໄດ້.</li>
@@ -143,7 +147,7 @@
 <p>ຜູ້ດູແລ: ເພື່ອດຳເນີນການບໍລິການ (ມອບລາງວັນ, ກວດການໃຊ້ທີ່ບໍ່ຖືກຕ້ອງ, ສະຖິຕິ) ຜູ້ດູແລສາມາດເບິ່ງຊື່ສາທາລະນະ, ປະເທດ, ວັນທີສະໝັກ, ຍອດລວມການຮຽນ ແລະ ປະຫວັດຄະແນນຂອງຜູ້ທີ່ເຂົ້າສູ່ລະບົບ.</p>
 <p>ໂພສ ແລະ ຄຳເຫັນສາທາລະນະ <b>ທຸກຄົນ</b>ເຫັນໄດ້ (ລວມທັງຄົນທີ່ບໍ່ເຂົ້າສູ່ລະບົບ) ພ້ອມຊື່, ຮູບ ແລະ ປະເທດ. ໂພສໃນກຸ່ມເຫັນສະເພາະສະມາຊິກກຸ່ມ.</p>
 <h3>4. ຜູ້ໃຫ້ບໍລິການ</h3>
-<p>GeoJS (ປະເທດ/ເມືອງໂດຍປະມານຈາກ IP ມື້ລະເທື່ອເມື່ອເຂົ້າສູ່ລະບົບ), Supabase (ຖານຂໍ້ມູນ ແລະ ການເຂົ້າສູ່ລະບົບ), Meta (Facebook Login), GitHub Pages (ເວັບໄຊ).</p>
+<p>GeoJS (ປະເທດ/ເມືອງໂດຍປະມານຈາກ IP ມື້ລະເທື່ອເມື່ອເຂົ້າສູ່ລະບົບ), Supabase (ຖານຂໍ້ມູນ ແລະ ການເຂົ້າສູ່ລະບົບ), Meta (Facebook Login), Kakao (Kakao Login), GitHub Pages (ເວັບໄຊ).</p>
 <h3>5. ການເກັບຮັກສາ ແລະ ການລຶບ</h3>
 <p>ເກັບໄວ້ຈົນກວ່າເຈົ້າຈະຂໍໃຫ້ລຶບ. ຂໍໃຫ້ລຶບໄດ້ທຸກເວລາທາງອີເມວ (ພາຍໃນ 30 ມື້). ເບິ່ງ <a href="delete-data.html">ວິທີລຶບຂໍ້ມູນ</a>.</p>
 <h3>6. ເດັກນ້ອຍ</h3>
@@ -158,6 +162,7 @@
 <h3>1. ข้อมูลที่เก็บ</h3>
 <ul>
 <li><b>เข้าสู่ระบบด้วย Facebook (ไม่บังคับ):</b> ชื่อ, ที่อยู่รูปโปรไฟล์, Facebook user ID, อีเมล (ถ้า Facebook ให้มา)</li>
+<li><b>เข้าสู่ระบบด้วย Kakao (ไม่บังคับ):</b> ชื่อเล่น, ที่อยู่รูปโปรไฟล์, หมายเลขสมาชิก Kakao, อีเมล (ถ้า Kakao ให้มา)</li>
 <li><b>โปรไฟล์:</b> ประเทศ</li>
 <li><b>บันทึกการเรียน:</b> ขั้นตอนการเรียน, คำที่จำได้, บทที่ผ่าน, คะแนนสอบ, วันที่เรียน</li>
 <li><b>คะแนน:</b> เวลาและจำนวนคะแนนที่ได้</li>
@@ -176,7 +181,7 @@
 <p>ผู้ดูแล: เพื่อดำเนินบริการ (มอบรางวัล ตรวจการใช้งานที่ไม่ถูกต้อง สถิติ) ผู้ดูแลสามารถดูชื่อสาธารณะ ประเทศ วันที่สมัคร ยอดรวมการเรียน และประวัติคะแนนของผู้ที่เข้าสู่ระบบได้</p>
 <p>โพสต์และความคิดเห็นสาธารณะ <b>ทุกคน</b>เห็นได้ (รวมถึงคนที่ไม่ได้เข้าสู่ระบบ) พร้อมชื่อ รูป และประเทศ โพสต์ในกลุ่มเห็นเฉพาะสมาชิกกลุ่ม</p>
 <h3>4. ผู้ให้บริการ</h3>
-<p>GeoJS (ประเทศ/เมืองโดยประมาณจาก IP วันละครั้งเมื่อเข้าสู่ระบบ), Supabase (ฐานข้อมูลและการเข้าสู่ระบบ), Meta (Facebook Login), GitHub Pages (เว็บไซต์)</p>
+<p>GeoJS (ประเทศ/เมืองโดยประมาณจาก IP วันละครั้งเมื่อเข้าสู่ระบบ), Supabase (ฐานข้อมูลและการเข้าสู่ระบบ), Meta (Facebook Login), Kakao (Kakao Login), GitHub Pages (เว็บไซต์)</p>
 <h3>5. การเก็บรักษาและการลบ</h3>
 <p>เก็บไว้จนกว่าคุณจะขอให้ลบ ขอให้ลบได้ทุกเมื่อทางอีเมล (ภายใน 30 วัน) ดู <a href="delete-data.html">วิธีลบข้อมูล</a></p>
 <h3>6. เด็ก</h3>
@@ -191,6 +196,7 @@
 <h3>1. Thông tin thu thập</h3>
 <ul>
 <li><b>Đăng nhập Facebook (tùy chọn):</b> tên, địa chỉ ảnh đại diện, Facebook user ID, email (nếu Facebook cung cấp).</li>
+<li><b>Đăng nhập Kakao (tùy chọn):</b> biệt danh, địa chỉ ảnh đại diện, mã thành viên Kakao, email (nếu Kakao cung cấp).</li>
 <li><b>Hồ sơ:</b> quốc gia.</li>
 <li><b>Dữ liệu học:</b> tiến độ, từ đã nhớ, bài đã đạt, điểm thi, ngày học.</li>
 <li><b>Điểm:</b> thời gian và số điểm nhận được.</li>
@@ -209,7 +215,7 @@
 <p>Người vận hành: để vận hành dịch vụ (trao thưởng, kiểm tra gian lận, thống kê), người vận hành có thể xem tên công khai, quốc gia, ngày đăng ký, tổng thời gian học và lịch sử điểm của người dùng đã đăng nhập.</p>
 <p>Bài viết và bình luận công khai <b>mọi người</b> đều xem được (kể cả người chưa đăng nhập) cùng tên, ảnh và quốc gia. Bài trong nhóm chỉ thành viên nhóm thấy.</p>
 <h3>4. Nhà cung cấp dịch vụ</h3>
-<p>GeoJS (quốc gia/thành phố gần đúng từ IP, mỗi ngày một lần khi đăng nhập), Supabase (cơ sở dữ liệu và đăng nhập), Meta (Facebook Login), GitHub Pages (trang web).</p>
+<p>GeoJS (quốc gia/thành phố gần đúng từ IP, mỗi ngày một lần khi đăng nhập), Supabase (cơ sở dữ liệu và đăng nhập), Meta (Facebook Login), Kakao (Kakao Login), GitHub Pages (trang web).</p>
 <h3>5. Lưu trữ và xóa</h3>
 <p>Lưu đến khi bạn yêu cầu xóa. Bạn có thể yêu cầu xóa bất cứ lúc nào qua email (trong vòng 30 ngày). Xem <a href="delete-data.html">Hướng dẫn xóa dữ liệu</a>.</p>
 <h3>6. Trẻ em</h3>
@@ -224,6 +230,7 @@
 <h3>1. Бидний цуглуулах мэдээлэл</h3>
 <ul>
 <li><b>Facebook-ээр нэвтрэх (заавал биш):</b> нэр, профайл зургийн холбоос (URL), Facebook хэрэглэгчийн ID, мөн Facebook өгсөн тохиолдолд имэйл хаяг.</li>
+<li><b>Kakao-аар нэвтрэх (заавал биш):</b> хоч нэр, профайл зургийн холбоос (URL), Kakao гишүүний дугаар, Kakao өгсөн бол имэйл хаяг.</li>
 <li><b>Профайл:</b> улс (Лаос, Тайланд, Вьетнам, Монгол, Ливан эсвэл бусад).</li>
 <li><b>Сурсан түүх:</b> сурах шат, цээжилсэн үг, тэнцсэн хичээл, шалгалтын оноо, хичээллэсэн өдрүүд, сурах зорилго — нэвтэрсний дараа синхрончлогдоно.</li>
 <li><b>Оноо:</b> оноо авсан цаг болон онооны хэмжээ.</li>
@@ -253,7 +260,7 @@
 <li>Нийтийн нийтлэл, сэтгэгдлийг таны нэр, зураг, улсын хамт <b>хэн ч</b> (нэвтрээгүй хүн ч) харж болно. Бүлгийн нийтлэлийг зөвхөн тухайн бүлгийн гишүүд харна.</li>
 </ul>
 <h3>4. Үйлчилгээ үзүүлэгчид</h3>
-<p>GeoJS (IP-аас ойролцоо улс/хот, нэвтэрсэн үед өдөрт нэг удаа), Supabase (өгөгдлийн сан ба нэвтрэлт), Meta (Facebook Login), GitHub Pages (вэбсайтын хостинг; хандалтын бүртгэл хадгалагдаж болно).</p>
+<p>GeoJS (IP-аас ойролцоо улс/хот, нэвтэрсэн үед өдөрт нэг удаа), Supabase (өгөгдлийн сан ба нэвтрэлт), Meta (Facebook Login), Kakao (Kakao Login), GitHub Pages (вэбсайтын хостинг; хандалтын бүртгэл хадгалагдаж болно).</p>
 <h3>5. Хадгалах хугацаа ба устгах</h3>
 <p>Таныг устгуулах хүсэлт гаргах хүртэл бид мэдээллийг хадгална. Та хүссэн үедээ имэйлээр устгах хүсэлт гаргаж болно; 30 хоногийн дотор таны профайл, сурсан түүх, оноо, өдөр тутмын идэвхийн хураангуй, хүйс ба хэл, бүлгийн нийтлэл, хариу үйлдэл болон бүлгийн гишүүнчлэл устгагдана. Дэлгэрэнгүй: <a href="delete-data.html">Мэдээлэл устгах заавар</a>.</p>
 <h3>6. Хүүхэд</h3>
@@ -272,6 +279,7 @@
 <h3>1. المعلومات التي نجمعها</h3>
 <ul>
 <li><b>تسجيل الدخول عبر Facebook (اختياري):</b> الاسم، ورابط صورة الملف الشخصي، ومعرّف المستخدم على Facebook، وعنوان البريد الإلكتروني إذا وفّره Facebook.</li>
+<li><b>تسجيل الدخول عبر Kakao (اختياري):</b> الاسم المستعار، ورابط صورة الملف الشخصي، ورقم عضوية Kakao، والبريد الإلكتروني إذا وفّره Kakao.</li>
 <li><b>الملف الشخصي:</b> البلد (لاوس أو تايلاند أو فيتنام أو منغوليا أو لبنان أو غير ذلك).</li>
 <li><b>سجلات التعلم:</b> مراحل الدراسة، والكلمات التي حفظتها، والدروس التي اجتزتها، ودرجات الاختبارات، وأيام الدراسة، والغرض من التعلم — وتُزامَن بعد تسجيل الدخول.</li>
 <li><b>النقاط:</b> وقت كسب النقاط وعددها.</li>
@@ -301,7 +309,7 @@
 <li>المنشورات والتعليقات العامة يراها <b>الجميع</b> (حتى غير المسجّلين) مع اسمك وصورتك وبلدك. منشورات المجموعات لا يراها إلا أعضاؤها.</li>
 </ul>
 <h3>4. مزودو الخدمات</h3>
-<p>GeoJS (البلد/المدينة التقريبية من عنوان IP، مرة يوميًا عند تسجيل الدخول)، Supabase (قاعدة البيانات والمصادقة)، وMeta (تسجيل الدخول عبر Facebook)، وGitHub Pages (استضافة الموقع الإلكتروني؛ وقد يُحتفظ بسجلات الوصول).</p>
+<p>GeoJS (البلد/المدينة التقريبية من عنوان IP، مرة يوميًا عند تسجيل الدخول)، Supabase (قاعدة البيانات والمصادقة)، وMeta (تسجيل الدخول عبر Facebook)، وKakao (تسجيل الدخول عبر Kakao)، وGitHub Pages (استضافة الموقع الإلكتروني؛ وقد يُحتفظ بسجلات الوصول).</p>
 <h3>5. الاحتفاظ بالبيانات وحذفها</h3>
 <p>نحتفظ ببياناتك إلى أن تطلب حذفها. ويمكنك طلب الحذف في أي وقت عبر البريد الإلكتروني؛ وخلال 30 يومًا نحذف ملفك الشخصي، وسجلات التعلم، والنقاط، وملخص النشاط اليومي، والجنس واللغة، ومنشوراتك في المجموعات، وتفاعلاتك، وعضويتك في المجموعات. راجع <a href="delete-data.html">تعليمات حذف البيانات</a>.</p>
 <h3>6. الأطفال</h3>
