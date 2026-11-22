@@ -10,7 +10,7 @@ import CoursePicker from './CoursePicker'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 import { backendReady, signInWithFacebook, useAuth } from '../backend'
-import { Elephant, pastel } from '../ui'
+import { Elephant, pastel, Pron } from '../ui'
 
 const SAMPLE = ['안녕하세요', '감사합니다', '사랑해요']
 const PER_CARD = 10
@@ -159,7 +159,7 @@ export default function Intro() {
                     <span className="flash-emoji">{w.emoji}</span>
                   </span>
                   <span className="card-word ko">{w.ko}</span>
-                  <span className="rom-pill">{w.rom}</span>
+                  <Pron ko={w.ko} />
                 </span>
                 <span className={`fcard-face back c-${pastel(i)}`}>
                   <span className="back-top">
@@ -170,7 +170,7 @@ export default function Intro() {
                   </span>
                   <span className="back-divider" aria-hidden="true" />
                   <span className="back-a lo">{translation(w)}</span>
-                  <span className="rom-pill">{w.rom}</span>
+                  <Pron ko={w.ko} />
                 </span>
               </span>
             </button>

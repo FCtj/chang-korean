@@ -30,7 +30,7 @@ import {
 } from '../store'
 import { burstFrom, fireworks, floatFrom, fxColors, sparkleRain } from '../fx'
 import { sfx, speakWord, stopSpeaking } from '../audio'
-import { Elephant, Icon, Segmented, Stepper, Toggle, TopBar, pastel, shuffle } from '../ui'
+import { Elephant, Icon, Segmented, Stepper, Toggle, TopBar, pastel, shuffle, Pron } from '../ui'
 
 const orderOf = (words: Word[]) => (getState().settings.order === 'random' ? shuffle(words) : words)
 function chunkBy<T>(arr: T[], n: number): T[][] {
@@ -382,7 +382,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   {koFirst ? (
                     <>
                       <span className="card-word ko">{word.ko}</span>
-                      <span className="rom-pill">{word.rom}</span>
+                      <Pron ko={word.ko} />
                     </>
                   ) : (
                     <span className="card-word lo">{translation(word)}</span>
@@ -396,7 +396,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   </span>
                   <span className="back-divider" aria-hidden="true" />
                   <span className={koFirst ? 'back-a lo' : 'back-a ko'}>{koFirst ? translation(word) : word.ko}</span>
-                  <span className="rom-pill">{word.rom}</span>
+                  <Pron ko={word.ko} />
                 </span>
               </span>
             </button>

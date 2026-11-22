@@ -14,7 +14,7 @@ import { awardPractice, completeSession, getState, recordAnswer, recordExam, rec
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { useStudyClock } from '../activity'
 import WordHelp from './WordHelp'
-import { Elephant, Icon, ProgressBar, TopBar, shuffle } from '../ui'
+import { Elephant, Icon, ProgressBar, TopBar, shuffle, Pron } from '../ui'
 import { Confetti } from './Player'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 
@@ -217,7 +217,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
           {showKoPrompt && (
             <>
               <div className="prompt-word ko">{q.word.ko}</div>
-              <div className="rom-pill">{q.word.rom}</div>
+              <Pron ko={q.word.ko} block />
             </>
           )}
           {showNativePrompt && (
@@ -268,7 +268,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
             <div className="feedback-word">
               <span className="feedback-emoji" aria-hidden="true">{q.word.emoji}</span>
               <span className="feedback-text">
-                <span className="ko">{q.word.ko}</span> <span className="rom-pill sm">{q.word.rom}</span>
+                <span className="ko">{q.word.ko}</span> <Pron ko={q.word.ko} sm />
                 <br />
                 <span className="lo">{translation(q.word)}</span>
               </span>

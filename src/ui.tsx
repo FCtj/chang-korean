@@ -2,6 +2,8 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode 
 import { useApp } from './ctx'
 import { useStore } from './store'
 import { mascotOf, type MascotKind } from './mascot'
+import { localPron } from './pron'
+import type { Native } from './data/words'
 
 type IconName = 'users' | 'back' | 'play' | 'pause' | 'prev' | 'next' | 'speaker' | 'lock' | 'check' | 'gear' | 'gift' | 'minus' | 'plus' | 'home' | 'repeat' | 'skip' | 'heart' | 'trophy'
 
@@ -392,6 +394,15 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
       )}
     </svg>
   )
+}
+
+/** 한국어 발음을 학습자 글자로 (라오·태국·베트남식·몽골 키릴) — 영어 로마자 대신 */
+export function Pron({ ko, sm, block, lang }: { ko: string; sm?: boolean; block?: boolean; lang?: Native }) {
+  const native = useStore().native
+  const n = lang ?? native
+  const cls = `rom-pill${sm ? ' sm' : ''} nf-${n}`
+  const text = localPron(ko, n)
+  return block ? <div className={cls}>{text}</div> : <span className={cls}>{text}</span>
 }
 
 /** 버튼 끝 장식: 분홍 테마는 ♥, 블랙 테마는 → */

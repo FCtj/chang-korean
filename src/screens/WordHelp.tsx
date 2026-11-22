@@ -2,9 +2,10 @@
 import { useApp } from '../ctx'
 import { translation, type Word } from '../data/words'
 import { useExample } from '../examples'
+import { localPron } from '../pron'
 import { useStore } from '../store'
 import { speakText, speakWord } from '../audio'
-import { Icon } from '../ui'
+import { Icon, Pron } from '../ui'
 
 /** 예문에서 단어(동사·형용사는 '-다' 를 뗀 줄기)를 굵게 */
 function highlight(sentence: string, ko: string) {
@@ -35,7 +36,7 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
           </span>
           <div className="wh-word">
             <span className="wh-ko ko">{word.ko}</span>
-            <span className="rom-pill sm">{word.rom}</span>
+            <Pron ko={word.ko} sm />
           </div>
           <button className="round-btn sm" onClick={() => speakWord(word)} aria-label={t('speak')}>
             <Icon name="speaker" size={18} />
@@ -56,7 +57,7 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
                     <Icon name="speaker" size={16} />
                   </button>
                 </div>
-                <span className="wh-ex-rom">{entry.rom}</span>
+                <span className={`wh-ex-rom nf-${n}`}>{localPron(entry.ex, n)}</span>
                 <p className={`wh-ex-tr nf-${n}`}>{n === 'mn' ? entry.mn ?? mn?.mn ?? '' : entry[n]}</p>
               </>
             ) : (

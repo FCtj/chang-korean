@@ -7,7 +7,7 @@ import { NATIVE_INFO } from '../i18n'
 import { TIERS, PACKS, type Native, type Round } from '../data/words'
 import { TRACKS } from '../data/tracks'
 import { useStore } from '../store'
-import { Segmented, TopBar } from '../ui'
+import { Segmented, TopBar, Pron } from '../ui'
 import { sfx } from '../audio'
 
 type Verdict = 'ok' | 'fix'
@@ -141,7 +141,7 @@ export default function ReviewScreen() {
               {w.emoji}
             </span>
             <span className="review-ko ko">{w.ko}</span>
-            <span className="rom-pill">{w.rom}</span>
+            <Pron ko={w.ko} lang={lang} />
             <span className="review-label">{t('reviewCurrent')}</span>
             <span className={`review-tr nf-${lang}`}>{w[lang]}</span>
             {editing ? (

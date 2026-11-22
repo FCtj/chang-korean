@@ -7,7 +7,7 @@ import { makeT, type UiLang } from '../i18n'
 import { tierName } from '../mascot'
 import { applyPlacement } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
-import { Elephant, Icon, TIER_ACC, shuffle, useHeart, useMascot } from '../ui'
+import { Elephant, Icon, TIER_ACC, shuffle, useHeart, useMascot, Pron } from '../ui'
 import { Confetti } from './Player'
 
 const PER = 6 // 단계마다 문제 수
@@ -232,7 +232,7 @@ export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mo
         <section className="prompt">
           <div className="prompt-ask">{t('testQ')}</div>
           <div className="prompt-word ko">{q.word.ko}</div>
-          <div className="rom-pill">{q.word.rom}</div>
+          <Pron ko={q.word.ko} block />
           <button className="round-btn sm" onClick={() => speakWord(q.word)} aria-label={t('speak')}>
             <Icon name="speaker" />
           </button>
