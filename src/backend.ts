@@ -387,6 +387,7 @@ export const COUNTRIES: { code: string; flag: string; ko: string; lo: string; th
   { code: 'LA', flag: '🇱🇦', ko: '라오스', lo: 'ລາວ', th: 'ลาว', vi: 'Lào' },
   { code: 'TH', flag: '🇹🇭', ko: '태국', lo: 'ໄທ', th: 'ไทย', vi: 'Thái Lan' },
   { code: 'VN', flag: '🇻🇳', ko: '베트남', lo: 'ຫວຽດນາມ', th: 'เวียดนาม', vi: 'Việt Nam' },
+  { code: 'MN', flag: '🇲🇳', ko: '몽골', lo: 'ມົງໂກລີ', th: 'มองโกเลีย', vi: 'Mông Cổ' },
   { code: 'ZZ', flag: '🌏', ko: '기타', lo: 'ອື່ນໆ', th: 'อื่น ๆ', vi: 'Khác' },
 ]
 export const countryOf = (code: string) => COUNTRIES.find((c) => c.code === code) ?? COUNTRIES[COUNTRIES.length - 1]

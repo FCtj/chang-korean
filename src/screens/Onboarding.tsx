@@ -102,7 +102,7 @@ export default function Onboarding() {
               }}
             />
           </div>
-          {!SIMPLE_MODE && <div className="field">
+          <div className="field">
             <span className="label">{t('country')}</span>
             <div className="country-chips" role="radiogroup" aria-label={t('country')}>
               {COUNTRIES.map((c) => (
@@ -120,7 +120,7 @@ export default function Onboarding() {
                 </button>
               ))}
             </div>
-          </div>}
+          </div>
           {loggedIn ? (
             <div className="me-hello">
               <Avatar src={auth.me!.avatar} name={auth.me!.name} size={48} />

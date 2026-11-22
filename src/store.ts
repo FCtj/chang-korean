@@ -183,8 +183,8 @@ function load(): State {
       // 코스·TOPIK 급은 아는 값만
       if (merged.course !== null && !COURSE_IDS.includes(merged.course)) merged.course = null
       if (!(merged.topikLevel >= 1 && merged.topikLevel <= 6)) merged.topikLevel = 1
-      // 나라는 라오스 · 태국 · 베트남 · 기타만
-      if (!['LA', 'TH', 'VN', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
+      // 나라는 라오스 · 태국 · 베트남 · 몽골 · 기타만
+      if (!['LA', 'TH', 'VN', 'MN', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로
       if (!parsed.native || !NATIVES.includes(parsed.native)) merged.native = 'lo'
       // v2 → v3: 예전 기본값(같은 5개를 3번 반복)은 '순서대로 계속'으로 바꿈

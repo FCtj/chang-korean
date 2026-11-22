@@ -6,6 +6,7 @@ import { learningRecord, useStore } from '../store'
 import { TIERS, findRound } from '../data/words'
 import { sfx } from '../audio'
 import { burstFrom } from '../fx'
+import { mascotOf, tierName } from '../mascot'
 import { Avatar, Segmented } from '../ui'
 import {
   GROUP_EMOJIS,
@@ -161,7 +162,7 @@ function RecordCard() {
           <span className="record-label">CHANG KOREAN · RECORD</span>
           <span className="record-name">{auth.me?.name ?? s.nickname}</span>
           <span className="record-tier">
-            {tierBadge(tier?.badge, s.theme)} {tf('tierN', r.tier)} · {tier?.name[ui]} · {tf('roundsPassedN', r.rounds)}
+            {tierBadge(tier?.badge, s.theme)} {tf('tierN', r.tier)} · {tierName(tier, mascotOf(s.country))?.[ui]} · {tf('roundsPassedN', r.rounds)}
           </span>
         </div>
       </div>
@@ -399,7 +400,7 @@ function RankLine({ m, i }: { m: Member; i: number }) {
 /** 자랑 문장: 데이터로 만들어서 보는 사람의 언어로 보여 줌 */
 export function useDescribe() {
   const { tf, ui } = useApp()
-  const theme = useStore().theme
+  const { theme, country } = useStore()
   return (d: BragData): { icon: string; text: string } | null => {
     switch (d.type) {
       case 'words':
@@ -410,7 +411,7 @@ export function useDescribe() {
         return { icon: '⭐', text: tf('bragPoints', d.n ?? 0) }
       case 'tier': {
         const tr = TIERS.find((x) => x.no === d.n)
-        return { icon: tierBadge(tr?.badge, theme) ?? '🏅', text: `${tf('bragTier', d.n ?? 1)}${tr ? ` ${tr.name[ui]}` : ''}` }
+        return { icon: tierBadge(tr?.badge, theme) ?? '🏅', text: `${tf('bragTier', d.n ?? 1)}${tr ? ` ${tierName(tr, mascotOf(country))![ui]}` : ''}` }
       }
       case 'step': {
         const r = d.unit ? findRound(d.unit) : undefined

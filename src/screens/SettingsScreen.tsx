@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { MASCOT_EMOJI, mascotOf } from '../mascot'
 import { Capacitor } from '@capacitor/core'
 import type { Lang, Purpose } from '../data/words'
 import { NATIVE_INFO, makeT, nativeInfo } from '../i18n'
@@ -49,7 +50,7 @@ export default function SettingsScreen() {
       </section>
 
       <section className="panel form">
-        <h2 className="h3">🐘 {t('account')}</h2>
+        <h2 className="h3">{MASCOT_EMOJI[mascotOf(s.country)]} {t('account')}</h2>
         {backendReady &&
           (auth.status === 'in' && auth.me ? (
             <div className="account-row">

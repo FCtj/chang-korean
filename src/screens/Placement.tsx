@@ -4,9 +4,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ROUNDS, TIERS, translation, type Word } from '../data/words'
 import { makeT, type UiLang } from '../i18n'
+import { tierName } from '../mascot'
 import { applyPlacement } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
-import { Elephant, Icon, TIER_ACC, shuffle, useHeart } from '../ui'
+import { Elephant, Icon, TIER_ACC, shuffle, useHeart, useMascot } from '../ui'
 import { Confetti } from './Player'
 
 const PER = 6 // 단계마다 문제 수
@@ -45,6 +46,7 @@ const placedIndex = (passedStages: number) =>
 
 export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mode: 'first' | 'retake'; onDone: () => void; onBack?: () => void }) {
   const { t, tf } = useMemo(() => makeT(ui), [ui])
+  const mascot = useMascot()
   const heart = useHeart()
   const [phase, setPhase] = useState<'intro' | 'test' | 'result'>('intro')
   const [stage, setStage] = useState(0)
@@ -129,7 +131,7 @@ export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mo
               <li key={tr.no}>
                 <Elephant size={34} acc={TIER_ACC[tr.no - 1]} />
                 <span className="ll-name">
-                  {tf('tierN', tr.no)} · {tr.name[ui]}
+                  {tf('tierN', tr.no)} · {tierName(tr, mascot)![ui]}
                 </span>
                 <span className="chip tiny">{tr.level[ui]}</span>
               </li>
@@ -168,7 +170,7 @@ export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mo
             <div className="eyebrow">{t('levelResult')}</div>
             <Elephant size={130} acc={TIER_ACC[tier.no - 1]} mood="happy" className="bounce" />
             <div className="level-tier">
-              {tf('tierN', tier.no)} · {tier.name[ui]}
+              {tf('tierN', tier.no)} · {tierName(tier, mascot)![ui]}
             </div>
             <span className="chip chip-pink">{tier.level[ui]}</span>
             <p className="level-from">{all ? t('allKnown') : passedStages === 0 ? t('fromStart') : tf('placedFrom', startRound.no)}</p>
@@ -179,7 +181,7 @@ export default function Placement({ ui, mode, onDone, onBack }: { ui: UiLang; mo
               <li key={tr.no} className={i < passedStages ? 'done' : i === passedStages ? 'here' : ''}>
                 <span className="level-map-no num">{i < passedStages ? '✓' : tr.no}</span>
                 <span className="level-map-title">
-                  {tf('tierN', tr.no)} · {tr.name[ui]} <span className="muted">({tr.level[ui]})</span>
+                  {tf('tierN', tr.no)} · {tierName(tr, mascot)![ui]} <span className="muted">({tr.level[ui]})</span>
                 </span>
                 {i === passedStages && <span className="chip chip-pink tiny">START</span>}
               </li>

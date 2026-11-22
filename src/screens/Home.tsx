@@ -12,6 +12,7 @@ import { SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
 import { CourseSheet, OtherCourses, courseProgress } from './CoursePicker'
 import { RewardTicker } from './RecentRewards'
+import { MASCOT_EMOJI, mascotOf, tierName } from '../mascot'
 
 export default function Home() {
   const s = useStore()
@@ -20,6 +21,7 @@ export default function Home() {
   const tier = TIERS.find((x) => x.no === tierNo)!
   const cur = nextUnit(s)
   const course = currentCourse(s)
+  const mascot = mascotOf(s.country)
   const [sheet, setSheet] = useState(false)
   const stampedToday = s.stamps.includes(todayKey())
   const cardStamps = s.stamps.length % STAMPS_PER_TICKET
@@ -40,7 +42,7 @@ export default function Home() {
         <div className="home-head-text">
           <div className="home-hi">{tf('hi', s.nickname)}</div>
           <div className="tier-tag">
-            {tf('tierN', tier.no)} · {tier.name[ui]}
+            {tf('tierN', tier.no)} · {tierName(tier, mascot)![ui]}
           </div>
         </div>
         <div className="pills">
@@ -163,7 +165,7 @@ function CourseHead({ onChange }: { onChange: () => void }) {
   return (
     <section className="course-head">
       <span className="course-head-icon" aria-hidden="true">
-        {c.icon}
+        {id === 'basic' ? MASCOT_EMOJI[mascotOf(s.country)] : c.icon}
       </span>
       <span className="course-head-body">
         <span className="course-head-label">{t('myCourse')}</span>
@@ -259,7 +261,7 @@ function BasicBody() {
                 <div className="tier-head-text">
                   <div className="tier-no">{tf('tierN', tr.no)}</div>
                   <h2 className="tier-name">
-                    {tr.name[ui]} <span className="chip tiny tier-level">{tr.level[ui]}</span>
+                    {tierName(tr, mascotOf(s.country))![ui]} <span className="chip tiny tier-level">{tr.level[ui]}</span>
                   </h2>
                 </div>
                 {done ? (

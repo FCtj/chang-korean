@@ -4,6 +4,7 @@ import { COURSES, courseTracks, type CourseId } from '../data/courses'
 import { PACKS, ROUNDS, type Round } from '../data/words'
 import { currentCourse, setCourse, stepsDone, useStore, type State } from '../store'
 import { sfx } from '../audio'
+import { MASCOT_EMOJI, mascotOf } from '../mascot'
 
 /** 코스 진행: 끝낸 단원 / 전체 단원 */
 export function courseProgress(s: State, id: CourseId): { done: number; total: number } {
@@ -24,7 +25,7 @@ export default function CoursePicker({ current, onPick }: { current: CourseId | 
           <button key={c.id} role="listitem" className={on ? 'course-card on' : 'course-card'} aria-current={on || undefined} onClick={() => onPick(c.id)}>
             {on && <span className="pack-badge">{t('nowStudying')}</span>}
             <span className="course-icon" aria-hidden="true">
-              {c.icon}
+              {c.id === 'basic' ? MASCOT_EMOJI[mascotOf(s.country)] : c.icon}
             </span>
             <span className="course-body">
               <span className="course-title">{c.title[ui]}</span>
@@ -84,7 +85,7 @@ export function OtherCourses() {
               }}
             >
               <span className="other-icon" aria-hidden="true">
-                {c.icon}
+                {c.id === 'basic' ? MASCOT_EMOJI[mascotOf(s.country)] : c.icon}
               </span>
               <span className="other-title">{c.title[ui]}</span>
               <span className="pack-bar" aria-hidden="true">
