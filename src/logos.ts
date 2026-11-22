@@ -1,23 +1,40 @@
 // 판별 로고 마크 (120×120 SVG) — 앱 안 회원가입 화면 · 브라우저 탭 아이콘 · 홈 화면 아이콘(PNG)에 씀
 // 글꼴에 기대지 않게 글자도 선으로 그림 (어느 기기에서나 같은 모양)
-//   ja: 분홍 코끼리 + 붉은 해 + 벚꽃  ·  en: 남색 바탕 + 분홍 코끼리 + 말풍선 "Hi!"
+//   ja: 시바견 + 붉은 해 + 벚꽃  ·  en: 남색 바탕 + 흰머리수리 + 말풍선 "Hi!"
 import type { Edition } from './edition'
 
 const INK = '#5B4366'
 
-/** 코끼리 얼굴 (마스코트와 같은 모양, 웃는 눈) */
-const elephant = (y = 0) => `
-  <g transform="translate(0 ${y})">
-    <ellipse cx="23" cy="58" rx="22" ry="27" fill="#FFB9D0"/>
-    <ellipse cx="97" cy="58" rx="22" ry="27" fill="#FFB9D0"/>
-    <ellipse cx="25" cy="60" rx="13" ry="17" fill="#FF9DBE" opacity="0.6"/>
-    <ellipse cx="95" cy="60" rx="13" ry="17" fill="#FF9DBE" opacity="0.6"/>
-    <ellipse cx="60" cy="60" rx="34" ry="32" fill="#FFB9D0"/>
-    <path d="M60 74 C58 88 62 98 72 99 C78 99.5 81 95 79 91" fill="none" stroke="#FFB9D0" stroke-width="13" stroke-linecap="round"/>
-    <path d="M55 85 q5 2.5 10 0 M57 92 q4.5 2.5 9 0" fill="none" stroke="#F590B3" stroke-width="1.8" stroke-linecap="round"/>
-    <path d="M41 57 q6 -7 12 0 M67 57 q6 -7 12 0" fill="none" stroke="${INK}" stroke-width="3.6" stroke-linecap="round"/>
-    <ellipse cx="37" cy="68" rx="6.5" ry="4" fill="#FF7FA8" opacity="0.5"/>
-    <ellipse cx="83" cy="68" rx="6.5" ry="4" fill="#FF7FA8" opacity="0.5"/>
+const EYES = `<path d="M41 57 q6 -7 12 0 M67 57 q6 -7 12 0" fill="none" stroke="${INK}" stroke-width="3.6" stroke-linecap="round"/>
+    <ellipse cx="36" cy="67" rx="6.5" ry="4" fill="#FF7FA8" opacity="0.45"/>
+    <ellipse cx="84" cy="67" rx="6.5" ry="4" fill="#FF7FA8" opacity="0.45"/>`
+
+/** 일본어판 마스코트: 시바견 (앱 안 마스코트 ui.tsx ShibaHead 와 같은 모양) */
+const shiba = () => `
+  <g>
+    <path d="M28 48 Q26 22 34 12 Q48 20 56 34 Z" fill="#F4A65D"/>
+    <path d="M92 48 Q94 22 86 12 Q72 20 64 34 Z" fill="#F4A65D"/>
+    <path d="M33 40 Q32 26 36 20 Q44 25 49 34 Z" fill="#FFD9B8"/>
+    <path d="M87 40 Q88 26 84 20 Q76 25 71 34 Z" fill="#FFD9B8"/>
+    <ellipse cx="60" cy="62" rx="37" ry="33" fill="#F4A65D"/>
+    <path d="M24 66 Q26 94 60 96 Q94 94 96 66 Q88 76 75 73 Q66 71 60 78 Q54 71 45 73 Q32 76 24 66 Z" fill="#FFF4E4"/>
+    <ellipse cx="45" cy="45" rx="4.2" ry="2.8" fill="#FFF4E4"/>
+    <ellipse cx="75" cy="45" rx="4.2" ry="2.8" fill="#FFF4E4"/>
+    <ellipse cx="60" cy="75" rx="5" ry="3.6" fill="${INK}"/>
+    <path d="M60 78.5 v3 M60 81.5 q-4 4 -8 1 M60 81.5 q4 4 8 1" fill="none" stroke="${INK}" stroke-width="2" stroke-linecap="round"/>
+    ${EYES}
+  </g>`
+
+/** 영어판 마스코트: 흰머리수리 (ui.tsx EagleHead 와 같은 모양) */
+const eagle = () => `
+  <g>
+    <path d="M10 114 Q14 84 40 84 L60 92 L80 84 Q106 84 110 114 Z" fill="#8C5A3A"/>
+    <path d="M40 34 L46 20 L52 31 L60 16 L68 31 L74 20 L80 34 Z" fill="#FFFFFF" stroke="#E7DCE4" stroke-width="2" stroke-linejoin="round"/>
+    <ellipse cx="60" cy="60" rx="35" ry="33" fill="#FFFFFF" stroke="#E7DCE4" stroke-width="2"/>
+    <path d="M36 86 L42 94 L48 88 L54 96 L60 89 L66 96 L72 88 L78 94 L84 86" fill="#FFFFFF" stroke="#E7DCE4" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M49 69 Q60 62 71 69 Q72 79 62 86 Q61 80 58 78 Q51 76 49 69 Z" fill="#FFC93C" stroke="#E7A51A" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M53 71 q7 -3 14 0" fill="none" stroke="#E7A51A" stroke-width="1.6" stroke-linecap="round"/>
+    ${EYES}
   </g>`
 
 /** 벚꽃 한 송이 (꽃잎 5장) */
@@ -33,7 +50,7 @@ const JA = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   ${sakura(16, 18, 8, 10, '#FFD3E1', '#FF8FB3')}
   ${sakura(104, 104, 7, -20, '#FFD3E1', '#FF8FB3')}
   ${sakura(102, 20, 5, 30, '#FFD3E1', '#FF8FB3')}
-  <g transform="translate(6 8) scale(0.9)">${elephant()}</g>
+  <g transform="translate(9 10) scale(0.85)">${shiba()}</g>
   ${sakura(90, 30, 11, 18, '#FFE3EC', '#FF4F8B')}
 </svg>`
 
@@ -43,7 +60,7 @@ const EN = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <circle cx="18" cy="100" r="3" fill="#FFFFFF" opacity="0.35"/>
   <circle cx="104" cy="98" r="2.2" fill="#FFFFFF" opacity="0.35"/>
   <circle cx="12" cy="30" r="2" fill="#FFFFFF" opacity="0.35"/>
-  <g transform="translate(4 16) scale(0.86)">${elephant()}</g>
+  <g transform="translate(6 14) scale(0.86)">${eagle()}</g>
   <g transform="translate(80 22)">
     <path d="M-24 -14 H24 a8 8 0 0 1 8 8 V10 a8 8 0 0 1 -8 8 H-4 L-13 26 V18 H-24 a8 8 0 0 1 -8 -8 V-6 a8 8 0 0 1 8 -8 Z" fill="#FFD84D" stroke="#1F2F7A" stroke-width="2.4" stroke-linejoin="round"/>
     <path d="M-17 -6 V10 M-17 2 H-7 M-7 -6 V10 M2 0 V10 M12 -6 V5" fill="none" stroke="#1F2F7A" stroke-width="3.6" stroke-linecap="round"/>

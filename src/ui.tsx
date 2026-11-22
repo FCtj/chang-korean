@@ -113,13 +113,14 @@ export function Elephant({
 }) {
   const s = useStore()
   const k = kind ?? mascotOf(s.country)
-  if (s.theme === 'carbon') return <CarbonMascot kind={k} size={size} acc={acc} mood={mood} dim={tone === 'grey'} className={className} style={style} />
+  // 시바견·흰머리수리는 블랙 테마에서도 원래 색 그대로 (어두운 바탕에서도 잘 보임)
+  if (s.theme === 'carbon' && k !== 'shiba' && k !== 'eagle') return <CarbonMascot kind={k} size={size} acc={acc} mood={mood} dim={tone === 'grey'} className={className} style={style} />
   const c = TONES[tone]
   const ink = '#5B4366'
   const blushY = k === 'elephant' ? 68 : 67
   return (
     <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" className={className} style={style}>
-      {k === 'buffalo' ? <BuffaloHead c={c} /> : k === 'horse' ? <HorseHead c={c} /> : k === 'cedar' ? <CedarHead c={c} /> : <ElephantHead c={c} />}
+      {k === 'buffalo' ? <BuffaloHead c={c} /> : k === 'horse' ? <HorseHead c={c} /> : k === 'cedar' ? <CedarHead c={c} /> : k === 'shiba' ? <ShibaHead c={c} /> : k === 'eagle' ? <EagleHead c={c} /> : <ElephantHead c={c} />}
       {/* 눈 */}
       {mood === 'happy' ? (
         <>
@@ -157,6 +158,58 @@ function ElephantHead({ c }: { c: Tone }) {
       {/* 코 */}
       <path d="M60 74 C58 88 62 98 72 99 C78 99.5 81 95 79 91" fill="none" stroke={c.body} strokeWidth="13" strokeLinecap="round" />
       <path d="M55 85 q5 2.5 10 0 M57 92 q4.5 2.5 9 0" fill="none" stroke={c.line} strokeWidth="1.8" strokeLinecap="round" />
+    </>
+  )
+}
+
+/** 일본어판: 시바견 — 뾰족한 세모 귀 · 황갈색 털 · 크림색 볼과 주둥이 · 눈썹 점 */
+function ShibaHead({ c }: { c: Tone }) {
+  const grey = c.body === TONES.grey.body
+  const fur = grey ? c.body : '#F4A65D'
+  const cream = grey ? c.muzzle : '#FFF4E4'
+  const inner = grey ? c.ear : '#FFD9B8'
+  return (
+    <>
+      {/* 귀 */}
+      <path d="M28 48 Q26 22 34 12 Q48 20 56 34 Z" fill={fur} strokeLinejoin="round" />
+      <path d="M92 48 Q94 22 86 12 Q72 20 64 34 Z" fill={fur} strokeLinejoin="round" />
+      <path d="M33 40 Q32 26 36 20 Q44 25 49 34 Z" fill={inner} />
+      <path d="M87 40 Q88 26 84 20 Q76 25 71 34 Z" fill={inner} />
+      {/* 얼굴 */}
+      <ellipse cx="60" cy="62" rx="37" ry="33" fill={fur} />
+      {/* 크림색 볼 · 주둥이 */}
+      <path d="M24 66 Q26 94 60 96 Q94 94 96 66 Q88 76 75 73 Q66 71 60 78 Q54 71 45 73 Q32 76 24 66 Z" fill={cream} />
+      {/* 눈썹 점 */}
+      <ellipse cx="45" cy="45" rx="4.2" ry="2.8" fill={cream} />
+      <ellipse cx="75" cy="45" rx="4.2" ry="2.8" fill={cream} />
+      {/* 코 · 입 */}
+      <ellipse cx="60" cy="75" rx="5" ry="3.6" fill="#5B4366" />
+      <path d="M60 78.5 v3 M60 81.5 q-4 4 -8 1 M60 81.5 q4 4 8 1" fill="none" stroke="#5B4366" strokeWidth="2" strokeLinecap="round" />
+    </>
+  )
+}
+
+/** 영어판: 흰머리수리 (미국 국조) — 하얀 머리 · 노란 부리 · 갈색 날개 어깨 */
+function EagleHead({ c }: { c: Tone }) {
+  const grey = c.body === TONES.grey.body
+  const brown = grey ? c.line : '#8C5A3A'
+  const head = grey ? c.muzzle : '#FFFFFF'
+  const outline = grey ? c.line : '#E7DCE4'
+  const beak = grey ? c.ear : '#FFC93C'
+  const beakLine = grey ? c.line : '#E7A51A'
+  return (
+    <>
+      {/* 날개 어깨 */}
+      <path d="M10 114 Q14 84 40 84 L60 92 L80 84 Q106 84 110 114 Z" fill={brown} />
+      {/* 머리 깃털 */}
+      <path d="M40 34 L46 20 L52 31 L60 16 L68 31 L74 20 L80 34 Z" fill={head} stroke={outline} strokeWidth="2" strokeLinejoin="round" />
+      {/* 머리 */}
+      <ellipse cx="60" cy="60" rx="35" ry="33" fill={head} stroke={outline} strokeWidth="2" />
+      {/* 목 깃털 */}
+      <path d="M36 86 L42 94 L48 88 L54 96 L60 89 L66 96 L72 88 L78 94 L84 86" fill={head} stroke={outline} strokeWidth="2" strokeLinejoin="round" />
+      {/* 부리 */}
+      <path d="M49 69 Q60 62 71 69 Q72 79 62 86 Q61 80 58 78 Q51 76 49 69 Z" fill={beak} stroke={beakLine} strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M53 71 q7 -3 14 0" fill="none" stroke={beakLine} strokeWidth="1.6" strokeLinecap="round" />
     </>
   )
 }
