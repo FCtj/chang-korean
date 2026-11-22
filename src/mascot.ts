@@ -1,13 +1,13 @@
-// 나라별 마스코트: 라오스·태국(·기타) = 코끼리 · 베트남 = 물소 · 몽골 = 말 · 레바논 = 줄무늬 하이에나(나라 동물)
+// 나라별 마스코트: 라오스·태국(·기타) = 코끼리 · 베트남 = 물소 · 몽골 = 말 · 레바논 = 백향목(국기·나라 상징)
 // 그림(ui.tsx 의 Elephant)·코스 아이콘이 이 값을 따라감. 계급 이름·그림은 나라와 상관없이 계급 동물(RANK_ANIMALS)
 import type { L10n, Tier } from './data/words'
 
-export type MascotKind = 'elephant' | 'buffalo' | 'horse' | 'hyena'
+export type MascotKind = 'elephant' | 'buffalo' | 'horse' | 'cedar'
 
-export const mascotOf = (country: string): MascotKind => (country === 'VN' ? 'buffalo' : country === 'MN' ? 'horse' : country === 'LB' ? 'hyena' : 'elephant')
+export const mascotOf = (country: string): MascotKind => (country === 'VN' ? 'buffalo' : country === 'MN' ? 'horse' : country === 'LB' ? 'cedar' : 'elephant')
 
-// 하이에나 이모지는 없어서 발자국
-export const MASCOT_EMOJI: Record<MascotKind, string> = { elephant: '🐘', buffalo: '🐃', horse: '🐎', hyena: '🐾' }
+// 백향목 이모지는 없어서 상록수
+export const MASCOT_EMOJI: Record<MascotKind, string> = { elephant: '🐘', buffalo: '🐃', horse: '🐎', cedar: '🌲' }
 
 /** 계급 동물 (모든 나라 같음): 올라갈수록 귀여움 → 멋짐. 그림은 rankAnimals.tsx */
 export const RANK_ANIMALS: { emoji: string; name: L10n }[] = [

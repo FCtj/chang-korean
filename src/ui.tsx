@@ -117,7 +117,7 @@ export function Elephant({
   const blushY = k === 'elephant' ? 68 : 67
   return (
     <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" className={className} style={style}>
-      {k === 'buffalo' ? <BuffaloHead c={c} /> : k === 'horse' ? <HorseHead c={c} /> : k === 'hyena' ? <HyenaHead c={c} /> : <ElephantHead c={c} />}
+      {k === 'buffalo' ? <BuffaloHead c={c} /> : k === 'horse' ? <HorseHead c={c} /> : k === 'cedar' ? <CedarHead c={c} /> : <ElephantHead c={c} />}
       {/* 눈 */}
       {mood === 'happy' ? (
         <>
@@ -217,28 +217,28 @@ function HorseHead({ c }: { c: Tone }) {
 }
 
 /** 레바논: 줄무늬 하이에나 — 크고 둥근 귀 · 이마와 볼의 줄무늬 · 짙은 코 */
-const HYENA_EAR_L = 'M38 42 C26 30 22 12 30 8 C40 6 50 22 52 32 Z'
-const HYENA_EAR_R = 'M82 42 C94 30 98 12 90 8 C80 6 70 22 68 32 Z'
-const HYENA_CREST = 'M46 30 l4 -9 l4 7 l4 -9 l4 8 l4 -8 l4 9 Z'
-const HYENA_STRIPES = 'M52 33 q2 6 0 11 M60 31 q2 6 0 12 M68 33 q2 6 0 11 M30 58 q6 2 9 7 M28 66 q6 1 9 6 M90 58 q-6 2 -9 7 M92 66 q-6 1 -9 6'
-function HyenaHead({ c }: { c: Tone }) {
+// 🌲 레바논 백향목 (국기 · 나라 상징): 세모 몸통 + 옆으로 뾰족하게 뻗은 가지 3단 (국기 속 나무 모양) · 얼굴은 몸통 위
+const CEDAR_BODY = 'M60 12 L99 85 Q60 95 21 85 Z'
+const CEDAR_BRANCHES =
+  'M46 32 C37 37 27 41 17 45 C28 46 39 43 48 40 Z M74 32 C83 37 93 41 103 45 C92 46 81 43 72 40 Z ' +
+  'M35 53 C24 59 12 63 3 67 C16 69 30 66 39 62 Z M85 53 C96 59 108 63 117 67 C104 69 90 66 81 62 Z ' +
+  'M26 74 C17 80 8 84 1 89 C14 91 28 88 33 85 Z M94 74 C103 80 112 84 119 89 C106 91 92 88 87 85 Z'
+const CEDAR_BASE = 'M21 85 Q60 95 99 85 L95 91 Q60 101 25 91 Z'
+
+function CedarHead({ c }: { c: Tone }) {
+  // 캔디 테마는 민트빛 초록 (회색 톤이면 회색 그대로)
+  const grey = c.body === TONES.grey.body
+  const leaf = grey ? c.body : '#79D3B0'
+  const deep = grey ? c.ear : '#3FAE8A'
+  const trunk = grey ? c.line : '#C9A27E'
   return (
     <>
-      {/* 귀 */}
-      <path d={HYENA_EAR_L} fill={c.body} />
-      <path d={HYENA_EAR_R} fill={c.body} />
-      <path d="M38 36 C31 27 29 16 33 13 C39 12 45 22 47 30 Z" fill={c.ear} opacity="0.7" />
-      <path d="M82 36 C89 27 91 16 87 13 C81 12 75 22 73 30 Z" fill={c.ear} opacity="0.7" />
-      {/* 갈기 */}
-      <path d={HYENA_CREST} fill={c.mane} />
-      {/* 얼굴 */}
-      <ellipse cx="60" cy="61" rx="33" ry="31" fill={c.body} />
-      {/* 줄무늬 */}
-      <path d={HYENA_STRIPES} fill="none" stroke={c.mane} strokeWidth="3.2" strokeLinecap="round" />
-      {/* 주둥이 · 코 */}
-      <ellipse cx="60" cy="81" rx="19" ry="13" fill={c.muzzle} />
-      <path d="M53 75 Q60 70 67 75 Q64 81 60 82 Q56 81 53 75 Z" fill={c.mane} />
-      <path d="M60 82 v4 M54 88 q6 4 12 0" fill="none" stroke={c.line} strokeWidth="2" strokeLinecap="round" />
+      <rect x="54" y="90" width="12" height="24" rx="4" fill={trunk} />
+      <path d={CEDAR_BRANCHES} fill={deep} />
+      <path d={CEDAR_BODY} fill={leaf} stroke={leaf} strokeWidth="10" strokeLinejoin="round" />
+      <path d={CEDAR_BASE} fill={deep} opacity="0.55" />
+      <path d="M57 22 L44 46" fill="none" stroke="#fff" strokeWidth="3.4" strokeLinecap="round" opacity={grey ? 0.35 : 0.55} />
+      <path d="M54 74 q6 5 12 0" fill="none" stroke={grey ? c.line : '#2F7F6B'} strokeWidth="2.4" strokeLinecap="round" />
     </>
   )
 }
@@ -341,16 +341,14 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
           <ellipse cx="51.5" cy="81" rx="2.6" ry="3.4" fill={nostril} />
           <ellipse cx="68.5" cy="81" rx="2.6" ry="3.4" fill={nostril} />
         </>
-      ) : kind === 'hyena' ? (
+      ) : kind === 'cedar' ? (
         <>
-          <path d={HYENA_EAR_L} fill={E} stroke={edge} strokeWidth="1" />
-          <path d={HYENA_EAR_R} fill={E} stroke={edge} strokeWidth="1" />
-          <path d={HYENA_CREST} fill="#0d0f12" stroke={edge} strokeWidth="1" />
-          <ellipse cx="60" cy="61" rx="33" ry="31" fill={B} />
-          <path d="M35 48 Q46 33 66 32" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2.2" strokeLinecap="round" />
-          <path d={HYENA_STRIPES} fill="none" stroke="#0d0f12" strokeWidth="3.2" strokeLinecap="round" />
-          <ellipse cx="60" cy="81" rx="19" ry="13" fill={muzzle} stroke={edge} strokeWidth="1" />
-          <path d="M53 75 Q60 70 67 75 Q64 81 60 82 Q56 81 53 75 Z" fill="#0d0f12" stroke={edge} strokeWidth="1" />
+          <rect x="54" y="90" width="12" height="24" rx="4" fill={E} stroke={edge} strokeWidth="1" />
+          <path d={CEDAR_BRANCHES} fill={E} stroke={edge} strokeWidth="1" />
+          <path d={CEDAR_BODY} fill={B} stroke={B} strokeWidth="10" strokeLinejoin="round" />
+          <path d={CEDAR_BASE} fill="#0d0f12" opacity="0.5" />
+          <path d="M57 22 L44 46" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M54 76 q6 4 12 0" fill="none" stroke={nostril} strokeWidth="2" strokeLinecap="round" />
         </>
       ) : kind === 'horse' ? (
         <>
