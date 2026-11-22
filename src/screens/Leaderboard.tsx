@@ -1,17 +1,16 @@
 // 리더보드: 실시간(오늘) / 이번 달 × 우리나라 / 전체
 // 서버가 연결돼 있으면 실제 랭킹(누가 점수를 얻으면 바로 갱신), 아니면 예시 랭킹
-// 테스트 기간(SAMPLE_DATA)에는 실제 랭킹에 지인 예시 15명을 섞어 보여 줌 (아래에 '예시' 안내)
+// 실제 가입자만 보여 줌 (점수 0인 가입자도 아래쪽에)
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, useMyPublic, type Period, type RankRow } from '../backend'
 import { shownName } from '../privacy'
 import { IS_KO } from '../edition'
 import { LoginButtons } from './SettingsScreen'
-import { demoRanking, todayKey, useStore } from '../store'
+import { todayKey, useStore } from '../store'
 import { sfx } from '../audio'
 import { fireworks, sparkleRain } from '../fx'
 import { Avatar, Elephant, Segmented } from '../ui'
-import { SAMPLE_DATA } from '../config'
 
 export default function Leaderboard() {
   const s = useStore()
@@ -68,22 +67,10 @@ export default function Leaderboard() {
     }
   }, [load])
 
-  // 예시 랭킹: 서버 연결 전에는 전부, 테스트 기간(SAMPLE_DATA)에는 실제 랭킹에 지인 예시를 섞음
-  const useSamples = IS_KO && (!backendReady || SAMPLE_DATA)
-  const demo: RankRow[] = !useSamples
-    ? []
-    : demoRanking(s)
-        .filter((r) => !(backendReady && r.me)) // 서버가 있으면 '나'는 서버 기록으로
-        .map((r) => ({ rank: 0, userId: r.me ? 'me' : `sample:${r.name}`, name: r.me ? pub.name : r.name, avatar: r.me ? pub.avatar : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me, sample: !r.me }))
-        .filter((r) => scope === 'all' || r.country === myCountry)
-  const rerank = (xs: RankRow[]) => [...xs].sort((a, b) => b.points - a.points).map((r, i) => ({ ...r, rank: i + 1 }))
-  const list: RankRow[] | null = !backendReady ? rerank(demo) : rows === null ? null : useSamples ? rerank([...rows, ...demo]) : rows
+  // 실제 가입한 사람만 (예시 사용자 없음)
+  const list: RankRow[] | null = !backendReady ? [] : rows
   const meRow = list?.find((r) => r.me) ?? null
-  const myRankView = meRow
-    ? { rank: meRow.rank, points: meRow.points, total: Math.max(list!.length, (mine?.total ?? 0) + demo.length) }
-    : backendReady && mine
-      ? { rank: mine.rank + demo.filter((r) => r.points > mine.points).length, points: mine.points, total: mine.total + demo.length }
-      : null
+  const myRankView = meRow ? { rank: meRow.rank, points: meRow.points, total: Math.max(list!.length, mine?.total ?? 0) } : mine
 
   // 랭킹을 열었을 때 한 번: 상위권이면 축하 세레머니, 아니면 격려 (하루에 기간·범위별 한 번)
   const ready = list !== null && (backendReady ? auth.status !== 'loading' : true)
@@ -224,7 +211,6 @@ export default function Leaderboard() {
       )}
       {myRankView && <p className="note center">{tf('rankOf', myRankView.rank, myRankView.total)}</p>}
       {!backendReady && <p className="note">{t('demoNote')}</p>}
-      {IS_KO && backendReady && SAMPLE_DATA && <p className="note">{t('sampleNote')}</p>}
 
       {ceremony && (
         <div className="cer-backdrop" onClick={() => setCeremony(null)}>
