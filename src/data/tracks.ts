@@ -12,6 +12,9 @@ import { TRACK_STORE, TRACK_STORE_META } from './track-store.ts'
 import { TRACK_HOTEL, TRACK_HOTEL_META } from './track-hotel.ts'
 import { TRACK_MASSAGE, TRACK_MASSAGE_META } from './track-massage.ts'
 import { TRACK_GUIDE, TRACK_GUIDE_META } from './track-guide.ts'
+// 👶 육아 한국어 (엄마를 위한)
+import { TRACK_PARENTING_A, TRACK_PARENTING_A_META } from './track-parenting-a.ts'
+import { TRACK_PARENTING_B } from './track-parenting-b.ts'
 // 📝 TOPIK 1~6급: 급별 파일(track-topik-N.ts)이 들어오면 import 하고 TOPIK_UNITS 에 넣음
 import { TRACK_TOPIK_1 } from './track-topik-1.ts'
 import { TRACK_TOPIK_4 } from './track-topik-4.ts'
@@ -95,6 +98,7 @@ export const TRACK_SOURCES: TrackSource[] = [
   { id: 'hotel', group: 'job', purpose: 'work', icon: '🏨', ...TRACK_HOTEL_META, units: TRACK_HOTEL },
   { id: 'massage', group: 'job', purpose: 'parttime', icon: '💆', ...TRACK_MASSAGE_META, units: TRACK_MASSAGE },
   { id: 'guide', group: 'job', purpose: 'work', icon: '🧳', ...TRACK_GUIDE_META, units: TRACK_GUIDE },
+  { id: 'parenting', purpose: 'family', icon: '👶', ...TRACK_PARENTING_A_META, units: [...TRACK_PARENTING_A, ...TRACK_PARENTING_B] },
     {
       id: 'citizen',
       purpose: 'citizen',

@@ -9,6 +9,8 @@ import { AR_JOB_STORE } from './tr-ar-job-store.ts'
 import { AR_JOB_HOTEL } from './tr-ar-job-hotel.ts'
 import { AR_JOB_MASSAGE } from './tr-ar-job-massage.ts'
 import { AR_JOB_GUIDE } from './tr-ar-job-guide.ts'
+import { AR_JOB_PARENTING_A } from './tr-ar-job-parenting-a.ts'
+import { AR_JOB_PARENTING_B } from './tr-ar-job-parenting-b.ts'
 import { TITLE_AR as TITLE_PART } from './tr-ar-titles.ts'
 import { AR_6 } from './tr-ar-6.ts'
 import { AR_5 } from './tr-ar-5.ts'
@@ -30,6 +32,8 @@ const PARTS: Record<string, string>[] = [
   AR_JOB_HOTEL,
   AR_JOB_MASSAGE,
   AR_JOB_GUIDE,
+  AR_JOB_PARENTING_A,
+  AR_JOB_PARENTING_B,
   // @ar-parts
 ]
 const TITLE_PARTS: Record<string, string>[] = [
@@ -40,6 +44,8 @@ const TITLE_PARTS: Record<string, string>[] = [
   AR_JOB_HOTEL,
   AR_JOB_MASSAGE,
   AR_JOB_GUIDE,
+  AR_JOB_PARENTING_A,
+  AR_JOB_PARENTING_B,
   // @ar-title-parts
 ]
 

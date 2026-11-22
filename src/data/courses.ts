@@ -5,8 +5,8 @@ import { TRACKS, findTrack, type Track } from './tracks.ts'
 import type { TitleL10n } from './track-types.ts'
 import { withMn } from './tr-mn.ts'
 
-export type CourseId = 'basic' | 'topik' | 'job' | 'citizen'
-export const COURSE_IDS: CourseId[] = ['basic', 'topik', 'job', 'citizen']
+export type CourseId = 'basic' | 'topik' | 'job' | 'parenting' | 'citizen'
+export const COURSE_IDS: CourseId[] = ['basic', 'topik', 'job', 'parenting', 'citizen']
 
 export interface Course {
   id: CourseId
@@ -51,7 +51,7 @@ function fromTrack(id: CourseId): Course {
   return { id, icon: t.icon, title: t.title, desc: t.desc }
 }
 
-export const COURSES: Course[] = [BASIC, TOPIK, JOB, fromTrack('citizen')].map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
+export const COURSES: Course[] = [BASIC, TOPIK, JOB, fromTrack('parenting'), fromTrack('citizen')].map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
 export const findCourse = (id: CourseId): Course => COURSES.find((c) => c.id === id) ?? BASIC
 
 /** 일·알바 코스에서 지금 고른 트랙 */

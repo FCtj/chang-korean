@@ -472,7 +472,7 @@ export function recommendedTracks(s: State): Track[] {
 export function currentCourse(s: State): CourseId {
   if (s.course) return s.course
   const p = s.purposes
-  return p.includes('citizen') ? 'citizen' : p.includes('work') || p.includes('parttime') ? 'job' : p.includes('school') ? 'topik' : 'basic'
+  return p.includes('citizen') ? 'citizen' : p.includes('work') || p.includes('parttime') ? 'job' : p.includes('family') ? 'parenting' : p.includes('school') ? 'topik' : 'basic'
 }
 
 /** 일·알바 코스의 지금 트랙: 고른 것 → 알바 목적이면 식당 → EPS 단어집 */

@@ -9,6 +9,8 @@ import { MN_JOB_STORE } from './tr-mn-job-store.ts'
 import { MN_JOB_HOTEL } from './tr-mn-job-hotel.ts'
 import { MN_JOB_MASSAGE } from './tr-mn-job-massage.ts'
 import { MN_JOB_GUIDE } from './tr-mn-job-guide.ts'
+import { MN_JOB_PARENTING_A } from './tr-mn-job-parenting-a.ts'
+import { MN_JOB_PARENTING_B } from './tr-mn-job-parenting-b.ts'
 import { TITLE_AR } from './tr-ar.ts'
 import { TITLE_MN as TITLE_PART } from './tr-mn-titles.ts'
 import { MN_6 } from './tr-mn-6.ts'
@@ -31,6 +33,8 @@ const PARTS: Record<string, string>[] = [
   MN_JOB_HOTEL,
   MN_JOB_MASSAGE,
   MN_JOB_GUIDE,
+  MN_JOB_PARENTING_A,
+  MN_JOB_PARENTING_B,
   // @mn-parts
 ]
 const TITLE_PARTS: Record<string, string>[] = [
@@ -41,6 +45,8 @@ const TITLE_PARTS: Record<string, string>[] = [
   MN_JOB_HOTEL,
   MN_JOB_MASSAGE,
   MN_JOB_GUIDE,
+  MN_JOB_PARENTING_A,
+  MN_JOB_PARENTING_B,
   // @mn-title-parts
 ]
 
