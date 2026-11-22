@@ -2,7 +2,7 @@
 // 사용: node scripts/check-tracks.mjs                     → src/data/tracks.ts 의 모든 트랙
 //       node scripts/check-tracks.mjs src/data/track-restaurant.ts  → 그 파일의 단원 배열만
 // 규칙: 단원마다 단어 ≥ 20, 문장 ≥ 5 / 모든 칸 채움 / 단원 안에서 이모지·한국어·라오·태국·베트남 뜻 겹치지 않음
-//       트랙 안에서 한국어 겹치지 않음 / 문장은 한국어가 2어절 이상 / 단원 키 형식
+//       트랙 안에서 한국어 겹치지 않음 / TOPIK 급끼리도 겹치지 않음 / 문장은 한국어가 2어절 이상 / 단원 키 형식
 import { pathToFileURL } from 'node:url'
 import { resolve } from 'node:path'
 
@@ -74,9 +74,17 @@ if (arg) {
     const r = checkUnits(t.id, t.units)
     out.push(`${t.id} ${r.units}단원 ${r.words}단어 ${r.phrases}문장`)
   }
+  // TOPIK: 급이 달라도 같은 한국어 단어는 한 번만 (낮은 급에 둠)
+  const topikSeen = new Map()
+  for (const t of TRACK_SOURCES.filter((x) => x.group === 'topik'))
+    for (const u of t.units)
+      for (const r of u.words) {
+        if (topikSeen.has(r[0])) fail(`TOPIK: "${r[0]}" 가 ${topikSeen.get(r[0])} 와 ${t.id}/${u.key} 에 모두 있음`)
+        else topikSeen.set(r[0], `${t.id}/${u.key}`)
+      }
   if (errors) {
     console.error(`\n${errors}개 문제`)
     process.exit(1)
   }
-  console.log(`✓ 트랙 정상: ${out.join(' · ')}`)
+  console.log(`✓ 트랙 정상: ${out.filter((x) => !/ 0단원/.test(x)).join(' · ')}`)
 }
