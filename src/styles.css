@@ -5107,3 +5107,276 @@ body {
 .review select.input {
   appearance: auto;
 }
+
+/* ───────── v0.16: 간단 모드 (체험 · 내 포인트 · 교환소 · 더 배우기) ───────── */
+.intro {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  padding: calc(var(--safe-top) + 16px) var(--gutter-r) calc(var(--safe-bottom) + 24px) var(--gutter-l);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.intro-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.intro-head > div {
+  flex: 1;
+}
+.intro-head .h3 {
+  margin: 0;
+}
+.intro-dots {
+  display: flex;
+  gap: 6px;
+  margin-top: 4px;
+}
+.intro-dots span {
+  width: 22px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+}
+.intro-dots span.now {
+  background: var(--pink);
+}
+.intro-dots span.done {
+  background: var(--mint);
+}
+.intro .fcard-stage {
+  flex: 1;
+  min-height: 330px;
+}
+.intro-hint {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-cute);
+  color: var(--muted);
+  font-size: 1rem;
+}
+.intro-hint.go {
+  color: var(--mint-deep);
+  animation: bounce-in 0.35s ease-out;
+}
+.intro-gift {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.intro-gift-title {
+  margin: 0;
+  font-family: var(--font-cute);
+  font-size: 2rem;
+}
+.intro-gift-points {
+  font-size: 3.4rem;
+  font-weight: 700;
+  color: var(--pink-deep);
+  line-height: 1;
+  animation: bounce-in 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.wallet-mini {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background: var(--butter-soft);
+  font-family: var(--font-cute);
+}
+.wallet-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 26px;
+  padding: 16px 18px;
+  color: #5b3a00;
+  background: linear-gradient(135deg, #ffe48a 0%, #ffd15c 60%, #ffb59a 100%);
+  box-shadow: 0 5px 0 #f0b93a, var(--glow);
+}
+.wallet-top {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-cute);
+  font-size: 0.95rem;
+}
+.wallet-shop {
+  opacity: 0.85;
+}
+.wallet-points {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.05;
+}
+.wallet-card.big .wallet-points {
+  font-size: 3rem;
+}
+.wallet-goal {
+  font-size: 0.9rem;
+}
+.wallet-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  overflow: hidden;
+}
+.wallet-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #fff;
+}
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.shop-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px 10px 12px;
+  border-radius: 20px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  text-align: center;
+}
+.shop-soon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-family: var(--font-cute);
+  font-size: 0.66rem;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--lilac-soft);
+  color: var(--lilac-deep);
+}
+.shop-icon {
+  font-family: var(--font-emoji);
+  font-size: 2.4rem;
+  line-height: 1.1;
+}
+.shop-name {
+  font-family: var(--font-cute);
+  font-size: 0.95rem;
+}
+.shop-price {
+  font-weight: 700;
+  color: var(--pink-deep);
+}
+.shop-item .pack-bar {
+  width: 100%;
+}
+.earn-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.earn-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.earn-list b {
+  margin-left: auto;
+  color: var(--pink-deep);
+}
+.more-learn {
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.more-learn summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.more-learn summary::-webkit-details-marker {
+  display: none;
+}
+.more-learn summary::after {
+  content: '▼';
+  position: absolute;
+  right: 18px;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.more-learn[open] summary::after {
+  content: '▲';
+}
+.more-learn summary {
+  position: relative;
+}
+.more-learn-title {
+  font-family: var(--font-cute);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.more-learn-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.more-learn-body {
+  padding: 4px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.community-card {
+  width: 100%;
+  border: 2px dashed var(--line);
+  background: var(--surface-2);
+  border-radius: 18px;
+  padding: 14px;
+  font-family: var(--font-cute);
+  font-size: 1rem;
+  color: var(--ink);
+  text-align: left;
+}
+.fb-link {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.fb-logo.sm {
+  width: 18px;
+  height: 18px;
+  font-size: 0.75rem;
+}
+:root[data-theme='carbon'] .wallet-card {
+  color: #15130d;
+  background: linear-gradient(140deg, #ebc66e 0%, #d4a94a 55%, #a9842f 100%);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+:root[data-theme='carbon'] .shop-item,
+:root[data-theme='carbon'] .more-learn {
+  border-width: 1px;
+  border-radius: 12px;
+}
+:root[data-theme='carbon'] .community-card {
+  border-width: 1px;
+  border-radius: 10px;
+}
+:root[data-theme='carbon'] .wallet-mini {
+  background: rgba(212, 169, 74, 0.14);
+}

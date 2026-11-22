@@ -5,6 +5,9 @@ import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCoun
 import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
 import { TRACKS, type Track } from '../data/tracks'
+import { nextShopItem } from '../data/shop'
+import { SIMPLE_MODE } from '../config'
+import type { ReactNode } from 'react'
 
 export default function Home() {
   const s = useStore()
@@ -17,7 +20,7 @@ export default function Home() {
   const stampedToday = s.stamps.includes(todayKey())
   const cardStamps = s.stamps.length % STAMPS_PER_TICKET
   const auth = useAuth()
-  const [pts, bump] = useCountUp(s.monthPoints)
+  const [pts, bump] = useCountUp(SIMPLE_MODE ? s.totalPoints : s.monthPoints)
 
   return (
     <div className="page">
@@ -41,6 +44,7 @@ export default function Home() {
           {s.streak > 0 && <span className="pill pill-peach num">🔥 {tf('streak', s.streak)}</span>}
         </div>
       </header>
+      {SIMPLE_MODE && <WalletCard />}
 
       {backendReady && auth.status === 'in' && s.profileConsent === null && (
         <section className="panel consent-card">
@@ -56,7 +60,7 @@ export default function Home() {
           </div>
         </section>
       )}
-      {!s.gender && (
+      {!SIMPLE_MODE && !s.gender && (
         <section className="panel theme-card">
           <h2 className="h3">✨ {t('themeCardTitle')}</h2>
           <p className="note">{t('themeCardSub')}</p>
@@ -112,7 +116,8 @@ export default function Home() {
         )
       })()}
 
-      <div className="mini-stamps" aria-label={t('stampCard')}>
+      <MoreLearn>
+      {!SIMPLE_MODE && <div className="mini-stamps" aria-label={t('stampCard')}>
         <span className="mini-stamps-label">☕ {t('stampCard')}</span>
         <span className="num mini-stamps-count">
           {cardStamps}/{STAMPS_PER_TICKET}
@@ -124,7 +129,7 @@ export default function Home() {
             </span>
           ))}
         </span>
-      </div>
+      </div>}
 
       <section className="packs">
         <div className="packs-head">
@@ -262,6 +267,12 @@ export default function Home() {
           )
         })}
       </div>
+      {SIMPLE_MODE && (
+        <button className="community-card" onClick={() => push({ name: 'community' })}>
+          <span aria-hidden="true">👥</span> {t('communityCard')} →
+        </button>
+      )}
+      </MoreLearn>
     </div>
   )
 }
@@ -272,6 +283,44 @@ function unitProgress(s: ReturnType<typeof useStore>, r: Round): number {
   if (stepsDone(s, r.id)) return 1
   const st = stepOf(s, r.id)
   return ((st - 1) * r.words.length + stepKnownCount(s, r, st)) / (n * r.words.length)
+}
+
+/** 간단 모드: '더 배우기' 안에 단어팩·트랙·계급을 접어 둠 (아니면 그대로 펼침) */
+function MoreLearn({ children }: { children: ReactNode }) {
+  const { t } = useApp()
+  if (!SIMPLE_MODE) return <>{children}</>
+  return (
+    <details className="more-learn">
+      <summary>
+        <span className="more-learn-title">📚 {t('moreLearn')}</span>
+        <span className="more-learn-sub">{t('moreLearnSub')}</span>
+      </summary>
+      <div className="more-learn-body">{children}</div>
+    </details>
+  )
+}
+
+/** 간단 모드: 내 포인트 + 다음 교환 목표 */
+function WalletCard() {
+  const s = useStore()
+  const { t, tf, ui, home } = useApp()
+  const next = nextShopItem(s.totalPoints)
+  const pct = Math.min(100, Math.round((s.totalPoints / next.points) * 100))
+  return (
+    <button className="wallet-card" onClick={() => home('points')}>
+      <span className="wallet-top">
+        <span className="wallet-label">💰 {t('myPoints')}</span>
+        <span className="wallet-shop">🛍️ {t('seeShop')} →</span>
+      </span>
+      <span className="wallet-points num">{tf('pointsN', s.totalPoints)}</span>
+      <span className="wallet-goal">
+        <span aria-hidden="true">{next.icon}</span> {tf('toReward', next.name[ui], Math.max(0, next.points - s.totalPoints))}
+      </span>
+      <span className="wallet-bar" aria-hidden="true">
+        <span style={{ width: `${pct}%` }} />
+      </span>
+    </button>
+  )
 }
 
 function TrackCard({ track }: { track: Track }) {

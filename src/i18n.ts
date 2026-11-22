@@ -293,6 +293,31 @@ const S = {
   reviewDone: { ko: '이 단원 검수 끝! 고마워요 🙏', lo: 'ກວດບົດນີ້ແລ້ວ! ຂອບໃຈ 🙏' },
   reviewLogin: { ko: '검수는 Facebook으로 로그인하면 할 수 있어요', lo: 'ເຂົ້າສູ່ລະບົບດ້ວຍ Facebook ເພື່ອຊ່ວຍກວດ' },
   reviewCurrent: { ko: '지금 뜻', lo: 'ຄວາມໝາຍຕອນນີ້' },
+  tabPoints: { ko: '포인트', lo: 'ຄະແນນ' },
+  myPoints: { ko: '내 포인트', lo: 'ຄະແນນຂອງຂ້ອຍ' },
+  pointsShop: { ko: '포인트 교환소', lo: 'ຮ້ານແລກຄະແນນ' },
+  shopSoon: { ko: '곧 오픈', lo: 'ໄວໆນີ້' },
+  shopIntro: { ko: '포인트를 모아서 이렇게 바꿀 수 있어요', lo: 'ສະສົມຄະແນນ ແລ້ວແລກເປັນສິ່ງເຫຼົ່ານີ້ໄດ້' },
+  shopNote: { ko: '교환은 곧 시작해요. 교환 품목과 필요한 포인트는 바뀔 수 있어요.', lo: 'ການແລກຈະເລີ່ມໄວໆນີ້. ລາຍການ ແລະ ຄະແນນທີ່ໃຊ້ອາດປ່ຽນແປງໄດ້.' },
+  seeShop: { ko: '교환소 보기', lo: 'ເບິ່ງຮ້ານແລກ' },
+  earnTitle: { ko: '포인트 모으는 법', lo: 'ວິທີສະສົມຄະແນນ' },
+  earnWord: { ko: '단어 하나 외울 때마다', lo: 'ທຸກຄັ້ງທີ່ຈື່ຄຳສັບໄດ້' },
+  earnExam: { ko: '졸업시험 통과', lo: 'ສອບຜ່ານບົດ' },
+  earnPromo: { ko: '승급 시험 통과', lo: 'ສອບເລື່ອນຂັ້ນຜ່ານ' },
+  earnCap: { ko: '하루 최대', lo: 'ສູງສຸດຕໍ່ມື້' },
+  moreLearn: { ko: '더 배우기', lo: 'ຮຽນເພີ່ມ' },
+  moreLearnSub: { ko: '단어팩 · 목적별 트랙 · 계급 · 친구 그룹', lo: 'ຊຸດຄຳສັບ · ຫຼັກສູດ · ຂັ້ນ · ກຸ່ມໝູ່' },
+  rankingMore: { ko: '랭킹 · 도장 보기', lo: 'ເບິ່ງອັນດັບ · ສະແຕມ' },
+  introTitle: { ko: '이렇게 공부해요', lo: 'ຮຽນແບບນີ້' },
+  introTap: { ko: '👆 카드를 눌러 뜻을 보세요', lo: '👆 ກົດບັດເພື່ອເບິ່ງຄວາມໝາຍ' },
+  introKnow: { ko: '외웠으면 「외웠어요」를 눌러 포인트 받기!', lo: 'ຈື່ໄດ້ແລ້ວ ກົດ «ຈື່ໄດ້ແລ້ວ» ຮັບຄະແນນ!' },
+  welcomeGift: { ko: '환영 선물!', lo: 'ຂອງຂວັນຕ້ອນຮັບ!' },
+  welcomeSub: { ko: '지금 바로 포인트를 드려요', lo: 'ຮັບຄະແນນໄດ້ເລີຍ' },
+  startStudy: { ko: '바로 공부 시작', lo: 'ເລີ່ມຮຽນເລີຍ' },
+  nextLabel: { ko: '다음', lo: 'ຕໍ່ໄປ' },
+  haveAccount: { ko: 'Facebook으로 계속하기 (기록 저장)', lo: 'ສືບຕໍ່ດ້ວຍ Facebook (ບັນທຶກ)' },
+  communityCard: { ko: '친구 그룹 · 나의 한국어 이력', lo: 'ກຸ່ມໝູ່ · ປະຫວັດການຮຽນ' },
+  savePoints: { ko: 'Facebook으로 로그인하면 포인트가 안전하게 저장돼요', lo: 'ເຂົ້າສູ່ລະບົບດ້ວຍ Facebook ເພື່ອບັນທຶກຄະແນນໃຫ້ປອດໄພ' },
 } satisfies Record<string, Str>
 
 const F = {
@@ -366,6 +391,8 @@ const F = {
   unitsDone: { ko: (a: number, b: number) => `${a}/${b}단원 완료`, lo: (a: number, b: number) => `ສຳເລັດ ${a}/${b} ບົດ` },
   itemsCount: { ko: (w: number, p: number) => `단어 ${w} · 문장 ${p}`, lo: (w: number, p: number) => `ຄຳສັບ ${w} · ປະໂຫຍກ ${p}` },
   reviewedN: { ko: (a: number, b: number) => `검수 ${a}/${b}`, lo: (a: number, b: number) => `ກວດແລ້ວ ${a}/${b}` },
+  pointsN: { ko: (n: number) => `${n.toLocaleString()}P`, lo: (n: number) => `${n.toLocaleString()}P` },
+  toReward: { ko: (name: string, n: number) => `${name}까지 ${n.toLocaleString()}P`, lo: (name: string, n: number) => `ອີກ ${n.toLocaleString()}P ຈະໄດ້ ${name}` },
 } satisfies Record<string, Fn>
 
 /** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */

@@ -82,6 +82,8 @@ export interface State {
   studyDays: string[]
   /** 하루 활동 요약 (최근 60일): 공부 시간(초)·본 단어·푼 문제·앱 연 횟수. 로그인하면 서버 daily_activity 에도 쌓임 */
   activity: Record<string, DayActivity>
+  /** 처음 30초 체험(+환영 포인트)을 마쳤는지 */
+  introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
   profileConsent: 'yes' | 'no' | null
   totalPoints: number
@@ -151,6 +153,7 @@ function initial(): State {
     lastStudyDay: '',
     studyDays: [],
     activity: {},
+    introDone: false,
     profileConsent: null,
     totalPoints: 0,
   }
@@ -165,6 +168,8 @@ function load(): State {
       const merged: State = { ...base, ...parsed, v: 5, settings: { ...base.settings, ...(parsed.settings ?? {}) } }
       // 공부한 날 기록이 생기기 전 사용자: 이번 달 도장 + 마지막 공부한 날로 시작
       if (!Array.isArray(parsed.studyDays)) merged.studyDays = [...new Set([...(parsed.stamps ?? []), ...(parsed.lastStudyDay ? [parsed.lastStudyDay] : [])])].sort()
+      // 체험이 생기기 전에 이미 시작한 사람은 체험을 건너뜀
+      if (parsed.introDone === undefined) merged.introDone = !!parsed.started
       // 나라는 라오스 · 태국 · 베트남 · 기타만
       if (!['LA', 'TH', 'VN', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로
@@ -268,6 +273,15 @@ export function resetAll() {
 /** 학습자 언어 바꾸기: 화면 언어도 같이 (운영자용 한국어 화면이면 그대로) */
 export function setLanguage(native: Native, opts: { country?: boolean } = {}) {
   update((s) => ({ ...s, native, ui: s.ui === 'ko' ? 'ko' : native, ...(opts.country ? { country: COUNTRY_OF[native] } : {}) }))
+}
+
+/** 체험 중 외운 단어 포인트 (기기 포인트. 랭킹 점수와는 별개) */
+export function grantPoints(n: number) {
+  if (n > 0) update((s) => ({ ...s, totalPoints: s.totalPoints + n }))
+}
+/** 체험 끝: 환영 포인트 주고 끝 표시 */
+export function finishIntro(welcome: number) {
+  update((s) => (s.introDone ? s : { ...s, introDone: true, totalPoints: s.totalPoints + welcome }))
 }
 
 /** 성별 고르기: 남자 → 블랙(carbon) 테마, 여자 → 분홍(candy) 테마. 테마는 설정에서 따로 바꿀 수 있음 */

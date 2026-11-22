@@ -4,6 +4,7 @@ import { makeT, nativeInfo, type UiLang } from '../i18n'
 import { getState, setLanguage, update } from '../store'
 import type { Native, Purpose } from '../data/words'
 import NativePicker from './NativePicker'
+import { SIMPLE_MODE } from '../config'
 import { loginErrorKey } from './LoginError'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import { PurposePicker } from './SettingsScreen'
@@ -101,7 +102,7 @@ export default function Onboarding() {
               }}
             />
           </div>
-          <div className="field">
+          {!SIMPLE_MODE && <div className="field">
             <span className="label">{t('country')}</span>
             <div className="country-chips" role="radiogroup" aria-label={t('country')}>
               {COUNTRIES.map((c) => (
@@ -119,14 +120,14 @@ export default function Onboarding() {
                 </button>
               ))}
             </div>
-          </div>
+          </div>}
           {loggedIn ? (
             <div className="me-hello">
               <Avatar src={auth.me!.avatar} name={auth.me!.name} size={48} />
               <span>{auth.me!.name}</span>
             </div>
           ) : (
-            backendReady && (
+            backendReady && !SIMPLE_MODE && (
               <>
                 <button
                   className="fb-btn big"
@@ -155,10 +156,12 @@ export default function Onboarding() {
                 <label htmlFor="nick">{t('nickname')}</label>
                 <input id="nick" className="input" maxLength={16} placeholder={t('nicknamePh')} value={name} onChange={(e) => setName(e.target.value)} />
               </div>
-              <div className="field">
-                <span className="label">{t('photo')}</span>
-                <PhotoPicker name={name} />
-              </div>
+              {!SIMPLE_MODE && (
+                <div className="field">
+                  <span className="label">{t('photo')}</span>
+                  <PhotoPicker name={name} />
+                </div>
+              )}
             </>
           )}
           <div className="field">
@@ -168,12 +171,37 @@ export default function Onboarding() {
           <button
             className="btn btn-pink btn-block"
             onClick={() => {
-              update((s) => ({ ...s, ui, native, country, nickname: loggedIn ? auth.me!.name : name.trim() || (ui === 'ko' ? '나' : nativeInfo(native).me) }))
-              setStep('purpose')
+              const nickname = loggedIn ? auth.me!.name : name.trim() || (ui === 'ko' ? '나' : nativeInfo(native).me)
+              // 간단 모드: 목적·수준 테스트를 건너뛰고 바로 30초 체험으로 (설정에서 나중에 할 수 있음)
+              if (SIMPLE_MODE) update((s) => ({ ...s, ui, native, country, nickname, placementDone: true, started: true }))
+              else {
+                update((s) => ({ ...s, ui, native, country, nickname }))
+                setStep('purpose')
+              }
             }}
           >
             {t('start')} {heart}
           </button>
+          {SIMPLE_MODE && backendReady && !loggedIn && (
+            <>
+              <button
+                className="link-btn center fb-link"
+                onClick={() => {
+                  update((s) => ({ ...s, ui, native, country }))
+                  signInWithFacebook()
+                }}
+              >
+                <span className="fb-logo sm" aria-hidden="true">f</span> {t('haveAccount')}
+              </button>
+              {auth.error && (
+                <p className="note center err">
+                  {t(loginErrorKey(auth.error))}
+                  <br />
+                  <code className="login-error-raw">{auth.error}</code>
+                </p>
+              )}
+            </>
+          )}
         </section>
       </main>
     </div>

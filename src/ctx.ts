@@ -9,11 +9,12 @@ export type Route =
   | { name: 'round'; roundId: string }
   | { name: 'track'; trackId: string }
   | { name: 'review' }
+  | { name: 'community' }
   | { name: 'player'; roundId: string; startChunk: number; review?: boolean }
   | { name: 'placement' }
   | { name: 'quiz'; kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }
 
-export type Tab = 'learn' | 'community' | 'rewards' | 'settings'
+export type Tab = 'learn' | 'points' | 'community' | 'rewards' | 'settings'
 
 export interface AppCtx {
   ui: UiLang
