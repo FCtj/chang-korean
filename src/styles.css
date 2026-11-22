@@ -7411,3 +7411,90 @@ body {
 :root[data-theme='carbon'] .rank-ladder {
   background: var(--surface);
 }
+
+/* ═════════ 외우기 카드: 글자 + 그림 짝 (그림이 다시 돌아옴) · 다음 묶음 버튼 ═════════ */
+.front-pic {
+  width: clamp(84px, 24vw, 104px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--c-soft, var(--pink-soft));
+  flex: none;
+}
+.front-emoji {
+  font-family: var(--font-emoji);
+  font-size: clamp(46px, 13vw, 60px);
+  line-height: 1;
+}
+.fcard-face.front {
+  gap: 10px;
+  padding-top: 26px;
+  padding-bottom: 34px;
+}
+.fcard-face:not(.phrase) .card-word.ko {
+  font-size: clamp(2.4rem, 12.5vw, 3.4rem);
+}
+.fcard-face.phrase .front-pic {
+  width: 72px;
+}
+.fcard-face.phrase .front-emoji {
+  font-size: 40px;
+}
+:root[data-theme='carbon'] .front-pic {
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.08);
+}
+.wchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.wchip-emoji {
+  font-family: var(--font-emoji);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+.act-row.next-row {
+  grid-template-columns: 1fr;
+}
+.next-batch-btn {
+  min-height: 60px;
+  font-size: 1.15rem;
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+@keyframes pulse-soft {
+  50% {
+    box-shadow: 0 5px 0 var(--pink-deep), 0 0 0 6px var(--pink-soft);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .next-batch-btn {
+    animation: none;
+  }
+}
+.fcard-stage.interlude {
+  cursor: pointer;
+}
+/* 설정: 접어 둔 개인정보 설정 */
+.privacy-more > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.privacy-more > summary::-webkit-details-marker {
+  display: none;
+}
+.privacy-chev {
+  font-size: 1.4rem;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.privacy-more[open] .privacy-chev {
+  transform: rotate(90deg);
+}
+.privacy-more:not([open]) {
+  gap: 0;
+}

@@ -279,6 +279,7 @@ export const S_AR: Record<StrKey, string> = {
   hideName: 'إخفاء جزء من الاسم (مثل K*y)',
   hidePhoto: 'إخفاء الصورة',
   hideHint: 'هكذا تظهر للآخرين في الترتيب والمجموعات. التحية على شاشتك تبقى كما هي',
+  privacyMore: 'إعدادات الخصوصية',
   rankLadder: 'حيوان الرتبة',
   commPublic: 'عام',
   commGroups: 'مجموعاتي',

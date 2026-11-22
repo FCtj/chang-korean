@@ -273,6 +273,7 @@ export const S_VI: Record<StrKey, string> = {
   hideName: 'Ẩn một phần tên (vd: K*y)',
   hidePhoto: 'Ẩn ảnh',
   hideHint: 'Trong bảng xếp hạng và nhóm, người khác sẽ thấy như vậy. Lời chào trên màn hình của bạn vẫn giữ nguyên',
+  privacyMore: 'Cài đặt quyền riêng tư',
   rankLadder: 'Linh vật theo cấp',
   commPublic: 'Công khai',
   commGroups: 'Nhóm của tôi',

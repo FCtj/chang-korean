@@ -272,6 +272,7 @@ export const S_TH: Record<StrKey, string> = {
   hideName: 'ซ่อนชื่อบางส่วน (เช่น K*y)',
   hidePhoto: 'ซ่อนรูป',
   hideHint: 'ในอันดับและกลุ่ม คนอื่นจะเห็นแบบนี้ คำทักทายบนหน้าจอของคุณยังเหมือนเดิม',
+  privacyMore: 'การตั้งค่าความเป็นส่วนตัว',
   rankLadder: 'สัตว์ประจำขั้น',
   commPublic: 'สาธารณะ',
   commGroups: 'กลุ่มของฉัน',

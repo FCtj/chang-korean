@@ -273,6 +273,7 @@ export const S_MN: Record<StrKey, string> = {
   hideName: 'Нэрийн хэсгийг нуух (ж: K*y)',
   hidePhoto: 'Зургийг нуух',
   hideHint: 'Эрэмбэ, бүлэгт бусад хүн ингэж харна. Таны дэлгэц дээрх мэндчилгээ хэвээрээ',
+  privacyMore: 'Нууцлалын тохиргоо',
   rankLadder: 'Түвшний амьтан',
   commPublic: 'Нийтэд',
   commGroups: 'Миний бүлэг',

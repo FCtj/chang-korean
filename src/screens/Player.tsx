@@ -337,6 +337,9 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   onClick={() => (kn ? mark(w, false) : jumpTo(w))}
                   aria-label={`${w.ko} ${translation(w)}${kn ? ` ✓ ${t('memorized')}` : ''}`}
                 >
+                  <span className="wchip-emoji" aria-hidden="true">
+                    {w.emoji}
+                  </span>
                   <span className="wchip-ko ko">{w.ko}</span>
                   {kn && <span className="wchip-badge" aria-hidden="true">✓</span>}
                 </button>
@@ -356,7 +359,14 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
         </div>
 
         {pendingWords ? (
-          <div className="fcard-stage interlude" role="status">
+          <div
+            className="fcard-stage interlude"
+            role="button"
+            tabIndex={0}
+            aria-label={tf('nextN', pendingWords.length)}
+            onClick={() => pending !== null && startBatch(pending)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && pending !== null && startBatch(pending)}
+          >
             <Elephant size={84} acc="bow" mood="happy" className="bounce" />
             <div className="interlude-title">{tf('nextN', pendingWords.length)}</div>
             <div className="interlude-words">
@@ -381,6 +391,10 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
               <span className="fcard-inner">
                 <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''}`}>
                   {word.kind === 'phrase' && <span className="phrase-tag">💬 {t('phraseTag')}</span>}
+                  {/* 그림은 단어 위에 동그랗게 (글자가 주인공, 그림은 기억을 돕는 짝) */}
+                  <span className="front-pic" aria-hidden="true">
+                    <span className="front-emoji">{word.emoji}</span>
+                  </span>
                   {koFirst ? (
                     <>
                       <span className="card-word ko">{word.ko}</span>
@@ -422,7 +436,14 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
           </div>
         ) : null}
 
-        {!review && (
+        {pendingWords ? (
+          // 한 묶음을 다 외우면: 다음 묶음으로 가는 큰 버튼 하나 (화면 아래 작은 화살표를 찾지 않아도 되게)
+          <div className="act-row next-row">
+            <button className="btn btn-pink btn-big next-batch-btn" onClick={() => pending !== null && startBatch(pending)}>
+              ▶ {tf('nextN', pendingWords.length)}
+            </button>
+          </div>
+        ) : !review && (
           <div className="act-row with-play">
             <button className="btn btn-soft" onClick={() => word && advance()} disabled={!word || pending !== null}>
               <Icon name="repeat" size={18} /> {t('seeAgain')}
