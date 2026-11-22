@@ -220,6 +220,33 @@ export async function adminUserDetail(userId: string): Promise<AdminUserDetail> 
   if (error) throw new Error(error.message)
   return data as AdminUserDetail
 }
+export interface AdminReport {
+  type: 'post' | 'comment'
+  id: string
+  post_id: string
+  body: string
+  hidden: boolean
+  visibility: 'public' | 'group'
+  user_id: string
+  name: string
+  n: number
+  reasons: string[]
+  last_at: string
+}
+/** 신고된 글·댓글 (숨겨진 것 먼저) */
+export async function adminReports(): Promise<AdminReport[]> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_reports')
+  if (error) throw new Error(error.message)
+  return (data ?? []) as AdminReport[]
+}
+/** hide 숨기기 · dismiss 신고 지우고 되살리기 · delete 삭제 */
+export async function adminModerate(r: Pick<AdminReport, 'type' | 'id'>, action: 'hide' | 'dismiss' | 'delete'): Promise<void> {
+  if (!supabase) throw new Error('no_backend')
+  const { error } = await supabase.rpc('admin_moderate', { p_post: r.type === 'post' ? r.id : null, p_comment: r.type === 'comment' ? r.id : null, p_action: action })
+  if (error) throw new Error(error.message)
+}
+
 /** 최근 n일 접속 위치: 나라별·도시별 사람 수 */
 export async function adminAccessPlaces(days = 30): Promise<{ countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] }> {
   if (!supabase) throw new Error('no_backend')

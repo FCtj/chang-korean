@@ -692,5 +692,96 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('non-admin cannot read access places', e.includes('not_admin'), e)
 }
 
+
+// ───────── 커뮤니티 v2: 전체 공개 글 · 댓글 · 신고 · 차단 ─────────
+{
+  const C = { a: 'c1111111-1111-1111-1111-111111111111', b: 'c2222222-2222-2222-2222-222222222222', c: 'c3333333-3333-3333-3333-333333333333', d: 'c4444444-4444-4444-4444-444444444444' }
+  for (const id of Object.values(C)) await q('insert into auth.users values ($1) on conflict do nothing', [id])
+  await q(`insert into profiles (id, display_name, country) values ($1,'Ana','LA'),($2,'Bee','TH'),($3,'Cat','VN'),($4,'Dee','LA') on conflict do nothing`, [C.a, C.b, C.c, C.d])
+  const rpc1 = (uid, sql, params = []) => as(uid, async () => (await q(sql, params)).rows[0])
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message)
+    }
+  }
+  const anonFeed = async (...args) => {
+    await db.exec(`set role anon`)
+    try {
+      return (await q('select public_feed($1, $2, null, 20) as f', args)).rows[0].f
+    } finally {
+      await db.exec(`reset role`)
+    }
+  }
+  const pid = (await rpc1(C.a, `select create_post('public', null, 'question', '  안녕하세요! 질문 있어요  ') as id`)).id
+  const p2 = (await rpc1(C.b, `select create_post('public', null, 'study', 'วันนี้เรียน 50 คำ') as id`)).id
+  let feed = await anonFeed(null, null)
+  check('anon can read public feed (newest first, trimmed body)', feed.length >= 2 && feed[0].id === p2 && feed.find((x) => x.id === pid)?.body === '안녕하세요! 질문 있어요', JSON.stringify(feed.map((x) => x.body)))
+  check('public feed filters by category and country', (await anonFeed('study', null)).every((x) => x.category === 'study') && (await anonFeed(null, 'TH')).every((x) => x.country === 'TH'))
+  check('anon cannot post', (await err(async () => { await db.exec('set role anon'); try { await q(`select create_post('public', null, 'free', 'x')`) } finally { await db.exec('reset role') } })) !== '')
+  check('empty post rejected', (await err(() => rpc1(C.a, `select create_post('public', null, 'free', '   ')`))).includes('bad_body'))
+  // 그룹 글은 공개 피드에 안 나옴, 멤버 아니면 못 봄
+  const g = (await rpc1(C.a, `select create_group('엄마 모임', '🍼') as g`)).g
+  const gid = g.id
+  const gp = (await rpc1(C.a, `select create_post('group', $1, null, '그룹 안 글') as id`, [gid])).id
+  feed = await anonFeed(null, null)
+  check('group post is not in public feed', !feed.some((x) => x.id === gp))
+  check('non-member cannot open group post', (await err(() => rpc1(C.b, 'select post_thread($1)', [gp]))).includes('not_found'))
+  check('non-member cannot post into group', (await err(() => rpc1(C.b, `select create_post('group', $1, null, 'x')`, [gid]))).includes('not_member'))
+  check('non-member cannot comment on group post', (await err(() => rpc1(C.b, `select add_comment($1, 'hi')`, [gp]))).includes('not_found'))
+  // 댓글
+  await rpc1(C.b, `select add_comment($1, '저도 궁금해요')`, [pid])
+  const cmt = (await rpc1(C.c, `select add_comment($1, 'Tôi biết!') as id`, [pid])).id
+  let th = (await rpc1(C.d, 'select post_thread($1) as t', [pid])).t
+  check('thread shows comments in order with count', th.comments.length === 2 && th.post.comments === 2 && th.comments[1].body === 'Tôi biết!' && th.comments[0].mine === false, JSON.stringify(th.comments.map((c) => c.body)))
+  check('stranger cannot delete a comment', (await err(() => rpc1(C.d, 'select delete_comment($1)', [cmt]))).includes('not_allowed'))
+  await rpc1(C.a, 'select delete_comment($1)', [cmt]) // 글쓴이는 지울 수 있음
+  th = (await rpc1(C.d, 'select post_thread($1) as t', [pid])).t
+  check('post author can delete comments on own post', th.comments.length === 1)
+  check('reactions work on public posts', (await rpc1(C.d, `select toggle_reaction($1, '❤️') as r`, [pid])).r === true)
+  // 차단
+  await rpc1(C.d, 'select block_user($1, true)', [C.b])
+  const dFeed = (await rpc1(C.d, 'select public_feed(null, null, null, 20) as f')).f
+  th = (await rpc1(C.d, 'select post_thread($1) as t', [pid])).t
+  check('blocked author hidden from my feed and comments', !dFeed.some((x) => x.user_id === C.b) && th.comments.length === 0, JSON.stringify({ n: th.comments.length }))
+  check('my_blocks lists blocked person', (await rpc1(C.d, 'select my_blocks() as b')).b[0]?.name === 'Bee')
+  await rpc1(C.d, 'select block_user($1, false)', [C.b])
+  // 신고 3명 → 숨김
+  for (const u of [C.b, C.c]) await rpc1(u, `select report_content($1, null, 'spam')`, [pid])
+  await rpc1(C.c, `select report_content($1, null, 'spam')`, [pid]) // 같은 사람 두 번은 한 번
+  check('two reporters do not hide yet', (await anonFeed(null, null)).some((x) => x.id === pid))
+  const hidden = (await rpc1(C.d, `select report_content($1, null, 'abuse') as h`, [pid])).h
+  check('third reporter hides the post', hidden === true && !(await anonFeed(null, null)).some((x) => x.id === pid))
+  // 관리자 확인 (U.ploy 는 위에서 관리자)
+  const reps = (await rpc1(U.ploy, 'select admin_reports() as r')).r
+  const rp = reps.find((r) => r.id === pid)
+  check('admin sees reported post with 3 reporters and reasons', rp?.n === 3 && rp.hidden === true && rp.reasons.includes('spam'), JSON.stringify(rp))
+  check('non-admin cannot read reports', (await err(() => rpc1(C.a, 'select admin_reports()'))).includes('not_admin'))
+  await rpc1(U.ploy, `select admin_moderate($1, null, 'dismiss')`, [pid])
+  check('admin dismiss restores the post', (await anonFeed(null, null)).some((x) => x.id === pid))
+  // 하루 공개 글 10개 제한
+  for (let i = 0; i < 9; i++) await rpc1(C.c, `select create_post('public', null, 'free', $1)`, [`글 ${i}`])
+  check('10th public post ok, 11th refused', (await err(() => rpc1(C.c, `select create_post('public', null, 'free', '10')`))) === '' && (await err(() => rpc1(C.c, `select create_post('public', null, 'free', '11')`))).includes('too_many_posts'))
+  // 내 활동 · 그룹 피드 댓글 수
+  await rpc1(C.a, `select add_comment($1, '그룹 댓글')`, [gp])
+  const act = (await rpc1(C.a, 'select my_activity() as a')).a
+  check('my_activity lists my public and group posts', act.posts.some((x) => x.id === pid && x.visibility === 'public') && act.posts.some((x) => x.id === gp && x.group_name === '엄마 모임' && x.comments === 1), JSON.stringify(act.posts.map((x) => [x.visibility, x.comments])))
+  const gf = (await rpc1(C.a, 'select group_feed($1) as f', [gid])).f
+  check('group feed carries comment count', gf.find((x) => x.id === gp)?.comments === 1)
+  const direct = await as(C.a, async () => {
+    try {
+      return (await q('select * from comments')).rows.length
+    } catch {
+      return 0
+    }
+  })
+  check('comments table not readable directly (RLS, no policy)', direct === 0, String(direct))
+  // 내 데이터 삭제 → 댓글도 삭제
+  await as(C.b, () => q('select delete_my_data()'))
+  check('delete_my_data removes my comments and posts', (await q('select count(*)::int n from comments where user_id = $1', [C.b])).rows[0].n === 0 && (await q('select count(*)::int n from posts where user_id = $1', [C.b])).rows[0].n === 0)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

@@ -1,4 +1,4 @@
-// 커뮤니티: 내 그룹 안에서 공부 자랑하기
+// 커뮤니티: 전체 공개 게시판(누구나 읽기) + 내 그룹(멤버만) · 댓글 · 신고 · 차단
 // - 서버가 연결되고 로그인했으면 Supabase (supabase/schema.sql 의 groups · posts · reactions + RPC)
 // - 아니면 예시 그룹(지인들)과 이 기기에만 저장되는 글 (데모)
 // 시험 통과(exam/promo)는 서버에서 자동으로 '인증' 글이 올라감 (point_events 트리거)
@@ -25,6 +25,16 @@ export interface Group {
   member_count: number
   role: 'owner' | 'member'
 }
+export type Visibility = 'public' | 'group'
+export type Category = 'question' | 'study' | 'life' | 'free'
+export const CATEGORIES: { id: Category; icon: string }[] = [
+  { id: 'question', icon: '❓' },
+  { id: 'study', icon: '📚' },
+  { id: 'life', icon: '💼' },
+  { id: 'free', icon: '💬' },
+]
+export type ReportReason = 'spam' | 'abuse' | 'sexual' | 'privacy' | 'other'
+export const REPORT_REASONS: ReportReason[] = ['spam', 'abuse', 'sexual', 'privacy', 'other']
 export interface Post {
   id: string
   user_id: string
@@ -37,6 +47,32 @@ export interface Post {
   created_at: string
   reactions: Record<string, number>
   mine: string[]
+  /** v2: 공개/그룹 · 그룹 이름 · 말머리 · 글쓴이 나라 · 댓글 수 */
+  visibility?: Visibility
+  group_id?: string | null
+  group_name?: string | null
+  group_emoji?: string | null
+  category?: Category | null
+  country?: string | null
+  comments?: number
+}
+export interface Comment {
+  id: string
+  user_id: string
+  name: string
+  avatar: string | null
+  country: string | null
+  body: string
+  created_at: string
+  mine: boolean
+}
+export interface Thread {
+  post: Post
+  comments: Comment[]
+}
+export interface MyActivity {
+  posts: { id: string; visibility: Visibility; group_name: string | null; group_emoji: string | null; category: Category | null; body: string; created_at: string; hidden: boolean; comments: number; last_comment_at: string | null }[]
+  comments: { id: string; post_id: string; body: string; created_at: string; post_body: string; visibility: Visibility; group_name: string | null }[]
 }
 export interface Member {
   user_id: string
@@ -56,8 +92,11 @@ export function isServerMode(): boolean {
 }
 
 /** 서버 오류 메시지 → 화면 문구 키 */
-export function errorKey(e: unknown): 'codeNotFound' | 'groupFull' | 'tooManyGroups' | 'commError' {
+export function errorKey(e: unknown): 'codeNotFound' | 'groupFull' | 'tooManyGroups' | 'commError' | 'tooManyPosts' | 'tooManyComments' | 'postGone' {
   const m = String((e as { message?: string })?.message ?? e)
+  if (m.includes('too_many_posts')) return 'tooManyPosts'
+  if (m.includes('too_many_comments')) return 'tooManyComments'
+  if (m.includes('not_found') && !m.includes('code')) return 'postGone'
   if (m.includes('not_found')) return 'codeNotFound'
   if (m.includes('full')) return 'groupFull'
   if (m.includes('too_many')) return 'tooManyGroups'
@@ -286,4 +325,42 @@ export function subscribeFeed(groupId: string, onChange: () => void): () => void
   return () => {
     supabase!.removeChannel(ch)
   }
+}
+
+// ───────── 전체 공개 게시판 · 댓글 · 신고 · 차단 (서버 전용, 읽기는 로그인 전에도) ─────────
+export const boardReady = () => backendReady && !!supabase
+
+export async function publicFeed(category: Category | null, country: string | null, before?: string): Promise<Post[]> {
+  if (!boardReady()) return []
+  return rpc<Post[]>('public_feed', { p_category: category, p_country: country, p_before: before ?? null, p_limit: 20 })
+}
+export async function createPost(visibility: Visibility, groupId: string | null, category: Category | null, body: string): Promise<string> {
+  return rpc<string>('create_post', { p_visibility: visibility, p_group: groupId, p_category: category, p_body: body })
+}
+export async function postThread(postId: string): Promise<Thread> {
+  return rpc<Thread>('post_thread', { p_post: postId })
+}
+export async function addComment(postId: string, body: string): Promise<string> {
+  return rpc<string>('add_comment', { p_post: postId, p_body: body })
+}
+export async function deleteComment(commentId: string): Promise<void> {
+  await rpc('delete_comment', { p_comment: commentId })
+}
+/** 신고 — 서로 다른 3명이 신고하면 숨김. 숨겨졌으면 true */
+export async function reportContent(target: { post?: string; comment?: string }, reason: ReportReason): Promise<boolean> {
+  return rpc<boolean>('report_content', { p_post: target.post ?? null, p_comment: target.comment ?? null, p_reason: reason })
+}
+export async function blockUser(userId: string, block: boolean): Promise<void> {
+  await rpc('block_user', { p_user: userId, p_block: block })
+}
+export async function myBlocks(): Promise<{ user_id: string; name: string; avatar: string | null }[]> {
+  return rpc('my_blocks')
+}
+export async function myActivity(): Promise<MyActivity> {
+  return rpc<MyActivity>('my_activity')
+}
+/** 공개 글 지우기 (글쓴이만 — 서버 정책) */
+export async function deleteAnyPost(postId: string): Promise<void> {
+  const { error } = await supabase!.from('posts').delete().eq('id', postId)
+  if (error) throw error
 }

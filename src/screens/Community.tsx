@@ -1,16 +1,19 @@
-// 커뮤니티 탭: 나의 한국어 이력 + 내 그룹(랭킹 · 자랑하기 · 피드 · 반응)
+// 커뮤니티 탭: 🌏 전체 공개 게시판 · 🔒 내 그룹(멤버만: 랭킹 · 자랑하기 · 글 · 댓글) · 🙋 내 활동(이력 · 내 글 · 내 댓글)
+// 공개 글과 그룹 글은 카드마다 🌏 공개 / 🔒 그룹 이름 · 멤버만 으로 구분
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { backendReady, signInWithFacebook, useAuth, useMyPublic } from '../backend'
 import { learningRecord, useStore } from '../store'
-import { TIERS, findRound } from '../data/words'
 import { sfx } from '../audio'
 import { burstFrom } from '../fx'
 import { mascotOf, tierName } from '../mascot'
 import { Avatar, Segmented } from '../ui'
+import { TIERS } from '../data/words'
+import { PostCard, ThreadSheet, WriteSheet, tierBadge, useBragOptions, useDescribe } from './communityParts'
+import { MyActivityView, PublicBoard, newCommentCount, readSeen } from './Board'
+export { useDescribe }
 import {
   GROUP_EMOJIS,
-  REACTIONS,
   createGroup,
   deletePost,
   errorKey,
@@ -23,7 +26,7 @@ import {
   postBrag,
   shareToMyGroups,
   subscribeFeed,
-  toggleReaction,
+  myActivity,
   type BragData,
   type Group,
   type Member,
@@ -31,8 +34,6 @@ import {
 } from '../community'
 
 const CUR_KEY = 'ck-group'
-/** 블랙 테마에서는 리본 배지 대신 초보 배지 */
-const tierBadge = (badge: string | undefined, theme: string) => (theme === 'carbon' && badge === '🎀' ? '🔰' : badge)
 const readCur = () => {
   try {
     return localStorage.getItem(CUR_KEY)
@@ -41,9 +42,34 @@ const readCur = () => {
   }
 }
 
+type CommTab = 'public' | 'groups' | 'mine'
+const TAB_KEY = 'ck-comm-tab'
+const readTab = (): CommTab => {
+  try {
+    const v = localStorage.getItem(TAB_KEY)
+    return v === 'groups' || v === 'mine' ? v : 'public'
+  } catch {
+    return 'public'
+  }
+}
+
 export default function Community() {
   const { t } = useApp()
   const auth = useAuth()
+  const [tab, setTabState] = useState<CommTab>(readTab)
+  const [unread, setUnread] = useState(0)
+  const setTab = (x: CommTab) => {
+    setTabState(x)
+    try {
+      localStorage.setItem(TAB_KEY, x)
+    } catch {
+      /* 무시 */
+    }
+  }
+  useEffect(() => {
+    if (!isServerMode()) return
+    myActivity().then((a) => setUnread(newCommentCount(a, readSeen())), () => {})
+  }, [auth.status])
   const [groups, setGroups] = useState<Group[] | null>(null)
   const [cur, setCur] = useState<string | null>(readCur)
   const [adding, setAdding] = useState(false)
@@ -78,9 +104,31 @@ export default function Community() {
   return (
     <div className="page community">
       <h1 className="h1">👥 {t('tabCommunity')}</h1>
-      <RecordCard />
+      <div className="comm-tabs" role="tablist" aria-label={t('tabCommunity')}>
+        {(
+          [
+            ['public', '🌏', t('commPublic')],
+            ['groups', '🔒', t('commGroups')],
+            ['mine', '🙋', t('commMine')],
+          ] as [CommTab, string, string][]
+        ).map(([id, icon, label]) => (
+          <button key={id} role="tab" aria-selected={tab === id} className={tab === id ? 'comm-tab on' : 'comm-tab'} onClick={() => setTab(id)}>
+            <span aria-hidden="true">{icon}</span> {label}
+            {id === 'mine' && unread > 0 && tab !== 'mine' && <span className="comm-dot num">{unread}</span>}
+          </button>
+        ))}
+      </div>
+      <p className="comm-tab-note">{tab === 'public' ? `🌏 ${t('visPublicDesc')}` : tab === 'groups' ? `🔒 ${t('visGroupDesc')}` : ''}</p>
 
-      {needLogin ? (
+      {tab === 'public' && <PublicBoard />}
+      {tab === 'mine' && (
+        <>
+          <RecordCard />
+          <MyActivityView onActivity={() => setUnread(0)} />
+        </>
+      )}
+
+      {tab !== 'groups' ? null : needLogin ? (
         <section className="panel center-panel">
           <p>{t('loginForCommunity')}</p>
           <button className="fb-btn" onClick={() => signInWithFacebook()}>
@@ -122,6 +170,7 @@ export default function Community() {
             <GroupView
               key={current.id}
               group={current}
+              groups={groups}
               onLeft={async () => {
                 pick(null)
                 await load()
@@ -130,7 +179,7 @@ export default function Community() {
           )}
         </>
       )}
-      {!isServerMode() && <p className="note">{t('demoCommunity')}</p>}
+      {tab === 'groups' && !isServerMode() && <p className="note">{t('demoCommunity')}</p>}
     </div>
   )
 }
@@ -260,7 +309,7 @@ function GroupStart({ onDone }: { onDone: (g: Group) => void }) {
   )
 }
 
-function GroupView({ group, onLeft }: { group: Group; onLeft: () => void }) {
+function GroupView({ group, groups, onLeft }: { group: Group; groups: Group[]; onLeft: () => void }) {
   const { t, tf } = useApp()
   const auth = useAuth()
   const [feed, setFeed] = useState<Post[] | null>(null)
@@ -269,6 +318,13 @@ function GroupView({ group, onLeft }: { group: Group; onLeft: () => void }) {
   const [copied, setCopied] = useState(false)
   const [confirmLeave, setConfirmLeave] = useState(false)
   const myId = isServerMode() ? auth.me?.id : 'me'
+  const [open, setOpen] = useState<Post | null>(null)
+  const [writing, setWriting] = useState(false)
+  const [toast, setToast] = useState('')
+  const say = (m: string) => {
+    setToast(m)
+    setTimeout(() => setToast(''), 2400)
+  }
 
   const loadFeed = useCallback(() => {
     groupFeed(group.id).then(setFeed, () => setFeed([]))
@@ -350,7 +406,13 @@ function GroupView({ group, onLeft }: { group: Group; onLeft: () => void }) {
         </ol>
       </section>
 
+      {isServerMode() && (
+        <button className="write-fab btn btn-pink btn-block" onClick={() => setWriting(true)}>
+          ✏️ {t('writePost')} <span className="write-fab-sub">🔒 {group.name} · {t('membersOnly')}</span>
+        </button>
+      )}
       <Composer group={group} onPosted={loadFeed} />
+      {toast && <p className="board-toast">{toast}</p>}
 
       <section className="feed" aria-label="feed">
         {feed === null && <div className="board-msg">…</div>}
@@ -358,16 +420,30 @@ function GroupView({ group, onLeft }: { group: Group; onLeft: () => void }) {
         {feed?.map((p) => (
           <PostCard
             key={p.id}
-            p={p}
-            mine={p.user_id === myId}
+            p={{ ...p, visibility: p.visibility ?? 'group', group_name: p.group_name ?? group.name, group_emoji: p.group_emoji ?? group.emoji }}
+            myId={myId}
+            canModerate={group.role === 'owner'}
             onChange={(next) => setFeed((f) => (f ? f.map((x) => (x.id === p.id ? next : x)) : f))}
-            onDelete={async () => {
-              await deletePost(p.id, group.id).catch(() => {})
-              loadFeed()
-            }}
+            onRemoved={() => (isServerMode() ? loadFeed() : deletePost(p.id, group.id).then(loadFeed, loadFeed))}
+            onOpen={isServerMode() ? () => setOpen(p) : undefined}
+            onToast={say}
           />
         ))}
       </section>
+
+      {open && <ThreadSheet postId={open.id} initial={open} groupOwner={group.role === 'owner'} onClose={() => setOpen(null)} onChanged={() => loadFeed()} />}
+      {writing && (
+        <WriteSheet
+          groups={groups}
+          preset={{ visibility: 'group', groupId: group.id }}
+          onClose={() => setWriting(false)}
+          onPosted={() => {
+            setWriting(false)
+            say(t('postedOk'))
+            loadFeed()
+          }}
+        />
+      )}
 
       <button
         className={confirmLeave ? 'btn btn-danger btn-block sm' : 'link-btn leave-btn'}
@@ -398,54 +474,10 @@ function RankLine({ m, i }: { m: Member; i: number }) {
   )
 }
 
-/** 자랑 문장: 데이터로 만들어서 보는 사람의 언어로 보여 줌 */
-export function useDescribe() {
-  const { tf, ui } = useApp()
-  const { theme, country } = useStore()
-  return (d: BragData): { icon: string; text: string } | null => {
-    switch (d.type) {
-      case 'words':
-        return { icon: '📚', text: tf('bragWords', d.n ?? 0) }
-      case 'streak':
-        return { icon: '🔥', text: tf('bragStreak', d.n ?? 0) }
-      case 'points':
-        return { icon: '⭐', text: tf('bragPoints', d.n ?? 0) }
-      case 'tier': {
-        const tr = TIERS.find((x) => x.no === d.n)
-        return { icon: tierBadge(tr?.badge, theme) ?? '🏅', text: `${tf('bragTier', d.n ?? 1)}${tr ? ` ${tierName(tr, mascotOf(country))![ui]}` : ''}` }
-      }
-      case 'step': {
-        const r = d.unit ? findRound(d.unit) : undefined
-        const unit = r ? (r.pack ? `${r.pack.icon} ${r.title[ui]}` : tf('roundN', r.no)) : ''
-        return { icon: '✅', text: tf('bragStep', unit, d.n ?? 1) }
-      }
-      case 'pack': {
-        const r = d.unit ? findRound(d.unit) : undefined
-        return { icon: r?.pack?.icon ?? '🎒', text: tf('bragPack', r ? (r.title[ui] ?? r.title.ko) : '') }
-      }
-      case 'exam': {
-        const r = d.ref ? findRound(d.ref) : undefined
-        return { icon: '🎓', text: tf('bragExam', r?.no ?? 0, d.score) }
-      }
-      case 'promo':
-        return { icon: '🏆', text: tf('bragPromo', Number(d.ref) || 1) }
-      default:
-        return null
-    }
-  }
-}
-
 function Composer({ group, onPosted }: { group: Group; onPosted: () => void }) {
-  const s = useStore()
   const { t } = useApp()
   const describe = useDescribe()
-  const r = learningRecord(s)
-  const options: BragData[] = [
-    ...(r.words > 0 ? [{ type: 'words' as const, n: r.words }] : []),
-    ...(r.streak > 0 ? [{ type: 'streak' as const, n: r.streak }] : []),
-    ...(s.monthPoints > 0 ? [{ type: 'points' as const, n: s.monthPoints }] : []),
-    { type: 'tier' as const, n: r.tier },
-  ]
+  const options: BragData[] = useBragOptions()
   const [pick, setPick] = useState(0)
   const [text, setText] = useState('')
   const [busy, setBusy] = useState(false)
@@ -490,68 +522,6 @@ function Composer({ group, onPosted }: { group: Group; onPosted: () => void }) {
         {done ? `✓ ${t('shared')}` : `🎉 ${t('post')}`}
       </button>
     </section>
-  )
-}
-
-function timeAgo(iso: string, t: ReturnType<typeof useApp>['t'], tf: ReturnType<typeof useApp>['tf']) {
-  const min = Math.floor((Date.now() - new Date(iso).getTime()) / 60000)
-  if (min < 1) return t('justNow')
-  if (min < 60) return tf('minsAgo', min)
-  if (min < 60 * 24) return tf('hoursAgo', Math.floor(min / 60))
-  return tf('daysAgo', Math.floor(min / 1440))
-}
-
-function PostCard({ p, mine, onChange, onDelete }: { p: Post; mine: boolean; onChange: (p: Post) => void; onDelete: () => void }) {
-  const { t, tf } = useApp()
-  const describe = useDescribe()
-  const d = describe(p.data)
-  return (
-    <article className={p.verified ? 'post verified' : 'post'}>
-      <header className="post-head">
-        <Avatar src={p.avatar} name={p.name} size={40} />
-        <div className="post-who">
-          <span className="post-name">{p.name}</span>
-          <span className="post-time">{timeAgo(p.created_at, t, tf)}</span>
-        </div>
-        {p.verified && <span className="verified-tag">✓ {t('verified')}</span>}
-        {mine && (
-          <button className="link-btn post-del" onClick={onDelete}>
-            {t('deletePost')}
-          </button>
-        )}
-      </header>
-      {d && (
-        <div className="brag-badge">
-          <span className="brag-icon" aria-hidden="true">
-            {d.icon}
-          </span>
-          <span className="brag-line">{d.text}</span>
-        </div>
-      )}
-      {p.body && <p className="post-body">{p.body}</p>}
-      <div className="reactions">
-        {REACTIONS.map((e) => {
-          const on = p.mine.includes(e)
-          const n = p.reactions[e] ?? 0
-          return (
-            <button
-              key={e}
-              className={on ? 'react on' : 'react'}
-              aria-pressed={on}
-              onClick={(ev) => {
-                const next = { ...p, mine: on ? p.mine.filter((x) => x !== e) : [...p.mine, e], reactions: { ...p.reactions, [e]: Math.max(0, n + (on ? -1 : 1)) } }
-                onChange(next)
-                if (!on) burstFrom(ev.currentTarget, { count: 6, emojis: [e] })
-                toggleReaction(p.id, e).catch(() => onChange(p))
-              }}
-            >
-              <span aria-hidden="true">{e}</span>
-              {n > 0 && <span className="react-n num">{n}</span>}
-            </button>
-          )
-        })}
-      </div>
-    </article>
   )
 }
 

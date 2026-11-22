@@ -9,6 +9,8 @@ import { COURSES } from '../data/courses'
 import { maskName } from '../privacy'
 import {
   adminAccessPlaces,
+  adminModerate,
+  adminReports,
   adminOverview,
   adminUserDetail,
   adminUsers,
@@ -19,6 +21,7 @@ import {
   signOut,
   useAuth,
   type AdminOrder,
+  type AdminReport,
   type AdminOverview,
   type AdminUser,
   type AdminUserDetail,
@@ -243,6 +246,72 @@ function UserSheet({ user, mask, onClose }: { user: AdminUser; mask: boolean; on
   )
 }
 
+const REASON_KO: Record<string, string> = { spam: '광고·스팸', abuse: '욕설·괴롭힘', sexual: '성적인 내용', privacy: '개인정보', other: '기타' }
+
+/** 🚩 신고된 글·댓글: 3명 이상이면 자동으로 숨겨져 있음 → 숨김 유지 · 되살리기 · 삭제 */
+function Reports({ mask }: { mask: boolean }) {
+  const [rows, setRows] = useState<AdminReport[] | null>(null)
+  const [err, setErr] = useState('')
+  const load = useCallback(() => {
+    adminReports().then(setRows, (e) => {
+      setErr(String((e as Error).message ?? e))
+      setRows([])
+    })
+  }, [])
+  useEffect(() => {
+    load()
+  }, [load])
+  const act = async (r: AdminReport, a: 'hide' | 'dismiss' | 'delete') => {
+    if (a === 'delete' && !confirm('정말 삭제할까요? 되돌릴 수 없어요')) return
+    try {
+      await adminModerate(r, a)
+      load()
+    } catch (e) {
+      setErr(String((e as Error).message ?? e))
+    }
+  }
+  if (err.includes('admin_reports') || err.includes('function')) return null // 서버에 커뮤니티 SQL 실행 전
+  return (
+    <section className="panel adm-reports">
+      <h3 className="adm-h">
+        🚩 신고된 글·댓글 {rows && rows.length > 0 && <small className="note">· {rows.length}건</small>}
+      </h3>
+      {rows === null && <p className="note">…</p>}
+      {rows && rows.length === 0 && <p className="note">신고된 것이 없어요 👍</p>}
+      {err && <p className="adm-flag">{err}</p>}
+      <ul className="adm-list">
+        {rows?.map((r) => (
+          <li key={r.type + r.id} className="adm-report">
+            <div className="adm-report-top">
+              <span className={r.visibility === 'public' ? 'vis-badge vis-public' : 'vis-badge vis-group'}>{r.visibility === 'public' ? '🌏 공개' : '🔒 그룹'}</span>
+              <span className="note">{r.type === 'post' ? '글' : '댓글'}</span>
+              {r.hidden && <span className="vis-badge vis-hidden">숨겨짐</span>}
+              <span className="adm-report-n">🚩 {r.n}명 · {r.reasons.map((x) => REASON_KO[x] ?? x).join(', ')}</span>
+            </div>
+            <p className="adm-report-body" dir="auto">
+              <b>{mask ? maskName(r.name || '—') : r.name || '—'}</b> {r.body}
+            </p>
+            <div className="adm-report-actions">
+              {!r.hidden && (
+                <button className="btn btn-soft sm" onClick={() => act(r, 'hide')}>
+                  숨기기
+                </button>
+              )}
+              <button className="btn btn-soft sm" onClick={() => act(r, 'dismiss')}>
+                {r.hidden ? '되살리기' : '문제없음'}
+              </button>
+              <button className="btn btn-soft sm danger" onClick={() => act(r, 'delete')}>
+                삭제
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p className="note">서로 다른 3명이 신고하면 자동으로 숨겨져요. 「문제없음/되살리기」는 신고 기록을 지우고 다시 보이게 해요.</p>
+    </section>
+  )
+}
+
 function Dashboard({ onClose }: { onClose?: () => void }) {
   const [days, setDays] = useState<'7' | '30' | '90'>('30')
   const [ov, setOv] = useState<AdminOverview | null>(null)
@@ -359,6 +428,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
             )}
           </>
         )}
+
+        <Reports mask={mask} />
 
         <section className="panel adm-users">
           <h3 className="adm-h">사용자별 사용 현황 {total ? <small className="note">· {fmtNum(total)}명</small> : null}</h3>
