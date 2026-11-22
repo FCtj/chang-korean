@@ -1,7 +1,7 @@
 // 커뮤니티 탭: 나의 한국어 이력 + 내 그룹(랭킹 · 자랑하기 · 피드 · 반응)
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
-import { backendReady, signInWithFacebook, useAuth } from '../backend'
+import { backendReady, signInWithFacebook, useAuth, useMyPublic } from '../backend'
 import { learningRecord, useStore } from '../store'
 import { TIERS, findRound } from '../data/words'
 import { sfx } from '../audio'
@@ -139,6 +139,7 @@ export default function Community() {
 function RecordCard() {
   const s = useStore()
   const auth = useAuth()
+  const pub = useMyPublic()
   const { t, tf, ui } = useApp()
   const r = learningRecord(s)
   const tier = TIERS.find((x) => x.no === r.tier)
@@ -157,10 +158,10 @@ function RecordCard() {
   return (
     <section className="record-card" aria-label={t('myRecord')}>
       <div className="record-head">
-        <Avatar src={auth.me?.avatar || s.photo} name={auth.me?.name ?? s.nickname} size={46} />
+        <Avatar src={pub.avatar} name={pub.name} size={46} />
         <div className="record-who">
           <span className="record-label">CHANG KOREAN · RECORD</span>
-          <span className="record-name">{auth.me?.name ?? s.nickname}</span>
+          <span className="record-name">{pub.name}</span>
           <span className="record-tier">
             {tierBadge(tier?.badge, s.theme)} {tf('tierN', r.tier)} · {tierName(tier, mascotOf(s.country))?.[ui]} · {tf('roundsPassedN', r.rounds)}
           </span>

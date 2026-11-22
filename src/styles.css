@@ -6475,3 +6475,297 @@ body {
 :root[dir='rtl'] :is(.mw-ko, .wl-ko, .wchip-ko) {
   direction: ltr;
 }
+
+/* ═════════ 다른 사람에게 보이는 모습 (설정 미리보기) ═════════ */
+.public-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px dashed var(--line);
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+.public-name {
+  font-family: var(--font-cute);
+  font-size: 1.02rem;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ═════════ 🛠️ 관리자 · 사용 현황 ═════════ */
+.adm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 4px var(--gutter-r) calc(28px + var(--safe-bottom)) var(--gutter-l);
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+.adm-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.adm-h {
+  margin: 0;
+  font-family: var(--font-cute);
+  font-size: 1rem;
+  color: var(--ink);
+}
+.adm-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .adm-tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.adm-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  min-width: 0;
+}
+.adm-tile-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.adm-tile-value {
+  font-family: var(--font-cute);
+  font-size: 1.5rem;
+  line-height: 1.15;
+  color: var(--ink);
+}
+.adm-tile-sub {
+  font-size: 0.74rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.adm-chart {
+  gap: 6px;
+  padding: 14px;
+}
+.adm-chart-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.adm-chart-val {
+  font-size: 0.82rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.adm-bars {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.adm-bar {
+  fill: var(--pink-deep);
+}
+.adm-bar.on {
+  fill: var(--ink);
+}
+.adm-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+.adm-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+.adm-base {
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.adm-tick {
+  font-size: 10px;
+  fill: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.adm-breaks {
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 640px) {
+  .adm-breaks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.adm-break {
+  gap: 8px;
+  padding: 14px;
+}
+.adm-break-row {
+  display: grid;
+  grid-template-columns: minmax(0, 7.5em) 1fr auto;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.84rem;
+}
+.adm-break-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+}
+.adm-break-track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+.adm-break-bar {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: 999px;
+  background: var(--pink-deep);
+}
+.adm-break-n {
+  min-width: 4.2em;
+  text-align: end;
+  color: var(--ink);
+}
+.adm-break-n small {
+  color: var(--muted);
+}
+.adm-users {
+  gap: 10px;
+}
+.adm-search {
+  display: flex;
+  gap: 8px;
+}
+.adm-search .input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+}
+.adm-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.adm-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.adm-row {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 2px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: start;
+  font: inherit;
+  cursor: pointer;
+}
+.adm-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.adm-row-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.adm-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.adm-row-sub {
+  font-size: 0.78rem;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.adm-row-flag,
+.adm-flag {
+  font-size: 0.8rem;
+  color: var(--peach-deep);
+  background: var(--peach-soft);
+  border-radius: 10px;
+  padding: 4px 8px;
+  align-self: flex-start;
+  margin: 0;
+}
+.adm-sheet {
+  max-height: 88vh;
+  overflow-y: auto;
+  gap: 12px;
+}
+.adm-user-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.adm-user-name {
+  font-family: var(--font-cute);
+  font-size: 1.15rem;
+}
+.adm-events {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.84rem;
+}
+.adm-events li {
+  display: grid;
+  grid-template-columns: 5.5em 1fr auto 4.5em;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+}
+.adm-events li > :nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.adm-sql {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+  font-size: 0.78rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  user-select: all;
+}
+:root[data-theme='carbon'] .adm-bar,
+:root[data-theme='carbon'] .adm-break-bar {
+  fill: var(--sky);
+  background: var(--sky);
+}

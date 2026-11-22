@@ -20,6 +20,7 @@ import PointsScreen from './screens/PointsScreen'
 import Intro from './screens/Intro'
 import RankingScreen from './screens/RankingScreen'
 import MockExam from './screens/MockExam'
+import AdminScreen from './screens/AdminScreen'
 import { SIMPLE_MODE } from './config'
 import Player from './screens/Player'
 import Placement from './screens/Placement'
@@ -32,6 +33,12 @@ export default function App() {
   // 자기소개 문장 등을 내 나라로 (렌더 전에, 바뀔 때만)
   personalizeCountry(s.country)
   const [stack, setStack] = useState<Route[]>([{ name: 'tabs' }])
+  const [adminHash, setAdminHash] = useState(() => typeof location !== 'undefined' && location.hash === '#admin')
+  useEffect(() => {
+    const on = () => setAdminHash(location.hash === '#admin')
+    window.addEventListener('hashchange', on)
+    return () => window.removeEventListener('hashchange', on)
+  }, [])
   const [tab, setTab] = useState<Tab>('learn')
   const stackRef = useRef(stack)
   stackRef.current = stack
@@ -104,6 +111,18 @@ export default function App() {
     [ui, t, tf, tab],
   )
 
+  // 주소 끝 #admin → 관리자 화면 (처음 쓰는 기기여도 시작 화면 없이 바로)
+  if (adminHash)
+    return (
+      <Ctx.Provider value={ctx}>
+        <AdminScreen
+          onClose={() => {
+            history.replaceState(null, '', location.pathname + location.search)
+            setAdminHash(false)
+          }}
+        />
+      </Ctx.Provider>
+    )
   if (!s.started)
     return (
       <Ctx.Provider value={ctx}>
@@ -160,6 +179,7 @@ export default function App() {
   else if (top.name === 'track') screen = <TrackScreen key={top.trackId} trackId={top.trackId} />
   else if (top.name === 'review') screen = <ReviewScreen />
   else if (top.name === 'mock') screen = <MockExam />
+  else if (top.name === 'admin') screen = <AdminScreen onClose={() => ctx.pop()} />
   else if (top.name === 'community')
     screen = (
       <div className="screen">

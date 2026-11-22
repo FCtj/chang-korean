@@ -3,7 +3,7 @@
 // 테스트 기간(SAMPLE_DATA)에는 실제 랭킹에 지인 예시 15명을 섞어 보여 줌 (아래에 '예시' 안내)
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
-import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, type Period, type RankRow } from '../backend'
+import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, useMyPublic, type Period, type RankRow } from '../backend'
 import { demoRanking, todayKey, useStore } from '../store'
 import { sfx } from '../audio'
 import { fireworks, sparkleRain } from '../fx'
@@ -13,6 +13,7 @@ import { SAMPLE_DATA } from '../config'
 export default function Leaderboard() {
   const s = useStore()
   const auth = useAuth()
+  const pub = useMyPublic()
   const { t, tf, ui, home } = useApp()
   const [ceremony, setCeremony] = useState<Ceremony | null>(null)
   const [period, setPeriod] = useState<Period>('today')
@@ -69,7 +70,7 @@ export default function Leaderboard() {
     ? []
     : demoRanking(s)
         .filter((r) => !(backendReady && r.me)) // 서버가 있으면 '나'는 서버 기록으로
-        .map((r) => ({ rank: 0, userId: r.me ? 'me' : `sample:${r.name}`, name: r.name, avatar: r.me ? (auth.me?.avatar || s.photo || null) : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me, sample: !r.me }))
+        .map((r) => ({ rank: 0, userId: r.me ? 'me' : `sample:${r.name}`, name: r.me ? pub.name : r.name, avatar: r.me ? pub.avatar : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me, sample: !r.me }))
         .filter((r) => scope === 'all' || r.country === myCountry)
   const rerank = (xs: RankRow[]) => [...xs].sort((a, b) => b.points - a.points).map((r, i) => ({ ...r, rank: i + 1 }))
   const list: RankRow[] | null = !backendReady ? rerank(demo) : rows === null ? null : SAMPLE_DATA ? rerank([...rows, ...demo]) : rows
@@ -154,10 +155,10 @@ export default function Leaderboard() {
 
       {(auth.status === 'in' || !backendReady) && (
         <div className="my-rank">
-          <Avatar src={auth.me?.avatar || s.photo} name={auth.me?.name ?? s.nickname} size={44} />
+          <Avatar src={pub.avatar} name={pub.name} size={44} />
           <div className="my-rank-body">
             <div className="my-rank-label">{t('myRank')}</div>
-            <div className="my-rank-name">{auth.me?.name ?? s.nickname}</div>
+            <div className="my-rank-name">{pub.name}</div>
           </div>
           {myRankView ? (
             <div className="my-rank-num num">
@@ -222,7 +223,7 @@ export default function Leaderboard() {
               <div className="cer-avatar">
                 <span className="cer-ring" aria-hidden="true" />
                 {ceremony.kind === 'gold' && <span className="cer-crown" aria-hidden="true">👑</span>}
-                <Avatar src={auth.me?.avatar || s.photo} name={auth.me?.name ?? s.nickname} size={104} />
+                <Avatar src={pub.avatar} name={pub.name} size={104} />
                 <span className="cer-medal" aria-hidden="true">
                   {ceremony.kind === 'gold' ? '🥇' : ceremony.kind === 'silver' ? '🥈' : ceremony.kind === 'bronze' ? '🥉' : '🎁'}
                 </span>

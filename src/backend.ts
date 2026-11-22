@@ -5,7 +5,8 @@ import { useSyncExternalStore } from 'react'
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
-import { getState, mergeServerActivity, setActivityReporter, setPointsReporter, subscribe, update, type DayActivity, type State } from './store'
+import { getState, mergeServerActivity, setActivityReporter, setPointsReporter, subscribe, update, useStore, type DayActivity, type State } from './store'
+import { publicAvatar, publicName } from './privacy'
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
 
 // 주소·키는 src/config.ts 의 공개값 (빌드할 때 VITE_* 로 넣은 값이 있으면 그것)
@@ -121,6 +122,120 @@ export async function setCountry(country: string) {
   }
 }
 
+/** 다른 사람에게 보이는 내 모습 (랭킹 '나' 줄·그룹 기록 카드·설정 미리보기) */
+export function useMyPublic(): { name: string; avatar: string | null } {
+  const s = useStore()
+  const a = useAuth()
+  return { name: publicName(a.me?.name ?? s.nickname, s.hideName), avatar: publicAvatar(a.me?.avatar || s.photo, s.hidePhoto) }
+}
+
+/** 이름 일부·사진 가리기를 바꾸면 서버의 공개 프로필(랭킹·그룹에 보이는 값)도 바로 바꿈 */
+export async function syncPublicProfile() {
+  if (!supabase || auth.status !== 'in' || !auth.me) return
+  const st = getState()
+  try {
+    await supabase.from('profiles').update({ display_name: publicName(auth.me.name, st.hideName), avatar_url: publicAvatar(auth.me.avatar, st.hidePhoto), updated_at: new Date().toISOString() }).eq('id', auth.me.id)
+  } catch {
+    /* 다음 로그인 때 다시 */
+  }
+}
+
+// ───────── 관리자 · 사용 현황 (admin_* 함수는 서버에서 관리자만 허용) ─────────
+export interface AdminOverview {
+  today: string
+  users: number
+  new_today: number
+  new_7d: number
+  new_30d: number
+  active_today: number
+  active_7d: number
+  active_30d: number
+  seconds_7d: number
+  points_7d: number
+  series: { day: string; signups: number; active: number; seconds: number }[]
+  countries: Record<string, number>
+  natives: Record<string, number>
+  courses: Record<string, number>
+}
+export interface AdminUser {
+  user_id: string
+  display_name: string
+  avatar_url: string | null
+  country: string
+  created_at: string
+  last_seen: string | null
+  active_days: number
+  study_seconds: number
+  words: number
+  questions: number
+  points: number
+  points_7d: number
+  course: string
+  topik_level: number | null
+  native: string | null
+  hour_caps: number
+  fast: number
+  correct: number
+  total: number
+}
+export interface AdminUserDetail {
+  activity: { day: string; seconds: number; words: number; questions: number; sessions: number }[]
+  points: { kind: string; ref: string | null; points: number; created_at: string }[]
+  groups: number
+  study_days: number
+  streak: number | null
+}
+export type AdminOrder = 'recent' | 'new' | 'points' | 'time' | 'suspect'
+
+export async function adminOverview(days = 30): Promise<AdminOverview> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_overview', { p_days: days })
+  if (error) throw new Error(error.message)
+  return data as AdminOverview
+}
+export async function adminUsers(search: string, order: AdminOrder, limit = 50, offset = 0): Promise<AdminUser[]> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_users', { p_search: search || null, p_order: order, p_limit: limit, p_offset: offset })
+  if (error) throw new Error(error.message)
+  const num = (v: unknown) => Number(v ?? 0)
+  return ((data ?? []) as Record<string, unknown>[]).map((r) => ({
+    ...(r as unknown as AdminUser),
+    active_days: num(r.active_days),
+    study_seconds: num(r.study_seconds),
+    words: num(r.words),
+    questions: num(r.questions),
+    points: num(r.points),
+    points_7d: num(r.points_7d),
+    hour_caps: num(r.hour_caps),
+    fast: num(r.fast),
+    correct: num(r.correct),
+    total: num(r.total),
+  }))
+}
+export async function adminUserDetail(userId: string): Promise<AdminUserDetail> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_user_detail', { p_user: userId })
+  if (error) throw new Error(error.message)
+  return data as AdminUserDetail
+}
+/** 관리자 전용 계정(이메일·비밀번호, Supabase 대시보드에서 만든 계정)으로 로그인 — 실패하면 오류 문구 */
+export async function signInWithEmail(email: string, password: string): Promise<string | null> {
+  if (!supabase) return 'no_backend'
+  const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password })
+  return error ? error.message : null
+}
+
+/** 관리자인지 (admins 표에 있는 계정만 true) */
+export async function checkAdmin(): Promise<boolean> {
+  if (!supabase || auth.status !== 'in') return false
+  try {
+    const { data, error } = await supabase.rpc('is_admin')
+    return !error && data === true
+  } catch {
+    return false
+  }
+}
+
 async function onSession(session: Session | null) {
   if (!supabase) return
   if (!session) {
@@ -137,7 +252,8 @@ async function onSession(session: Session | null) {
   try {
     const { data: prof } = await supabase.from('profiles').select('country').eq('id', u.id).maybeSingle()
     if (prof?.country) country = prof.country
-    await supabase.from('profiles').upsert({ id: u.id, display_name: name, avatar_url: avatar, country, updated_at: new Date().toISOString() })
+    const st = getState()
+    await supabase.from('profiles').upsert({ id: u.id, display_name: publicName(name, st.hideName), avatar_url: publicAvatar(avatar, st.hidePhoto), country, updated_at: new Date().toISOString() })
   } catch {
     /* 네트워크 오류여도 로그인 상태는 유지 */
   }
@@ -200,7 +316,8 @@ function schedulePrivateSync() {
 // ───────── 학습 기록 동기화 ─────────
 // 기기 기록과 서버 기록을 합쳐서(외운 단어·통과한 회차는 합집합, STEP은 큰 쪽) 양쪽에 저장
 
-const SYNC_KEYS = ['purposes', 'studyDays', 'passedRounds', 'passedTiers', 'quizOpen', 'placedRounds', 'placementDone', 'bestExam', 'known', 'steps', 'stepKnown', 'wordStats', 'lastChunk', 'streak', 'lastStudyDay'] as const
+// 뒤쪽 course…cheat 는 합치지 않고 올리기만 함 (관리자 사용 현황 화면용)
+const SYNC_KEYS = ['purposes', 'studyDays', 'passedRounds', 'passedTiers', 'quizOpen', 'placedRounds', 'placementDone', 'bestExam', 'known', 'steps', 'stepKnown', 'wordStats', 'lastChunk', 'streak', 'lastStudyDay', 'course', 'topikLevel', 'totalPoints', 'native', 'ui', 'cheat'] as const
 type Synced = Pick<State, (typeof SYNC_KEYS)[number]>
 
 function snapshot(s: State): Synced {

@@ -105,6 +105,11 @@ export interface State {
   introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
   profileConsent: 'yes' | 'no' | null
+  /** 랭킹·그룹에서 이름 일부 가리기 · 사진 가리기 (서버에는 가린 값만) */
+  hideName: boolean
+  hidePhoto: boolean
+  /** 지금까지 누적 의심 신호 (관리자 화면용, signals 는 오늘만) */
+  cheat: { correct: number; fast: number; hourCaps: number }
   totalPoints: number
 }
 
@@ -196,6 +201,9 @@ function initial(): State {
     hourPoints: 0,
     signals: { day: '', correct: 0, fast: 0, hourCaps: 0 },
     profileConsent: null,
+    hideName: false,
+    hidePhoto: false,
+    cheat: { correct: 0, fast: 0, hourCaps: 0 },
     totalPoints: 0,
   }
 }
@@ -315,7 +323,7 @@ export function useStore(): State {
 }
 
 export function resetAll() {
-  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, country: state.country, profileConsent: state.profileConsent }
+  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, country: state.country, profileConsent: state.profileConsent, hideName: state.hideName, hidePhoto: state.hidePhoto }
   // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
@@ -638,7 +646,7 @@ function addCapped(base: number): number {
         hourPoints: r.hourPoints + pts,
         monthPoints: r.monthPoints + pts,
         totalPoints: r.totalPoints + pts,
-        ...(hitHour ? { signals: { ...r.signals, hourCaps: r.signals.hourCaps + 1 } } : {}),
+        ...(hitHour ? { signals: { ...r.signals, hourCaps: r.signals.hourCaps + 1 }, cheat: { ...r.cheat, hourCaps: (r.cheat?.hourCaps ?? 0) + 1 } } : {}),
       })
     })
     if (pts > 0) report('study', null, pts)
@@ -688,7 +696,8 @@ export function awardPractice(roundId: string, answerMs: number, firstTry: boole
   const fast = answerMs < MIN_ANSWER_MS
   update((st) => {
     const r = rollover(st)
-    return { ...r, signals: { ...r.signals, correct: r.signals.correct + 1, fast: r.signals.fast + (fast ? 1 : 0) } }
+    const cheat = r.cheat ?? { correct: 0, fast: 0, hourCaps: 0 }
+    return { ...r, signals: { ...r.signals, correct: r.signals.correct + 1, fast: r.signals.fast + (fast ? 1 : 0) }, cheat: { ...cheat, correct: cheat.correct + 1, fast: cheat.fast + (fast ? 1 : 0) } }
   })
   if (!firstTry || fast) return 0
   const s = rollover(state)

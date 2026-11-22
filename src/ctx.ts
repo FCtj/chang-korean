@@ -11,6 +11,7 @@ export type Route =
   | { name: 'review' }
   | { name: 'community' }
   | { name: 'mock' }
+  | { name: 'admin' }
   | { name: 'player'; roundId: string; startChunk: number; review?: boolean }
   | { name: 'placement' }
   | { name: 'quiz'; kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }

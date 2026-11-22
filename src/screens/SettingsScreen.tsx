@@ -12,7 +12,7 @@ import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
-import { backendReady, COUNTRIES, deleteMyData, setCountry, signInWithFacebook, signOut, useAuth } from '../backend'
+import { backendReady, checkAdmin, COUNTRIES, deleteMyData, setCountry, signInWithFacebook, signOut, syncPublicProfile, useAuth, useMyPublic } from '../backend'
 
 
 export default function SettingsScreen() {
@@ -29,6 +29,16 @@ export default function SettingsScreen() {
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deletedMsg, setDeletedMsg] = useState(false)
   const auth = useAuth()
+  const pub = useMyPublic()
+  const [isAdmin, setIsAdmin] = useState(false)
+  useEffect(() => {
+    let alive = true
+    if (auth.status === 'in') checkAdmin().then((ok) => alive && setIsAdmin(ok))
+    else setIsAdmin(false)
+    return () => {
+      alive = false
+    }
+  }, [auth.status])
 
   useEffect(() => {
     let alive = true
@@ -77,6 +87,37 @@ export default function SettingsScreen() {
             <Toggle id="set-consent" label={`🔒 ${t('consentToggle')}`} on={s.profileConsent === 'yes'} onChange={(on) => update((st) => ({ ...st, profileConsent: on ? 'yes' : 'no' }))} />
             <p className="note">{t('consentHint')}</p>
           </>
+        )}
+        <div className="field">
+          <span className="label">👀 {t('publicLook')}</span>
+          <div className="public-preview">
+            <Avatar src={pub.avatar} name={pub.name} size={40} />
+            <span className="public-name">{pub.name}</span>
+          </div>
+          <Toggle
+            id="set-hide-name"
+            label={t('hideName')}
+            on={s.hideName}
+            onChange={(on) => {
+              update((st) => ({ ...st, hideName: on }))
+              syncPublicProfile()
+            }}
+          />
+          <Toggle
+            id="set-hide-photo"
+            label={t('hidePhoto')}
+            on={s.hidePhoto}
+            onChange={(on) => {
+              update((st) => ({ ...st, hidePhoto: on }))
+              syncPublicProfile()
+            }}
+          />
+          <p className="note">{t('hideHint')}</p>
+        </div>
+        {isAdmin && (
+          <button className="btn btn-soft btn-block" onClick={() => push({ name: 'admin' })}>
+            🛠️ 관리자 · 사용 현황
+          </button>
         )}
         <div className="field">
           <span className="label">{t('country')}</span>

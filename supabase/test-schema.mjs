@@ -606,5 +606,47 @@ await review(R.rev2, '어서 오세요', 'ok')
 await as(R.rev1, () => q('select delete_my_review_data()'))
 check('delete_my_review_data removes only own reviews', (await q('select user_id from translation_reviews')).rows.map((r) => r.user_id).join() === R.rev2)
 
+
+// ───────── 관리자 · 사용 현황 ─────────
+{
+  let e = ''
+  try {
+    await as(U.noy, () => q('select admin_overview(30)'))
+  } catch (err) {
+    e = String(err.message)
+  }
+  check('non-admin cannot read admin_overview', e.includes('not_admin'), e)
+  await q('insert into admins (user_id) values ($1) on conflict do nothing', [U.ploy])
+  const flags = [await as(U.noy, async () => (await q('select is_admin() as a')).rows[0].a), await as(U.ploy, async () => (await q('select is_admin() as a')).rows[0].a)]
+  check('is_admin: false for normal user, true for admin', flags[0] === false && flags[1] === true, JSON.stringify(flags))
+  const seen = await as(U.noy, async () => {
+    try {
+      return (await q('select * from admins')).rows.length
+    } catch {
+      return 0
+    }
+  })
+  check('admins list is not readable from the app', seen === 0, String(seen))
+  const ov = await as(U.ploy, async () => (await q('select admin_overview(30) as o')).rows[0].o)
+  const nProfiles = (await q('select count(*)::int n from profiles')).rows[0].n
+  check('admin_overview: totals and 30-day series', ov.users === nProfiles && ov.series.length === 30 && typeof ov.countries === 'object', JSON.stringify({ users: ov.users, n: ov.series.length, countries: ov.countries }))
+  const list = await as(U.ploy, async () => (await q(`select * from admin_users(null, 'points', 10, 0)`)).rows)
+  check('admin_users: one row per profile, sorted by points', list.length === Math.min(10, nProfiles) && Number(list[0].total) === nProfiles && Number(list[0].points) >= Number(list[list.length - 1].points), JSON.stringify(list.slice(0, 2).map((r) => [r.display_name, r.points])))
+  const found = await as(U.ploy, async () => (await q(`select display_name from admin_users('keo', 'recent', 10, 0)`)).rows)
+  check('admin_users: search by name', found.length === 1 && found[0].display_name === 'Keo', JSON.stringify(found))
+  const det = await as(U.ploy, async () => (await q('select admin_user_detail($1) as d', [U.keo])).rows[0].d)
+  check('admin_user_detail: point history', Array.isArray(det.points) && det.points.length > 0 && Array.isArray(det.activity), JSON.stringify({ points: det.points.length }))
+  e = ''
+  try {
+    await db.exec(`set role anon`)
+    await q('select admin_overview(30)')
+  } catch (err) {
+    e = String(err.message)
+  } finally {
+    await db.exec(`reset role`)
+  }
+  check('anon cannot call admin functions', e !== '', e)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)
