@@ -1,0 +1,20 @@
+name: DB check (live Supabase)
+
+# 수동 실행: 실제 Supabase 에 마이그레이션이 들어갔는지 공개 키로만 확인 (scripts/check-live-db.mjs)
+# 저장소 변수·비밀은 읽지 않음 (빌드 로그는 공개)
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-live-db.mjs
