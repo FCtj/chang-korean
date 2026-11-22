@@ -342,6 +342,9 @@ const S = {
   nowStudying: { ko: '공부 중', lo: 'ກຳລັງຮຽນ' },
   levelSoon: { ko: '이 급은 단어를 준비하고 있어요. 곧 열려요!', lo: 'ກຳລັງກະກຽມຄຳສັບຂອງລະດັບນີ້. ອີກບໍ່ດົນຈະເປີດ!' },
   courseDone: { ko: '이 코스를 다 끝냈어요 🎉 다른 코스도 해 봐요', lo: 'ຮຽນຫຼັກສູດນີ້ຈົບແລ້ວ 🎉 ລອງຫຼັກສູດອື່ນເບິ່ງ' },
+  recentRewards: { ko: '최근 교환 내역', lo: 'ການແລກລາງວັນລ່າສຸດ' },
+  exchanged: { ko: '교환 완료', lo: 'ແລກແລ້ວ' },
+  sampleNote: { ko: '🧪 지금은 테스트 기간이라 일부는 예시 사용자예요', lo: '🧪 ຕອນນີ້ເປັນຊ່ວງທົດລອງ, ບາງຄົນເປັນຜູ້ໃຊ້ຕົວຢ່າງ' },
 } satisfies Record<string, Str>
 
 const F = {
@@ -420,6 +423,8 @@ const F = {
   mockBest: { ko: (n: number) => `최고 ${n}점`, lo: (n: number) => `ສູງສຸດ ${n} ຄະແນນ` },
   mockScore: { ko: (n: number) => `${n}점`, lo: (n: number) => `${n} ຄະແນນ` },
   topikLevel: { ko: (n: number) => `${n}급`, lo: (n: number) => `ລະດັບ ${n}` },
+  agoH: { ko: (n: number) => `${n}시간 전`, lo: (n: number) => `${n} ຊົ່ວໂມງກ່ອນ` },
+  agoD: { ko: (n: number) => `${n}일 전`, lo: (n: number) => `${n} ມື້ກ່ອນ` },
 } satisfies Record<string, Fn>
 
 /** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */

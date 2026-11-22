@@ -7,6 +7,10 @@ import { TRACK_WORK_B } from './track-work-b.ts'
 import { TRACK_CITIZEN } from './track-citizen.ts'
 // 📝 TOPIK 1~6급: 급별 파일(track-topik-N.ts)이 들어오면 import 하고 TOPIK_UNITS 에 넣음
 import { TRACK_TOPIK_1 } from './track-topik-1.ts'
+import { TRACK_TOPIK_4 } from './track-topik-4.ts'
+import { TRACK_TOPIK_2 } from './track-topik-2.ts'
+import { TRACK_TOPIK_5 } from './track-topik-5.ts'
+import { TRACK_TOPIK_3 } from './track-topik-3.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 
@@ -22,7 +26,7 @@ export interface TrackSource {
   units: TrackUnitSrc[]
 }
 
-const TOPIK_UNITS: Record<number, TrackUnitSrc[]> = { 1: TRACK_TOPIK_1 }
+const TOPIK_UNITS: Record<number, TrackUnitSrc[]> = { 1: TRACK_TOPIK_1, 2: TRACK_TOPIK_2, 3: TRACK_TOPIK_3, 4: TRACK_TOPIK_4, 5: TRACK_TOPIK_5 }
 
 const TOPIK_DESC: Record<number, TitleL10n> = {
   1: { ko: '생존 기초 — 인사·숫자·시간·장소·음식·쇼핑', lo: 'ຄຳສັບພື້ນຖານ — ທັກທາຍ·ຕົວເລກ·ເວລາ·ສະຖານທີ່·ອາຫານ·ຊື້ເຄື່ອງ', th: 'คำศัพท์พื้นฐาน — ทักทาย·ตัวเลข·เวลา·สถานที่·อาหาร·ช้อปปิ้ง', vi: 'Từ cơ bản — Chào hỏi·Số·Thời gian·Địa điểm·Ăn uống·Mua sắm' },

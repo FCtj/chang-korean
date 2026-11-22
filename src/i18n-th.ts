@@ -329,6 +329,9 @@ export const S_TH: Record<StrKey, string> = {
   nowStudying: 'กำลังเรียน',
   levelSoon: 'กำลังเตรียมคำศัพท์ระดับนี้ เร็วๆ นี้!',
   courseDone: 'เรียนคอร์สนี้จบแล้ว 🎉 ลองคอร์สอื่นดูนะ',
+  recentRewards: 'การแลกของรางวัลล่าสุด',
+  exchanged: 'แลกแล้ว',
+  sampleNote: '🧪 ตอนนี้เป็นช่วงทดสอบ บางคนเป็นผู้ใช้ตัวอย่าง',
 }
 
 export const F_TH: FnTable = {
@@ -395,4 +398,6 @@ export const F_TH: FnTable = {
   mockBest: (n: number) => `สูงสุด ${n} คะแนน`,
   mockScore: (n: number) => `${n} คะแนน`,
   topikLevel: (n: number) => `ระดับ ${n}`,
+  agoH: (n: number) => `${n} ชั่วโมงที่แล้ว`,
+  agoD: (n: number) => `${n} วันที่แล้ว`,
 }

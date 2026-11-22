@@ -11,6 +11,7 @@ import { nextShopItem } from '../data/shop'
 import { SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
 import { CourseSheet, OtherCourses, courseProgress } from './CoursePicker'
+import { RewardTicker } from './RecentRewards'
 
 export default function Home() {
   const s = useStore()
@@ -361,6 +362,7 @@ function WalletCard() {
       <span className="wallet-bar" aria-hidden="true">
         <span style={{ width: `${pct}%` }} />
       </span>
+      <RewardTicker />
     </button>
   )
 }

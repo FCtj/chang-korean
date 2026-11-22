@@ -1,5 +1,6 @@
 // 리더보드: 실시간(오늘) / 이번 달 × 우리나라 / 전체
 // 서버가 연결돼 있으면 실제 랭킹(누가 점수를 얻으면 바로 갱신), 아니면 예시 랭킹
+// 테스트 기간(SAMPLE_DATA)에는 실제 랭킹에 지인 예시 15명을 섞어 보여 줌 (아래에 '예시' 안내)
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, type Period, type RankRow } from '../backend'
@@ -7,6 +8,7 @@ import { demoRanking, todayKey, useStore } from '../store'
 import { sfx } from '../audio'
 import { fireworks, sparkleRain } from '../fx'
 import { Avatar, Elephant, Segmented } from '../ui'
+import { SAMPLE_DATA } from '../config'
 
 export default function Leaderboard() {
   const s = useStore()
@@ -61,16 +63,22 @@ export default function Leaderboard() {
     }
   }, [load])
 
-  // 예시 랭킹 (서버 연결 전)
-  const demo: RankRow[] = backendReady
+  // 예시 랭킹: 서버 연결 전에는 전부, 테스트 기간(SAMPLE_DATA)에는 실제 랭킹에 지인 예시를 섞음
+  const useSamples = !backendReady || SAMPLE_DATA
+  const demo: RankRow[] = !useSamples
     ? []
     : demoRanking(s)
-        .map((r, i) => ({ rank: i + 1, userId: r.me ? 'me' : r.name, name: r.name, avatar: r.me ? (auth.me?.avatar || s.photo || null) : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me }))
+        .filter((r) => !(backendReady && r.me)) // 서버가 있으면 '나'는 서버 기록으로
+        .map((r) => ({ rank: 0, userId: r.me ? 'me' : `sample:${r.name}`, name: r.name, avatar: r.me ? (auth.me?.avatar || s.photo || null) : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me, sample: !r.me }))
         .filter((r) => scope === 'all' || r.country === myCountry)
-        .map((r, i) => ({ ...r, rank: i + 1 }))
-  const list = backendReady ? rows : demo
-  const meRow = !backendReady ? demo.find((r) => r.me) : null
-  const myRankView = backendReady ? mine : meRow ? { rank: meRow.rank, points: meRow.points, total: demo.length } : null
+  const rerank = (xs: RankRow[]) => [...xs].sort((a, b) => b.points - a.points).map((r, i) => ({ ...r, rank: i + 1 }))
+  const list: RankRow[] | null = !backendReady ? rerank(demo) : rows === null ? null : SAMPLE_DATA ? rerank([...rows, ...demo]) : rows
+  const meRow = list?.find((r) => r.me) ?? null
+  const myRankView = meRow
+    ? { rank: meRow.rank, points: meRow.points, total: Math.max(list!.length, (mine?.total ?? 0) + demo.length) }
+    : backendReady && mine
+      ? { rank: mine.rank + demo.filter((r) => r.points > mine.points).length, points: mine.points, total: mine.total + demo.length }
+      : null
 
   // 랭킹을 열었을 때 한 번: 상위권이면 축하 세레머니, 아니면 격려 (하루에 기간·범위별 한 번)
   const ready = list !== null && (backendReady ? auth.status !== 'loading' : true)
@@ -203,6 +211,7 @@ export default function Leaderboard() {
       )}
       {myRankView && <p className="note center">{tf('rankOf', myRankView.rank, myRankView.total)}</p>}
       {!backendReady && <p className="note">{t('demoNote')}</p>}
+      {backendReady && SAMPLE_DATA && <p className="note">{t('sampleNote')}</p>}
 
       {ceremony && (
         <div className="cer-backdrop" onClick={() => setCeremony(null)}>

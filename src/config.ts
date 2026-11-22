@@ -20,3 +20,6 @@ export const CONTACT_EMAIL = ''
 export const SIMPLE_MODE = true
 /** 체험을 마치면 주는 환영 포인트 */
 export const WELCOME_POINTS = 100
+/** 테스트 기간 예시 데이터: 지인 15명을 랭킹에 섞고, 포인트 교환 내역(커피·치킨 등) 예시를 보여 줌.
+ *  화면에는 '예시' 표시가 붙음. 실제 사용자·실제 교환이 생기면 false 로 끄면 됨 */
+export const SAMPLE_DATA = true

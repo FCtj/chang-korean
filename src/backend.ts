@@ -297,6 +297,8 @@ export interface RankRow {
   country: string
   points: number
   me?: boolean
+  /** 테스트 기간 예시 사용자 */
+  sample?: boolean
 }
 
 export async function fetchLeaderboard(period: Period, country: string | null, limit = 50): Promise<RankRow[]> {

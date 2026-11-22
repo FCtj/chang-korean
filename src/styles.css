@@ -5911,3 +5911,92 @@ body {
   font-size: 1.05rem;
   line-height: 1;
 }
+
+/* ═════════ 테스트 예시: 최근 교환 내역 · 지갑 카드 소식 ═════════ */
+.rr-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rr-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 16px;
+  background: var(--surface-2);
+  border: 1.5px solid var(--line);
+}
+.rr-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.rr-name {
+  font-family: var(--font-cute);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rr-what {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.rr-time {
+  flex: none;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.reward-ticker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  font-size: 0.78rem;
+  overflow: hidden;
+}
+.reward-ticker-line {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: ticker-in 0.4s ease both;
+}
+.reward-ticker-tag {
+  flex: none;
+  font-size: 0.66rem;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.08);
+}
+@keyframes ticker-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reward-ticker-line {
+    animation: none;
+  }
+}
+:root[data-theme='carbon'] .reward-ticker {
+  background: rgba(0, 0, 0, 0.18);
+}
+:root[data-theme='carbon'] .rr-row {
+  border-radius: 12px;
+}

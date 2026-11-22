@@ -330,6 +330,9 @@ export const S_VI: Record<StrKey, string> = {
   nowStudying: 'Đang học',
   levelSoon: 'Đang chuẩn bị từ vựng cấp này. Sắp mở!',
   courseDone: 'Bạn đã học xong khóa này 🎉 Thử khóa khác nhé',
+  recentRewards: 'Đổi quà gần đây',
+  exchanged: 'Đã đổi',
+  sampleNote: '🧪 Đang thử nghiệm, một số là người dùng mẫu',
 }
 
 export const F_VI: FnTable = {
@@ -397,4 +400,6 @@ export const F_VI: FnTable = {
   mockBest: (n: number) => `Cao nhất ${n} điểm`,
   mockScore: (n: number) => `${n} điểm`,
   topikLevel: (n: number) => `Cấp ${n}`,
+  agoH: (n: number) => `${n} giờ trước`,
+  agoD: (n: number) => `${n} ngày trước`,
 }
