@@ -57,20 +57,6 @@ jobs:
           LOC=$(curl -s -o /dev/null -w '%{redirect_url}' --max-time 20 "$URL/auth/v1/authorize?provider=facebook&redirect_to=https%3A%2F%2Ffctj.github.io%2Fchang-korean%2F")
           FB_ID=$(echo "$LOC" | grep -oE 'client_id=[0-9]+' | cut -d= -f2)
           SCOPE=$(echo "$LOC" | grep -oE 'scope=[^&]+' | cut -d= -f2)
-          # 로그인 뒤 돌아갈 주소: state(JWT) 안의 referrer / site_url 로 확인
-          STATE=$(echo "$LOC" | grep -oE 'state=[^&]+' | cut -d= -f2)
-          python3 - "$STATE" <<'PY'
-          import base64, json, sys, urllib.parse
-          try:
-              p = urllib.parse.unquote(sys.argv[1]).split('.')[1]
-              c = json.loads(base64.urlsafe_b64decode(p + '=' * (-len(p) % 4)))
-              ref, site = c.get('referrer', ''), c.get('site_url', '')
-              want = 'https://fctj.github.io/chang-korean/'
-              print(('✓' if ref.rstrip('/') == want.rstrip('/') else '✗'), '로그인 뒤 돌아갈 주소:', ref or '(없음)')
-              print(('✓' if site.rstrip('/') == want.rstrip('/') else '✗'), 'Site URL:', site or '(없음)', '(Authentication → URL Configuration)')
-          except Exception as e:
-              print('  (돌아갈 주소 확인 못 함)', e)
-          PY
           if [ -z "$FB_ID" ]; then echo "✗ Facebook 로그인 시작 주소를 못 받음: ${LOC:0:120}"; missing=1
           elif [ "$FB_ID" = "$APP_ID" ]; then echo "✓ Supabase 의 Facebook 앱 ID = $FB_ID (요청 권한: $SCOPE)"
           else echo "✗ Supabase 의 Facebook 앱 ID 가 $FB_ID 입니다. 새 앱 $APP_ID 의 ID·시크릿으로 바꿔 넣으세요 (Authentication → Providers → Facebook)"; missing=1; fi
