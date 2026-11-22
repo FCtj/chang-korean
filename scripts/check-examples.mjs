@@ -17,6 +17,9 @@ function checkMap(name, map) {
     if (e.ex && !/[가-힣]/.test(e.ex)) fail(`${name}: "${ko}" 예문에 한글이 없음`)
     if (e.ex && e.ex.length > 70) fail(`${name}: "${ko}" 예문이 너무 김 (${e.ex.length}자)`)
     if (e.tip) for (const k of ['lo', 'th', 'vi']) if (!e.tip[k]?.trim()) fail(`${name}: "${ko}" tip.${k} 비어 있음`)
+    // 몽골어(선택): 있으면 키릴 문자, 한글 없음. 몽골어가 있으면 팁에도 몽골어
+    for (const [k, v] of [['mn', e.mn], ['tip.mn', e.tip?.mn]]) if (v !== undefined && (!/[\u0400-\u04FF]/.test(v) || /[가-힣]/.test(v))) fail(`${name}: "${ko}" ${k} 는 몽골어(키릴 문자)로`)
+    if (e.mn && e.tip && !e.tip.mn) fail(`${name}: "${ko}" tip.mn 없음`)
   }
   return Object.keys(map).length
 }

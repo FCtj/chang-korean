@@ -9,7 +9,9 @@ export interface ExampleEntry {
   lo: string
   th: string
   vi: string
+  /** (선택) 몽골어 — 없으면 exmn-*.ts 에서 찾음 */
+  mn?: string
   /** (선택) 헷갈리기 쉬운 단어의 짧은 사용 팁 — 학습자 언어로 */
-  tip?: { lo: string; th: string; vi: string }
+  tip?: { lo: string; th: string; vi: string; mn?: string }
 }
 export type ExampleMap = Record<string, ExampleEntry>

@@ -57,16 +57,16 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
                   </button>
                 </div>
                 <span className="wh-ex-rom">{entry.rom}</span>
-                <p className={`wh-ex-tr nf-${n}`}>{n === 'mn' ? mn?.mn ?? '' : entry[n]}</p>
+                <p className={`wh-ex-tr nf-${n}`}>{n === 'mn' ? entry.mn ?? mn?.mn ?? '' : entry[n]}</p>
               </>
             ) : (
               <p className="note">{ready ? t('exampleSoon') : '…'}</p>
             )}
           </div>
         )}
-        {(n === 'mn' ? mn?.tip : entry?.tip?.[n]) && (
+        {(n === 'mn' ? entry?.tip?.mn ?? mn?.tip : entry?.tip?.[n]) && (
           <div className={`wh-tip nf-${n}`}>
-            💡 {n === 'mn' ? mn?.tip : entry?.tip?.[n]}
+            💡 {n === 'mn' ? entry?.tip?.mn ?? mn?.tip : entry?.tip?.[n]}
           </div>
         )}
         <button className="btn btn-soft btn-block" onClick={onClose}>
