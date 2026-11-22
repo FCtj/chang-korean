@@ -8,7 +8,7 @@ export const SUPABASE_URL = 'https://aoonpimjvqrdfbkeomya.supabase.co'
 /** Supabase Publishable key (공개용) */
 export const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_RsM7yDx8h6mnHosgkZ4FyA_ope7AahS'
 /** Facebook 앱 ID (공개값. 로그인은 Supabase 가 처리하므로 앱 코드에서는 참고용) */
-export const FACEBOOK_APP_ID = '1714624056889473'
+export const FACEBOOK_APP_ID = '2530711987415134'
 /** 웹사이트 주소 (앱에서 개인정보처리방침 등을 열 때 사용) */
 export const SITE_URL = 'https://fctj.github.io/chang-korean/'
 /** 개인정보처리방침 · 데이터 삭제 안내 페이지에 보일 문의 이메일. 비어 있으면 GitHub 문의 링크로 대신함 */
