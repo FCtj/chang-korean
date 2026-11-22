@@ -2,7 +2,9 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
 import { makeT } from './i18n'
-import { useStore } from './store'
+import { update, useStore } from './store'
+import { applyUpdate, useUpdateReady } from './update'
+import { NEWS, NEWS_ID } from './data/news'
 import { stopSpeaking } from './audio'
 import { Ctx, type AppCtx, type Route, type Tab } from './ctx'
 import { Icon, TopBar } from './ui'
@@ -54,6 +56,12 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [top, tab])
+
+  // 새 버전: 열 때·돌아올 때 찾았고 홈(탭) 화면이면 바로 새로 고침, 아니면 위에 띠
+  const updateReady = useUpdateReady()
+  useEffect(() => {
+    if (updateReady && updateReady !== 'interval' && top.name === 'tabs') applyUpdate(true)
+  }, [updateReady, top.name])
 
   // 안드로이드 뒤로가기 버튼
   useEffect(() => {
@@ -159,9 +167,39 @@ export default function App() {
   else if (top.name === 'placement') screen = <Placement ui={ui} mode="retake" onBack={() => ctx.pop()} onDone={() => ctx.home('learn')} />
   else screen = <Quiz key={`${stack.length}-${top.kind}-${top.words.length}`} {...top} />
 
+  const showNews = top.name === 'tabs' && !!s.introDone && s.newsSeen !== NEWS_ID
   return (
     <Ctx.Provider value={ctx}>
       <div className="app">{screen}</div>
+      {updateReady && (
+        <div className="update-bar" role="status">
+          <span>✨ {t('updateReady')}</span>
+          <button className="btn btn-pink sm" onClick={() => applyUpdate()}>
+            {t('updateNow')}
+          </button>
+        </div>
+      )}
+      {showNews && (
+        <div className="sheet-backdrop" onClick={() => update((st) => ({ ...st, newsSeen: NEWS_ID }))}>
+          <section className="sheet news-sheet" role="dialog" aria-label={t('newsTitle')} onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-handle" aria-hidden="true" />
+            <h2 className="h3">🎉 {t('newsTitle')}</h2>
+            <ul className="news-list">
+              {NEWS.map((n) => (
+                <li key={n.icon}>
+                  <span className="news-icon" aria-hidden="true">
+                    {n.icon}
+                  </span>
+                  <span>{n.text[ui]}</span>
+                </li>
+              ))}
+            </ul>
+            <button className="btn btn-pink btn-block" onClick={() => update((st) => ({ ...st, newsSeen: NEWS_ID }))}>
+              {t('ok')}
+            </button>
+          </section>
+        </div>
+      )}
     </Ctx.Provider>
   )
 }

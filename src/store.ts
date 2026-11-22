@@ -6,6 +6,7 @@ import type { UiLang } from './i18n'
 import { DEMO_PEOPLE } from './data/friends'
 import { TRACKS, findTrack, type Track } from './data/tracks'
 import { COURSE_IDS, topikTrack, type CourseId } from './data/courses'
+import { NEWS_ID } from './data/news'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
 /** candy = 분홍 파스텔(기본, 여자 선택) · carbon = 묵직한 블랙(남자 선택) */
@@ -89,6 +90,8 @@ export interface State {
   course: CourseId | null
   /** TOPIK 코스에서 보고 있는 급 (1~6) */
   topikLevel: number
+  /** 마지막으로 본 '새로워졌어요' 소식 (data/news.ts 의 NEWS_ID) */
+  newsSeen: string
   /** 처음 30초 체험(+환영 포인트)을 마쳤는지 */
   introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
@@ -164,6 +167,7 @@ function initial(): State {
     bestMock: 0,
     course: null,
     topikLevel: 1,
+    newsSeen: '',
     profileConsent: null,
     totalPoints: 0,
   }
@@ -294,7 +298,8 @@ export function grantPoints(n: number) {
 }
 /** 체험 끝: 환영 포인트 주고 끝 표시 */
 export function finishIntro(welcome: number) {
-  update((s) => (s.introDone ? s : { ...s, introDone: true, totalPoints: s.totalPoints + welcome }))
+  // 처음 시작한 사람은 '새로워졌어요' 를 따로 보여 주지 않음
+  update((s) => (s.introDone ? s : { ...s, introDone: true, newsSeen: NEWS_ID, totalPoints: s.totalPoints + welcome }))
 }
 
 /** 성별 고르기: 남자 → 블랙(carbon) 테마, 여자 → 분홍(candy) 테마. 테마는 설정에서 따로 바꿀 수 있음 */

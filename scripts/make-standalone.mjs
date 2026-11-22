@@ -25,6 +25,12 @@ writeFileSync(new URL('dist-web/index.html', root), html)
 writeFileSync(new URL('dist-web/chang-korean.html', root), html)
 console.log(`✓ dist-web/index.html, dist-web/chang-korean.html (${(html.length / 1024).toFixed(0)} KB)`)
 
+// 새 버전 알림용: 앱 안의 빌드 번호와 같은 값 (src/update.ts 가 주기적으로 확인)
+const build = (html.match(/<meta name="ck-build" content="([^"]+)"/) ?? [])[1]
+if (!build) throw new Error('빌드 번호(ck-build)가 없음')
+writeFileSync(new URL('dist-web/version.json', root), JSON.stringify({ build }) + '\n')
+console.log(`✓ dist-web/version.json (${build})`)
+
 // 개인정보처리방침 · 데이터 삭제 안내 (Facebook 앱 라이브 전환에 필요) → dist-web/privacy.html, dist-web/delete-data.html
 const config = readFileSync(new URL('src/config.ts', root), 'utf8')
 const email = (config.match(/CONTACT_EMAIL = '([^']*)'/) ?? [])[1] ?? ''
