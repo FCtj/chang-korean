@@ -250,5 +250,8 @@ export const TRACK_EPS_A: TrackUnitSrc[] = [
       ['이 약은 하루에 세 번 식사 후에 드세요.', 'i yageun harue se beon siksa hue deuseyo.', 'ຢານີ້ກິນມື້ລະ 3 ເທື່ອ ຫຼັງອາຫານ', 'ยานี้ทานวันละ 3 ครั้งหลังอาหาร', 'Thuốc này uống ngày 3 lần sau bữa ăn.', '🍽️'],
       ['처방전을 가지고 약국에 가세요.', 'cheobangjeoneul gajigo yakguge gaseyo.', 'ເອົາໃບສັ່ງຢາໄປຮ້ານຂາຍຢາ', 'เอาใบสั่งยาไปร้านขายยา', 'Hãy mang đơn thuốc đến nhà thuốc.', '🚶'],
     ],
+    added: [
+      { row: ['정형외과', 'jeonghyeongoegwa', 'ພະແນກກະດູກ ແລະ ຂໍ້', 'แผนกกระดูกและข้อ', 'khoa chấn thương chỉnh hình', '🦴'] },
+    ],
   },
 ]

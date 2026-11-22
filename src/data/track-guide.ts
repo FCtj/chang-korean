@@ -25,7 +25,7 @@ export const TRACK_GUIDE: TrackUnitSrc[] = [
       ['지연', 'jiyeon', 'ການລ່າຊ້າ', 'ความล่าช้า', 'bị trễ', '⏰'],
       ['입국 심사', 'ipguk simsa', 'ກວດຄົນເຂົ້າເມືອງ', 'ตรวจคนเข้าเมือง', 'kiểm tra nhập cảnh', '🛂'],
       ['여권', 'yeogwon', 'ໜັງສືຜ່ານແດນ', 'หนังสือเดินทาง', 'hộ chiếu', '📘'],
-      ['비자', 'bija', 'ວີຊາ', 'วีซ่า', 'thị thực (visa)', '🪪'],
+      ['출국', 'chulguk', 'ການອອກປະເທດ', 'การเดินทางออกนอกประเทศ', 'xuất cảnh', '👋'],
       ['짐', 'jim', 'ກະເປົາເດີນທາງ', 'สัมภาระ', 'hành lý', '🧳'],
       ['수하물 찾는 곳', 'suhamul channeun got', 'ບ່ອນຮັບກະເປົາ', 'จุดรับกระเป๋า', 'nơi nhận hành lý', '🛄'],
       ['세관', 'segwan', 'ດ່ານພາສີ', 'ศุลกากร', 'hải quan', '🛃'],
@@ -99,6 +99,9 @@ export const TRACK_GUIDE: TrackUnitSrc[] = [
       ['모닝콜은 6시입니다.', 'moningkoreun yeoseot siimnida.', 'ໂທປຸກຕອນ 6 ໂມງເຊົ້າ', 'โทรปลุกเวลา 6 โมงเช้า', 'Gọi báo thức lúc 6 giờ sáng.', '🕕'],
       ['중간에 휴게소에서 쉬어 갑니다.', 'junggane hyugesoeseo swieo gamnida.', 'ລະຫວ່າງທາງຈະແວ່ພັກທີ່ບ່ອນພັກລົດ', 'ระหว่างทางจะแวะพักที่จุดพักรถ', 'Giữa đường chúng ta sẽ nghỉ ở trạm dừng chân.', '🚻'],
       ['궁금한 점은 단톡방에 남겨 주세요.', 'gunggeumhan jeomeun dantokbange namgyeo juseyo.', 'ຖ້າມີຄຳຖາມ ຝາກໄວ້ໃນກຸ່ມແຊັດໄດ້', 'ถ้ามีคำถาม ฝากไว้ในกลุ่มแชตได้เลย', 'Có thắc mắc gì xin để lại trong nhóm chat.', '❓'],
+    ],
+    added: [
+      { row: ['화장실', 'hwajangsil', 'ຫ້ອງນ້ຳ', 'ห้องน้ำ', 'nhà vệ sinh', '🚽'] },
     ],
   },
   {
@@ -275,6 +278,9 @@ export const TRACK_GUIDE: TrackUnitSrc[] = [
       ['보험 처리를 위해 진단서를 받으세요.', 'boheom cheorireul wihae jindanseoreul badeuseyo.', 'ຂໍໃບຢັ້ງຢືນແພດໄວ້ເພື່ອເຄມປະກັນ', 'ขอใบรับรองแพทย์ไว้เพื่อเคลมประกัน', 'Hãy lấy giấy chẩn đoán để làm thủ tục bảo hiểm.', '📋'],
       ['날씨 때문에 일정이 변경됐습니다.', 'nalssi ttaemune iljeongi byeongyeongdwaetseumnida.', 'ກຳນົດການປ່ຽນແປງຍ້ອນສະພາບອາກາດ', 'กำหนดการเปลี่ยนเพราะสภาพอากาศ', 'Lịch trình đã thay đổi vì thời tiết.', '⛈️'],
       ['길을 잃으면 그 자리에서 저에게 전화하세요.', 'gireul ireumyeon geu jarieseo jeoege jeonhwahaseyo.', 'ຖ້າຫຼົງທາງ ໃຫ້ຢູ່ບ່ອນນັ້ນແລ້ວໂທຫາຂ້ອຍ', 'ถ้าหลงทาง ให้อยู่ตรงนั้นแล้วโทรหาฉัน', 'Nếu bị lạc, hãy đứng yên tại chỗ và gọi cho tôi.', '📲'],
+    ],
+    added: [
+      { row: ['멀미', 'meolmi', 'ເມົາລົດ, ເມົາເຮືອ', 'เมารถ, เมาเรือ', 'say xe, say tàu', '😵‍💫'] },
     ],
   },
 ]

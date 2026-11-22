@@ -144,6 +144,9 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['양쪽 다 똑같이 해 드릴게요.', 'yangjjok da ttokgachi hae deurilgeyo.', 'ຈະນວດທັງສອງເບື້ອງເທົ່າກັນ', 'จะนวดทั้งสองข้างเท่ากัน', 'Tôi sẽ làm đều cả hai bên ạ.', '↔️'],
       ['발바닥은 조금 아플 수 있어요.', 'balbadageun jogeum apeul su isseoyo.', 'ຝ່າຕີນອາດຈະເຈັບໜ້ອຍໜຶ່ງ', 'ฝ่าเท้าอาจจะเจ็บนิดหน่อย', 'Lòng bàn chân có thể hơi đau một chút ạ.', '⚡'],
     ],
+    added: [
+      { row: ['엉덩이', 'eongdeongi', 'ກົ້ນ, ສະໂພກ', 'สะโพก, ก้น', 'mông', '🍑'] },
+    ],
   },
   {
     key: 'pressure',
@@ -256,7 +259,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['분실물', 'bunsilmul', 'ເຄື່ອງເສຍ', 'ของหาย', 'đồ thất lạc', '🔎'],
       ['매니저', 'maenijeo', 'ຜູ້ຈັດການ', 'ผู้จัดการ', 'quản lý', '👔'],
       ['사장님', 'sajangnim', 'ເຈົ້າຂອງຮ້ານ', 'เจ้าของร้าน', 'chủ tiệm', '🧑‍💼'],
-      ['감시 카메라', 'gamsi kamera', 'ກ້ອງວົງຈອນປິດ', 'กล้องวงจรปิด', 'camera an ninh', '📹'],
+      ['CCTV', 'ssissitibi', 'ກ້ອງວົງຈອນປິດ', 'กล้องวงจรปิด', 'camera an ninh', '📹'],
       ['경찰', 'gyeongchal', 'ຕຳຫຼວດ', 'ตำรวจ', 'cảnh sát', '👮'],
       ['신고하다', 'singohada', 'ແຈ້ງຄວາມ', 'แจ้งความ', 'trình báo', '🚨'],
       ['거절하다', 'geojeolhada', 'ປະຕິເສດ', 'ปฏิเสธ', 'từ chối', '🙅'],

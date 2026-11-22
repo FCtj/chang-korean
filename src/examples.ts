@@ -35,17 +35,23 @@ export function loadExamples(): Promise<Loaded> {
 }
 
 type State = { entry: ExampleEntry | null; mn: MnExample | null; ar: ArExample | null; ready: boolean }
-const pick = (c: Loaded | null, ko: string | null): State => ({ entry: ko && c ? c.map[ko] ?? null : null, mn: ko && c ? c.mn[ko] ?? null : null, ar: ko && c ? c.ar[ko] ?? null : null, ready: !!c })
+/** 같은 글자 다른 뜻(예: 팔 = 신체 / 숫자 8)은 단어 id 로 따로 둔 예문을 먼저 씀 — 그때는 글자로 찾은 몽골어·아랍어 예문을 쓰지 않음 */
+const pick = (c: Loaded | null, ko: string | null, id?: string): State => {
+  if (!ko || !c) return { entry: null, mn: null, ar: null, ready: !!c }
+  const own = id ? c.map[id] : undefined
+  if (own) return { entry: own, mn: null, ar: null, ready: true }
+  return { entry: c.map[ko] ?? null, mn: c.mn[ko] ?? null, ar: c.ar[ko] ?? null, ready: true }
+}
 
-export function useExample(ko: string | null): State {
-  const [state, setState] = useState<State>(() => pick(cache, ko))
+export function useExample(ko: string | null, id?: string): State {
+  const [state, setState] = useState<State>(() => pick(cache, ko, id))
   useEffect(() => {
     if (!ko) return
     let alive = true
-    loadExamples().then((c) => alive && setState(pick(c, ko)))
+    loadExamples().then((c) => alive && setState(pick(c, ko, id)))
     return () => {
       alive = false
     }
-  }, [ko])
+  }, [ko, id])
   return state
 }

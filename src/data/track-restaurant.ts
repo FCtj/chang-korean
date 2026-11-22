@@ -73,7 +73,7 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['채식', 'chaesik', 'ອາຫານມັງສະວິລັດ', 'อาหารมังสวิรัติ', 'đồ chay', '🥦'],
       ['1인분', 'irinbun', 'ສຳລັບ 1 ຄົນ', 'สำหรับ 1 คน', 'suất 1 người', '1️⃣'],
       ['음료', 'eumnyo', 'ເຄື່ອງດື່ມ', 'เครื่องดื่ม', 'đồ uống', '🧃'],
-      ['아이스', 'aiseu', 'ແບບເຢັນ', 'แบบเย็น', 'đá (lạnh)', '🧊'],
+      ['물티슈', 'multisyu', 'ເຈ້ຍປຽກ', 'ทิชชู่เปียก', 'khăn ướt', '🫧'],
       ['진동벨', 'jindongbel', 'ເຄື່ອງສັ່ນເອີ້ນຄິວ', 'เครื่องเรียกคิวแบบสั่น', 'thẻ rung báo món', '📳'],
       ['호출벨', 'hochulbel', 'ກະດິ່ງເອີ້ນພະນັກງານ', 'กริ่งเรียกพนักงาน', 'chuông gọi phục vụ', '🛎️'],
       ['저기요', 'jeogiyo', 'ຂໍໂທດ (ເອີ້ນພະນັກງານ)', 'ขอโทษ (เรียกพนักงาน)', 'em ơi (gọi phục vụ)', '🙋‍♂️'],
@@ -89,6 +89,10 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['알레르기 있으세요?', 'allereugi isseuseyo?', 'ແພ້ອາຫານຫຍັງບໍ່?', 'แพ้อาหารอะไรไหม?', 'Quý khách có bị dị ứng gì không ạ?', '⚠️'],
       ['주문 확인하겠습니다.', 'jumun hwaginhagetseumnida.', 'ຂໍທວນລາຍການອາຫານອີກເທື່ອໜຶ່ງ', 'ขอทวนรายการอาหารนะ', 'Tôi xin nhắc lại các món quý khách đã gọi.', '✅'],
       ['맛있게 드세요.', 'masitge deuseyo.', 'ຂໍໃຫ້ກິນແຊບເດີ້', 'ขอให้อร่อยนะ', 'Chúc quý khách ngon miệng.', '😋'],
+    ],
+    added: [
+      { row: ['셀프', 'selpeu', 'ບໍລິການຕົນເອງ', 'บริการตัวเอง', 'tự phục vụ', '🫴'] },
+      { row: ['주문하신 음식 나왔습니다.', 'jumunhasin eumsik nawatseumnida.', 'ອາຫານທີ່ສັ່ງມາແລ້ວ.', 'อาหารที่สั่งมาแล้ว', 'Món quý khách gọi đã có rồi ạ.', '🍲'], phrase: true },
     ],
   },
   {
@@ -119,8 +123,8 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['맥주', 'maekju', 'ເບຍ', 'เบียร์', 'bia', '🍺'],
       ['막걸리', 'makgeolli', 'ເຫຼົ້າຂາວເກົາຫຼີ', 'เหล้าข้าวเกาหลี (มักกอลลี)', 'rượu gạo Hàn Quốc', '🌾'],
       ['사이다', 'saida', 'ນ້ຳອັດລົມໃສ (ແບບສະໄປຣ໌)', 'น้ำอัดลมใส (แบบสไปรท์)', 'nước ngọt có ga (kiểu Sprite)', '🍋'],
-      ['빙수', 'bingsu', 'ບິງຊູ (ນ້ຳກ້ອນໄສ)', 'บิงซู', 'đá bào bingsu', '🍧'],
-      ['아메리카노', 'amerikano', 'ກາເຟອາເມຣິກາໂນ', 'อเมริกาโน่', 'cà phê americano', '☕'],
+      ['계란찜', 'gyeranjjim', 'ໄຂ່ໜຶ້ງ', 'ไข่ตุ๋น', 'trứng hấp', '🥚'],
+      ['제육볶음', 'jeyukbokkeum', 'ໝູຜັດເຜັດແບບເກົາຫຼີ', 'หมูผัดเผ็ดเกาหลี', 'thịt heo xào cay', '🍛'],
     ],
     phrases: [
       ['김치찌개 하나 주세요.', 'gimchijjigae hana juseyo.', 'ຂໍແກງກິມຈິໜຶ່ງຖ້ວຍ', 'ขอซุปกิมจิหนึ่งที่', 'Cho tôi một canh kim chi.', '☝️'],
@@ -178,6 +182,10 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['냉장고에 넣어 주세요.', 'naengjanggoe neoeo juseyo.', 'ຊ່ວຍເອົາໃສ່ຕູ້ເຢັນແດ່', 'ช่วยเอาเข้าตู้เย็นหน่อย', 'Cho vào tủ lạnh giúp tôi nhé.', '📥'],
       ['뜨거우니까 조심하세요.', 'tteugeounikka josimhaseyo.', 'ຮ້ອນ ລະວັງເດີ້', 'ร้อนนะ ระวังด้วย', 'Nóng đấy, cẩn thận nhé.', '⚠️'],
     ],
+    added: [
+      { row: ['양념', 'yangnyeom', 'ເຄື່ອງປຸງ, ນ້ຳໝັກ', 'เครื่องปรุง, ซอสหมัก', 'gia vị, nước ướp', '🫙'] },
+      { row: ['손질', 'sonjil', 'ການກຽມວັດຖຸດິບ (ລ້າງ, ຕັດແຕ່ງ)', 'การเตรียมวัตถุดิบ (ล้าง ตัดแต่ง)', 'sơ chế (nguyên liệu)', '🥬'] },
+    ],
   },
   {
     key: 'pay',
@@ -208,7 +216,7 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['일회용품', 'ilhoeyongpum', 'ຂອງໃຊ້ຄັ້ງດຽວ', 'ของใช้ครั้งเดียวทิ้ง', 'đồ dùng một lần', '🍴'],
       ['따로 계산', 'ttaro gyesan', 'ຈ່າຍແຍກກັນ', 'แยกจ่าย', 'tính tiền riêng', '🔀'],
       ['같이 계산', 'gachi gyesan', 'ຈ່າຍລວມກັນ', 'จ่ายรวมกัน', 'tính chung', '🤝'],
-      ['봉사료', 'bongsaryo', 'ຄ່າບໍລິການ', 'ค่าบริการ', 'phí phục vụ', '💁'],
+      ['키오스크', 'kioseukeu', 'ຕູ້ສັ່ງອາຫານອັດຕະໂນມັດ', 'ตู้คีออสก์สั่งอาหาร', 'máy gọi món tự động (kiosk)', '🖲️'],
     ],
     phrases: [
       ['계산해 주세요.', 'gyesanhae juseyo.', 'ໄລ່ເງິນແດ່', 'เช็กบิลด้วย', 'Tính tiền giúp tôi.', '🙋‍♀️'],
@@ -265,6 +273,9 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['유통기한 확인하세요.', 'yutonggihan hwaginhaseyo.', 'ກວດເບິ່ງວັນໝົດອາຍຸແດ່', 'ตรวจดูวันหมดอายุด้วย', 'Kiểm tra hạn sử dụng nhé.', '🔍'],
       ['오늘 수고하셨습니다.', 'oneul sugohasyeotseumnida.', 'ມື້ນີ້ຂອບໃຈທີ່ເຮັດວຽກໜັກເດີ້', 'วันนี้ขอบคุณที่ตั้งใจทำงานนะ', 'Hôm nay vất vả rồi.', '👏'],
       ['시급은 얼마예요?', 'sigeubeun eolmayeyo?', 'ຄ່າແຮງຕໍ່ຊົ່ວໂມງເທົ່າໃດ?', 'ค่าจ้างชั่วโมงละเท่าไร?', 'Lương theo giờ là bao nhiêu ạ?', '💲'],
+    ],
+    added: [
+      { row: ['치우다', 'chiuda', 'ເກັບກວາດ', 'เก็บกวาด', 'dọn', '🍽️'] },
     ],
   },
 ]

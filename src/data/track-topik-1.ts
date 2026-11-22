@@ -79,6 +79,10 @@ export const TRACK_TOPIK_1: TrackUnitSrc[] = [
       ['동생은 학생이에요.', 'dongsaengeun haksaengieyo.', 'ນ້ອງເປັນນັກຮຽນ', 'น้องเป็นนักเรียน', 'Em tôi là học sinh.', '🏫'],
       ['이 사람은 제 친구예요.', 'i sarameun je chinguyeyo.', 'ຄົນນີ້ແມ່ນໝູ່ຂອງຂ້ອຍ', 'คนนี้เป็นเพื่อนของฉัน', 'Người này là bạn tôi.', '😄'],
     ],
+    added: [
+      { row: ['누구', 'nugu', 'ໃຜ', 'ใคร', 'ai', '❔'] },
+      { row: ['결혼하다', 'gyeolhonhada', 'ແຕ່ງງານ', 'แต่งงาน', 'kết hôn', '💒'] },
+    ],
   },
   {
     key: 'numbers',
@@ -157,6 +161,11 @@ export const TRACK_TOPIK_1: TrackUnitSrc[] = [
       ['오후 세 시에 만나요.', 'ohu se sie mannayo.', 'ພົບກັນຕອນບ່າຍ 3 ໂມງ', 'เจอกันตอนบ่ายสามโมง', 'Gặp nhau lúc 3 giờ chiều nhé.', '🤝'],
       ['주말에 시간이 있어요?', 'jumare sigani isseoyo?', 'ທ້າຍອາທິດມີເວລາບໍ່?', 'สุดสัปดาห์มีเวลาไหม?', 'Cuối tuần bạn có thời gian không?', '🙂'],
     ],
+    added: [
+      { row: ['언제', 'eonje', 'ເມື່ອໃດ', 'เมื่อไร', 'khi nào', '🤔'] },
+      { row: ['년', 'nyeon', 'ປີ', 'ปี', 'năm', '🎆'] },
+      { row: ['다음 주', 'daeum ju', 'ອາທິດໜ້າ', 'สัปดาห์หน้า', 'tuần sau', '⏭️'] },
+    ],
   },
   {
     key: 'place',
@@ -195,6 +204,12 @@ export const TRACK_TOPIK_1: TrackUnitSrc[] = [
       ['가방은 책상 위에 있어요.', 'gabangeun chaeksang wie isseoyo.', 'ກະເປົາຢູ່ເທິງໂຕະ', 'กระเป๋าอยู่บนโต๊ะ', 'Cái túi ở trên bàn.', '👜'],
       ['편의점 옆에 공원이 있어요.', 'pyeonuijeom yeope gongwoni isseoyo.', 'ມີສວນສາທາລະນະຢູ່ຂ້າງຮ້ານສະດວກຊື້', 'มีสวนสาธารณะอยู่ข้างร้านสะดวกซื้อ', 'Có công viên bên cạnh cửa hàng tiện lợi.', '🌲'],
       ['오른쪽으로 가세요.', 'oreunjjogeuro gaseyo.', 'ໄປທາງຂວາເດີ', 'ไปทางขวานะ', 'Hãy đi về bên phải.', '🚶'],
+    ],
+    added: [
+      { row: ['버스', 'beoseu', 'ລົດເມ', 'รถบัส', 'xe buýt', '🚌'] },
+      { row: ['택시', 'taeksi', 'ລົດແທັກຊີ', 'แท็กซี่', 'taxi', '🚕'] },
+      { row: ['기차', 'gicha', 'ລົດໄຟ', 'รถไฟ', 'tàu hỏa', '🚆'] },
+      { row: ['비행기', 'bihaenggi', 'ຍົນ', 'เครื่องบิน', 'máy bay', '🛫'] },
     ],
   },
   {
@@ -313,6 +328,9 @@ export const TRACK_TOPIK_1: TrackUnitSrc[] = [
       ['빨간색 치마를 입어요.', 'ppalgansaek chimareul ibeoyo.', 'ນຸ່ງກະໂປ່ງສີແດງ', 'ใส่กระโปรงสีแดง', 'Tôi mặc váy màu đỏ.', '💃'],
       ['이 신발 좀 보여 주세요.', 'i sinbal jom boyeo juseyo.', 'ຂໍເບິ່ງເກີບຄູ່ນີ້ແດ່', 'ขอดูรองเท้าคู่นี้หน่อย', 'Cho tôi xem đôi giày này.', '👀'],
     ],
+    added: [
+      { row: ['선물', 'seonmul', 'ຂອງຂວັນ', 'ของขวัญ', 'quà', '🎀'] },
+    ],
   },
   {
     key: 'daily',
@@ -351,6 +369,16 @@ export const TRACK_TOPIK_1: TrackUnitSrc[] = [
       ['저녁에 음악을 들어요.', 'jeonyeoge eumageul deureoyo.', 'ຕອນແລງຟັງເພງ', 'ตอนเย็นฟังเพลง', 'Buổi tối tôi nghe nhạc.', '🎵'],
       ['주말에 집에서 쉬어요.', 'jumare jibeseo swieoyo.', 'ທ້າຍອາທິດພັກຜ່ອນຢູ່ເຮືອນ', 'สุดสัปดาห์พักผ่อนที่บ้าน', 'Cuối tuần tôi nghỉ ngơi ở nhà.', '🏠'],
       ['밤 열한 시에 자요.', 'bam yeolhan sie jayo.', 'ນອນຕອນ 11 ໂມງກາງຄືນ', 'นอนตอนห้าทุ่ม', 'Tôi ngủ lúc 11 giờ đêm.', '🌙'],
+    ],
+    added: [
+      { row: ['만들다', 'mandeulda', 'ເຮັດ, ສ້າງ', 'ทำ, สร้าง', 'làm, tạo ra', '🛠️'] },
+      { row: ['받다', 'batda', 'ຮັບ', 'รับ', 'nhận', '🤲'] },
+      { row: ['찾다', 'chatda', 'ຊອກຫາ', 'หา', 'tìm', '🔍'] },
+      { row: ['시작하다', 'sijakada', 'ເລີ່ມ', 'เริ่ม', 'bắt đầu', '▶️'] },
+      { row: ['끝나다', 'kkeunnada', 'ຈົບ, ສິ້ນສຸດ', 'จบ, เสร็จ', 'kết thúc', '🔚'] },
+      { row: ['싫어하다', 'sireohada', 'ບໍ່ມັກ', 'ไม่ชอบ', 'ghét, không thích', '🙅'] },
+      { row: ['영화', 'yeonghwa', 'ຮູບເງົາ', 'ภาพยนตร์ (หนัง)', 'phim', '🎬'] },
+      { row: ['음악', 'eumak', 'ດົນຕີ', 'ดนตรี', 'âm nhạc', '🎶'] },
     ],
   },
   {
@@ -468,6 +496,10 @@ export const TRACK_TOPIK_1: TrackUnitSrc[] = [
       ['학교가 집에서 가까워요.', 'hakgyoga jibeseo gakkawoyo.', 'ໂຮງຮຽນໃກ້ເຮືອນ', 'โรงเรียนอยู่ใกล้บ้าน', 'Trường học gần nhà.', '🏫'],
       ['요즘 정말 바빠요.', 'yojeum jeongmal bappayo.', 'ໄລຍະນີ້ຫຍຸ້ງແທ້ໆ', 'ช่วงนี้ยุ่งจริง ๆ', 'Dạo này tôi bận thật.', '⏰'],
       ['천천히 말해 주세요.', 'cheoncheonhi malhae juseyo.', 'ກະລຸນາເວົ້າຊ້າໆ', 'ช่วยพูดช้า ๆ หน่อย', 'Xin hãy nói chậm thôi.', '🗣️'],
+    ],
+    added: [
+      { row: ['왜', 'wae', 'ເປັນຫຍັງ', 'ทำไม', 'tại sao', '🤔'] },
+      { row: ['어떻게', 'eotteoke', 'ແນວໃດ', 'อย่างไร', 'như thế nào', '❓'] },
     ],
   },
 ]

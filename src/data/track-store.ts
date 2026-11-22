@@ -40,7 +40,7 @@ export const TRACK_STORE: TrackUnitSrc[] = [
       ['충전', 'chungjeon', 'ເຕີມເງິນ', 'เติมเงิน', 'nạp tiền', '🔋'],
       ['결제 취소', 'gyeolje chwiso', 'ຍົກເລີກການຈ່າຍເງິນ', 'ยกเลิกการชำระเงิน', 'hủy thanh toán', '❌'],
       ['일시불', 'ilsibul', 'ຈ່າຍເທື່ອດຽວ', 'จ่ายเต็มจำนวน', 'trả một lần', '1️⃣'],
-      ['할부', 'halbu', 'ຜ່ອນຈ່າຍ', 'ผ่อนชำระ', 'trả góp', '📆'],
+      ['통신사 할인', 'tongsinsa harin', 'ສ່ວນຫຼຸດຄ່າຍມືຖື', 'ส่วนลดค่ายมือถือ', 'giảm giá nhà mạng', '📶'],
       ['서명', 'seomyeong', 'ລາຍເຊັນ', 'ลายเซ็น', 'chữ ký', '✍️'],
       ['간편결제', 'ganpyeongyeolje', 'ຈ່າຍຜ່ານແອັບ', 'จ่ายผ่านแอป', 'thanh toán qua ứng dụng', '📱'],
       ['지폐', 'jipye', 'ເງິນເຈ້ຍ', 'ธนบัตร', 'tiền giấy', '💴'],
@@ -58,7 +58,7 @@ export const TRACK_STORE: TrackUnitSrc[] = [
       ['모두 삼천오백 원입니다.', 'modu samcheonobaek wonimnida.', 'ທັງໝົດ 3,500 ວອນ', 'ทั้งหมด 3,500 วอน', 'Tổng cộng là 3.500 won ạ.', '🔢'],
       ['영수증은 버려 드릴까요?', 'yeongsujeungeun beoryeo deurilkkayo?', 'ໃຫ້ຖິ້ມໃບບິນໃຫ້ບໍ່?', 'ให้ทิ้งใบเสร็จให้ไหม?', 'Tôi bỏ hóa đơn giúp quý khách nhé?', '🚮'],
       ['결제 취소해 드릴게요.', 'gyeolje chwisohae deurilgeyo.', 'ຈະຍົກເລີກການຈ່າຍເງິນໃຫ້', 'จะยกเลิกการชำระเงินให้', 'Tôi sẽ hủy thanh toán cho quý khách.', '↩️'],
-      ['일시불로 해 드릴까요?', 'ilsibullo hae deurilkkayo?', 'ຈ່າຍເທື່ອດຽວເລີຍບໍ່?', 'จ่ายเต็มจำนวนเลยไหม?', 'Quý khách trả một lần luôn ạ?', '☝️'],
+      ['만 원 받았습니다.', 'man won badatseumnida.', 'ຮັບເງິນມາໜຶ່ງໝື່ນວອນແລ້ວ.', 'รับเงินมาหนึ่งหมื่นวอน', 'Tôi đã nhận 10.000 won ạ.', '🫴'],
     ],
   },
   {
@@ -147,6 +147,9 @@ export const TRACK_STORE: TrackUnitSrc[] = [
       ['진동벨이 울리면 가지러 오세요.', 'jindongberi ullimyeon gajireo oseyo.', 'ເມື່ອເຄື່ອງສັ່ນດັງ ໃຫ້ມາຮັບເຄື່ອງດື່ມ', 'เมื่อเครื่องสั่นดัง ให้มารับได้เลย', 'Khi thẻ rung kêu thì mời quý khách đến lấy.', '📳'],
       ['25번 손님, 음료 나왔습니다.', 'isibo beon sonnim, eumnyo nawatseumnida.', 'ລູກຄ້າເບີ 25 ເຄື່ອງດື່ມໄດ້ແລ້ວ', 'ลูกค้าหมายเลข 25 เครื่องดื่มได้แล้ว', 'Khách số 25, đồ uống xong rồi ạ.', '📣'],
       ['텀블러 가져오시면 할인돼요.', 'teombeulleo gajyeoosimyeon harindwaeyo.', 'ຖ້າເອົາກະບອກນ້ຳມາເອງ ຈະໄດ້ສ່ວນຫຼຸດ', 'ถ้านำแก้วมาเองจะได้ส่วนลด', 'Mang bình riêng đến sẽ được giảm giá ạ.', '💲'],
+    ],
+    added: [
+      { row: ['머그컵', 'meogeukeop', 'ຈອກມັກ (ຈອກເຊລາມິກ)', 'แก้วมัค', 'cốc sứ (cốc mug)', '♻️'] },
     ],
   },
   {

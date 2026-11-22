@@ -24,7 +24,7 @@ function highlight(sentence: string, ko: string) {
 export default function WordHelp({ word, onClose }: { word: Word; onClose: () => void }) {
   const s = useStore()
   const { t } = useApp()
-  const { entry, mn, ar, ready } = useExample(word.ko)
+  const { entry, mn, ar, ready } = useExample(word.ko, word.id)
   const n = s.native
   // 몽골어·아랍어: 예문 파일 안 → 따로 번역한 파일 순서로
   const exTr = !entry ? '' : n === 'mn' ? entry.mn ?? mn?.mn ?? '' : n === 'ar' ? entry.ar ?? ar?.ar ?? '' : entry[n]

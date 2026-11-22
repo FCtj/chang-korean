@@ -39,16 +39,19 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['1인 가구가 빠르게 증가하고 있다.', 'irin gaguga ppareuge jeunggahago itda.', 'ຄົວເຮືອນຄົນດຽວເພີ່ມຂຶ້ນຢ່າງໄວວາ', 'ครัวเรือนคนเดียวเพิ่มขึ้นอย่างรวดเร็ว', 'Số hộ gia đình một người đang tăng nhanh.', '🚀'],
       ['차별과 고정 관념을 없애야 한다.', 'chabyeolgwa gojeong gwannyeomeul eopsaeya handa.', 'ພວກເຮົາຕ້ອງລົບລ້າງການຈຳແນກແລະຄວາມຄິດແບບຕາຍຕົວ', 'เราต้องขจัดการเลือกปฏิบัติและภาพจำแบบเหมารวม', 'Cần xóa bỏ phân biệt đối xử và định kiến khuôn mẫu.', '🧹'],
     ],
+    added: [
+      { row: ['세대 갈등', 'sedae galdeung', 'ຄວາມຂັດແຍ່ງລະຫວ່າງຄົນຕ່າງລຸ້ນ', 'ความขัดแย้งระหว่างวัย', 'xung đột thế hệ', '🆚'] },
+    ],
   },
   {
     key: 'environment',
     icon: '🌱',
     title: { ko: '환경 보호', lo: 'ການປົກປ້ອງສິ່ງແວດລ້ອມ', th: 'การอนุรักษ์สิ่งแวดล้อม', vi: 'Bảo vệ môi trường' },
     words: [
-      ['환경 오염', 'hwangyeong oyeom', 'ມົນລະພິດສິ່ງແວດລ້ອມ', 'มลพิษทางสิ่งแวดล้อม', 'ô nhiễm môi trường', '🏭'],
+      ['생물 다양성', 'saengmul dayangseong', 'ຄວາມຫຼາກຫຼາຍທາງຊີວະພາບ', 'ความหลากหลายทางชีวภาพ', 'đa dạng sinh học', '🦋'],
       ['매연', 'maeyeon', 'ຄວັນພິດ (ຈາກລົດ·ໂຮງງານ)', 'ควันพิษ (ไอเสีย)', 'khói thải', '🚛'],
       ['수질 오염', 'sujil oyeom', 'ມົນລະພິດທາງນ້ຳ', 'มลพิษทางน้ำ', 'ô nhiễm nguồn nước', '🚱'],
-      ['미세 먼지', 'mise meonji', 'ຝຸ່ນລະອອງ', 'ฝุ่นละออง', 'bụi mịn', '🌫️'],
+      ['미세 플라스틱', 'mise peullaseutik', 'ອະນຸພາກພລາສຕິກຂະໜາດນ້ອຍ', 'ไมโครพลาสติก', 'vi nhựa', '🧴'],
       ['온실가스', 'onsilgaseu', 'ອາຍແກັສເຮືອນແກ້ວ', 'ก๊าซเรือนกระจก', 'khí nhà kính', '💨'],
       ['오존층', 'ojoncheung', 'ຊັ້ນໂອໂຊນ', 'ชั้นโอโซน', 'tầng ôzôn', '🌍'],
       ['열대야', 'yeoldaeya', 'ຄືນທີ່ຮ້ອນອົບເອົ້າ', 'คืนที่ร้อนอบอ้าว', 'đêm nóng nực', '🌃'],
@@ -72,11 +75,14 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['지속 가능하다', 'jisok ganeunghada', 'ຍືນຍົງ', 'ยั่งยืน', 'bền vững', '🔄'],
     ],
     phrases: [
-      ['미세 먼지가 심한 날에는 마스크를 쓴다.', 'mise meonjiga simhan nareneun maseukeureul sseunda.', 'ມື້ທີ່ຝຸ່ນລະອອງໜັກ ຈະໃສ່ໜ້າກາກ', 'วันที่ฝุ่นละอองหนักจะใส่หน้ากาก', 'Vào ngày bụi mịn nặng, người ta đeo khẩu trang.', '😷'],
+      ['폭염과 열대야가 연일 이어지고 있다.', 'pogyeomgwa yeoldaeyaga yeonil ieojigo itda.', 'ຄວາມຮ້ອນຈັດ ແລະ ຄືນທີ່ຮ້ອນອົບເອົ້າເກີດຂຶ້ນຕິດຕໍ່ກັນທຸກມື້', 'คลื่นความร้อนและคืนที่ร้อนอบอ้าวเกิดขึ้นติดต่อกันทุกวัน', 'Nắng nóng gay gắt và đêm oi bức kéo dài liên tục nhiều ngày.', '🌡️'],
       ['지구 온난화로 해수면이 상승하고 있다.', 'jigu onnanhwaro haesumyeoni sangseunghago itda.', 'ລະດັບນ້ຳທະເລກຳລັງສູງຂຶ້ນຍ້ອນພາວະໂລກຮ້ອນ', 'ระดับน้ำทะเลสูงขึ้นเพราะภาวะโลกร้อน', 'Mực nước biển đang dâng lên do trái đất nóng lên.', '🏝️'],
-      ['일회용품 사용을 줄여야 한다.', 'ilhoeyongpum sayongeul juryeoya handa.', 'ຕ້ອງຫຼຸດການໃຊ້ເຄື່ອງໃຊ້ແບບໃຊ້ຄັ້ງດຽວ', 'ต้องลดการใช้ของใช้แบบใช้ครั้งเดียว', 'Cần giảm sử dụng đồ dùng một lần.', '🙅'],
+      ['폐기물을 줄이려면 재사용을 생활화해야 한다.', 'pyegimureul juriryeomyeon jaesayongeul saenghwalhwahaeya handa.', 'ເພື່ອຫຼຸດຂີ້ເຫຍື້ອ ຕ້ອງເຮັດໃຫ້ການນຳກັບມາໃຊ້ໃໝ່ກາຍເປັນນິໄສປະຈຳວັນ', 'เพื่อลดขยะ ต้องทำให้การใช้ซ้ำเป็นนิสัยในชีวิตประจำวัน', 'Muốn giảm chất thải thì phải biến việc tái sử dụng thành thói quen hằng ngày.', '🔁'],
       ['이 지역의 생태계가 훼손되었다.', 'i jiyeogui saengtaegyega hwesondoeeotda.', 'ລະບົບນິເວດຂອງເຂດນີ້ຖືກທຳລາຍແລ້ວ', 'ระบบนิเวศของพื้นที่นี้ถูกทำลาย', 'Hệ sinh thái của khu vực này đã bị hủy hoại.', '🥀'],
       ['기업들도 탄소 중립을 선언했다.', 'gieopdeuldo tanso jungnibeul seoneonhaetda.', 'ບັນດາບໍລິສັດກໍປະກາດຄວາມເປັນກາງທາງຄາບອນ', 'บริษัทต่างๆ ก็ประกาศความเป็นกลางทางคาร์บอน', 'Các doanh nghiệp cũng đã tuyên bố trung hòa carbon.', '🏢'],
+    ],
+    added: [
+      { row: ['생태계', 'saengtaegye', 'ລະບົບນິເວດ', 'ระบบนิเวศ', 'hệ sinh thái', '🐝'] },
     ],
   },
   {
@@ -117,6 +123,9 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['창의력을 키우는 교육이 필요하다.', 'changuiryeogeul kiuneun gyoyugi piryohada.', 'ຕ້ອງມີການສຶກສາທີ່ພັດທະນາຄວາມຄິດສ້າງສັນ', 'จำเป็นต้องมีการศึกษาที่พัฒนาความคิดสร้างสรรค์', 'Cần có nền giáo dục phát triển khả năng sáng tạo.', '🖌️'],
       ['정부는 교육 과정을 개편하기로 했다.', 'jeongbuneun gyoyuk gwajeongeul gaepyeonhagiro haetda.', 'ລັດຖະບານຕັດສິນໃຈປັບປຸງຫຼັກສູດການສຶກສາ', 'รัฐบาลตัดสินใจปรับปรุงหลักสูตรการศึกษา', 'Chính phủ quyết định cải tổ chương trình giáo dục.', '🔧'],
     ],
+    added: [
+      { row: ['학위', 'hagwi', 'ປະລິນຍາ', 'ปริญญา', 'học vị', '🎓'] },
+    ],
   },
   {
     key: 'careers',
@@ -156,6 +165,9 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['은퇴 후에 작은 가게를 창업했다.', 'euntoe hue jageun gagereul changeopaetda.', 'ຫຼັງກະສຽນ ໄດ້ເປີດຮ້ານນ້ອຍໆ', 'หลังเกษียณได้เปิดร้านเล็กๆ', 'Sau khi nghỉ hưu, tôi đã mở một cửa hàng nhỏ.', '🛍️'],
       ['회사가 구조 조정을 발표했다.', 'hoesaga gujo jojeongeul balpyohaetda.', 'ບໍລິສັດປະກາດປັບໂຄງສ້າງ', 'บริษัทประกาศปรับโครงสร้าง', 'Công ty đã công bố tái cơ cấu.', '📢'],
     ],
+    added: [
+      { row: ['정규직', 'jeonggyujik', 'ພະນັກງານປະຈຳ', 'พนักงานประจำ', 'nhân viên chính thức', '🔒'] },
+    ],
   },
   {
     key: 'economy',
@@ -194,6 +206,10 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['환율이 오르면 수입 물가도 오른다.', 'hwanyuri oreumyeon suip mulgado oreunda.', 'ເມື່ອອັດຕາແລກປ່ຽນຂຶ້ນ ລາຄາສິນຄ້ານຳເຂົ້າກໍຂຶ້ນ', 'เมื่ออัตราแลกเปลี่ยนสูงขึ้น ราคาสินค้านำเข้าก็สูงขึ้น', 'Khi tỷ giá tăng, giá hàng nhập khẩu cũng tăng.', '🌐'],
       ['주식 투자로 큰 손실을 보았다.', 'jusik tujaro keun sonsireul boatda.', 'ຂາດທຶນຫຼາຍຈາກການລົງທຶນຮຸ້ນ', 'ขาดทุนหนักจากการลงทุนในหุ้น', 'Tôi đã thua lỗ nặng vì đầu tư cổ phiếu.', '😭'],
       ['올해 경제 성장률이 하락할 전망이다.', 'olhae gyeongje seongjangnyuri harakal jeonmangida.', 'ຄາດວ່າອັດຕາການເຕີບໂຕທາງເສດຖະກິດປີນີ້ຈະຫຼຸດລົງ', 'คาดว่าอัตราการเติบโตทางเศรษฐกิจปีนี้จะลดลง', 'Dự báo tốc độ tăng trưởng kinh tế năm nay sẽ giảm.', '🔮'],
+    ],
+    added: [
+      { row: ['투자', 'tuja', 'ການລົງທຶນ', 'การลงทุน', 'đầu tư', '💹'] },
+      { row: ['상승하다', 'sangseunghada', 'ສູງຂຶ້ນ', 'สูงขึ้น', 'tăng lên', '⬆️'] },
     ],
   },
   {
@@ -253,7 +269,7 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['신뢰도', 'silloedo', 'ລະດັບຄວາມໜ້າເຊື່ອຖື', 'ระดับความน่าเชื่อถือ', 'độ tin cậy', '🤝'],
       ['객관적이다', 'gaekgwanjeogida', 'ເປັນພາວະວິໄສ', 'เป็นภววิสัย (เป็นกลาง)', 'khách quan', '🎯'],
       ['주관적이다', 'jugwanjeogida', 'ເປັນອັດຕະວິໄສ', 'เป็นอัตวิสัย', 'chủ quan', '💭'],
-      ['대중 매체', 'daejung maeche', 'ສື່ສານມວນຊົນ', 'สื่อสารมวลชน', 'phương tiện truyền thông đại chúng', '📻'],
+      ['논평', 'nonpyeong', 'ຄຳວິຈານ, ຄຳເຫັນ', 'บทวิจารณ์, ความเห็น', 'bình luận', '🖋️'],
       ['정정 보도', 'jeongjeong bodo', 'ການລາຍງານແກ້ໄຂຂ່າວ', 'การแก้ข่าว', 'đính chính tin tức', '📝'],
       ['논란', 'nollan', 'ການຖົກຖຽງ', 'ข้อถกเถียง', 'tranh cãi', '🌶️'],
       ['쟁점', 'jaengjeom', 'ປະເດັນໂຕ້ແຍ້ງ', 'ประเด็นโต้แย้ง', 'vấn đề gây tranh cãi', '🧩'],
@@ -307,10 +323,13 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
     ],
     phrases: [
       ['규칙적인 운동은 면역력을 높여 준다.', 'gyuchikjeogin undongeun myeonyeongnyeogeul nopyeo junda.', 'ການອອກກຳລັງກາຍເປັນປະຈຳຊ່ວຍເພີ່ມພູມຕ້ານທານ', 'การออกกำลังกายสม่ำเสมอช่วยเพิ่มภูมิคุ้มกัน', 'Tập thể dục đều đặn giúp tăng sức đề kháng.', '🏃'],
-      ['이 약은 부작용이 거의 없다.', 'i yageun bujagyongi geoui eopda.', 'ຢານີ້ແທບບໍ່ມີຜົນຂ້າງຄຽງ', 'ยานี้แทบไม่มีผลข้างเคียง', 'Thuốc này hầu như không có tác dụng phụ.', '💊'],
-      ['1년에 한 번은 건강 검진을 받는 게 좋다.', 'illyeone han beoneun geongang geomjineul banneun ge jota.', 'ຄວນກວດສຸຂະພາບປີລະເທື່ອ', 'ควรตรวจสุขภาพปีละครั้ง', 'Nên khám sức khỏe mỗi năm một lần.', '📅'],
+      ['정확한 진단을 위해 추가 검사가 필요하다.', 'jeonghwakan jindaneul wihae chuga geomsaga piryohada.', 'ເພື່ອການວິນິດໄສທີ່ຖືກຕ້ອງ ຈຳເປັນຕ້ອງກວດເພີ່ມເຕີມ', 'เพื่อการวินิจฉัยที่แม่นยำ จำเป็นต้องตรวจเพิ่มเติม', 'Để chẩn đoán chính xác, cần làm thêm xét nghiệm.', '🔬'],
+      ['교통사고 후유증으로 오랫동안 재활 치료를 받았다.', 'gyotongsago huyujeungeuro oraetdongan jaehwal chiryoreul badatda.', 'ຍ້ອນອາການສືບເນື່ອງຈາກອຸບັດຕິເຫດລົດ ຈຶ່ງໄດ້ຮັບການປິ່ນປົວຟື້ນຟູເປັນເວລາດົນ', 'เพราะอาการหลังอุบัติเหตุทางรถยนต์ จึงต้องทำกายภาพบำบัดฟื้นฟูเป็นเวลานาน', 'Do di chứng tai nạn giao thông, tôi đã phải điều trị phục hồi chức năng trong thời gian dài.', '🦽'],
       ['과로로 건강이 악화되었다.', 'gwaroro geongangi akhwadoeeotda.', 'ສຸຂະພາບຊຸດໂຊມລົງຍ້ອນເຮັດວຽກໜັກເກີນໄປ', 'สุขภาพแย่ลงเพราะทำงานหนักเกินไป', 'Sức khỏe xấu đi do làm việc quá sức.', '🥴'],
       ['전염병을 막으려면 손을 자주 씻어야 한다.', 'jeonyeombyeongeul mageuryeomyeon soneul jaju ssiseoya handa.', 'ເພື່ອປ້ອງກັນພະຍາດຕິດຕໍ່ ຕ້ອງລ້າງມືເລື້ອຍໆ', 'เพื่อป้องกันโรคติดต่อ ต้องล้างมือบ่อยๆ', 'Để phòng bệnh truyền nhiễm, phải rửa tay thường xuyên.', '🧼'],
+    ],
+    added: [
+      { row: ['면역력', 'myeonyeongnyeok', 'ພູມຕ້ານທານ', 'ภูมิคุ้มกัน', 'sức đề kháng', '💪'] },
     ],
   },
   {
@@ -323,7 +342,7 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['전시되다', 'jeonsidoeda', 'ຖືກວາງສະແດງ', 'ถูกจัดแสดง', 'được trưng bày', '🏛️'],
       ['관람하다', 'gwallamhada', 'ເຂົ້າຊົມ', 'เข้าชม', 'xem (tham quan)', '👀'],
       ['관객', 'gwangaek', 'ຜູ້ຊົມ', 'ผู้ชม', 'khán giả', '👥'],
-      ['연주하다', 'yeonjuhada', 'ບັນເລງດົນຕີ', 'บรรเลงดนตรี', 'biểu diễn (nhạc cụ)', '🎻'],
+      ['무대', 'mudae', 'ເວທີ', 'เวที', 'sân khấu', '🎪'],
       ['연출', 'yeonchul', 'ການກຳກັບ (ການສະແດງ)', 'การกำกับ (การแสดง)', 'đạo diễn (dàn dựng)', '🎬'],
       ['배역', 'baeyeok', 'ບົດບາດ (ຕົວລະຄອນ)', 'บทบาท (ตัวละคร)', 'vai diễn', '🎭'],
       ['흥행', 'heunghaeng', 'ຄວາມສຳເລັດທາງລາຍໄດ້', 'ความสำเร็จด้านรายได้ (บ็อกซ์ออฟฟิศ)', 'thành công phòng vé', '🎟️'],
@@ -336,11 +355,11 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['문화유산', 'munhwayusan', 'ມໍລະດົກທາງວັດທະນະທຳ', 'มรดกทางวัฒนธรรม', 'di sản văn hóa', '🏯'],
       ['무형 문화재', 'muhyeong munhwajae', 'ມໍລະດົກວັດທະນະທຳທີ່ບໍ່ມີຕົວຕົນ', 'มรดกทางวัฒนธรรมที่จับต้องไม่ได้', 'di sản văn hóa phi vật thể', '🥁'],
       ['조각', 'jogak', 'ຮູບປັ້ນແກະສະຫຼັກ', 'ประติมากรรม', 'điêu khắc', '🗿'],
-      ['소설가', 'soseolga', 'ນັກຂຽນນະວະນິຍາຍ', 'นักเขียนนวนิยาย', 'tiểu thuyết gia', '📖'],
+      ['원작', 'wonjak', 'ຜົນງານຕົ້ນສະບັບ', 'ต้นฉบับ (งานดั้งเดิม)', 'nguyên tác', '📖'],
       ['시인', 'siin', 'ນັກກະວີ', 'กวี', 'nhà thơ', '🖋️'],
       ['창작하다', 'changjakada', 'ສ້າງສັນຜົນງານ', 'สร้างสรรค์ผลงาน', 'sáng tác', '✒️'],
       ['영감', 'yeonggam', 'ແຮງບັນດານໃຈ', 'แรงบันดาลใจ', 'cảm hứng', '💡'],
-      ['감동적이다', 'gamdongjeogida', 'ຊຶ້ງໃຈ', 'ซาบซึ้ง', 'cảm động', '😢'],
+      ['매진되다', 'maejindoeda', 'ຂາຍໝົດ', 'ขายหมด', 'bán hết (vé)', '🎫'],
       ['비평가', 'bipyeongga', 'ນັກວິຈານ', 'นักวิจารณ์', 'nhà phê bình', '🧐'],
       ['수상하다', 'susanghada', 'ໄດ້ຮັບລາງວັນ', 'ได้รับรางวัล', 'đoạt giải', '🏆'],
     ],
@@ -390,6 +409,9 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['계약을 위반하면 손해를 배상해야 한다.', 'gyeyageul wibanhamyeon sonhaereul baesanghaeya handa.', 'ຖ້າລະເມີດສັນຍາ ຕ້ອງຈ່າຍຄ່າເສຍຫາຍ', 'หากผิดสัญญาต้องชดใช้ค่าเสียหาย', 'Nếu vi phạm hợp đồng thì phải bồi thường thiệt hại.', '🤝'],
       ['노동자의 권리는 법으로 보호된다.', 'nodongjaui gwollineun beobeuro bohodoenda.', 'ສິດຂອງຜູ້ອອກແຮງງານໄດ້ຮັບການປົກປ້ອງດ້ວຍກົດໝາຍ', 'สิทธิของแรงงานได้รับการคุ้มครองตามกฎหมาย', 'Quyền của người lao động được pháp luật bảo vệ.', '🛡️'],
     ],
+    added: [
+      { row: ['검찰', 'geomchal', 'ອົງການໄອຍະການ', 'อัยการ', 'viện kiểm sát', '🕵️'] },
+    ],
   },
   {
     key: 'emotions',
@@ -397,7 +419,7 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
     title: { ko: '심리·감정 심화', lo: 'ຈິດໃຈ · ອາລົມ (ຂັ້ນສູງ)', th: 'จิตใจ · อารมณ์ (ขั้นสูง)', vi: 'Tâm lý · Cảm xúc (nâng cao)' },
     words: [
       ['미련', 'miryeon', 'ຄວາມອາໄລຫາ (ຕັດໃຈບໍ່ໄດ້)', 'ความอาลัยอาวรณ์', 'sự luyến tiếc', '🥀'],
-      ['실망', 'silmang', 'ຄວາມຜິດຫວັງ', 'ความผิดหวัง', 'sự thất vọng', '😞'],
+      ['상실감', 'sangsilgam', 'ຄວາມຮູ້ສຶກສູນເສຍ', 'ความรู้สึกสูญเสีย', 'cảm giác mất mát', '💔'],
       ['자부심', 'jabusim', 'ຄວາມພາກພູມໃຈ', 'ความภาคภูมิใจ', 'niềm tự hào', '🦚'],
       ['자존심', 'jajonsim', 'ສັກສີ (ສ່ວນຕົວ)', 'ศักดิ์ศรี', 'lòng tự trọng', '👑'],
       ['열등감', 'yeoldeunggam', 'ປົມດ້ອຍ', 'ปมด้อย', 'mặc cảm tự ti', '😣'],
@@ -410,8 +432,8 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['불안감', 'burangam', 'ຄວາມກັງວົນ', 'ความวิตกกังวล', 'cảm giác bất an', '😰'],
       ['긴장감', 'ginjanggam', 'ຄວາມຕຶງຄຽດ', 'ความตึงเครียด', 'sự căng thẳng', '😬'],
       ['안도하다', 'andohada', 'ໂລ່ງໃຈ', 'โล่งใจ', 'nhẹ nhõm', '😅'],
-      ['그리움', 'geurium', 'ຄວາມຄິດຮອດ', 'ความคิดถึง', 'nỗi nhớ', '💌'],
-      ['질투', 'jiltu', 'ຄວາມອິດສາ', 'ความอิจฉา', 'sự ghen tị', '💚'],
+      ['벅차다', 'beokchada', 'ຕື້ນຕັນໃຈ', 'ตื้นตันใจ', 'trào dâng cảm xúc', '🥹'],
+      ['착잡하다', 'chakjapada', 'ໃຈສັບສົນ', 'ว้าวุ่นใจ', 'ngổn ngang, rối bời', '😕'],
       ['동정심', 'dongjeongsim', 'ຄວາມເຫັນອົກເຫັນໃຈ', 'ความเห็นอกเห็นใจ', 'lòng thương cảm', '🤲'],
       ['공감하다', 'gonggamhada', 'ເຂົ້າອົກເຂົ້າໃຈ', 'เข้าอกเข้าใจ', 'đồng cảm', '🤝'],
       ['분노', 'bunno', 'ຄວາມໂກດແຄ້ນ', 'ความโกรธแค้น', 'sự phẫn nộ', '😡'],
@@ -423,8 +445,8 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['홀가분하다', 'holgabunhada', 'ເບົາສະບາຍໃຈ', 'รู้สึกเบาสบาย', 'thảnh thơi', '🎈'],
     ],
     phrases: [
-      ['그때 더 노력하지 않은 것을 후회한다.', 'geuttae deo noryeokaji aneun geoseul huhoehanda.', 'ເສຍໃຈທີ່ຕອນນັ້ນບໍ່ໄດ້ພະຍາຍາມຫຼາຍກວ່ານີ້', 'เสียใจที่ตอนนั้นไม่พยายามให้มากกว่านี้', 'Tôi hối hận vì lúc đó đã không cố gắng hơn.', '⏪'],
-      ['시험 결과를 보고 크게 실망했다.', 'siheom gyeolgwareul bogo keuge silmanghaetda.', 'ເຫັນຜົນສອບເສັງແລ້ວຜິດຫວັງຫຼາຍ', 'เห็นผลสอบแล้วผิดหวังมาก', 'Tôi rất thất vọng khi xem kết quả thi.', '📄'],
+      ['오랜 노력 끝에 큰 성취감을 느꼈다.', 'oraen noryeok kkeute keun seongchwigameul neukkyeotda.', 'ຫຼັງຈາກພະຍາຍາມມາດົນນານ ກໍຮູ້ສຶກພູມໃຈໃນຄວາມສຳເລັດຢ່າງໃຫຍ່', 'หลังจากพยายามมานาน ก็รู้สึกภาคภูมิใจในความสำเร็จอย่างมาก', 'Sau thời gian dài nỗ lực, tôi đã cảm nhận được niềm vui thành tựu lớn lao.', '🏆'],
+      ['취업에 계속 실패하자 앞날이 막막했다.', 'chwieobe gyesok silpaehaja amnari mangmakaetda.', 'ເມື່ອຫາວຽກບໍ່ໄດ້ຊ້ຳແລ້ວຊ້ຳອີກ ອະນາຄົດກໍມືດມົນ', 'เมื่อหางานไม่ได้ซ้ำแล้วซ้ำเล่า อนาคตก็ดูมืดมน', 'Liên tục thất bại khi xin việc, tương lai trở nên mịt mờ.', '😔'],
       ['나는 내 일에 자부심을 느낀다.', 'naneun nae ire jabusimeul neukkinda.', 'ຂ້ອຍຮູ້ສຶກພາກພູມໃຈໃນວຽກຂອງຂ້ອຍ', 'ฉันรู้สึกภาคภูมิใจในงานของตัวเอง', 'Tôi cảm thấy tự hào về công việc của mình.', '💼'],
       ['일을 끝내니 마음이 홀가분하다.', 'ireul kkeunnaeni maeumi holgabunhada.', 'ເຮັດວຽກແລ້ວ ຮູ້ສຶກເບົາສະບາຍໃຈ', 'ทำงานเสร็จแล้วรู้สึกเบาสบายใจ', 'Làm xong việc, lòng thấy thảnh thơi.', '☕'],
       ['친구의 슬픔에 깊이 공감했다.', 'chinguui seulpeume gipi gonggamhaetda.', 'ເຂົ້າອົກເຂົ້າໃຈຄວາມໂສກເສົ້າຂອງໝູ່ຢ່າງເລິກເຊິ່ງ', 'เข้าใจความเศร้าของเพื่อนอย่างลึกซึ้ง', 'Tôi đồng cảm sâu sắc với nỗi buồn của bạn.', '💞'],
@@ -446,7 +468,7 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['발을 끊다', 'bareul kkeunta', 'ເຊົາໄປມາຫາສູ່', 'เลิกไปมาหาสู่', 'cắt đứt qua lại', '🚷'],
       ['머리를 맞대다', 'meorireul matdaeda', 'ຮ່ວມກັນຄິດ', 'ร่วมกันคิด (ระดมสมอง)', 'cùng nhau bàn bạc', '🤝'],
       ['손발이 맞다', 'sonbari matda', 'ເຮັດວຽກເຂົ້າຂາກັນ', 'ทำงานเข้าขากัน', 'phối hợp ăn ý', '🙌'],
-      ['마음을 먹다', 'maeumeul meokda', 'ຕັ້ງໃຈ (ຕັດສິນໃຈ)', 'ตั้งใจ (ตัดสินใจ)', 'quyết tâm', '💪'],
+      ['한눈을 팔다', 'hannuneul palda', 'ເບິ່ງໄປທາງອື່ນ, ບໍ່ຕັ້ງໃຈ', 'วอกแวก, มองไปทางอื่น', 'lơ đãng, nhìn đi chỗ khác', '📱'],
       ['바가지를 쓰다', 'bagajireul sseuda', 'ຖືກໂກງລາຄາ', 'โดนโก่งราคา', 'bị chặt chém (mua đắt)', '💸'],
       ['시치미를 떼다', 'sichimireul tteda', 'ທຳທ່າບໍ່ຮູ້', 'แกล้งทำเป็นไม่รู้', 'giả vờ không biết', '😶'],
       ['배가 아프다', 'baega apeuda', 'ອິດສາ (ເມື່ອຄົນອື່ນໄດ້ດີ)', 'อิจฉา (เมื่อคนอื่นได้ดี)', 'ghen tị (khi người khác hơn mình)', '😒'],
@@ -467,6 +489,12 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['관광지에서 바가지를 썼다.', 'gwangwangjieseo bagajireul sseotda.', 'ຖືກໂກງລາຄາຢູ່ສະຖານທີ່ທ່ອງທ່ຽວ', 'โดนโก่งราคาที่สถานที่ท่องเที่ยว', 'Tôi bị chặt chém ở khu du lịch.', '🏝️'],
       ['시험이 내일이라 발등에 불이 떨어졌다.', 'siheomi naeirira baldeunge buri tteoreojyeotda.', 'ມື້ອື່ນສອບເສັງແລ້ວ ຈຶ່ງຮີບດ່ວນຫຼາຍ', 'พรุ่งนี้สอบแล้ว ไฟลนก้นเลย', 'Mai thi rồi nên nước đến chân rồi.', '⏰'],
       ['오늘은 내가 한턱낼게.', 'oneureun naega hanteongnaelge.', 'ມື້ນີ້ຂ້ອຍລ້ຽງເອງ', 'วันนี้ฉันเลี้ยงเอง', 'Hôm nay tôi khao nhé.', '🎉'],
+    ],
+    added: [
+      { row: ['더욱이', 'deougi', 'ຍິ່ງໄປກວ່ານັ້ນ', 'ยิ่งไปกว่านั้น', 'hơn nữa', '➕'] },
+      { row: ['우물 안 개구리', 'umul an gaeguri', 'ກົບໃນກະລາ', 'กบในกะลา', 'ếch ngồi đáy giếng', '🐸'] },
+      { row: ['원숭이도 나무에서 떨어진다', 'wonsungido namueseo tteoreojinda', 'ສີ່ຕີນຮູ້ພາດ ນັກປາດຮູ້ພັ້ງ', 'สี่เท้ายังรู้พลาด นักปราชญ์ยังรู้พลั้ง', 'người giỏi cũng có lúc sai', '🐒'] },
+      { row: ['등잔 밑이 어둡다', 'deungjan michi eodupda', 'ໃກ້ຕົວກັບບໍ່ເຫັນ', 'ใกล้เกลือกินด่าง', 'gần đèn lại tối (gần mà không thấy)', '🪔'] },
     ],
   },
 ]

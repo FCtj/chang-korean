@@ -9,7 +9,7 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
     words: [
       ['정류장', 'jeongnyujang', 'ປ້າຍລົດເມ', 'ป้ายรถเมล์', 'trạm xe buýt', '🚏'],
       ['갈아타다', 'garatada', 'ປ່ຽນລົດ', 'ต่อรถ', 'chuyển tuyến', '🔄'],
-      ['지하철역', 'jihacheollyeok', 'ສະຖານີລົດໄຟໃຕ້ດິນ', 'สถานีรถไฟใต้ดิน', 'ga tàu điện ngầm', '🚇'],
+      ['운전하다', 'unjeonhada', 'ຂັບລົດ', 'ขับรถ', 'lái xe', '🚘'],
       ['출구', 'chulgu', 'ທາງອອກ', 'ทางออก', 'lối ra', '🚪'],
       ['교통카드', 'gyotongkadeu', 'ບັດໂດຍສານ', 'บัตรโดยสาร', 'thẻ giao thông', '💳'],
       ['요금', 'yogeum', 'ຄ່າໂດຍສານ', 'ค่าโดยสาร', 'giá vé', '💰'],
@@ -79,6 +79,9 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['신분증을 보여 주세요.', 'sinbunjeungeul boyeo juseyo.', 'ກະລຸນາສະແດງບັດປະຈຳຕົວ', 'กรุณาแสดงบัตรประจำตัว', 'Vui lòng cho xem giấy tờ tùy thân.', '👀'],
       ['책은 다음 주까지 반납하세요.', 'chaegeun daeum jukkaji bannapaseyo.', 'ກະລຸນາສົ່ງປຶ້ມຄືນພາຍໃນອາທິດໜ້າ', 'กรุณาคืนหนังสือภายในสัปดาห์หน้า', 'Hãy trả sách trước tuần sau.', '📖'],
     ],
+    added: [
+      { row: ['잃어버리다', 'ireobeorida', 'ເຮັດເສຍ', 'ทำหาย', 'làm mất', '👛'] },
+    ],
   },
   {
     key: 'hospital',
@@ -103,7 +106,7 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['낫다', 'natda', 'ເຊົາປ່ວຍ', 'หายป่วย', 'khỏi bệnh', '😊'],
       ['응급실', 'eunggeupsil', 'ຫ້ອງສຸກເສີນ', 'ห้องฉุกเฉิน', 'phòng cấp cứu', '🆘'],
       ['구급차', 'gugeupcha', 'ລົດສຸກເສີນ', 'รถพยาบาล', 'xe cứu thương', '🚑'],
-      ['증상', 'jeungsang', 'ອາການ', 'อาการ', 'triệu chứng', '🔍'],
+      ['약사', 'yaksa', 'ເພສັດກອນ', 'เภสัชกร', 'dược sĩ', '🧑‍⚕️'],
       ['진통제', 'jintongje', 'ຢາແກ້ປວດ', 'ยาแก้ปวด', 'thuốc giảm đau', '💊'],
       ['식후', 'sikhu', 'ຫຼັງອາຫານ', 'หลังอาหาร', 'sau bữa ăn', '🍽️'],
       ['건강보험', 'geongangboheom', 'ປະກັນສຸຂະພາບ', 'ประกันสุขภาพ', 'bảo hiểm y tế', '🛡️'],
@@ -153,9 +156,12 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
     phrases: [
       ['방을 예약하고 싶어요.', 'bangeul yeyakago sipeoyo.', 'ຂ້ອຍຢາກຈອງຫ້ອງພັກ', 'ฉันอยากจองห้องพัก', 'Tôi muốn đặt phòng.', '☎️'],
       ['체크아웃은 몇 시예요?', 'chekeuauseun myeot siyeyo?', 'ເຊັກເອົາຈັກໂມງ?', 'เช็กเอาต์กี่โมง', 'Mấy giờ trả phòng?', '🕚'],
-      ['제주도에서 사흘 동안 묵었어요.', 'jejudoeseo saheul dongan mugeosseoyo.', 'ຂ້ອຍພັກຢູ່ເກາະເຊຈູສາມມື້', 'ฉันพักที่เกาะเชจูสามวัน', 'Tôi đã ở đảo Jeju ba ngày.', '🍊'],
+      ['제주도에서 삼 일 동안 묵었어요.', 'jejudoeseo sam il dongan mugeosseoyo.', 'ຂ້ອຍພັກຢູ່ເກາະເຊຈູສາມມື້', 'ฉันพักที่เกาะเชจูสามวัน', 'Tôi đã ở lại đảo Jeju ba ngày.', '🍊'],
       ['경치가 정말 아름다워요.', 'gyeongchiga jeongmal areumdawoyo.', 'ທິວທັດງາມແທ້ໆ', 'ทิวทัศน์สวยจริงๆ', 'Phong cảnh đẹp thật.', '🌄'],
       ['짐을 맡길 수 있어요?', 'jimeul matgil su isseoyo?', 'ຝາກກະເປົ໋າໄດ້ບໍ?', 'ฝากกระเป๋าได้ไหม', 'Tôi gửi hành lý được không?', '🛄'],
+    ],
+    added: [
+      { row: ['계획', 'gyehoek', 'ແຜນການ', 'แผนการ', 'kế hoạch', '📋'] },
     ],
   },
   {
@@ -196,6 +202,9 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['같이 공연 보러 갈래요?', 'gachi gongyeon boreo gallaeyo?', 'ໄປເບິ່ງການສະແດງນຳກັນບໍ?', 'ไปดูการแสดงด้วยกันไหม', 'Đi xem biểu diễn cùng nhau nhé?', '🤝'],
       ['시간이 있을 때 소설을 읽어요.', 'sigani isseul ttae soseoreul ilgeoyo.', 'ຕອນມີເວລາວ່າງຂ້ອຍອ່ານນິຍາຍ', 'ตอนมีเวลาว่างฉันอ่านนิยาย', 'Khi có thời gian tôi đọc tiểu thuyết.', '📕'],
     ],
+    added: [
+      { row: ['연주하다', 'yeonjuhada', 'ບັນເລງດົນຕີ', 'บรรเลงดนตรี', 'biểu diễn (nhạc cụ)', '🎹'] },
+    ],
   },
   {
     key: 'contact',
@@ -234,6 +243,9 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['문자 보내 주세요.', 'munja bonae juseyo.', 'ກະລຸນາສົ່ງຂໍ້ຄວາມມາ', 'ช่วยส่งข้อความมาหน่อย', 'Hãy nhắn tin cho tôi nhé.', '✉️'],
       ['휴대폰 배터리가 다 됐어요.', 'hyudaepon baeteoriga da dwaesseoyo.', 'ແບັດໂທລະສັບໝົດແລ້ວ', 'แบตมือถือหมดแล้ว', 'Điện thoại hết pin rồi.', '🪫'],
       ['주말 모임에 초대하고 싶어요.', 'jumal moime chodaehago sipeoyo.', 'ຢາກເຊີນໄປງານພົບປະທ້າຍອາທິດ', 'อยากเชิญไปงานพบปะสุดสัปดาห์', 'Tôi muốn mời bạn đến buổi họp mặt cuối tuần.', '🥳'],
+    ],
+    added: [
+      { row: ['부탁하다', 'butakada', 'ຂໍຮ້ອງ, ຂໍໃຫ້ຊ່ວຍ', 'ขอร้อง', 'nhờ, nhờ vả', '🙏'] },
     ],
   },
   {
@@ -298,7 +310,7 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['입학하다', 'ipakada', 'ເຂົ້າຮຽນ', 'เข้าเรียน', 'nhập học', '🎒'],
       ['방학', 'banghak', 'ປິດພາກຮຽນ', 'ปิดภาคเรียน', 'kỳ nghỉ học', '🏖️'],
       ['기숙사', 'gisuksa', 'ຫໍພັກ', 'หอพัก', 'ký túc xá', '🛏️'],
-      ['장학금', 'janghakgeum', 'ທຶນການສຶກສາ', 'ทุนการศึกษา', 'học bổng', '💰'],
+      ['단어', 'daneo', 'ຄຳສັບ', 'คำศัพท์', 'từ vựng', '🔤'],
       ['발표하다', 'balpyohada', 'ນຳສະເໜີ', 'นำเสนอ', 'thuyết trình', '📢'],
       ['질문하다', 'jilmunhada', 'ຖາມຄຳຖາມ', 'ถามคำถาม', 'đặt câu hỏi', '🙋'],
       ['설명하다', 'seolmyeonghada', 'ອະທິບາຍ', 'อธิบาย', 'giải thích', '🗣️'],
@@ -352,6 +364,9 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['동료들이 모두 친절해요.', 'dongnyodeuri modu chinjeolhaeyo.', 'ເພື່ອນຮ່ວມງານທຸກຄົນໃຈດີ', 'เพื่อนร่วมงานทุกคนใจดี', 'Đồng nghiệp ai cũng tử tế.', '😊'],
       ['회의가 몇 시에 끝나요?', 'hoeuiga myeot sie kkeunnayo?', 'ກອງປະຊຸມເລີກຈັກໂມງ?', 'ประชุมเลิกกี่โมง', 'Cuộc họp kết thúc lúc mấy giờ?', '🕔'],
     ],
+    added: [
+      { row: ['소설가', 'soseolga', 'ນັກຂຽນນະວະນິຍາຍ', 'นักเขียนนวนิยาย', 'tiểu thuyết gia', '📖'] },
+    ],
   },
   {
     key: 'housework',
@@ -382,7 +397,7 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['고장 나다', 'gojang nada', 'ເພ', 'พัง', 'bị hỏng', '🔧'],
       ['고치다', 'gochida', 'ສ້ອມແປງ', 'ซ่อม', 'sửa chữa', '🛠️'],
       ['이사하다', 'isahada', 'ຍ້າຍເຮືອນ', 'ย้ายบ้าน', 'chuyển nhà', '🚚'],
-      ['월세', 'wolse', 'ຄ່າເຊົ່າລາຍເດືອນ', 'ค่าเช่ารายเดือน', 'tiền thuê nhà hàng tháng', '🏘️'],
+      ['걸레', 'geolle', 'ຜ້າຖູພື້ນ', 'ผ้าขี้ริ้ว', 'giẻ lau', '🪣'],
     ],
     phrases: [
       ['주말에 집 청소를 해요.', 'jumare jip cheongsoreul haeyo.', 'ທ້າຍອາທິດຂ້ອຍອະນາໄມເຮືອນ', 'สุดสัปดาห์ฉันทำความสะอาดบ้าน', 'Cuối tuần tôi dọn dẹp nhà.', '🏡'],

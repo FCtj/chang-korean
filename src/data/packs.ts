@@ -30,6 +30,7 @@ export const PACK_SURVIVAL: Row[] = [
   ['경찰', 'gyeongchal', 'ຕຳຫຼວດ', '', '👮'],
   ['천천히 말해 주세요', 'cheoncheonhi malhae juseyo', 'ກະລຸນາເວົ້າຊ້າໆ', '', '🐢'],
   ['다시 한 번', 'dasi han beon', 'ອີກເທື່ອໜຶ່ງ', '', '🔁'],
+  ['저기요', 'jeogiyo', 'ຂໍໂທດ (ເອີ້ນຄົນ)', 'ขอโทษครับ/ค่ะ (เรียกคน)', '🔔'],
 ]
 
 export const PACK_WORK: Row[] = [
@@ -86,6 +87,7 @@ export const PACK_TRAVEL: Row[] = [
   ['현금', 'hyeongeum', 'ເງິນສົດ', '', '💵'],
   ['편의점', 'pyeonuijeom', 'ຮ້ານສະດວກຊື້', '', '🏪'],
   ['환전', 'hwanjeon', 'ການແລກເງິນ', '', '💱'],
+  ['교통카드', 'gyotongkadeu', 'ບັດໂດຍສານ', 'บัตรโดยสาร', '🪪'],
 ]
 
 export const PACK_SCHOOL: Row[] = [
@@ -114,6 +116,7 @@ export const PACK_SCHOOL: Row[] = [
   ['한국어', 'hangugeo', 'ພາສາເກົາຫຼີ', '', '🇰🇷'],
   ['단어', 'daneo', 'ຄຳສັບ', '', '🔤'],
   ['점수', 'jeomsu', 'ຄະແນນ', '', '💯'],
+  ['수업', 'sueop', 'ຊົ່ວໂມງຮຽນ', 'คาบเรียน', '🧑‍🏫'],
 ]
 
 export const PACK_KPOP: Row[] = [
@@ -139,7 +142,7 @@ export const PACK_KPOP: Row[] = [
   ['파이팅', 'paiting', 'ສູ້ໆ', '', '💪'],
   ['행복해요', 'haengbokaeyo', 'ມີຄວາມສຸກ', '', '😊'],
   ['슬퍼요', 'seulpeoyo', 'ເສົ້າໃຈ', '', '😢'],
-  ['친구', 'chingu', 'ໝູ່', '', '👫'],
+  ['아이돌', 'aidol', 'ໄອດອນ', 'ไอดอล', '🌟'],
   ['남자친구', 'namjachingu', 'ແຟນຊາຍ', '', '💙'],
   ['여자친구', 'yeojachingu', 'ແຟນສາວ', '', '💗'],
 ]
@@ -170,4 +173,6 @@ export const PACK_FAMILY: Row[] = [
   ['같이 가요', 'gachi gayo', 'ໄປນຳກັນ', '', '👭'],
   ['맛있게 드세요', 'masitge deuseyo', 'ກິນໃຫ້ແຊບເດີ', '', '🍽️'],
   ['조심히 가요', 'josimhi gayo', 'ເດີນທາງປອດໄພ', '', '👋'],
+  ['부모님', 'bumonim', 'ພໍ່ແມ່', 'พ่อแม่', '👪'],
+  ['동생', 'dongsaeng', 'ນ້ອງ', 'น้อง', '🧒'],
 ]
