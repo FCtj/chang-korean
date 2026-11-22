@@ -13,7 +13,7 @@ import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
-import { backendReady, checkAdmin, COUNTRIES, deleteMyData, setCountry, signInWithFacebook, signOut, syncPublicProfile, useAuth, useMyPublic } from '../backend'
+import { backendReady, checkAdmin, COUNTRIES, setCountry, signInWithFacebook, signOut, syncPublicProfile, useAuth, useMyPublic } from '../backend'
 
 
 export default function SettingsScreen() {
@@ -29,8 +29,6 @@ export default function SettingsScreen() {
       ]
     : [{ lang: 'ko', name: ED_INFO.lang, sample: EDITION === 'ja' ? 'こんにちは' : 'Hello! Nice to meet you.' }]
   const [confirmReset, setConfirmReset] = useState(false)
-  const [confirmDelete, setConfirmDelete] = useState(false)
-  const [deletedMsg, setDeletedMsg] = useState(false)
   const auth = useAuth()
   const pub = useMyPublic()
   const [isAdmin, setIsAdmin] = useState(false)
@@ -84,7 +82,6 @@ export default function SettingsScreen() {
               <p className="note">{t(PUBLIC_PROFILE ? 'fbLoginHint' : 'fbLoginPlain')}</p>
             </>
           ))}
-        {deletedMsg && <p className="note">✓ {t('deleted')}</p>}
         {isAdmin && (
           <button className="btn btn-soft btn-block" onClick={() => push({ name: 'admin' })}>
             🛠️ 관리자 · 사용 현황
@@ -246,21 +243,6 @@ export default function SettingsScreen() {
             <p className="note">{t('hideHint')}</p>
           </div>
       </details>
-      )}
-
-      {backendReady && auth.status === 'in' && (
-        <section className="panel form">
-          <button
-            className={confirmDelete ? 'btn btn-danger btn-block' : 'btn btn-soft btn-block'}
-            onClick={async () => {
-              if (!confirmDelete) return setConfirmDelete(true)
-              setConfirmDelete(false)
-              if (await deleteMyData()) setDeletedMsg(true)
-            }}
-          >
-            {confirmDelete ? t('deleteConfirm') : t('deleteData')}
-          </button>
-        </section>
       )}
 
       <section className="panel form">
