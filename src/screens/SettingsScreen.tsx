@@ -46,7 +46,7 @@ export default function SettingsScreen() {
         <h2 className="h3">🌏 {t('myLang')}</h2>
         <NativePicker value={s.native} onChange={(n) => setLanguage(n)} />
         <p className="note">{t('myLangHint')}</p>
-        {s.native === 'vi' && <p className="note beta-note">🧪 {t('viBetaNote')}</p>}
+        {(s.native === 'vi' || (s.native === 'mn' && s.ui === 'mn')) && <p className="note beta-note">🧪 {t('viBetaNote')}</p>}
       </section>
 
       <section className="panel form">
