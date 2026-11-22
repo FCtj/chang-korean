@@ -12,7 +12,7 @@ export const FACEBOOK_APP_ID = '2530711987415134'
 /** 웹사이트 주소 (앱에서 개인정보처리방침 등을 열 때 사용) */
 export const SITE_URL = 'https://fctj.github.io/chang-korean/'
 /** 개인정보처리방침 · 데이터 삭제 안내 페이지에 보일 문의 이메일. 비어 있으면 GitHub 문의 링크로 대신함 */
-export const CONTACT_EMAIL = ''
+export const CONTACT_EMAIL = 'iamexample2@gmail.com'
 /**
  * 처음 소개용 간단 모드: 시작 한 단계 → 30초 체험 + 환영 포인트 → 홈은 '이어하기'와 '내 포인트'만 크게.
  * 단어팩·트랙·계급·커뮤니티·랭킹은 그대로 있고 '더 배우기' / '랭킹 보기' 안에 접혀 있음. false 면 전체 화면.
