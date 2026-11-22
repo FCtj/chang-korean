@@ -6069,3 +6069,197 @@ body {
   font-size: 1.3rem;
   background: var(--lilac-soft);
 }
+
+/* ═════════ 처음 실력 테스트 (Intro) ═════════ */
+.test-cover {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 12px;
+}
+.test-cover-sub {
+  margin: 0;
+  font-family: var(--font-cute);
+  font-size: 1rem;
+  color: var(--pink-deep);
+}
+.test-steps {
+  list-style: none;
+  margin: 6px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+}
+.test-steps li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 4px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  position: relative;
+}
+.test-steps li:not(:last-child)::after {
+  content: '›';
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-weight: 700;
+}
+.test-step-icon {
+  font-family: var(--font-emoji);
+  font-size: 1.4rem;
+}
+.test-step-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.test-page {
+  gap: 12px;
+}
+.test-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.test-qn {
+  font-family: var(--font-cute);
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.qd.miss {
+  background: var(--bad);
+}
+.q-time {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.q-time span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--mint), var(--butter) 60%, var(--peach));
+  transform-origin: left;
+  animation: q-time linear forwards;
+}
+.q-time span.stop {
+  animation-play-state: paused;
+}
+@keyframes q-time {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+.test-timeup {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-cute);
+  color: var(--bad);
+}
+.test-result {
+  gap: 14px;
+}
+.test-result-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+}
+.test-score {
+  font-family: var(--font-cute);
+  font-size: 3.4rem;
+  line-height: 1;
+  color: var(--pink-deep);
+}
+.test-score span {
+  font-size: 1.4rem;
+  color: var(--muted);
+}
+.test-score-line {
+  margin: 4px 0 0;
+  font-family: var(--font-cute);
+  color: var(--ink);
+}
+.test-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.test-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  box-shadow: var(--pop);
+}
+.test-card-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.test-card-value {
+  font-family: var(--font-cute);
+  font-size: 1.1rem;
+  color: var(--ink);
+  word-break: keep-all;
+}
+.test-answers ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.test-answers li {
+  display: grid;
+  grid-template-columns: 22px 26px auto 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  font-size: 0.9rem;
+}
+.test-answers li.no {
+  background: rgba(242, 96, 122, 0.08);
+}
+.ta-emoji {
+  font-family: var(--font-emoji);
+}
+.ta-ko {
+  font-size: 1rem;
+}
+.ta-mean {
+  color: var(--muted);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.test-earned {
+  align-self: center;
+}
+:root[data-theme='carbon'] :is(.test-steps li, .test-card) {
+  border-radius: 12px;
+}
+.test-page .qd.done {
+  background: var(--good);
+}

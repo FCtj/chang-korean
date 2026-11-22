@@ -13,7 +13,7 @@ export function courseProgress(s: State, id: CourseId): { done: number; total: n
   return { done, total: units.length }
 }
 
-export default function CoursePicker({ current, onPick }: { current: CourseId | null; onPick: (id: CourseId) => void }) {
+export default function CoursePicker({ current, recommend, onPick }: { current: CourseId | null; recommend?: CourseId; onPick: (id: CourseId) => void }) {
   const s = useStore()
   const { t, tf, ui } = useApp()
   return (
@@ -21,9 +21,11 @@ export default function CoursePicker({ current, onPick }: { current: CourseId | 
       {COURSES.map((c) => {
         const { done, total } = courseProgress(s, c.id)
         const on = c.id === current
+        const rec = !on && c.id === recommend
         return (
-          <button key={c.id} role="listitem" className={on ? 'course-card on' : 'course-card'} aria-current={on || undefined} onClick={() => onPick(c.id)}>
+          <button key={c.id} role="listitem" className={on || rec ? 'course-card on' : 'course-card'} aria-current={on || undefined} onClick={() => onPick(c.id)}>
             {on && <span className="pack-badge">{t('nowStudying')}</span>}
+            {rec && <span className="pack-badge">⭐ {t('recommended')}</span>}
             <span className="course-icon" aria-hidden="true">
               {c.id === 'basic' ? MASCOT_EMOJI[mascotOf(s.country)] : c.icon}
             </span>
