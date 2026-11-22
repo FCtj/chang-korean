@@ -8,6 +8,7 @@ import { NATIVE_INFO } from '../i18n'
 import { COURSES } from '../data/courses'
 import { maskName } from '../privacy'
 import {
+  adminAccessPlaces,
   adminOverview,
   adminUserDetail,
   adminUsers,
@@ -54,6 +55,16 @@ const countryLabel = (code: string) => {
   const c = COUNTRIES.find((x) => x.code === code)
   return c ? `${c.flag} ${c.ko}` : code === 'ZZ' ? '🌏 기타' : code
 }
+const regionKo = (code: string) => {
+  try {
+    return new Intl.DisplayNames(['ko'], { type: 'region' }).of(code) ?? code
+  } catch {
+    return code
+  }
+}
+const flagOf = (code: string | null) => (code && /^[A-Z]{2}$/.test(code) ? String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65)) : '')
+/** 접속 위치: "🇱🇦 Vientiane" (IP로 추정한 대략적인 위치) */
+const placeLabel = (country: string | null, city: string | null) => [flagOf(country), city || country || ''].filter(Boolean).join(' ') || '위치 모름'
 const nativeLabel = (id: string) => {
   const n = NATIVE_INFO.find((x) => x.id === id)
   return n ? `${n.flag} ${n.name}` : '응답 없음'
@@ -194,6 +205,23 @@ function UserSheet({ user, mask, onClose }: { user: AdminUser; mask: boolean; on
           <Tile label="그룹" value={d ? `${d.groups}개` : '…'} sub={d?.streak ? `연속 ${d.streak}일` : undefined} />
         </div>
         {suspect(user) && <p className="adm-flag">⚠️ {suspect(user)}</p>}
+        {d && d.activity.some((a) => a.country || a.city) && (
+          <>
+            <h3 className="adm-h">📍 접속 위치 (IP로 추정)</h3>
+            <ul className="adm-events">
+              {d.activity
+                .filter((a) => a.country || a.city)
+                .slice(-10)
+                .reverse()
+                .map((a) => (
+                  <li key={a.day} className="adm-place">
+                    <span>{fmtDay(a.day)}</span>
+                    <span>{placeLabel(a.country, a.city)}</span>
+                  </li>
+                ))}
+            </ul>
+          </>
+        )}
         <DayBars title="최근 60일 공부 시간" data={days} unit="분" />
         <h3 className="adm-h">최근 포인트 기록</h3>
         <ul className="adm-events">
@@ -226,6 +254,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
   const [loading, setLoading] = useState(false)
   const [mask, setMask] = useState(readMask)
   const [open, setOpen] = useState<AdminUser | null>(null)
+  const [places, setPlaces] = useState<{ countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] } | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -234,6 +263,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
       const [o, u] = await Promise.all([adminOverview(Number(days)), adminUsers(q, order, 50, 0)])
       setOv(o)
       setUsers(u)
+      // 접속 위치는 서버에 새 함수가 없으면(SQL 실행 전) 조용히 건너뜀
+      adminAccessPlaces(Number(days)).then(setPlaces, () => setPlaces(null))
     } catch (e) {
       setErr(String((e as Error).message ?? e))
     } finally {
@@ -315,6 +346,17 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
               <Breakdown title="공부 중인 코스" counts={ov.courses} label={(k) => courseLabel(k)} />
               <Breakdown title="내 언어 (동의한 사람만)" counts={ov.natives} label={nativeLabel} note="성별·언어는 설정에서 동의한 사람만 서버에 있어요" />
             </div>
+            {places && (
+              <div className="adm-breaks">
+                <Breakdown title={`접속한 나라 (최근 ${days}일)`} counts={places.countries} label={(k) => `${flagOf(k)} ${COUNTRIES.find((c) => c.code === k)?.ko ?? regionKo(k)}`} />
+                <Breakdown
+                  title={`접속한 도시 (최근 ${days}일)`}
+                  counts={Object.fromEntries(places.cities.map((c) => [placeLabel(c.country, c.city), c.n]))}
+                  label={(k) => k}
+                  note="IP로 추정한 대략적인 위치예요. 통신사·VPN에 따라 다른 도시로 나올 수 있어요"
+                />
+              </div>
+            )}
           </>
         )}
 
@@ -362,6 +404,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
                       </span>
                       <span className="adm-row-sub">
                         가입 {fmtDay(u.created_at)} · 마지막 {ago(u.last_seen)} · {courseLabel(u.course, u.topik_level)}
+                      </span>
+                      <span className="adm-row-sub">📍 {placeLabel(u.geo_country, u.geo_city)}
                       </span>
                       <span className="adm-row-sub">
                         활동 {u.active_days}일 · {fmtDur(u.study_seconds)} · 단어 {fmtNum(u.words)} · ⭐ {fmtNum(u.points)} <small>(7일 {fmtNum(u.points_7d)})</small>

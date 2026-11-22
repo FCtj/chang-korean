@@ -176,10 +176,12 @@ export interface AdminUser {
   hour_caps: number
   fast: number
   correct: number
+  geo_country: string | null
+  geo_city: string | null
   total: number
 }
 export interface AdminUserDetail {
-  activity: { day: string; seconds: number; words: number; questions: number; sessions: number }[]
+  activity: { day: string; seconds: number; words: number; questions: number; sessions: number; country: string | null; city: string | null }[]
   points: { kind: string; ref: string | null; points: number; created_at: string }[]
   groups: number
   study_days: number
@@ -217,6 +219,13 @@ export async function adminUserDetail(userId: string): Promise<AdminUserDetail> 
   const { data, error } = await supabase.rpc('admin_user_detail', { p_user: userId })
   if (error) throw new Error(error.message)
   return data as AdminUserDetail
+}
+/** 최근 n일 접속 위치: 나라별·도시별 사람 수 */
+export async function adminAccessPlaces(days = 30): Promise<{ countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] }> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_access_places', { p_days: days })
+  if (error) throw new Error(error.message)
+  return data as { countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] }
 }
 /** 관리자 전용 계정(이메일·비밀번호, Supabase 대시보드에서 만든 계정)으로 로그인 — 실패하면 오류 문구 */
 export async function signInWithEmail(email: string, password: string): Promise<string | null> {
@@ -260,6 +269,7 @@ async function onSession(session: Session | null) {
   update((s) => ({ ...s, nickname: name, country }))
   setAuth({ status: 'in', me: { id: u.id, name, avatar, country } })
   await pullProgress(u.id)
+  reportGeo().catch(() => {})
   pullActivity().catch(() => {})
   lastPrivate = ''
   syncPrivateProfile().catch(() => {})
@@ -269,8 +279,50 @@ async function onSession(session: Session | null) {
 /** 서버의 '하루' 기준(라오스 시간, UTC+7) 날짜 */
 const vientianeDay = (offsetDays = 0) => new Date(Date.now() + 7 * 3600_000 - offsetDays * 86400_000).toISOString().slice(0, 10)
 
+// ───────── 접속 위치 (대략적인 나라·도시, 관리자 화면용) ─────────
+// 로그인한 사람만 하루 한 번. IP 위치 서비스(GeoJS)에 물어 나라·도시 이름만 서버에 보냄 — IP 주소는 저장하지 않음
+// 서버는 자기가 받은 요청의 나라 헤더가 있으면 그걸 먼저 씀. 실패해도 앱 동작에는 영향 없음
+const GEO_KEY = 'chang-korean:geo-day'
+let geoBusy = false
+async function reportGeo() {
+  if (!supabase || auth.status !== 'in' || geoBusy) return
+  const day = vientianeDay()
+  try {
+    if (localStorage.getItem(GEO_KEY) === `${auth.me?.id}:${day}`) return
+  } catch {
+    /* 기억 못 하면 그냥 진행 (서버는 하루 한 줄만 고침) */
+  }
+  geoBusy = true
+  let country: string | null = null
+  let city: string | null = null
+  try {
+    const ctl = new AbortController()
+    const timer = setTimeout(() => ctl.abort(), 5000)
+    const r = await fetch('https://get.geojs.io/v1/ip/geo.json', { signal: ctl.signal, credentials: 'omit', referrerPolicy: 'no-referrer' })
+    clearTimeout(timer)
+    if (r.ok) {
+      const g = (await r.json()) as Record<string, unknown>
+      const cc = String(g.country_code ?? '').toUpperCase()
+      country = /^[A-Z]{2}$/.test(cc) ? cc : null
+      const c = typeof g.city === 'string' ? g.city.trim().slice(0, 80) : ''
+      city = c || null
+    }
+  } catch {
+    /* 위치 서비스가 막혀 있어도 서버 헤더의 나라는 남음 */
+  }
+  try {
+    const { error } = await supabase.rpc('log_geo', { p_country: country, p_city: city })
+    if (!error) localStorage.setItem(GEO_KEY, `${auth.me?.id}:${day}`)
+  } catch {
+    /* 다음에 다시 */
+  } finally {
+    geoBusy = false
+  }
+}
+
 function reportActivity(_day: string, d: DayActivity) {
   if (!supabase || auth.status !== 'in') return
+  reportGeo().catch(() => {})
   supabase
     .rpc('log_activity', { p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: d.words, p_questions: d.questions, p_sessions: d.sessions })
     .then(undefined, () => {})

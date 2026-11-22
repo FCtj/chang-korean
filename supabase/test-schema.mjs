@@ -648,5 +648,49 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('anon cannot call admin functions', e !== '', e)
 }
 
+
+// ───────── 접속 위치 (나라·도시만, IP 저장 안 함) ─────────
+{
+  await as(U.keo, () => q(`select log_geo('la', 'Vientiane')`))
+  const row = (await q(`select geo_country, geo_city from daily_activity where user_id = $1 order by day desc limit 1`, [U.keo])).rows[0]
+  check('log_geo stores country (upper-cased) and city', row?.geo_country === 'LA' && row?.geo_city === 'Vientiane', JSON.stringify(row))
+  await as(U.keo, async () => {
+    await db.exec(`select set_config('request.headers', '{"cf-ipcountry":"TH"}', false)`)
+    try {
+      await q(`select log_geo('LA', '<b>Bangkok</b>')`)
+    } finally {
+      await db.exec(`select set_config('request.headers', '', false)`)
+    }
+  })
+  const row2 = (await q(`select geo_country, geo_city from daily_activity where user_id = $1 order by day desc limit 1`, [U.keo])).rows[0]
+  check('server header country wins over app value; city cleaned', row2?.geo_country === 'TH' && row2?.geo_city === 'bBangkok/b', JSON.stringify(row2))
+  await as(U.keo, () => q(`select log_geo('Korea', null)`))
+  const row3 = (await q(`select geo_country from daily_activity where user_id = $1 order by day desc limit 1`, [U.keo])).rows[0]
+  check('bad country value ignored (keeps previous)', row3?.geo_country === 'TH', JSON.stringify(row3))
+  let e = ''
+  try {
+    await db.exec(`set role anon`)
+    await q(`select log_geo('LA', 'Vientiane')`)
+  } catch (err) {
+    e = String(err.message)
+  } finally {
+    await db.exec(`reset role`)
+  }
+  check('anon cannot call log_geo', e !== '', e)
+  const cols = (await q(`select column_name from information_schema.columns where table_name = 'daily_activity' and column_name like '%ip%'`)).rows
+  check('no IP address column anywhere in daily_activity', cols.length === 0, JSON.stringify(cols))
+  const u = await as(U.ploy, async () => (await q(`select display_name, geo_country, geo_city from admin_users('keo', 'recent', 5, 0)`)).rows[0])
+  check('admin_users shows last access country/city', u?.geo_country === 'TH' && u?.geo_city === 'bBangkok/b', JSON.stringify(u))
+  const places = await as(U.ploy, async () => (await q(`select admin_access_places(30) as p`)).rows[0].p)
+  check('admin_access_places: cities and countries', places.cities.length >= 1 && places.countries.TH >= 1, JSON.stringify(places))
+  e = ''
+  try {
+    await as(U.noy, () => q(`select admin_access_places(30)`))
+  } catch (err) {
+    e = String(err.message)
+  }
+  check('non-admin cannot read access places', e.includes('not_admin'), e)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

@@ -28,6 +28,7 @@
 <tr><td>점수</td><td>점수를 얻은 시각과 점수</td><td>로그인 후 공부할 때</td></tr>
 <tr><td>커뮤니티</td><td>참여한 그룹, 올린 글, 누른 반응</td><td>그룹 기능을 쓸 때</td></tr>
 <tr><td>하루 활동 요약</td><td>날짜별 공부 시간, 본 단어 수, 푼 문제 수, 앱을 연 횟수, 마지막 접속 시각 (하루 합계만, 세부 동작은 기록하지 않음)</td><td>로그인 후 공부할 때</td></tr>
+<tr><td>접속 위치 (대략)</td><td>IP 주소로 추정한 나라·도시 이름 (IP 주소 자체는 저장하지 않음, 실제 위치와 다를 수 있음)</td><td>로그인 후 하루 한 번. 운영자만 봄</td></tr>
 <tr><td>번역 검수 (선택)</td><td>검수한 항목(한국어·지금 뜻)과 내 의견(맞아요/고친 뜻)</td><td>번역 검수에 참여할 때. 본인과 운영자만 봄</td></tr>
 <tr><td>성별·내 언어 (선택)</td><td>성별, 학습자 언어(라오어·태국어·베트남어·몽골어·아랍어)</td><td><b>동의한 경우에만</b>. 다른 사람에게 보이지 않으며 설정에서 언제든 끄면 서버에서 삭제</td></tr>
 <tr><td>기기에만 저장</td><td>닉네임, 기기에서 고른 사진, 테마·화면 언어 설정, (동의하지 않은 경우) 성별</td><td>서버로 보내지 않음</td></tr>
@@ -52,6 +53,7 @@
 <h3>4. 처리를 맡기는 곳</h3>
 <ul>
 <li>Supabase — 데이터베이스와 로그인 서버</li>
+<li>GeoJS — IP 주소로 대략적인 나라·도시 확인 (로그인한 경우 하루 한 번)</li>
 <li>Meta (Facebook 로그인) — 로그인 확인</li>
 <li>GitHub Pages — 웹사이트 호스팅 (접속 기록이 남을 수 있음)</li>
 </ul>
@@ -78,6 +80,7 @@
 <li><b>Points:</b> the time and amount of points earned.</li>
 <li><b>Community:</b> groups you join, posts you publish, reactions you give.</li>
 <li><b>Daily activity summary:</b> per day, study time, number of words viewed, questions answered, app opens and last access time (daily totals only — individual actions are not recorded), after login.</li>
+<li><b>Approximate access location:</b> country and city name estimated from your IP address, once a day after you log in (the IP address itself is not stored; it may differ from your real location). Only the operator sees it.</li>
 <li><b>Translation reviews (optional):</b> the items you review and your feedback (correct / your suggested meaning), visible only to you and the operator.</li>
 <li><b>Gender and learner language (optional):</b> only if you agree. Never shown to others; turning it off in Settings deletes it from our server.</li>
 <li><b>Stored only on your device:</b> nickname, a photo you pick on your device, theme and screen-language settings, and your gender unless you agree to store it. These are not sent to our server.</li>
@@ -99,7 +102,7 @@
 <li>Operator: to run the service (reward delivery, abuse checks, statistics), the operator can see logged-in users’ public name, country, sign-up date, study totals and point history in an admin screen.</li>
 </ul>
 <h3>4. Service providers</h3>
-<p>Supabase (database and authentication), Meta (Facebook Login), GitHub Pages (website hosting; access logs may be kept).</p>
+<p>GeoJS (approximate country/city from IP address, once a day when logged in), Supabase (database and authentication), Meta (Facebook Login), GitHub Pages (website hosting; access logs may be kept).</p>
 <h3>5. Retention and deletion</h3>
 <p>We keep your data until you delete it. You can delete it at any time in the App under <b>Settings → Delete my data on the server</b>; this removes your profile, learning records, points, daily activity summary, gender and language, group posts, reactions and memberships. See <a href="delete-data.html">Data deletion instructions</a>.</p>
 <h3>6. Children</h3>
@@ -123,6 +126,7 @@
 <li><b>ຄະແນນ:</b> ເວລາ ແລະ ຈຳນວນຄະແນນທີ່ໄດ້.</li>
 <li><b>ຊຸມຊົນ:</b> ກຸ່ມທີ່ເຂົ້າຮ່ວມ, ໂພສ, ການກົດຖືກໃຈ.</li>
 <li><b>ສະຫຼຸບການເຄື່ອນໄຫວປະຈຳວັນ:</b> ເວລາຮຽນ, ຈຳນວນຄຳທີ່ເບິ່ງ, ຂໍ້ທີ່ຕອບ, ຈຳນວນເທື່ອທີ່ເປີດແອັບ, ເວລາເຂົ້າໃຊ້ລ່າສຸດ (ສະເພາະຍອດລວມປະຈຳວັນ).</li>
+<li><b>ສະຖານທີ່ເຂົ້າໃຊ້ໂດຍປະມານ:</b> ປະເທດ ແລະ ເມືອງ ທີ່ຄາດຄະເນຈາກທີ່ຢູ່ IP ມື້ລະເທື່ອ ຫຼັງເຂົ້າສູ່ລະບົບ (ບໍ່ເກັບທີ່ຢູ່ IP, ອາດບໍ່ກົງກັບສະຖານທີ່ແທ້). ສະເພາະຜູ້ດູແລເຫັນ.</li>
 <li><b>ເພດ ແລະ ພາສາຂອງເຈົ້າ (ບໍ່ບັງຄັບ):</b> ສະເພາະເມື່ອເຈົ້າຍິນຍອມ. ຄົນອື່ນບໍ່ເຫັນ ແລະ ປິດໄດ້ໃນການຕັ້ງຄ່າ.</li>
 <li><b>ເກັບໄວ້ໃນເຄື່ອງເທົ່ານັ້ນ:</b> ຊື່ຫຼິ້ນ, ຮູບທີ່ເລືອກຈາກເຄື່ອງ, ການຕັ້ງຄ່າ — ບໍ່ສົ່ງໄປເຊີບເວີ.</li>
 </ul>
@@ -133,7 +137,7 @@
 <p>ຖ້າເປີດ «ເຊື່ອງຊື່ບາງສ່ວນ» ຫຼື «ເຊື່ອງຮູບ» ໃນການຕັ້ງຄ່າ, ອັນດັບ ແລະ ກຸ່ມຈະເຫັນແຕ່ຊື່ທີ່ເຊື່ອງໄວ້ (ເຊັ່ນ K*y) ແລະ ບໍ່ເຫັນຮູບ.</p>
 <p>ຜູ້ດູແລ: ເພື່ອດຳເນີນການບໍລິການ (ມອບລາງວັນ, ກວດການໃຊ້ທີ່ບໍ່ຖືກຕ້ອງ, ສະຖິຕິ) ຜູ້ດູແລສາມາດເບິ່ງຊື່ສາທາລະນະ, ປະເທດ, ວັນທີສະໝັກ, ຍອດລວມການຮຽນ ແລະ ປະຫວັດຄະແນນຂອງຜູ້ທີ່ເຂົ້າສູ່ລະບົບ.</p>
 <h3>4. ຜູ້ໃຫ້ບໍລິການ</h3>
-<p>Supabase (ຖານຂໍ້ມູນ ແລະ ການເຂົ້າສູ່ລະບົບ), Meta (Facebook Login), GitHub Pages (ເວັບໄຊ).</p>
+<p>GeoJS (ປະເທດ/ເມືອງໂດຍປະມານຈາກ IP ມື້ລະເທື່ອເມື່ອເຂົ້າສູ່ລະບົບ), Supabase (ຖານຂໍ້ມູນ ແລະ ການເຂົ້າສູ່ລະບົບ), Meta (Facebook Login), GitHub Pages (ເວັບໄຊ).</p>
 <h3>5. ການເກັບຮັກສາ ແລະ ການລຶບ</h3>
 <p>ເກັບໄວ້ຈົນກວ່າເຈົ້າຈະລຶບ. ລຶບໄດ້ທຸກເວລາໃນແອັບ: <b>ຕັ້ງຄ່າ → ລຶບຂໍ້ມູນຂອງຂ້ອຍໃນເຊີບເວີ</b>. ເບິ່ງ <a href="delete-data.html">ວິທີລຶບຂໍ້ມູນ</a>.</p>
 <h3>6. ເດັກນ້ອຍ</h3>
@@ -153,6 +157,7 @@
 <li><b>คะแนน:</b> เวลาและจำนวนคะแนนที่ได้</li>
 <li><b>ชุมชน:</b> กลุ่มที่เข้าร่วม, โพสต์, การกดรีแอคชัน</li>
 <li><b>สรุปกิจกรรมรายวัน:</b> เวลาเรียน จำนวนคำที่ดู ข้อที่ตอบ จำนวนครั้งที่เปิดแอป เวลาเข้าใช้ล่าสุด (เฉพาะยอดรวมรายวัน)</li>
+<li><b>ตำแหน่งที่เข้าใช้งานโดยประมาณ:</b> ประเทศและเมืองที่ประเมินจากที่อยู่ IP วันละครั้งหลังเข้าสู่ระบบ (ไม่เก็บที่อยู่ IP และอาจไม่ตรงกับตำแหน่งจริง) เห็นเฉพาะผู้ดูแล</li>
 <li><b>เพศและภาษาของคุณ (ไม่บังคับ):</b> เฉพาะเมื่อคุณยินยอม คนอื่นไม่เห็น และปิดได้ในการตั้งค่า</li>
 <li><b>เก็บไว้ในเครื่องเท่านั้น:</b> ชื่อเล่น, รูปที่เลือกจากเครื่อง, การตั้งค่า — ไม่ส่งไปยังเซิร์ฟเวอร์</li>
 </ul>
@@ -163,7 +168,7 @@
 <p>หากเปิด «ซ่อนชื่อบางส่วน» หรือ «ซ่อนรูป» ในการตั้งค่า อันดับและกลุ่มจะเห็นเพียงชื่อที่ซ่อนไว้ (เช่น K*y) และไม่เห็นรูป</p>
 <p>ผู้ดูแล: เพื่อดำเนินบริการ (มอบรางวัล ตรวจการใช้งานที่ไม่ถูกต้อง สถิติ) ผู้ดูแลสามารถดูชื่อสาธารณะ ประเทศ วันที่สมัคร ยอดรวมการเรียน และประวัติคะแนนของผู้ที่เข้าสู่ระบบได้</p>
 <h3>4. ผู้ให้บริการ</h3>
-<p>Supabase (ฐานข้อมูลและการเข้าสู่ระบบ), Meta (Facebook Login), GitHub Pages (เว็บไซต์)</p>
+<p>GeoJS (ประเทศ/เมืองโดยประมาณจาก IP วันละครั้งเมื่อเข้าสู่ระบบ), Supabase (ฐานข้อมูลและการเข้าสู่ระบบ), Meta (Facebook Login), GitHub Pages (เว็บไซต์)</p>
 <h3>5. การเก็บรักษาและการลบ</h3>
 <p>เก็บไว้จนกว่าคุณจะลบ ลบได้ทุกเมื่อในแอป: <b>ตั้งค่า → ลบข้อมูลของฉันบนเซิร์ฟเวอร์</b> ดู <a href="delete-data.html">วิธีลบข้อมูล</a></p>
 <h3>6. เด็ก</h3>
@@ -183,6 +188,7 @@
 <li><b>Điểm:</b> thời gian và số điểm nhận được.</li>
 <li><b>Cộng đồng:</b> nhóm tham gia, bài đăng, lượt thả cảm xúc.</li>
 <li><b>Tóm tắt hoạt động hằng ngày:</b> thời gian học, số từ đã xem, số câu đã trả lời, số lần mở ứng dụng, lần truy cập gần nhất (chỉ tổng theo ngày).</li>
+<li><b>Vị trí truy cập gần đúng:</b> quốc gia và thành phố ước tính từ địa chỉ IP, mỗi ngày một lần sau khi đăng nhập (không lưu địa chỉ IP; có thể khác vị trí thật). Chỉ người vận hành thấy.</li>
 <li><b>Giới tính và ngôn ngữ (tùy chọn):</b> chỉ khi bạn đồng ý. Người khác không thấy, có thể tắt trong Cài đặt.</li>
 <li><b>Chỉ lưu trên máy:</b> biệt danh, ảnh chọn từ máy, cài đặt — không gửi lên máy chủ.</li>
 </ul>
@@ -193,7 +199,7 @@
 <p>Nếu bật «Ẩn một phần tên» hoặc «Ẩn ảnh» trong Cài đặt, bảng xếp hạng và nhóm chỉ hiện tên đã che (vd: K*y) và không hiện ảnh.</p>
 <p>Người vận hành: để vận hành dịch vụ (trao thưởng, kiểm tra gian lận, thống kê), người vận hành có thể xem tên công khai, quốc gia, ngày đăng ký, tổng thời gian học và lịch sử điểm của người dùng đã đăng nhập.</p>
 <h3>4. Nhà cung cấp dịch vụ</h3>
-<p>Supabase (cơ sở dữ liệu và đăng nhập), Meta (Facebook Login), GitHub Pages (trang web).</p>
+<p>GeoJS (quốc gia/thành phố gần đúng từ IP, mỗi ngày một lần khi đăng nhập), Supabase (cơ sở dữ liệu và đăng nhập), Meta (Facebook Login), GitHub Pages (trang web).</p>
 <h3>5. Lưu trữ và xóa</h3>
 <p>Lưu đến khi bạn xóa. Xóa bất cứ lúc nào trong ứng dụng: <b>Cài đặt → Xóa thông tin của bạn trên máy chủ</b>. Xem <a href="delete-data.html">Hướng dẫn xóa dữ liệu</a>.</p>
 <h3>6. Trẻ em</h3>
@@ -213,6 +219,7 @@
 <li><b>Оноо:</b> оноо авсан цаг болон онооны хэмжээ.</li>
 <li><b>Нийгэмлэг:</b> таны нэгдсэн бүлгүүд, оруулсан нийтлэл, үлдээсэн хариу үйлдэл.</li>
 <li><b>Өдөр тутмын идэвхийн хураангуй:</b> нэвтэрсний дараа өдөр бүрийн сурсан хугацаа, үзсэн үгийн тоо, хариулсан асуултын тоо, аппыг нээсэн тоо, хамгийн сүүлд хандсан цаг (зөвхөн өдрийн нийт дүн — үйлдэл тус бүрийг бүртгэхгүй).</li>
+<li><b>Ойролцоо нэвтэрсэн байршил:</b> IP хаягаас тооцоолсон улс, хотын нэр, нэвтэрсний дараа өдөрт нэг удаа (IP хаягийг хадгалахгүй; бодит байршлаас өөр байж болно). Зөвхөн админ харна.</li>
 <li><b>Орчуулга шалгах (заавал биш):</b> таны шалгасан зүйлс болон таны санал (зөв / таны санал болгосон утга). Үүнийг зөвхөн та болон аппын хариуцагч харна.</li>
 <li><b>Хүйс ба суралцагчийн хэл (заавал биш):</b> зөвхөн таныг зөвшөөрсөн тохиолдолд. Бусдад хэзээ ч харагдахгүй; Тохиргоонд унтраавал манай серверээс устгагдана.</li>
 <li><b>Зөвхөн таны төхөөрөмжид хадгалагдах:</b> хоч нэр, төхөөрөмжөөсөө сонгосон зураг, загвар болон дэлгэцийн хэлний тохиргоо, мөн серверт хадгалахыг зөвшөөрөөгүй бол таны хүйс. Эдгээрийг манай сервер рүү илгээхгүй.</li>
@@ -234,7 +241,7 @@
 <li>Админ: үйлчилгээг явуулах (шагнал олгох, луйвар шалгах, статистик) зорилгоор нэвтэрсэн хэрэглэгчийн нийтэд харагдах нэр, улс, бүртгүүлсэн огноо, суралцсан нийт хэмжээ, онооны түүхийг админ дэлгэцээс харна.</li>
 </ul>
 <h3>4. Үйлчилгээ үзүүлэгчид</h3>
-<p>Supabase (өгөгдлийн сан ба нэвтрэлт), Meta (Facebook Login), GitHub Pages (вэбсайтын хостинг; хандалтын бүртгэл хадгалагдаж болно).</p>
+<p>GeoJS (IP-аас ойролцоо улс/хот, нэвтэрсэн үед өдөрт нэг удаа), Supabase (өгөгдлийн сан ба нэвтрэлт), Meta (Facebook Login), GitHub Pages (вэбсайтын хостинг; хандалтын бүртгэл хадгалагдаж болно).</p>
 <h3>5. Хадгалах хугацаа ба устгах</h3>
 <p>Таныг устгах хүртэл бид мэдээллийг хадгална. Та хүссэн үедээ аппын <b>Тохиргоо → Сервер дээрх миний мэдээллийг устгах</b> хэсгээс устгаж болно; ингэхэд таны профайл, сурсан түүх, оноо, өдөр тутмын идэвхийн хураангуй, хүйс ба хэл, бүлгийн нийтлэл, хариу үйлдэл болон бүлгийн гишүүнчлэл устгагдана. Дэлгэрэнгүй: <a href="delete-data.html">Мэдээлэл устгах заавар</a>.</p>
 <h3>6. Хүүхэд</h3>
@@ -258,6 +265,7 @@
 <li><b>النقاط:</b> وقت كسب النقاط وعددها.</li>
 <li><b>المجتمع:</b> المجموعات التي تنضم إليها، والمنشورات التي تنشرها، والتفاعلات التي تضيفها.</li>
 <li><b>ملخص النشاط اليومي:</b> لكل يوم، مدة الدراسة، وعدد الكلمات التي اطلعت عليها، وعدد الأسئلة التي أجبت عنها، وعدد مرات فتح التطبيق، ووقت آخر دخول (إجماليات يومية فقط — لا تُسجَّل الإجراءات الفردية)، وذلك بعد تسجيل الدخول.</li>
+<li><b>موقع الدخول التقريبي:</b> اسم البلد والمدينة المقدَّر من عنوان IP، مرة يوميًا بعد تسجيل الدخول (لا يُخزَّن عنوان IP نفسه، وقد يختلف عن موقعك الفعلي). لا يراه إلا المشرف.</li>
 <li><b>مراجعات الترجمة (اختياري):</b> العناصر التي تراجعها وملاحظاتك عليها (صحيح / المعنى الذي تقترحه)، ولا يطلع عليها سواك وسوى مشغّل التطبيق.</li>
 <li><b>الجنس ولغة المتعلم (اختياري):</b> فقط إذا وافقت. لا تُعرض للآخرين أبدًا، وإيقافها من الإعدادات يحذفها من خادمنا.</li>
 <li><b>مخزّنة على جهازك فقط:</b> الاسم المستعار، وصورة تختارها من جهازك، وإعدادات المظهر ولغة الواجهة، وجنسك ما لم توافق على تخزينه. لا تُرسل هذه البيانات إلى خادمنا.</li>
@@ -279,7 +287,7 @@
 <li>المشرف: لتشغيل الخدمة (تسليم المكافآت، التحقق من الغش، الإحصاءات) يمكن للمشرف أن يرى الاسم العام والبلد وتاريخ التسجيل ومجموع الدراسة وسجل النقاط للمستخدمين المسجّلين.</li>
 </ul>
 <h3>4. مزودو الخدمات</h3>
-<p>Supabase (قاعدة البيانات والمصادقة)، وMeta (تسجيل الدخول عبر Facebook)، وGitHub Pages (استضافة الموقع الإلكتروني؛ وقد يُحتفظ بسجلات الوصول).</p>
+<p>GeoJS (البلد/المدينة التقريبية من عنوان IP، مرة يوميًا عند تسجيل الدخول)، Supabase (قاعدة البيانات والمصادقة)، وMeta (تسجيل الدخول عبر Facebook)، وGitHub Pages (استضافة الموقع الإلكتروني؛ وقد يُحتفظ بسجلات الوصول).</p>
 <h3>5. الاحتفاظ بالبيانات وحذفها</h3>
 <p>نحتفظ ببياناتك إلى أن تحذفها. ويمكنك حذفها في أي وقت من التطبيق عبر <b>الإعدادات ← حذف بياناتي من الخادم</b>؛ ويؤدي ذلك إلى حذف ملفك الشخصي، وسجلات التعلم، والنقاط، وملخص النشاط اليومي، والجنس واللغة، ومنشوراتك في المجموعات، وتفاعلاتك، وعضويتك في المجموعات. راجع <a href="delete-data.html">تعليمات حذف البيانات</a>.</p>
 <h3>6. الأطفال</h3>

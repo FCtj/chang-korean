@@ -78,6 +78,8 @@ $$;
 revoke all on function public.admin_overview(int) from public, anon;
 grant execute on function public.admin_overview(int) to authenticated;
 
+-- 다음 마이그레이션(접속 위치)에서 반환 열이 늘어나므로, 다시 실행해도 되게 먼저 지움
+drop function if exists public.admin_users(text, text, int, int);
 create or replace function public.admin_users(p_search text default null, p_order text default 'recent', p_limit int default 50, p_offset int default 0)
 returns table (
   user_id uuid, display_name text, avatar_url text, country text, created_at timestamptz, last_seen timestamptz,
