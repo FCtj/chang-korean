@@ -11,6 +11,7 @@ import { TRACK_TOPIK_4 } from './track-topik-4.ts'
 import { TRACK_TOPIK_2 } from './track-topik-2.ts'
 import { TRACK_TOPIK_5 } from './track-topik-5.ts'
 import { TRACK_TOPIK_3 } from './track-topik-3.ts'
+import { TRACK_TOPIK_6 } from './track-topik-6.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 
@@ -26,7 +27,7 @@ export interface TrackSource {
   units: TrackUnitSrc[]
 }
 
-const TOPIK_UNITS: Record<number, TrackUnitSrc[]> = { 1: TRACK_TOPIK_1, 2: TRACK_TOPIK_2, 3: TRACK_TOPIK_3, 4: TRACK_TOPIK_4, 5: TRACK_TOPIK_5 }
+const TOPIK_UNITS: Record<number, TrackUnitSrc[]> = { 1: TRACK_TOPIK_1, 2: TRACK_TOPIK_2, 3: TRACK_TOPIK_3, 4: TRACK_TOPIK_4, 5: TRACK_TOPIK_5, 6: TRACK_TOPIK_6 }
 
 const TOPIK_DESC: Record<number, TitleL10n> = {
   1: { ko: '생존 기초 — 인사·숫자·시간·장소·음식·쇼핑', lo: 'ຄຳສັບພື້ນຖານ — ທັກທາຍ·ຕົວເລກ·ເວລາ·ສະຖານທີ່·ອາຫານ·ຊື້ເຄື່ອງ', th: 'คำศัพท์พื้นฐาน — ทักทาย·ตัวเลข·เวลา·สถานที่·อาหาร·ช้อปปิ้ง', vi: 'Từ cơ bản — Chào hỏi·Số·Thời gian·Địa điểm·Ăn uống·Mua sắm' },
