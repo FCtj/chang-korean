@@ -255,6 +255,14 @@ export const S_TH: Record<StrKey, string> = {
   loginErrEmail: 'ไม่ได้รับอีเมลจาก Facebook โปรดอนุญาตให้ใช้อีเมลแล้วลองใหม่',
   loginErrBrowser: 'เข้าสู่ระบบไม่สำเร็จ โปรดเริ่มใหม่ในเบราว์เซอร์เดียวกัน',
   loginErrSignup: 'ตอนนี้ยังสมัครใหม่ไม่ได้ (ต้องให้ผู้ดูแลตั้งค่า)',
+  statTime: 'เวลาเรียน',
+  thisWeekStudy: 'เวลาเรียนสัปดาห์นี้',
+  consentTitle: 'บันทึกไว้เพื่อคำแนะนำที่เหมาะกับคุณไหม?',
+  consentBody: 'ถ้าบันทึกเพศและภาษาของคุณ จะใช้แนะนำงาน·เรียนต่อและทำสถิติ คนอื่นไม่เห็น และปิดได้ทุกเมื่อในการตั้งค่า',
+  consentYes: 'บันทึก',
+  consentNo: 'ไม่เป็นไร',
+  consentToggle: 'บันทึกเพศ·ภาษาบนเซิร์ฟเวอร์ (ส่วนตัว)',
+  consentHint: 'ใช้เฉพาะแนะนำงาน·เรียนต่อและสถิติ คนอื่นไม่เห็น',
 }
 
 export const F_TH: FnTable = {
@@ -309,4 +317,7 @@ export const F_TH: FnTable = {
   bragPack: (unit: string) => `เรียนจบชุดคำศัพท์ ${unit}!`,
   bragExam: (n: number, score?: number) => `สอบผ่านบทที่ ${n}!${score ? ` (${score}/50)` : ''}`,
   bragPromo: (n: number) => `สอบเลื่อนขั้น ${n} ผ่านแล้ว!`,
+  durMin: (m: number) => `${m} นาที`,
+  durHM: (h: number, m: number) => `${h} ชม. ${m} นาที`,
+  roundsPassedN: (n: number) => `ผ่าน ${n} บท`,
 }

@@ -5,7 +5,7 @@ import { useSyncExternalStore } from 'react'
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
-import { getState, setPointsReporter, subscribe, update, type State } from './store'
+import { getState, mergeServerActivity, setActivityReporter, setPointsReporter, subscribe, update, type DayActivity, type State } from './store'
 import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
 
 // 주소·키는 src/config.ts 의 공개값 (빌드할 때 VITE_* 로 넣은 값이 있으면 그것)
@@ -143,6 +143,57 @@ async function onSession(session: Session | null) {
   update((s) => ({ ...s, nickname: name, country }))
   setAuth({ status: 'in', me: { id: u.id, name, avatar, country } })
   await pullProgress(u.id)
+  pullActivity().catch(() => {})
+  lastPrivate = ''
+  syncPrivateProfile().catch(() => {})
+}
+
+// ───────── 하루 활동 요약 (daily_activity) ─────────
+/** 서버의 '하루' 기준(라오스 시간, UTC+7) 날짜 */
+const vientianeDay = (offsetDays = 0) => new Date(Date.now() + 7 * 3600_000 - offsetDays * 86400_000).toISOString().slice(0, 10)
+
+function reportActivity(_day: string, d: DayActivity) {
+  if (!supabase || auth.status !== 'in') return
+  supabase
+    .rpc('log_activity', { p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: d.words, p_questions: d.questions, p_sessions: d.sessions })
+    .then(undefined, () => {})
+}
+
+async function pullActivity() {
+  if (!supabase) return
+  const { data } = await supabase.from('daily_activity').select('day, study_seconds, words_seen, questions, sessions').gte('day', vientianeDay(59))
+  if (data)
+    mergeServerActivity(
+      (data as { day: string; study_seconds: number; words_seen: number; questions: number; sessions: number }[]).map((r) => ({
+        day: r.day,
+        sec: r.study_seconds,
+        words: r.words_seen,
+        questions: r.questions,
+        sessions: r.sessions,
+      })),
+    )
+}
+
+// ───────── 성별 · 내 언어 (profile_private, 동의한 경우만 · 본인만 볼 수 있음) ─────────
+let lastPrivate = ''
+async function syncPrivateProfile() {
+  if (!supabase || auth.status !== 'in' || !auth.me) return
+  const s = getState()
+  if (!s.profileConsent) return
+  const want = s.profileConsent === 'yes' ? `yes:${s.gender}:${s.native}` : 'no'
+  if (want === lastPrivate) return
+  lastPrivate = want
+  const uid = auth.me.id
+  const { error } =
+    s.profileConsent === 'yes'
+      ? await supabase.from('profile_private').upsert({ user_id: uid, gender: s.gender || null, native: s.native, updated_at: new Date().toISOString() })
+      : await supabase.from('profile_private').delete().eq('user_id', uid)
+  if (error) lastPrivate = ''
+}
+let privateTimer: ReturnType<typeof setTimeout> | null = null
+function schedulePrivateSync() {
+  if (privateTimer) clearTimeout(privateTimer)
+  privateTimer = setTimeout(() => syncPrivateProfile().catch(() => {}), 1500)
 }
 
 // ───────── 학습 기록 동기화 ─────────
@@ -308,7 +359,9 @@ export function initBackend() {
   const returnError = readAuthReturn()
   if (returnError) setAuth({ ...auth, error: returnError })
   setPointsReporter(reportPoints)
+  setActivityReporter(reportActivity)
   subscribe(schedulePush)
+  subscribe(schedulePrivateSync)
   supabase.auth.onAuthStateChange((event, session) => {
     if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') setTimeout(() => onSession(session), 0)
     if (event === 'SIGNED_OUT') setAuth({ status: 'out', me: null })

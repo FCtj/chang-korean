@@ -71,6 +71,12 @@ export default function SettingsScreen() {
             </>
           ))}
         {deletedMsg && <p className="note">✓ {t('deleted')}</p>}
+        {backendReady && auth.status === 'in' && (
+          <>
+            <Toggle id="set-consent" label={`🔒 ${t('consentToggle')}`} on={s.profileConsent === 'yes'} onChange={(on) => update((st) => ({ ...st, profileConsent: on ? 'yes' : 'no' }))} />
+            <p className="note">{t('consentHint')}</p>
+          </>
+        )}
         <div className="field">
           <span className="label">{t('country')}</span>
           <div className="country-chips" role="radiogroup" aria-label={t('country')}>
@@ -233,7 +239,7 @@ export default function SettingsScreen() {
         </a>
       </p>
       <p className="foot-note">
-        Chang Korean v0.13.2 (MVP) · {t('contentDraft')}
+        Chang Korean v0.14.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )

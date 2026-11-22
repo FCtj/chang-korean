@@ -1,8 +1,8 @@
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
-import { currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
-import { useAuth } from '../backend'
+import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
 
 export default function Home() {
@@ -41,6 +41,20 @@ export default function Home() {
         </div>
       </header>
 
+      {backendReady && auth.status === 'in' && s.profileConsent === null && (
+        <section className="panel consent-card">
+          <h2 className="h3">🔒 {t('consentTitle')}</h2>
+          <p className="note">{t('consentBody')}</p>
+          <div className="consent-row">
+            <button className="btn btn-pink sm" onClick={() => update((st) => ({ ...st, profileConsent: 'yes' }))}>
+              {t('consentYes')}
+            </button>
+            <button className="btn btn-soft sm" onClick={() => update((st) => ({ ...st, profileConsent: 'no' }))}>
+              {t('consentNo')}
+            </button>
+          </div>
+        </section>
+      )}
       {!s.gender && (
         <section className="panel theme-card">
           <h2 className="h3">✨ {t('themeCardTitle')}</h2>

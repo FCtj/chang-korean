@@ -256,6 +256,14 @@ export const S_VI: Record<StrKey, string> = {
   loginErrEmail: 'Không nhận được email từ Facebook. Hãy cho phép chia sẻ email rồi thử lại',
   loginErrBrowser: 'Chưa hoàn tất đăng nhập. Hãy bắt đầu lại trên cùng một trình duyệt',
   loginErrSignup: 'Hiện chưa thể đăng ký mới (cần quản trị viên cài đặt)',
+  statTime: 'Thời gian học',
+  thisWeekStudy: 'Thời gian học tuần này',
+  consentTitle: 'Lưu lại để gợi ý phù hợp hơn nhé?',
+  consentBody: 'Nếu lưu giới tính và ngôn ngữ của bạn, chúng tôi dùng để gợi ý việc làm, du học và thống kê. Người khác không thấy, có thể tắt bất cứ lúc nào trong Cài đặt.',
+  consentYes: 'Đồng ý lưu',
+  consentNo: 'Không, cảm ơn',
+  consentToggle: 'Lưu giới tính·ngôn ngữ lên máy chủ (riêng tư)',
+  consentHint: 'Chỉ dùng để gợi ý việc làm, du học và thống kê; người khác không thấy',
 }
 
 export const F_VI: FnTable = {
@@ -311,4 +319,7 @@ export const F_VI: FnTable = {
   bragPack: (unit: string) => `Xong gói từ ${unit}!`,
   bragExam: (n: number, score?: number) => `Thi đạt Bài ${n}!${score ? ` (${score}/50)` : ''}`,
   bragPromo: (n: number) => `Thi lên Cấp ${n} đạt!`,
+  durMin: (m: number) => `${m} phút`,
+  durHM: (h: number, m: number) => `${h} giờ ${m} phút`,
+  roundsPassedN: (n: number) => `Đạt ${n} bài`,
 }

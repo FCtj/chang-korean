@@ -4801,3 +4801,92 @@ body {
   color: var(--muted);
   overflow-wrap: anywhere;
 }
+
+/* 동의 카드 · 이번 주 공부 시간 */
+.consent-card .h3,
+.consent-card .note {
+  margin: 0;
+}
+.consent-row {
+  display: flex;
+  gap: 8px;
+}
+.consent-row .btn {
+  flex: 1;
+}
+.record-week {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 16px;
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.record-week-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+.record-bars {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  height: 64px;
+}
+.record-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 3px;
+}
+.record-bar-fill {
+  width: 100%;
+  max-width: 22px;
+  border-radius: 6px 6px 3px 3px;
+  background: rgba(255, 255, 255, 0.85);
+  min-height: 0;
+}
+.record-bar::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 16px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 22px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.record-bar-fill {
+  position: relative;
+  margin-bottom: 0;
+}
+.record-bar-day {
+  font-size: 0.66rem;
+  opacity: 0.9;
+  line-height: 1;
+}
+.record-bar.today .record-bar-day {
+  font-weight: 700;
+}
+.record-bar.today .record-bar-fill {
+  background: #fff;
+}
+:root[data-theme='carbon'] .record-week {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+:root[data-theme='carbon'] .record-bar::before {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+:root[data-theme='carbon'] .record-bar-fill {
+  background: #3e6ae1;
+  border-radius: 3px 3px 2px 2px;
+}
+:root[data-theme='carbon'] .record-bar.today .record-bar-fill {
+  background: #7b9bff;
+}

@@ -141,14 +141,18 @@ function RecordCard() {
   const { t, tf, ui } = useApp()
   const r = learningRecord(s)
   const tier = TIERS.find((x) => x.no === r.tier)
+  const dur = (min: number) => (min >= 60 ? tf('durHM', Math.floor(min / 60), min % 60) : tf('durMin', min))
   const stats: [string, string, string][] = [
     ['📅', t('statDays'), String(r.days)],
     ['🔥', t('statStreak'), String(r.streak)],
+    ['⏱️', t('statTime'), dur(r.minutes)],
     ['📚', t('statWords'), String(r.words)],
-    ['🎓', t('statRounds'), String(r.rounds)],
     ['💯', t('statBest'), r.best ? `${r.best}/50` : '–'],
     ['📈', t('statConsistency'), `${r.consistency}%`],
   ]
+  const weekMax = Math.max(10, ...r.week.map((d) => d.min))
+  const weekTotal = r.week.reduce((n, d) => n + d.min, 0)
+  const dayName = (key: string) => new Date(`${key}T12:00:00`).toLocaleDateString(ui === 'ko' ? 'ko' : ui, { weekday: 'narrow' })
   return (
     <section className="record-card" aria-label={t('myRecord')}>
       <div className="record-head">
@@ -157,7 +161,7 @@ function RecordCard() {
           <span className="record-label">CHANG KOREAN · RECORD</span>
           <span className="record-name">{auth.me?.name ?? s.nickname}</span>
           <span className="record-tier">
-            {tierBadge(tier?.badge, s.theme)} {tf('tierN', r.tier)} · {tier?.name[ui]}
+            {tierBadge(tier?.badge, s.theme)} {tf('tierN', r.tier)} · {tier?.name[ui]} · {tf('roundsPassedN', r.rounds)}
           </span>
         </div>
       </div>
@@ -171,6 +175,20 @@ function RecordCard() {
             </span>
           </div>
         ))}
+      </div>
+      <div className="record-week" aria-label={t('thisWeekStudy')}>
+        <div className="record-week-head">
+          <span>{t('thisWeekStudy')}</span>
+          <span className="num">{dur(weekTotal)}</span>
+        </div>
+        <div className="record-bars">
+          {r.week.map((d) => (
+            <div key={d.day} className={d.today ? 'record-bar today' : 'record-bar'} title={`${d.day} · ${dur(d.min)}`}>
+              <span className="record-bar-fill" style={{ height: `${Math.max(d.min ? 8 : 0, (d.min / weekMax) * 100)}%` }} />
+              <span className="record-bar-day">{dayName(d.day)}</span>
+            </div>
+          ))}
+        </div>
       </div>
       <p className="record-note">{t('recordNote')}</p>
       <span className="record-soon">🔒 {t('recordShareSoon')}</span>

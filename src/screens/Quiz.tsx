@@ -12,6 +12,7 @@ import { useApp, type QuizKind } from '../ctx'
 import { demoAutoAchievement } from '../community'
 import { awardPractice, completeSession, getState, recordAnswer, recordExam, recordPromo, DAILY_CAP, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
+import { useStudyClock } from '../activity'
 import { Elephant, Icon, ProgressBar, TopBar, shuffle } from '../ui'
 import { Confetti } from './Player'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
@@ -57,6 +58,7 @@ interface Result {
 export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }) {
   const { kind, words, pool, roundId, tierNo, label } = props
   const { t, tf, replace, pop, home } = useApp()
+  useStudyClock()
   const settings = getState().settings
   const isTest = kind === 'exam' || kind === 'promo'
 

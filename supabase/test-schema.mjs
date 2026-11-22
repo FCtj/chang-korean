@@ -33,10 +33,31 @@ await db.exec(readFileSync(new URL('./schema.sql', import.meta.url), 'utf8')) //
   check('migrations match schema.sql', joined === readFileSync(new URL('./schema.sql', import.meta.url), 'utf8'), files.join(', '))
 }
 check('schema runs twice without error', true)
+// 하루 학습 기록·비공개 프로필 테이블 권한은 schema.sql 의 grant 그대로인지 (아래 테스트용 일괄 grant 전에 확인)
+{
+  const privs = async (role, table) =>
+    (await q(`select string_agg(p, ',' order by p) as s from unnest(array['select','insert','update','delete']) p where has_table_privilege($1, $2, p)`, [role, table])).rows[0].s ?? ''
+  const got = {
+    authActivity: await privs('authenticated', 'public.daily_activity'),
+    anonActivity: await privs('anon', 'public.daily_activity'),
+    authPrivate: await privs('authenticated', 'public.profile_private'),
+    anonPrivate: await privs('anon', 'public.profile_private'),
+  }
+  check(
+    'daily_activity: authenticated select only, anon nothing; profile_private: authenticated select/insert/update/delete, anon nothing',
+    got.authActivity === 'select' && got.anonActivity === '' && got.authPrivate === 'delete,insert,select,update' && got.anonPrivate === '',
+    JSON.stringify(got),
+  )
+  const fx = (await q(`select has_function_privilege('anon', 'public.log_activity(date,int,int,int,int)', 'execute') as anon,
+    has_function_privilege('authenticated', 'public.log_activity(date,int,int,int,int)', 'execute') as auth`)).rows[0]
+  check('log_activity: authenticated only', fx.anon === false && fx.auth === true, JSON.stringify(fx))
+}
 await db.exec(`
   grant usage on schema public to anon, authenticated;
   grant select on all tables in schema public to anon, authenticated;
   grant insert, update on public.profiles, public.progress to authenticated;
+  -- 위 일괄 grant 는 예전 테스트용. 새 비공개 테이블은 schema.sql 권한 그대로 둠 (anon 은 아무것도 없음)
+  revoke select on public.daily_activity, public.profile_private from anon;
 `)
 
 const U = { noy: '11111111-1111-1111-1111-111111111111', keo: '22222222-2222-2222-2222-222222222222', ploy: '33333333-3333-3333-3333-333333333333' }
@@ -425,6 +446,120 @@ try {
 }
 check('anonymous sees no groups and cannot call group functions', String(anonGroups).startsWith('0|'), String(anonGroups))
 check('realtime publication includes posts', (await q(`select count(*) n from pg_publication_tables where pubname='supabase_realtime' and tablename='posts'`)).rows[0].n == 1)
+
+// ───────── 하루 학습 기록 (daily_activity / log_activity) ─────────
+console.log('\n  -- daily activity / private profile --')
+const A = {
+  lin: 'cccccccc-0000-0000-0000-000000000001',
+  tou: 'cccccccc-0000-0000-0000-000000000002', // 상한 검사
+  vee: 'cccccccc-0000-0000-0000-000000000003', // 내 데이터 삭제
+}
+for (const id of Object.values(A)) await q('insert into auth.users values ($1)', [id])
+const TODAY = `(now() at time zone 'Asia/Vientiane')::date`
+const logAct = (uid, day, s, w, qs, ss) => as(uid, () => q(`select log_activity(${day}, $1::int, $2::int, $3::int, $4::int)`, [s, w, qs, ss]))
+const actRow = async (uid, day = TODAY) =>
+  (await q(`select study_seconds s, words_seen w, questions q, sessions n, last_seen > now() - interval '1 minute' as fresh from daily_activity where user_id=$1 and day=${day}`, [uid])).rows[0]
+const actIs = (r, s, w, qs, n) => !!r && r.s === s && r.w === w && r.q === qs && r.n === n
+
+await logAct(A.lin, TODAY, 600, 30, 10, 1)
+await logAct(A.lin, TODAY, 300, 20, 5, 1)
+let ar = await actRow(A.lin)
+check('log_activity twice for today accumulates', actIs(ar, 900, 50, 15, 2) && ar.fresh, JSON.stringify(ar))
+await q(`update daily_activity set last_seen = now() - interval '1 day' where user_id=$1 and day=${TODAY}`, [A.lin])
+await logAct(A.lin, TODAY, 0, 0, 0, 0)
+ar = await actRow(A.lin)
+check('log_activity refreshes last_seen (zeros add nothing)', actIs(ar, 900, 50, 15, 2) && ar.fresh, JSON.stringify(ar))
+await logAct(A.tou, TODAY, 4000, 5000, 3000, 50)
+ar = await actRow(A.tou)
+check('per-call clamp: 4000 s → 3600, words/questions → 2000, sessions → 20', actIs(ar, 3600, 2000, 2000, 20), JSON.stringify(ar))
+for (let i = 0; i < 50; i++) await logAct(A.tou, TODAY, 3600, 2000, 2000, 20)
+ar = await actRow(A.tou)
+check('daily totals cap at 86400 s / 20000 / 20000 / 1000', actIs(ar, 86400, 20000, 20000, 1000), JSON.stringify(ar))
+e = await errOf(() => logAct(A.lin, `${TODAY} - 1`, 120, 4, 2, 1))
+ar = await actRow(A.lin, `${TODAY} - 1`)
+check('yesterday (Vientiane) allowed', e === '' && actIs(ar, 120, 4, 2, 1), e || JSON.stringify(ar))
+e = await errOf(() => logAct(A.lin, `${TODAY} - 3`, 60, 1, 1, 1))
+check("3 days ago → 'bad_day'", e.includes('bad_day'), e)
+e = await errOf(() => logAct(A.lin, `${TODAY} + 1`, 60, 1, 1, 1))
+check("tomorrow → 'bad_day'", e.includes('bad_day'), e)
+e = await errOf(() => logAct(A.lin, TODAY, -5, 1, 1, 1))
+check("negative value → 'bad_value'", e.includes('bad_value'), e)
+e = await errOf(() => logAct(A.lin, TODAY, 60, null, 1, 1))
+check("null value → 'bad_value'", e.includes('bad_value'), e)
+check('rejected calls change nothing', actIs(await actRow(A.lin), 900, 50, 15, 2) && (await q(`select count(*)::int n from daily_activity where user_id=$1`, [A.lin])).rows[0].n === 2)
+e = await errOf(async () => {
+  await db.exec('set role anon')
+  try {
+    await q(`select log_activity(${TODAY}, 60, 1, 1, 1)`)
+  } finally {
+    await db.exec('reset role')
+  }
+})
+check('anonymous cannot call log_activity', e !== '', e)
+e = await errOf(async () => {
+  await db.exec('set role authenticated')
+  try {
+    await q(`select log_activity(${TODAY}, 60, 1, 1, 1)`)
+  } finally {
+    await db.exec('reset role')
+  }
+})
+check("log_activity without a user → 'not_logged_in'", e.includes('not_logged_in'), e)
+
+const linSees = (await as(A.lin, () => q('select user_id from daily_activity'))).rows
+const touSees = (await as(A.tou, () => q('select user_id from daily_activity'))).rows
+check('users see only their own daily_activity rows', linSees.length === 2 && linSees.every((r) => r.user_id === A.lin) && touSees.length === 1 && touSees[0].user_id === A.tou)
+e = await asErr(A.lin, `insert into daily_activity (day, study_seconds) values (${TODAY} - 2, 100)`)
+check('direct insert into daily_activity blocked', e !== '' && (await q(`select count(*)::int n from daily_activity where user_id=$1`, [A.lin])).rows[0].n === 2, e)
+e = await asErr(A.lin, `update daily_activity set study_seconds = 86400 where user_id=$1`, [A.lin])
+check('direct update of daily_activity blocked', e !== '' && (await actRow(A.lin)).s === 900, e)
+e = await asErr(A.lin, `delete from daily_activity where user_id=$1`, [A.lin])
+check('direct delete from daily_activity blocked', e !== '' && (await q(`select count(*)::int n from daily_activity where user_id=$1`, [A.lin])).rows[0].n === 2, e)
+
+// ───────── 비공개 프로필 (profile_private) ─────────
+const privRow = async (uid) => (await q('select gender, native from profile_private where user_id=$1', [uid])).rows[0]
+const ins = await one(A.lin, `insert into profile_private (gender, native) values ('f', 'lo') returning user_id`)
+check('user inserts own private profile (user_id defaults to auth.uid())', ins?.user_id === A.lin && (await privRow(A.lin))?.gender === 'f')
+check('user reads own private profile', (await as(A.lin, () => q('select * from profile_private'))).rows.length === 1)
+await as(A.lin, () => q(`update profile_private set native = 'th', updated_at = now() where user_id=$1`, [A.lin]))
+check('user updates own private profile', (await privRow(A.lin))?.native === 'th')
+check("another user cannot read it", (await as(A.tou, () => q('select * from profile_private'))).rows.length === 0)
+await as(A.tou, () => q(`update profile_private set gender = 'm' where user_id=$1`, [A.lin]))
+await as(A.tou, () => q('delete from profile_private where user_id=$1', [A.lin]))
+check("another user cannot change or delete it", (await privRow(A.lin))?.gender === 'f')
+e = await asErr(A.tou, `insert into profile_private (user_id, gender) values ($1, 'm')`, [A.vee])
+check("cannot insert a private profile for someone else", e !== '' && !(await privRow(A.vee)), e)
+e = await asErr(A.lin, `update profile_private set user_id = $1 where user_id = $2`, [A.vee, A.lin])
+check('cannot move own private profile to someone else', e !== '' && (await privRow(A.lin))?.native === 'th' && !(await privRow(A.vee)), e)
+let anonPriv = ''
+try {
+  await db.exec('set role anon')
+  anonPriv = String((await q('select count(*)::int n from profile_private')).rows[0].n)
+} catch (err) {
+  anonPriv = err.message
+} finally {
+  await db.exec('reset role')
+}
+check('anonymous cannot read private profiles', anonPriv.includes('permission denied') || anonPriv === '0', anonPriv)
+e = await asErr(A.tou, `insert into profile_private (gender) values ('x')`)
+check('invalid gender rejected', e.includes('profile_private_gender_check'), e)
+e = await asErr(A.tou, `insert into profile_private (native) values ('ko')`)
+check('invalid native language rejected', e.includes('profile_private_native_check'), e)
+await as(A.lin, () => q('delete from profile_private where user_id=$1', [A.lin]))
+check('user deletes own private profile', !(await privRow(A.lin)))
+
+// 내 데이터 삭제: 하루 학습 기록·비공개 프로필도
+await logAct(A.vee, TODAY, 300, 10, 5, 1)
+await logAct(A.vee, `${TODAY} - 1`, 60, 2, 1, 1)
+await as(A.vee, () => q(`insert into profile_private (gender, native) values ('m', 'vi')`))
+await as(A.tou, () => q(`insert into profile_private (native) values ('lo')`))
+await as(A.vee, () => q('select delete_my_data()'))
+const veeLeft = (await q('select (select count(*) from daily_activity where user_id=$1) + (select count(*) from profile_private where user_id=$1) as n', [A.vee])).rows[0].n
+check('delete_my_data removes own daily_activity and profile_private', Number(veeLeft) === 0, `left=${veeLeft}`)
+check(
+  "delete_my_data leaves other users' rows",
+  (await q('select count(*)::int n from daily_activity where user_id = any($1)', [[A.lin, A.tou]])).rows[0].n === 3 && (await privRow(A.tou))?.native === 'lo',
+)
 
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

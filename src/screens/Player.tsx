@@ -9,7 +9,9 @@ import { findRound, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
 import { nativeInfo } from '../i18n'
 import { ShareToGroupButton } from './Community'
+import { touchStudy, useStudyClock } from '../activity'
 import {
+  addActivity,
   completeSession,
   getState,
   isStepKnown,
@@ -99,6 +101,18 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
     setToast(text)
     setTimeout(() => setToast((cur) => (cur === text ? null : cur)), ms)
   }
+
+  // 공부 시간 재기 + 카드를 볼 때마다 '본 단어' 1개 (하루 활동 요약)
+  useStudyClock()
+  const seenKey = useRef('')
+  useEffect(() => {
+    if (!word || view !== 'play') return
+    const key = `${loop}-${batch}-${pos}-${word.id}`
+    if (seenKey.current === key) return
+    seenKey.current = key
+    addActivity({ words: 1 })
+    touchStudy()
+  }, [word, view, loop, batch, pos])
 
   // 한국어가 보이는 순간 발음
   const spokenKey = useRef('')

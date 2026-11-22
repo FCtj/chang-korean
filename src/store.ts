@@ -27,6 +27,13 @@ export interface WordStat {
   lastWrong: number
 }
 
+export interface DayActivity {
+  sec: number
+  words: number
+  questions: number
+  sessions: number
+}
+
 export interface State {
   v: 5
   started: boolean
@@ -72,6 +79,10 @@ export interface State {
   lastStudyDay: string
   /** 공부한 날 모음 (YYYY-MM-DD). '나의 한국어 이력'의 공부한 날·성실도 계산용 */
   studyDays: string[]
+  /** 하루 활동 요약 (최근 60일): 공부 시간(초)·본 단어·푼 문제·앱 연 횟수. 로그인하면 서버 daily_activity 에도 쌓임 */
+  activity: Record<string, DayActivity>
+  /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
+  profileConsent: 'yes' | 'no' | null
   totalPoints: number
 }
 
@@ -138,6 +149,8 @@ function initial(): State {
     streak: 0,
     lastStudyDay: '',
     studyDays: [],
+    activity: {},
+    profileConsent: null,
     totalPoints: 0,
   }
 }
@@ -179,6 +192,14 @@ function load(): State {
 let state: State = rollover(load())
 setWordNative(state.native)
 const listeners = new Set<() => void>()
+// 다른 탭에서 기록이 바뀌면 이 탭도 최신으로 (낡은 기록으로 덮어쓰지 않게)
+if (typeof window !== 'undefined')
+  window.addEventListener('storage', (e) => {
+    if (e.key !== KEY || !e.newValue) return
+    state = rollover(load())
+    setWordNative(state.native)
+    listeners.forEach((l) => l())
+  })
 
 function persist() {
   try {
@@ -236,7 +257,7 @@ export function useStore(): State {
 }
 
 export function resetAll() {
-  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, country: state.country }
+  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, country: state.country, profileConsent: state.profileConsent }
   // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
@@ -409,12 +430,93 @@ function markStudyDay(s: State): State {
   return s.studyDays.includes(day) ? s : { ...s, studyDays: [...s.studyDays, day] }
 }
 
+// ───────── 하루 활동 요약 (공부 시간·본 단어·푼 문제·앱 연 횟수) ─────────
+// 자주 바뀌므로 모아 두었다가 1분마다(또는 화면을 떠날 때) 한 번에 저장
+const pendingActivity: DayActivity = { sec: 0, words: 0, questions: 0, sessions: 0 }
+type ActivityReporter = (day: string, delta: DayActivity) => void
+let activityReporter: ActivityReporter | null = null
+export function setActivityReporter(fn: ActivityReporter | null) {
+  activityReporter = fn
+}
+export function addActivity(delta: Partial<DayActivity>) {
+  for (const k of ['sec', 'words', 'questions', 'sessions'] as const) pendingActivity[k] += delta[k] ?? 0
+}
+const STASH_KEY = 'chang-korean:activity-stash'
+function addDay(activity: Record<string, DayActivity>, day: string, d: DayActivity): Record<string, DayActivity> {
+  const cur = activity[day] ?? { sec: 0, words: 0, questions: 0, sessions: 0 }
+  const next = { ...activity, [day]: { sec: cur.sec + d.sec, words: cur.words + d.words, questions: cur.questions + d.questions, sessions: cur.sessions + d.sessions } }
+  // 60일보다 오래된 날은 기기에서 정리 (서버에는 남음)
+  const oldest = todayKey(new Date(Date.now() - 59 * 86400000))
+  for (const k of Object.keys(next)) if (k < oldest) delete next[k]
+  return next
+}
+/**
+ * 모아 둔 활동을 저장.
+ * - live: 앱을 쓰는 중 → 상태에 바로 더함
+ * - stash: 앱을 떠나는 중 → 전체 기록을 다시 쓰지 않고 작은 별도 칸에만 적어 둠
+ *   (다른 탭이 쓴 최신 기록을 낡은 기록으로 덮어쓰지 않도록. 다음에 열 때 합침)
+ */
+export function flushActivity(mode: 'live' | 'stash' = 'live') {
+  const d = { ...pendingActivity }
+  if (!d.sec && !d.words && !d.questions && !d.sessions) return
+  pendingActivity.sec = pendingActivity.words = pendingActivity.questions = pendingActivity.sessions = 0
+  const day = todayKey()
+  if (mode === 'stash') {
+    try {
+      const stash = JSON.parse(localStorage.getItem(STASH_KEY) || '{}') as Record<string, DayActivity>
+      localStorage.setItem(STASH_KEY, JSON.stringify(addDay(stash, day, d)))
+    } catch {
+      /* 저장소를 못 쓰면 버림 */
+    }
+  } else {
+    update((s) => ({ ...s, activity: addDay(s.activity, day, d) }))
+  }
+  activityReporter?.(day, d)
+}
+/** 떠날 때 적어 둔 활동을 기록에 합침 (앱을 열 때 · 다시 돌아왔을 때) */
+export function absorbActivityStash() {
+  let stash: Record<string, DayActivity> = {}
+  try {
+    stash = JSON.parse(localStorage.getItem(STASH_KEY) || '{}')
+    localStorage.removeItem(STASH_KEY)
+  } catch {
+    return
+  }
+  const days = Object.entries(stash)
+  if (!days.length) return
+  update((s) => ({ ...s, activity: days.reduce((a, [day, d]) => addDay(a, day, d), s.activity) }))
+}
+/** 서버(여러 기기 합계)에서 받은 하루 요약을 기기 기록과 합침 (항목마다 큰 값) */
+export function mergeServerActivity(rows: { day: string; sec: number; words: number; questions: number; sessions: number }[]) {
+  update((s) => {
+    const activity = { ...s.activity }
+    for (const r of rows) {
+      const cur = activity[r.day] ?? { sec: 0, words: 0, questions: 0, sessions: 0 }
+      activity[r.day] = { sec: Math.max(cur.sec, r.sec), words: Math.max(cur.words, r.words), questions: Math.max(cur.questions, r.questions), sessions: Math.max(cur.sessions, r.sessions) }
+    }
+    return { ...s, activity }
+  })
+}
+
 /** 나의 한국어 이력: 꾸준함과 성과 (나중에 일자리·유학 연계의 바탕. 공유는 본인이 허락할 때만) */
 export function learningRecord(s: State) {
   const since = todayKey(new Date(Date.now() - 29 * 86400000))
   const recent = s.studyDays.filter((d) => d >= since).length
   const best = Math.max(0, ...Object.values(s.bestExam))
+  const totalSec = Object.values(s.activity).reduce((n, a) => n + a.sec, 0)
+  // 이번 주(월~일) 날짜별 공부 시간(분)
+  const now = new Date()
+  const monday = new Date(now)
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7))
+  const week = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(monday)
+    d.setDate(monday.getDate() + i)
+    const key = todayKey(d)
+    return { day: key, min: Math.round((s.activity[key]?.sec ?? 0) / 60), today: key === todayKey(now) }
+  })
   return {
+    minutes: Math.round(totalSec / 60),
+    week,
     days: s.studyDays.length,
     streak: s.streak,
     words: Object.keys(s.known).length,
@@ -459,6 +561,7 @@ export function awardPractice(roundId: string): number {
 
 /** 문제 결과 기록. 맞히면 '외운 단어', 틀리면 다시 자동 반복에 들어감 */
 export function recordAnswer(wordId: string, ok: boolean) {
+  addActivity({ questions: 1 })
   update((s) => {
     const prev = s.wordStats[wordId] ?? { c: 0, w: 0, lastWrong: 0 }
     const next: WordStat = ok ? { ...prev, c: prev.c + 1 } : { ...prev, w: prev.w + 1, lastWrong: Date.now() }

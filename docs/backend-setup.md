@@ -34,7 +34,7 @@ Facebook 로그인, 사용자 정보·학습 기록 저장, 나라별 실시간/
    - **GitHub 연동을 해 두었다면**: Supabase → Project Settings → Integrations → GitHub 에서 저장소 `FCtj/chang-korean`,
      Working directory `.`, Production branch `main`, **Deploy to production** 을 켜면 `supabase/migrations/` 가 main 에 올라갈 때 자동 적용됩니다.
      (플랜에 따라 이 기능이 안 될 수 있으니, 테이블이 안 생기면 위의 SQL Editor 방법으로 하세요. 둘 다 해도 안전합니다.)
-   - 확인: 왼쪽 **Table Editor** 에 `profiles`, `progress`, `point_events`, `groups`, `group_members`, `posts`, `reactions` 가 보이면 성공
+   - 확인: 왼쪽 **Table Editor** 에 `profiles`, `progress`, `point_events`, `groups`, `group_members`, `posts`, `reactions`, `daily_activity`, `profile_private` 가 보이면 성공
 3. **Project Settings → API Keys** (예전 화면: Settings → API) 에서 두 값을 복사해 둡니다
    - `Project URL` (예: `https://abcdxyz.supabase.co`) — Project Settings → General 또는 Data API 에 있음
    - **Publishable key** (`sb_publishable_…`) 또는 예전 `anon public` 키 — 둘 중 아무거나
