@@ -21,7 +21,7 @@ import Intro from './screens/Intro'
 import RankingScreen from './screens/RankingScreen'
 import MockExam from './screens/MockExam'
 import AdminScreen from './screens/AdminScreen'
-import { COMMUNITY_ENABLED, SIMPLE_MODE } from './config'
+import { COMMUNITY_ENABLED, POINTS_ENABLED, RANKING_ENABLED, SIMPLE_MODE } from './config'
 import Player from './screens/Player'
 import Placement from './screens/Placement'
 import Quiz from './screens/Quiz'
@@ -144,24 +144,24 @@ export default function App() {
         <main className="tab-page">
           <LoginError />
           {tab === 'learn' && <Home />}
-          {tab === 'ranking' && <RankingScreen />}
-          {tab === 'points' && <PointsScreen />}
+          {tab === 'ranking' && (RANKING_ENABLED ? <RankingScreen /> : <Home />)}
+          {tab === 'points' && (POINTS_ENABLED ? <PointsScreen /> : <Home />)}
           {tab === 'community' && (COMMUNITY_ENABLED ? <Community /> : <Home />)}
-          {tab === 'rewards' && <Rewards />}
+          {tab === 'rewards' && (POINTS_ENABLED ? <Rewards /> : <Home />)}
           {tab === 'settings' && <SettingsScreen />}
         </main>
         <nav className="tabbar" aria-label="menu">
           {(SIMPLE_MODE
             ? ([
                 ['learn', 'home', t('tabLearn')],
-                ['ranking', 'trophy', t('tabRanking')],
-                ['points', 'gift', t('tabPoints')],
+                ...(RANKING_ENABLED ? ([['ranking', 'trophy', t('tabRanking')]] as const) : []),
+                ...(POINTS_ENABLED ? ([['points', 'gift', t('tabPoints')]] as const) : []),
                 ['settings', 'gear', t('tabSettings')],
               ] as const)
             : ([
                 ['learn', 'home', t('tabLearn')],
                 ...(COMMUNITY_ENABLED ? ([['community', 'users', t('tabCommunity')]] as const) : []),
-                ['rewards', 'gift', t('tabRewards')],
+                ...(POINTS_ENABLED ? ([['rewards', 'gift', t('tabRewards')]] as const) : []),
                 ['settings', 'gear', t('tabSettings')],
               ] as const)
           ).map(([id, icon, label]) => (

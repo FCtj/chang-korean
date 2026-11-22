@@ -20,6 +20,13 @@ export const CONTACT_EMAIL = 'iamexample2@gmail.com'
 export const SIMPLE_MODE = true
 /** 커뮤니티(게시판·그룹·댓글·공유) — 지금은 단어 외우기에 집중하려고 꺼 둠. true 로 바꾸면 다시 보임 (코드·DB 는 그대로) */
 export const COMMUNITY_ENABLED = false
+/** 랭킹(순위표) 탭 — 지금은 꺼 둠. true 로 바꾸면 다시 보임 */
+export const RANKING_ENABLED = false
+/** 포인트·커피 도장·교환소 화면 — 지금은 꺼 둠 (포인트 정책을 정한 뒤 켜기).
+ *  꺼 둬도 포인트 기록은 안 보이게 그대로 쌓임 */
+export const POINTS_ENABLED = false
+/** 다른 사람에게 내 이름·사진이 보이는 곳(랭킹·커뮤니티)이 있을 때만 '가리기' 설정을 보여 줌 */
+export const PUBLIC_PROFILE = RANKING_ENABLED || COMMUNITY_ENABLED
 /** 체험을 마치면 주는 환영 포인트 */
 export const WELCOME_POINTS = 100
 /** 테스트 기간 예시 데이터: 지인 15명을 랭킹에 섞고, 포인트 교환 내역(커피·치킨 등) 예시를 보여 줌.

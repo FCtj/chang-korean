@@ -8,7 +8,7 @@ import { GenderPicker } from './ProfileFields'
 import { findTrack } from '../data/tracks'
 import { JOB_TRACKS, TOPIK_LEVELS, findCourse, jobTrack, topikTrack, type CourseId } from '../data/courses'
 import { nextShopItem } from '../data/shop'
-import { COMMUNITY_ENABLED, SIMPLE_MODE } from '../config'
+import { COMMUNITY_ENABLED, POINTS_ENABLED, SIMPLE_MODE } from '../config'
 import UnitList, { MockCard, unitProgress } from './UnitList'
 import { CourseSheet, OtherCourses, courseProgress } from './CoursePicker'
 import { RewardTicker } from './RecentRewards'
@@ -48,11 +48,11 @@ export default function Home() {
           </div>
         </div>
         <div className="pills">
-          <span className={bump ? 'pill pill-butter num bump' : 'pill pill-butter num'}>⭐ {pts.toLocaleString()}</span>
+          {POINTS_ENABLED && <span className={bump ? 'pill pill-butter num bump' : 'pill pill-butter num'}>⭐ {pts.toLocaleString()}</span>}
           {s.streak > 0 && <span className="pill pill-peach num">🔥 {tf('streak', s.streak)}</span>}
         </div>
       </header>
-      {SIMPLE_MODE && <WalletCard />}
+      {SIMPLE_MODE && POINTS_ENABLED && <WalletCard />}
 
       {backendReady && auth.status === 'in' && s.profileConsent === null && (
         <section className="panel consent-card">
@@ -103,7 +103,9 @@ export default function Home() {
                 {cur.track ? `${findTrack(cur.track)?.title[ui] ?? ''} · ` : cur.pack ? `${t('packsTitle')} · ` : ''}
                 {tf('stepName', step)} · {tf('stepSize', sizes[step - 1])}
               </span>
-              <span className="continue-stamp">{stampedToday ? `☕ ${t('todayDone')}` : `☕ ${t('todayTodo')}`}</span>
+              <span className="continue-stamp">
+                {POINTS_ENABLED ? (stampedToday ? `☕ ${t('todayDone')}` : `☕ ${t('todayTodo')}`) : stampedToday ? `✅ ${t('todayDonePlain')}` : `📖 ${t('todayTodoPlain')}`}
+              </span>
             </span>
             <span className="continue-title">
               {cur.track ? `${cur.pack!.icon} ${tf('unitN', cur.no)} · ${cur.title[ui]}` : cur.pack ? `${cur.pack.icon} ${cur.title[ui]}` : `${tf('roundN', cur.no)} · ${cur.title[ui]}`}
@@ -131,7 +133,7 @@ export default function Home() {
 
       <OtherCourses />
 
-      {!SIMPLE_MODE && (
+      {!SIMPLE_MODE && POINTS_ENABLED && (
         <div className="mini-stamps" aria-label={t('stampCard')}>
           <span className="mini-stamps-label">☕ {t('stampCard')}</span>
           <span className="num mini-stamps-count">

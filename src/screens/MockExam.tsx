@@ -1,6 +1,7 @@
 // 🇰🇷 국적·영주 준비 — 모의 평가 (연습용): 문제 은행에서 주제를 고르게 20문항
 // 문제는 한국어, 아래에 내 언어 번역(끄고 켤 수 있음). 고르면 바로 정답·설명. 60점 이상 합격
 import { useMemo, useRef, useState } from 'react'
+import { POINTS_ENABLED } from '../config'
 import { useApp } from '../ctx'
 import { MOCK_QUESTIONS, type MockQuestion } from '../data/citizen-quiz'
 import { addActivity, recordMock, useStore } from '../store'
@@ -115,7 +116,7 @@ export default function MockExam() {
               {right}/{questions.length} · {tf('mockBest', Math.max(s.bestMock, result.score))}
             </p>
           </div>
-          {result.points > 0 && (
+          {POINTS_ENABLED && result.points > 0 && (
             <div className="result-chips">
               <span className="chip chip-butter num">⭐ {tf('earned', result.points)}</span>
             </div>

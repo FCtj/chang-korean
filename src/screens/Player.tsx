@@ -9,7 +9,7 @@ import { findRound, translation, type Word } from '../data/words'
 import { useApp } from '../ctx'
 import { nativeInfo } from '../i18n'
 import { ShareToGroupButton } from './Community'
-import { COMMUNITY_ENABLED } from '../config'
+import { COMMUNITY_ENABLED, POINTS_ENABLED } from '../config'
 import { touchStudy, useStudyClock } from '../activity'
 import WordHelp from './WordHelp'
 import {
@@ -197,7 +197,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
     if (p < queue.length) return setPos(p)
     // 이 묶음 한 바퀴 끝
     const pts = recordGroupPass(roundId, batch, total, queue.length)
-    if (pts > 0) floatFrom(stageRef.current, `+${pts} ⭐`)
+    if (pts > 0 && POINTS_ENABLED) floatFrom(stageRef.current, `+${pts} ⭐`)
     const left = activeOf(batch)
     if (!review && left.length) {
       // 다 외울 때까지 같은 묶음에서 못 외운 단어만 다시
@@ -218,7 +218,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
     setCombo(n)
     sfx.pop()
     burstFrom(markBtn.current, { count: n >= 3 ? 20 : 14, power: n >= 3 ? 1.3 : 1 })
-    if (points > 0) floatFrom(markBtn.current, `+${points} ⭐`)
+    if (points > 0 && POINTS_ENABLED) floatFrom(markBtn.current, `+${points} ⭐`)
     if (n >= 2) {
       setTimeout(() => {
         sfx.combo(n)

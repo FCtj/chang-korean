@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import { translation, type Word } from '../data/words'
 import { useApp, type QuizKind } from '../ctx'
 import { demoAutoAchievement } from '../community'
-import { COMMUNITY_ENABLED } from '../config'
+import { COMMUNITY_ENABLED, POINTS_ENABLED } from '../config'
 import { awardPractice, passMark, capState, completeSession, getState, recordAnswer, recordExam, recordPromo, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { useStudyClock } from '../activity'
@@ -123,8 +123,8 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
       const pts = awardPractice(roundId ?? q.word.roundId, Date.now() - shownAt.current, !q.retry)
       setEarned((e) => e + pts)
       burstFrom(el, { count: 12 })
-      if (pts > 0) floatFrom(el, `+${pts} ⭐`)
-      if (pts === 0) setCapHit(capState())
+      if (pts > 0 && POINTS_ENABLED) floatFrom(el, `+${pts} ⭐`)
+      if (pts === 0 && POINTS_ENABLED) setCapHit(capState())
       if (q.type === 'n2k' && settings.autoSpeak) speakWord(q.word)
       autoNext.current = setTimeout(next, q.type === 'n2k' && settings.autoSpeak ? 1500 : 900)
     } else {
@@ -272,7 +272,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
           <div className={ok ? 'feedback good' : 'feedback bad'} role="status">
             <div className="feedback-head">
               <strong>{ok ? t('correct') : picked === 'timeout' ? t('timeUp') : t('wrong')}</strong>
-              {ok && earned > 0 && <span className="num">{tf('earned', earned)}</span>}
+              {POINTS_ENABLED && ok && earned > 0 && <span className="num">{tf('earned', earned)}</span>}
             </div>
             <div className="feedback-word">
               <span className="feedback-emoji" aria-hidden="true">{q.word.emoji}</span>
@@ -350,15 +350,17 @@ function ResultView({
           </div>
           {isTest && r.passed && kind === 'exam' && r.bonus > 0 && <p className="result-line">{t('unlockedNext')}</p>}
           {kind === 'promo' && r.passed && tierNo && tierNo < 5 ? <p className="result-line rank-up-line">{rankEmoji(tierNo + 1)} {tf('becameAnimal', RANK_ANIMALS[tierNo].name[ui] ?? RANK_ANIMALS[tierNo].name.ko)}</p> : null}
-          {isTest && r.passed && r.bonus > 0 && <p className="note">👥 {t('autoShareNote')}</p>}
+          {COMMUNITY_ENABLED && isTest && r.passed && r.bonus > 0 && <p className="note">👥 {t('autoShareNote')}</p>}
         </div>
 
-        <div className="result-chips">
-          {r.earned > 0 && <span className="chip chip-butter num">⭐ {tf('earned', r.earned)}</span>}
-          {r.bonus > 0 && <span className="chip chip-butter num">🎁 {tf('earned', r.bonus)}</span>}
-          {r.stamp && <span className="chip chip-mint">☕ {t('stampGot')}</span>}
-        </div>
-        {r.capHit && <p className="note">{t(r.capHit === 'hour' ? 'hourCap' : 'dailyCap')}</p>}
+        {POINTS_ENABLED && (
+          <div className="result-chips">
+            {r.earned > 0 && <span className="chip chip-butter num">⭐ {tf('earned', r.earned)}</span>}
+            {r.bonus > 0 && <span className="chip chip-butter num">🎁 {tf('earned', r.bonus)}</span>}
+            {r.stamp && <span className="chip chip-mint">☕ {t('stampGot')}</span>}
+          </div>
+        )}
+        {POINTS_ENABLED && r.capHit && <p className="note">{t(r.capHit === 'hour' ? 'hourCap' : 'dailyCap')}</p>}
 
         {r.wrong.length > 0 && (
           <section className="panel">

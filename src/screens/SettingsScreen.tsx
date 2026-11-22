@@ -7,7 +7,7 @@ import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
 import NativePicker from './NativePicker'
-import { SITE_URL } from '../config'
+import { PUBLIC_PROFILE, SITE_URL } from '../config'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
@@ -78,7 +78,7 @@ export default function SettingsScreen() {
               <button className="fb-btn" onClick={() => signInWithFacebook()}>
                 <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
               </button>
-              <p className="note">{t('fbLoginHint')}</p>
+              <p className="note">{t(PUBLIC_PROFILE ? 'fbLoginHint' : 'fbLoginPlain')}</p>
             </>
           ))}
         {deletedMsg && <p className="note">✓ {t('deleted')}</p>}
@@ -208,6 +208,7 @@ export default function SettingsScreen() {
       </section>
 
       {/* 개인정보 설정: 기본 화면에서는 접어 둠 (펼치면 바로 바꿀 수 있음) */}
+      {PUBLIC_PROFILE && (
       <details className="panel form privacy-more">
         <summary className="privacy-summary">
           <span className="h3">🔒 {t('privacyMore')}</span>
@@ -240,6 +241,7 @@ export default function SettingsScreen() {
             <p className="note">{t('hideHint')}</p>
           </div>
       </details>
+      )}
 
       {backendReady && auth.status === 'in' && (
         <section className="panel form">

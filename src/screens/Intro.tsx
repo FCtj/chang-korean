@@ -7,7 +7,7 @@ import { useApp } from '../ctx'
 import { PACKS, ROUNDS, translation, type Word } from '../data/words'
 import { SHOP } from '../data/shop'
 import { findCourse, topikTrack, type CourseId } from '../data/courses'
-import { WELCOME_POINTS } from '../config'
+import { POINTS_ENABLED, WELCOME_POINTS } from '../config'
 import { finishIntro, setCourse, useStore, MIN_ANSWER_MS } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
@@ -116,7 +116,7 @@ export default function Intro() {
     if (ok) {
       sfx.correct()
       const el = optRefs.current[q.options.indexOf(a as Word)]
-      if (pay) floatFrom(el, `+${PER_RIGHT}P`, 'points')
+      if (pay && POINTS_ENABLED) floatFrom(el, `+${PER_RIGHT}P`, 'points')
       burstFrom(el, { count: 12 })
     } else sfx.wrong()
     setTimeout(
@@ -139,7 +139,7 @@ export default function Intro() {
           <Elephant size={120} acc="grad" mood="happy" className="float" />
           <span className="chip chip-butter">📝 TEST</span>
           <h1 className="h1 center">{t('testCover')}</h1>
-          <p className="test-cover-sub">{t('testCoverSub')}</p>
+          <p className="test-cover-sub">{t(POINTS_ENABLED ? 'testCoverSub' : 'testCoverSubPlain')}</p>
           <ol className="test-steps" aria-hidden="true">
             {['🌱', '📘', '📗', '📕'].map((icon, i) => (
               <li key={i}>
@@ -165,7 +165,7 @@ export default function Intro() {
         <main className="intro test-page">
           <div className="test-head">
             <span className="test-qn num">{tf('qN', qi + 1, test.length)}</span>
-            <span className="pill pill-butter num">💰 {tf('pointsN', earned)}</span>
+            {POINTS_ENABLED && <span className="pill pill-butter num">💰 {tf('pointsN', earned)}</span>}
           </div>
           <div className="q-dots" aria-hidden="true">
             {test.map((_, i) => {
@@ -280,8 +280,8 @@ export default function Intro() {
               })}
             </ol>
           </section>
-          {earned > 0 && <p className="center chip chip-butter num test-earned">⭐ {tf('plusP', earned)}</p>}
-          <button className="btn btn-pink btn-block btn-big" onClick={() => setStage('gift')}>
+          {POINTS_ENABLED && earned > 0 && <p className="center chip chip-butter num test-earned">⭐ {tf('plusP', earned)}</p>}
+          <button className="btn btn-pink btn-block btn-big" onClick={() => setStage(POINTS_ENABLED ? 'gift' : 'course')}>
             {t('nextLabel')} →
           </button>
         </main>
@@ -327,6 +327,17 @@ export default function Intro() {
               finishIntro(earned + WELCOME_POINTS)
             }}
           />
+          {!POINTS_ENABLED && backendReady && auth.status !== 'in' && (
+            <button
+              className="link-btn center"
+              onClick={() => {
+                finishIntro(earned + WELCOME_POINTS)
+                signInWithFacebook()
+              }}
+            >
+              {t('haveAccount')}
+            </button>
+          )}
         </main>
       </div>
     )

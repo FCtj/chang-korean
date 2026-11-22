@@ -4,7 +4,7 @@ import { makeT, nativeInfo, type UiLang } from '../i18n'
 import { getState, setLanguage, update } from '../store'
 import type { Native, Purpose } from '../data/words'
 import NativePicker from './NativePicker'
-import { SIMPLE_MODE } from '../config'
+import { PUBLIC_PROFILE, SIMPLE_MODE } from '../config'
 import { loginErrorKey } from './LoginError'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import { PurposePicker } from './SettingsScreen'
@@ -138,7 +138,7 @@ export default function Onboarding() {
                 >
                   <span className="fb-logo" aria-hidden="true">f</span> {t('fbLogin')}
                 </button>
-                <p className="note center">{t('fbLoginHint')}</p>
+                <p className="note center">{t(PUBLIC_PROFILE ? 'fbLoginHint' : 'fbLoginPlain')}</p>
                 {auth.error && (
                   <p className="note center err">
                     {t(loginErrorKey(auth.error))}
@@ -154,7 +154,7 @@ export default function Onboarding() {
             <>
               <div className="field">
                 <label htmlFor="nick">{t('nickname')}</label>
-                <input id="nick" className="input" maxLength={16} placeholder={t('nicknamePh')} value={name} onChange={(e) => setName(e.target.value)} />
+                <input id="nick" className="input" maxLength={16} placeholder={t(PUBLIC_PROFILE ? 'nicknamePh' : 'nicknamePlain')} value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               {!SIMPLE_MODE && (
                 <div className="field">

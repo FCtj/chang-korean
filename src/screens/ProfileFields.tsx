@@ -1,5 +1,6 @@
 // 프로필: 내 사진 · 성별 (성별에 따라 테마가 바뀜: 여자 = 분홍, 남자 = 블랙)
 import { useRef, useState } from 'react'
+import { PUBLIC_PROFILE } from '../config'
 import { useApp } from '../ctx'
 import { setGender, update, useStore, type Gender } from '../store'
 import { Avatar } from '../ui'
@@ -50,7 +51,7 @@ export function PhotoPicker({ name }: { name: string }) {
             {t('removePhoto')}
           </button>
         )}
-        <span className="note">{t('photoHint')}</span>
+        {PUBLIC_PROFILE && <span className="note">{t('photoHint')}</span>}
       </div>
       <input
         ref={input}
