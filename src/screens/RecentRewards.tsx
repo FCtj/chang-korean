@@ -24,7 +24,7 @@ export default function RecentRewards() {
       <ol className="rr-list">
         {SAMPLE_REDEMPTIONS.map((r: SampleRedemption) => (
           <li key={r.person.name} className="rr-row">
-            <Avatar src={r.person.avatar} name={r.person.name} size={38} />
+            <Avatar pub src={r.person.avatar} name={r.person.name} size={38} />
             <span className="rr-body">
               <span className="rr-name">{r.person.name}</span>
               <span className="rr-what">

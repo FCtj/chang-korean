@@ -25,6 +25,8 @@ export const RANKING_ENABLED = true
 /** 포인트·커피 도장·교환소 화면 — 지금은 꺼 둠 (포인트 정책을 정한 뒤 켜기).
  *  꺼 둬도 포인트 기록은 안 보이게 그대로 쌓임 */
 export const POINTS_ENABLED = false
+/** 테스트 기간: 다른 사람에게 보이는 이름은 항상 일부 가림(K*y) · 사진은 모자이크 (랭킹 · 그룹 · 설정의 '이렇게 보여요') */
+export const ALWAYS_MASK = true
 /** 다른 사람에게 내 이름·사진이 보이는 곳(랭킹·커뮤니티)이 있을 때만 '가리기' 설정을 보여 줌 */
 export const PUBLIC_PROFILE = RANKING_ENABLED || COMMUNITY_ENABLED
 /** 체험을 마치면 주는 환영 포인트 */

@@ -271,7 +271,7 @@ export function MyActivityView({ onActivity }: { onActivity?: (a: Activity) => v
           <ul className="block-list">
             {blocks.map((b) => (
               <li key={b.user_id}>
-                <Avatar src={b.avatar} name={b.name} size={32} />
+                <Avatar pub src={b.avatar} name={b.name} size={32} />
                 <span className="block-name">{b.name}</span>
                 <button
                   className="btn btn-soft sm"

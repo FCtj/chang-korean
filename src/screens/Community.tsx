@@ -207,7 +207,7 @@ function RecordCard() {
   return (
     <section className="record-card" aria-label={t('myRecord')}>
       <div className="record-head">
-        <Avatar src={pub.avatar} name={pub.name} size={46} />
+        <Avatar pub src={pub.avatar} name={pub.name} size={46} />
         <div className="record-who">
           <span className="record-label">CHANG KOREAN · RECORD</span>
           <span className="record-name">{pub.name}</span>
@@ -464,7 +464,7 @@ function RankLine({ m, i }: { m: Member; i: number }) {
   return (
     <li className={m.me ? 'grank-row me' : 'grank-row'}>
       <span className="grank-no num">{i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1}</span>
-      <Avatar src={m.avatar} name={m.name} size={32} />
+      <Avatar pub src={m.avatar} name={m.name} size={32} />
       <span className="grank-name">
         {m.name}
         {m.me && <span className="me-tag">{t('me')}</span>}

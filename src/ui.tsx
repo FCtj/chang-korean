@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { IS_KO } from './edition'
+import { ALWAYS_MASK } from './config'
 import { edPron } from './edpron'
 import { useApp } from './ctx'
 import { useStore } from './store'
@@ -539,11 +540,45 @@ export function useHeart() {
 }
 
 /** 프로필 사진 (없거나 못 불러오면 이름 첫 글자) */
-export function Avatar({ src, name, size = 36 }: { src?: string | null; name: string; size?: number }) {
+/** 사진을 작은 칸(10×10)으로 줄였다가 그대로 키워 모자이크 — 다른 사이트 사진도 그리기만 하므로 괜찮음 */
+function MosaicAvatar({ src, size, onError }: { src: string; size: number; onError: () => void }) {
+  const ref = useRef<HTMLCanvasElement>(null)
+  useEffect(() => {
+    let alive = true
+    const img = new Image()
+    img.referrerPolicy = 'no-referrer'
+    img.onload = () => {
+      const c = ref.current
+      if (!alive || !c) return
+      const W = Math.round(size * Math.min(3, window.devicePixelRatio || 1))
+      c.width = W
+      c.height = W
+      const g = c.getContext('2d')
+      if (!g) return
+      const cells = 10
+      const side = Math.min(img.naturalWidth, img.naturalHeight) || 1
+      g.imageSmoothingEnabled = true
+      g.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, cells, cells)
+      g.imageSmoothingEnabled = false
+      g.drawImage(c, 0, 0, cells, cells, 0, 0, W, W)
+    }
+    img.onerror = () => alive && onError()
+    img.src = src
+    return () => {
+      alive = false
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [src, size])
+  return <canvas ref={ref} className="avatar mosaic" style={{ width: size, height: size }} aria-hidden="true" />
+}
+
+/** 사진 동그라미. pub = 다른 사람에게 보이는 모습 → 테스트 기간(ALWAYS_MASK)에는 사진을 모자이크 */
+export function Avatar({ src, name, size = 36, pub = false }: { src?: string | null; name: string; size?: number; pub?: boolean }) {
   const [broken, setBroken] = useState(false)
   const letter = (name || '?').trim().charAt(0).toUpperCase()
   const hue = [...(name || '?')].reduce((n, ch) => n + ch.charCodeAt(0), 0) % PASTELS.length
   if (src && !broken) {
+    if (pub && ALWAYS_MASK) return <MosaicAvatar src={src} size={size} onError={() => setBroken(true)} />
     return <img className="avatar" src={src} alt="" width={size} height={size} style={{ width: size, height: size }} referrerPolicy="no-referrer" onError={() => setBroken(true)} />
   }
   return (

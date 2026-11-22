@@ -1,5 +1,6 @@
 // 랭킹·그룹에서 다른 사람에게 보이는 이름·사진 — 원하면 이름 일부·사진을 가림
 // 서버(profiles)에는 가린 값만 올라가므로 다른 사람·관리자 화면에도 가린 채로 보임. 내 기기 화면(인사말 등)은 그대로
+import { ALWAYS_MASK } from './config'
 
 const graphemes = (s: string): string[] => {
   const Seg = (Intl as unknown as { Segmenter?: new (l?: string, o?: { granularity: string }) => { segment(s: string): Iterable<{ segment: string }> } }).Segmenter
@@ -20,5 +21,7 @@ export function maskName(name: string): string {
     .join(' ')
 }
 
-export const publicName = (name: string, hide?: boolean) => (hide ? maskName(name) : name)
+export const publicName = (name: string, hide?: boolean) => (hide || ALWAYS_MASK ? maskName(name) : name)
+/** 서버에서 받은 남의 이름: 예전에 가리지 않고 올라간 이름도 화면에서는 가림 */
+export const shownName = (name: string) => (ALWAYS_MASK ? maskName(name) : name)
 export const publicAvatar = (src: string | null | undefined, hide?: boolean) => (hide ? null : src || null)

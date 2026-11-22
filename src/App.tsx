@@ -62,6 +62,18 @@ export default function App() {
   }, [ui, s.native])
 
   // 테마: candy(분홍) / carbon(블랙). 폰 상단 바 색도 같이
+  // 테마 '기기 설정': 휴대폰의 다크 모드를 따라 밝게/어둡게
+  useEffect(() => {
+    if (!s.themeAuto || typeof window === 'undefined' || !window.matchMedia) return
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => update((st) => {
+      const theme = mq.matches ? 'carbon' : 'candy'
+      return st.theme === theme ? st : { ...st, theme }
+    })
+    apply()
+    mq.addEventListener?.('change', apply)
+    return () => mq.removeEventListener?.('change', apply)
+  }, [s.themeAuto])
   useEffect(() => {
     document.documentElement.dataset.theme = s.theme
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', s.theme === 'carbon' ? '#0b0c0f' : '#FF8DB3')

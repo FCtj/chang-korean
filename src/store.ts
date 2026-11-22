@@ -54,6 +54,7 @@ export interface State {
   photo: string
   gender: Gender
   theme: Theme
+  themeAuto: boolean // 기기의 밝게/어둡게 설정을 따라감
   /** 나라 (ISO 2글자, 랭킹용). 기본 라오스 */
   country: string
   /** 배우는 목적 (단어팩 추천용) */
@@ -175,6 +176,7 @@ function initial(): State {
     photo: '',
     gender: '',
     theme: 'candy',
+    themeAuto: false,
     country: COUNTRY_OF[native],
     purposes: [],
     settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true, frontPic: false },
@@ -338,7 +340,7 @@ export function useStore(): State {
 }
 
 export function resetAll() {
-  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, country: state.country, profileConsent: state.profileConsent, hideName: state.hideName, hidePhoto: state.hidePhoto }
+  const keep = { started: state.started, ui: state.ui, native: state.native, nickname: state.nickname, photo: state.photo, gender: state.gender, theme: state.theme, themeAuto: state.themeAuto, country: state.country, profileConsent: state.profileConsent, hideName: state.hideName, hidePhoto: state.hidePhoto }
   // 기록을 지우면 수준 테스트도 다시 볼 수 있음
   state = { ...initial(), ...keep }
   persist()
@@ -363,7 +365,7 @@ export function finishIntro(welcome: number) {
 
 /** 성별 고르기: 남자 → 블랙(carbon) 테마, 여자 → 분홍(candy) 테마. 테마는 설정에서 따로 바꿀 수 있음 */
 export function setGender(gender: Gender) {
-  update((s) => ({ ...s, gender, theme: gender === 'm' ? 'carbon' : 'candy' }))
+  update((s) => ({ ...s, gender, theme: gender === 'm' ? 'carbon' : 'candy', themeAuto: false }))
 }
 
 export function setSettings(patch: Partial<Settings>) {

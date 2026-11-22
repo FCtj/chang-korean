@@ -4,6 +4,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, useMyPublic, type Period, type RankRow } from '../backend'
+import { shownName } from '../privacy'
 import { IS_KO } from '../edition'
 import { LoginButtons } from './SettingsScreen'
 import { demoRanking, todayKey, useStore } from '../store'
@@ -165,7 +166,7 @@ export default function Leaderboard() {
 
       {(auth.status === 'in' || !backendReady) && (
         <div className="my-rank">
-          <Avatar src={pub.avatar} name={pub.name} size={44} />
+          <Avatar pub src={pub.avatar} name={pub.name} size={44} />
           <div className="my-rank-body">
             <div className="my-rank-label">{t('myRank')}</div>
             <div className="my-rank-name">{pub.name}</div>
@@ -196,8 +197,8 @@ export default function Leaderboard() {
           {[podium[1], podium[0], podium[2]].map((r) => (
             <div key={r.userId} className={`pod pod-${r.rank} ${r.me ? 'me' : ''}`}>
               {r.rank === 1 && <span className="pod-crown" aria-hidden="true">👑</span>}
-              <Avatar src={r.avatar} name={r.name} size={r.rank === 1 ? 64 : 52} />
-              <span className="pod-name">{r.name}</span>
+              <Avatar pub src={r.avatar} name={shownName(r.name)} size={r.rank === 1 ? 64 : 52} />
+              <span className="pod-name">{shownName(r.name)}</span>
               <span className="pod-pts num">⭐ {r.points.toLocaleString()}</span>
               <span className="pod-block num">{['🥇', '🥈', '🥉'][r.rank - 1]}</span>
             </div>
@@ -209,9 +210,9 @@ export default function Leaderboard() {
           {rest.map((r) => (
             <li key={r.userId + r.rank} className={r.me ? 'board-row me' : r.rank <= 3 ? 'board-row top' : 'board-row'}>
               <span className="board-rank num">{r.rank <= 3 ? ['🥇', '🥈', '🥉'][r.rank - 1] : r.rank}</span>
-              <Avatar src={r.avatar} name={r.name} size={38} />
+              <Avatar pub src={r.avatar} name={shownName(r.name)} size={38} />
               <span className="board-name">
-                <span className="board-name-text">{r.name}</span>
+                <span className="board-name-text">{shownName(r.name)}</span>
                 {r.me && <span className="me-tag">{t('me')}</span>}
               </span>
               {IS_KO && scope === 'all' && <span className="board-flag" title={countryOf(r.country)[ui]}>{countryOf(r.country).flag}</span>}
@@ -233,7 +234,7 @@ export default function Leaderboard() {
               <div className="cer-avatar">
                 <span className="cer-ring" aria-hidden="true" />
                 {ceremony.kind === 'gold' && <span className="cer-crown" aria-hidden="true">👑</span>}
-                <Avatar src={pub.avatar} name={pub.name} size={104} />
+                <Avatar pub src={pub.avatar} name={pub.name} size={104} />
                 <span className="cer-medal" aria-hidden="true">
                   {ceremony.kind === 'gold' ? '🥇' : ceremony.kind === 'silver' ? '🥈' : ceremony.kind === 'bronze' ? '🥉' : '🎁'}
                 </span>

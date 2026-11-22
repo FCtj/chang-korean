@@ -8,7 +8,7 @@ import { useApp } from '../ctx'
 import type { UiLang } from '../i18n'
 import { resetAll, setLanguage, setSettings, update, useStore, type Direction, type Order } from '../store'
 import NativePicker from './NativePicker'
-import { PUBLIC_PROFILE, SITE_URL } from '../config'
+import { ALWAYS_MASK, PUBLIC_PROFILE, SITE_URL } from '../config'
 import FeedbackSheet from './Feedback'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
@@ -109,13 +109,14 @@ export default function SettingsScreen() {
         </div>
         <div className="field">
           <span className="label">{t('theme')}</span>
-          <Segmented<Theme>
+          <Segmented<Theme | 'auto'>
             name={t('theme')}
-            value={s.theme}
-            onChange={(theme) => update((st) => ({ ...st, theme }))}
+            value={s.themeAuto ? 'auto' : s.theme}
+            onChange={(v) => update((st) => (v === 'auto' ? { ...st, themeAuto: true } : { ...st, theme: v, themeAuto: false }))}
             options={[
-              { id: 'candy', label: `💗 ${t('themeCandy')}` },
-              { id: 'carbon', label: `🖤 ${t('themeCarbon')}` },
+              { id: 'candy', label: `☀️ ${t('themeCandy')}` },
+              { id: 'carbon', label: `🌙 ${t('themeCarbon')}` },
+              { id: 'auto', label: `📱 ${t('themeAuto')}` },
             ]}
           />
         </div>
@@ -219,18 +220,22 @@ export default function SettingsScreen() {
           <div className="field">
             <span className="label">👀 {t('publicLook')}</span>
             <div className="public-preview">
-              <Avatar src={pub.avatar} name={pub.name} size={40} />
+              <Avatar pub src={pub.avatar} name={pub.name} size={40} />
               <span className="public-name">{pub.name}</span>
             </div>
-            <Toggle
-              id="set-hide-name"
-              label={t('hideName')}
-              on={s.hideName}
-              onChange={(on) => {
-                update((st) => ({ ...st, hideName: on }))
-                syncPublicProfile()
-              }}
-            />
+            {ALWAYS_MASK ? (
+              <p className="note mask-note">🧪 {t('maskAlways')}</p>
+            ) : (
+              <Toggle
+                id="set-hide-name"
+                label={t('hideName')}
+                on={s.hideName}
+                onChange={(on) => {
+                  update((st) => ({ ...st, hideName: on }))
+                  syncPublicProfile()
+                }}
+              />
+            )}
             <Toggle
               id="set-hide-photo"
               label={t('hidePhoto')}

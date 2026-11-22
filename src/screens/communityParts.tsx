@@ -196,7 +196,7 @@ export function PostCard({
   return (
     <article className={`post ${p.verified ? 'verified' : ''} ${isPublic ? 'is-public' : 'is-group'}`}>
       <header className="post-head">
-        <Avatar src={p.avatar} name={p.name} size={40} />
+        <Avatar pub src={p.avatar} name={p.name} size={40} />
         <div className="post-who">
           <span className="post-name">
             {p.name} {p.country && <span className="post-flag">{flagOf(p.country)}</span>}
@@ -303,7 +303,7 @@ function CommentRow({ c, postMine, canModerate, onRemoved, onToast }: { c: Comme
   const [menu, setMenu] = useState(false)
   return (
     <li className="cmt">
-      <Avatar src={c.avatar} name={c.name} size={32} />
+      <Avatar pub src={c.avatar} name={c.name} size={32} />
       <div className="cmt-main">
         <div className="cmt-head">
           <span className="cmt-name">
