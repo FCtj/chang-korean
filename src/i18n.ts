@@ -472,6 +472,7 @@ const F = {
   rankOf: { ko: (r: number, n: number) => `${n}명 중 ${r}등`, lo: (r: number, n: number) => `ອັນດັບ ${r} ຈາກ ${n} ຄົນ` },
   stepSizeShort: { ko: (k: number) => `${k}개씩`, lo: (k: number) => `${k} ຄຳ` },
   nextN: { ko: (k: number) => `다음 ${k}개!`, lo: (k: number) => `${k} ຄຳຕໍ່ໄປ!` },
+  remainingAgainN: { ko: (k: number) => `못 외운 ${k}개만 한 번 더!`, lo: (k: number) => `ຍັງບໍ່ຈື່ ${k} ຄຳ · ອີກຮອບ!` },
   batchOf: { ko: (a: number, b: number) => `${a}/${b}묶음`, lo: (a: number, b: number) => `ຊຸດ ${a}/${b}` },
   stepDone: { ko: (n: number) => `STEP ${n} 완료!`, lo: (n: number) => `ສຳເລັດ STEP ${n}!` },
   nextStepDesc: { ko: (k: number) => `이제 ${k}개씩 한꺼번에 다시 외워요`, lo: (k: number) => `ຕໍ່ໄປ ຈື່ເທື່ອລະ ${k} ຄຳ` },

@@ -455,6 +455,7 @@ export const F_TH: FnTable = {
   rankOf: (r: number, n: number) => `อันดับ ${r} จาก ${n} คน`,
   stepSizeShort: (k: number) => `${k} คำ`,
   nextN: (k: number) => `${k} คำต่อไป!`,
+  remainingAgainN: (k: number) => `ยังจำไม่ได้ ${k} คำ · อีกรอบ!`,
   batchOf: (a: number, b: number) => `ชุด ${a}/${b}`,
   stepDone: (n: number) => `จบ STEP ${n} แล้ว!`,
   nextStepDesc: (k: number) => `ทีนี้มาจำรวมกันทีละ ${k} คำอีกรอบ`,

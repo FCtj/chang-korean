@@ -462,6 +462,7 @@ export const F_AR: FnTable = {
   rankOf: (r: number, n: number) => `المركز ${r} من بين ${n} ${nw(n, 'شخص', 'أشخاص', 'شخصًا')}`,
   stepSizeShort: (k: number) => `${k} ${nw(k, 'كلمة', 'كلمات')}`,
   nextN: (k: number) => `${k} ${nw(k, 'كلمة', 'كلمات')} تالية!`,
+  remainingAgainN: (k: number) => `${k} ${nw(k, 'كلمة', 'كلمات')} لم تحفظ بعد · مرة أخرى!`,
   batchOf: (a: number, b: number) => `المجموعة ${a}/${b}`,
   stepDone: (n: number) => `اكتمل STEP ${n}!`,
   nextStepDesc: (k: number) => `الآن لنحفظها من جديد، ${k} ${nw(k, 'كلمة', 'كلمات')} دفعة واحدة`,

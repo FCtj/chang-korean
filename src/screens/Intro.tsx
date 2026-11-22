@@ -158,7 +158,7 @@ export default function Intro() {
       <div className="app">
         <main className="intro intro-signup">
           <div className="ed-brand">
-            <img className="ed-logo float" src={logoUri(EDITION) ?? ''} alt="" width={96} height={96} />
+            <img className="ed-logo float" src={logoUri(EDITION, s.theme) ?? ''} alt="" width={96} height={96} />
             <div className="ed-brand-name">{ED_INFO.app}</div>
             <div className="ed-brand-sub">{EDITION === 'ja' ? 'JLPT 일본어 단어' : 'TOEIC 영어 단어'}</div>
           </div>

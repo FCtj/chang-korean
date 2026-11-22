@@ -456,6 +456,7 @@ export const F_VI: FnTable = {
   rankOf: (r: number, n: number) => `Hạng ${r} / ${n} người`,
   stepSizeShort: (k: number) => `${k} từ`,
   nextN: (k: number) => `${k} từ tiếp theo!`,
+  remainingAgainN: (k: number) => `Còn ${k} từ chưa nhớ · thêm lần nữa!`,
   batchOf: (a: number, b: number) => `Nhóm ${a}/${b}`,
   stepDone: (n: number) => `Xong STEP ${n}!`,
   nextStepDesc: (k: number) => `Giờ học lại ${k} từ cùng một lúc nhé`,

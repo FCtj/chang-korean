@@ -202,7 +202,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
     if (!review && left.length) {
       // 다 외울 때까지 같은 묶음에서 못 외운 단어만 다시
       sfx.tick()
-      showToast(`🔁 ${t('remainingAgain')} (${left.length})`, 1500)
+      showToast(`🔁 ${tf('remainingAgainN', left.length)}`, 1800)
       setQueue(orderOf(left))
       setPos(0)
       return

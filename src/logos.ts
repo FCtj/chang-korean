@@ -69,5 +69,69 @@ const EN = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   </g>
 </svg>`
 
+// ───────── 블랙(남자) 테마: 테슬라 같은 메탈 몸 · 파란 헤드라이트 눈 · 빨간 포인트 ─────────
+const CARBON_DEFS = `<defs>
+    <linearGradient id="cb" x1="0.2" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="#555d69"/><stop offset="1" stop-color="#1c2026"/></linearGradient>
+    <linearGradient id="ce" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d434d"/><stop offset="1" stop-color="#111317"/></linearGradient>
+    <linearGradient id="ch" x1="0" y1="1" x2="0.4" y2="0"><stop offset="0" stop-color="#7d8590"/><stop offset="1" stop-color="#eef1f5"/></linearGradient>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22262c"/><stop offset="1" stop-color="#08090b"/></linearGradient>
+    <filter id="cg" x="-60%" y="-200%" width="220%" height="500%"><feGaussianBlur stdDeviation="1.8" result="b"/><feFlood flood-color="#5b8cff" flood-opacity="0.9"/><feComposite in2="b" operator="in" result="g"/><feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>`
+const CARBON_EYES = `<g fill="none" stroke="#eef4ff" stroke-width="4.2" stroke-linecap="round" filter="url(#cg)"><path d="M41 56.5 Q47 54.8 53 56.5"/><path d="M67 56.5 Q73 54.8 79 56.5"/></g>`
+const EDGE = 'rgba(255,255,255,0.14)'
+const carbonShiba = () => `
+  <g>
+    <path d="M28 48 Q26 22 34 12 Q48 20 56 34 Z" fill="url(#ce)" stroke="${EDGE}" stroke-width="1"/>
+    <path d="M92 48 Q94 22 86 12 Q72 20 64 34 Z" fill="url(#ce)" stroke="${EDGE}" stroke-width="1"/>
+    <path d="M34 39 Q33 26 36 21 M86 39 Q87 26 84 21" fill="none" stroke="#e82127" stroke-width="2" stroke-linecap="round"/>
+    <ellipse cx="60" cy="62" rx="37" ry="33" fill="url(#cb)"/>
+    <path d="M33 50 Q44 33 66 32" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M24 66 Q26 94 60 96 Q94 94 96 66 Q88 76 75 73 Q66 71 60 78 Q54 71 45 73 Q32 76 24 66 Z" fill="#8d959f" stroke="${EDGE}" stroke-width="1"/>
+    <ellipse cx="45" cy="45" rx="4" ry="2.4" fill="#d9dde3" opacity="0.75"/>
+    <ellipse cx="75" cy="45" rx="4" ry="2.4" fill="#d9dde3" opacity="0.75"/>
+    <ellipse cx="60" cy="75" rx="5" ry="3.4" fill="#111317"/>
+    <path d="M60 78.5 v3 M60 81.5 q-4 4 -8 1 M60 81.5 q4 4 8 1" fill="none" stroke="#1c2026" stroke-width="1.8" stroke-linecap="round"/>
+    ${CARBON_EYES}
+  </g>`
+const carbonEagle = () => `
+  <g>
+    <path d="M10 114 Q14 84 40 84 L60 92 L80 84 Q106 84 110 114 Z" fill="url(#ce)" stroke="${EDGE}" stroke-width="1"/>
+    <path d="M40 34 L46 20 L52 31 L60 16 L68 31 L74 20 L80 34 Z" fill="url(#ch)" stroke="${EDGE}" stroke-width="1" stroke-linejoin="round"/>
+    <ellipse cx="60" cy="60" rx="35" ry="33" fill="url(#ch)"/>
+    <path d="M36 86 L42 94 L48 88 L54 96 L60 89 L66 96 L72 88 L78 94 L84 86" fill="url(#ch)" stroke="${EDGE}" stroke-width="1" stroke-linejoin="round"/>
+    <rect x="34" y="47" width="52" height="17" rx="8.5" fill="#111317" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+    <path d="M49 69 Q60 62 71 69 Q72 79 62 86 Q61 80 58 78 Q51 76 49 69 Z" fill="#c99a3a" stroke="#8a6420" stroke-width="1.6" stroke-linejoin="round"/>
+    ${CARBON_EYES}
+  </g>`
+const silverSakura = (x: number, y: number, r: number, rot = 0) => sakura(x, y, r, rot, 'rgba(217,221,227,0.55)', '#e82127')
+
+const JA_CARBON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  ${CARBON_DEFS}
+  <rect width="120" height="120" rx="28" fill="url(#bg)"/>
+  <circle cx="60" cy="58" r="44" fill="#e82127" fill-opacity="0.16"/>
+  <circle cx="60" cy="58" r="44" fill="none" stroke="#e82127" stroke-width="3"/>
+  ${silverSakura(16, 18, 8, 10)}
+  ${silverSakura(104, 104, 7, -20)}
+  <g transform="translate(9 10) scale(0.85)">${carbonShiba()}</g>
+</svg>`
+
+const EN_CARBON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  ${CARBON_DEFS}
+  <rect width="120" height="120" rx="28" fill="url(#bg)"/>
+  <path d="M8 112 L112 8" stroke="#e82127" stroke-width="1.6" opacity="0.5"/>
+  <g transform="translate(6 14) scale(0.86)">${carbonEagle()}</g>
+  <g transform="translate(80 22)">
+    <path d="M-24 -14 H24 a8 8 0 0 1 8 8 V10 a8 8 0 0 1 -8 8 H-4 L-13 26 V18 H-24 a8 8 0 0 1 -8 -8 V-6 a8 8 0 0 1 8 -8 Z" fill="#16191d" stroke="#d9dde3" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M-17 -6 V10 M-17 2 H-7 M-7 -6 V10 M2 0 V10 M12 -6 V5" fill="none" stroke="#eef1f5" stroke-width="3.6" stroke-linecap="round"/>
+    <circle cx="2" cy="-5.5" r="2.2" fill="#eef1f5"/>
+    <circle cx="12" cy="10" r="2.2" fill="#e82127"/>
+  </g>
+</svg>`
+
 export const LOGO_SVG: Partial<Record<Edition, string>> = { ja: JA, en: EN }
-export const logoUri = (ed: Edition): string | null => (LOGO_SVG[ed] ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(LOGO_SVG[ed]!)}` : null)
+export const LOGO_SVG_CARBON: Partial<Record<Edition, string>> = { ja: JA_CARBON, en: EN_CARBON }
+/** 판 로고 (테마: candy 분홍 / carbon 블랙) */
+export const logoUri = (ed: Edition, theme: 'candy' | 'carbon' = 'candy'): string | null => {
+  const svg = (theme === 'carbon' ? LOGO_SVG_CARBON : LOGO_SVG)[ed]
+  return svg ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}` : null
+}

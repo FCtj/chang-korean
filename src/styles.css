@@ -1378,20 +1378,47 @@ button:disabled {
   justify-content: center;
   gap: 10px;
 }
+/* 잠깐 뜨는 안내: 위쪽(상단바 아래)에 띄워 아래 버튼을 가리지 않고, 눌러도 뒤 버튼이 눌리게 */
 .toast {
   position: fixed;
   left: 50%;
-  bottom: calc(24px + var(--safe-bottom));
+  top: calc(62px + var(--safe-top));
   transform: translateX(-50%);
-  width: min(440px, calc(100% - 32px));
-  background: var(--ink);
+  width: max-content;
+  max-width: min(440px, calc(100% - 32px));
+  background: #4a3554;
   color: #fff;
-  padding: 13px 18px;
+  padding: 11px 20px;
   border-radius: 22px;
+  box-shadow: 0 10px 26px rgba(74, 53, 84, 0.28);
   font-family: var(--font-cute);
   font-size: 0.98rem;
+  font-weight: 600;
   text-align: center;
-  z-index: 20;
+  z-index: 40;
+  pointer-events: none;
+  animation: toast-in 0.22s ease-out;
+}
+:root[data-theme='carbon'] .toast {
+  background: #2a2f37;
+  color: #f5f6f8;
+  border: 1px solid #424955;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    animation: none;
+  }
 }
 .celebrate {
   position: fixed;
@@ -7559,14 +7586,14 @@ body {
   padding: 10px 4px;
   border-radius: 14px;
   border: 2px solid var(--line, #f3d6e2);
-  background: var(--card, #fff);
+  background: var(--surface);
   color: inherit;
   font: inherit;
   cursor: pointer;
 }
 .mock-round.pass {
-  border-color: #6fd3b0;
-  background: #effbf6;
+  border-color: var(--mint);
+  background: var(--mint-soft);
 }
 .mock-round.tried {
   border-color: #ffc56b;
@@ -7603,7 +7630,7 @@ body {
   padding: 14px 16px;
   width: 100%;
   border-radius: 16px;
-  background: var(--card, #fff);
+  background: var(--surface);
   text-align: left;
   display: grid;
   gap: 8px;

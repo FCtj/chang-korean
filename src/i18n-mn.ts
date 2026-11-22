@@ -456,6 +456,7 @@ export const F_MN: FnTable = {
   rankOf: (r: number, n: number) => `${n} хүнээс ${r}-р байр`,
   stepSizeShort: (k: number) => `${k} үг`,
   nextN: (k: number) => `Дараагийн ${k} үг!`,
+  remainingAgainN: (k: number) => `Цээжлээгүй ${k} үгээ дахиад нэг удаа!`,
   batchOf: (a: number, b: number) => `Хэсэг ${a}/${b}`,
   stepDone: (n: number) => `STEP ${n} дууслаа!`,
   nextStepDesc: (k: number) => `Одоо ${k} үгийг нэг дор дахин цээжилье`,

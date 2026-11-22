@@ -113,8 +113,7 @@ export function Elephant({
 }) {
   const s = useStore()
   const k = kind ?? mascotOf(s.country)
-  // 시바견·흰머리수리는 블랙 테마에서도 원래 색 그대로 (어두운 바탕에서도 잘 보임)
-  if (s.theme === 'carbon' && k !== 'shiba' && k !== 'eagle') return <CarbonMascot kind={k} size={size} acc={acc} mood={mood} dim={tone === 'grey'} className={className} style={style} />
+  if (s.theme === 'carbon') return <CarbonMascot kind={k} size={size} acc={acc} mood={mood} dim={tone === 'grey'} className={className} style={style} />
   const c = TONES[tone]
   const ink = '#5B4366'
   const blushY = k === 'elephant' ? 68 : 67
@@ -381,7 +380,33 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
           </feMerge>
         </filter>
       </defs>
-      {kind === 'buffalo' ? (
+      {kind === 'shiba' ? (
+        <>
+          {/* 시바견 (블랙): 메탈 세모 귀 · 짙은 볼 패널 · 은색 눈썹 점 · 빨간 줄 */}
+          <path d="M28 48 Q26 22 34 12 Q48 20 56 34 Z" fill={E} stroke={edge} strokeWidth="1" strokeLinejoin="round" />
+          <path d="M92 48 Q94 22 86 12 Q72 20 64 34 Z" fill={E} stroke={edge} strokeWidth="1" strokeLinejoin="round" />
+          <path d="M34 39 Q33 26 36 21" fill="none" stroke="#e82127" strokeWidth="2" strokeLinecap="round" opacity={dim ? 0.3 : 0.9} />
+          <path d="M86 39 Q87 26 84 21" fill="none" stroke="#e82127" strokeWidth="2" strokeLinecap="round" opacity={dim ? 0.3 : 0.9} />
+          <ellipse cx="60" cy="62" rx="37" ry="33" fill={B} />
+          <path d="M33 50 Q44 33 66 32" fill="none" stroke="rgba(255,255,255,0.22)" strokeWidth="2.2" strokeLinecap="round" />
+          <path d="M24 66 Q26 94 60 96 Q94 94 96 66 Q88 76 75 73 Q66 71 60 78 Q54 71 45 73 Q32 76 24 66 Z" fill={dim ? '#3a3f46' : '#8d959f'} stroke={edge} strokeWidth="1" />
+          <ellipse cx="45" cy="45" rx="4" ry="2.4" fill={dim ? '#4a5058' : silver} opacity="0.75" />
+          <ellipse cx="75" cy="45" rx="4" ry="2.4" fill={dim ? '#4a5058' : silver} opacity="0.75" />
+          <ellipse cx="60" cy="75" rx="5" ry="3.4" fill="#111317" />
+          <path d="M60 78.5 v3 M60 81.5 q-4 4 -8 1 M60 81.5 q4 4 8 1" fill="none" stroke="#1c2026" strokeWidth="1.8" strokeLinecap="round" />
+        </>
+      ) : kind === 'eagle' ? (
+        <>
+          {/* 흰머리수리 (블랙): 은색 머리 · 검은 바이저 속 빛나는 눈 · 금속 부리 · 검은 어깨 */}
+          <path d="M10 114 Q14 84 40 84 L60 92 L80 84 Q106 84 110 114 Z" fill={E} stroke={edge} strokeWidth="1" />
+          <path d="M40 34 L46 20 L52 31 L60 16 L68 31 L74 20 L80 34 Z" fill={H} stroke={edge} strokeWidth="1" strokeLinejoin="round" />
+          <ellipse cx="60" cy="60" rx="35" ry="33" fill={H} />
+          <path d="M36 86 L42 94 L48 88 L54 96 L60 89 L66 96 L72 88 L78 94 L84 86" fill={H} stroke={edge} strokeWidth="1" strokeLinejoin="round" />
+          <rect x="34" y="47" width="52" height="17" rx="8.5" fill="#111317" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+          <path d="M49 69 Q60 62 71 69 Q72 79 62 86 Q61 80 58 78 Q51 76 49 69 Z" fill={dim ? '#5b5446' : '#c99a3a'} stroke={dim ? '#3a362e' : '#8a6420'} strokeWidth="1.6" strokeLinejoin="round" />
+          <path d="M106 112 L96 96" stroke="#e82127" strokeWidth="2.4" strokeLinecap="round" opacity={dim ? 0.3 : 0.85} />
+        </>
+      ) : kind === 'buffalo' ? (
         <>
           {/* 뿔: 은색 */}
           <path d="M42 42 C26 42 12 34 13 13" fill="none" stroke={H} strokeWidth="10" strokeLinecap="round" />
@@ -445,8 +470,8 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
           <rect x="42" y="50" width="10" height="11" rx="4.5" />
           <rect x="68" y="50" width="10" height="11" rx="4.5" />
         </g>
-      ) : kind === 'cedar' ? (
-        // 백향목: 화난 눈 대신 수평으로 빛나는 차분한 눈 (멋있게)
+      ) : kind === 'cedar' || kind === 'shiba' || kind === 'eagle' ? (
+        // 백향목·시바견·흰머리수리: 화난 눈 대신 수평으로 빛나는 차분한 눈 (멋있게)
         <g fill="none" stroke={eye} strokeWidth="4.2" strokeLinecap="round" filter={glow}>
           <path d="M41 56.5 Q47 54.8 53 56.5" />
           <path d="M67 56.5 Q73 54.8 79 56.5" />
