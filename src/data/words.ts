@@ -11,6 +11,7 @@
 import { R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, R16, R17, R18 } from './rounds-more.ts'
 import { PACK_SURVIVAL, PACK_WORK, PACK_TRAVEL, PACK_SCHOOL, PACK_KPOP, PACK_FAMILY } from './packs.ts'
 import { TH } from './tr-th.ts'
+import { withFix } from './tr-fix.ts'
 import { VI } from './tr-vi.ts'
 import { TITLE_TH, TITLE_VI } from './tr-titles.ts'
 import { MN, TITLE_MN } from './tr-mn.ts'
@@ -304,7 +305,7 @@ function makeRound(id: string, tier: number, no: number, title: L10n, rows: Row[
     tier,
     no,
     title,
-    words: rows.map(([ko, rom, lo, th, emoji], i) => ({
+    words: rows.map(([ko, rom, lo, th, emoji], i) => withFix({
       id: `${id}-${String(i + 1).padStart(2, '0')}`,
       ko,
       rom,

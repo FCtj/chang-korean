@@ -24,6 +24,7 @@ import { TRACK_TOPIK_3 } from './track-topik-3.ts'
 import { TRACK_TOPIK_6 } from './track-topik-6.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
+import { withFix } from './tr-fix.ts'
 import { MN, withMn } from './tr-mn.ts'
 import { AR } from './tr-ar.ts'
 
@@ -129,7 +130,7 @@ export interface Track {
 function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
   const id = `t-${t.id}-${u.key}`
   const rows = [...u.words.map((r) => ({ r, phrase: false })), ...u.phrases.map((r) => ({ r, phrase: true }))]
-  const words: Word[] = rows.map(({ r, phrase }, j) => ({
+  const words: Word[] = rows.map(({ r, phrase }, j) => withFix({
     id: `${id}-${String(j + 1).padStart(2, '0')}`,
     ko: r[0],
     rom: r[1],
@@ -141,7 +142,7 @@ function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
     emoji: r[5],
     roundId: id,
     ...(phrase ? { kind: 'phrase' as const } : {}),
-  }))
+  } as Word))
   return { id, tier: 0, no: i + 1, title: withMn(u.title), words, pack: { icon: u.icon, purpose: t.purpose, desc: withMn(t.title) }, track: t.id }
 }
 
