@@ -2,6 +2,7 @@
 // 나눠 번역한 파일(tr-mn-1..6.ts, tr-mn-titles.ts)을 아래 PARTS 에 넣어 합침
 // (scripts 도 이 파일을 불러오므로 import.meta.glob 대신 고정 import)
 // @mn-imports
+import { MN_5 } from './tr-mn-5.ts'
 import { MN_3 } from './tr-mn-3.ts'
 import { MN_4 } from './tr-mn-4.ts'
 import { MN_2 } from './tr-mn-2.ts'
@@ -12,6 +13,7 @@ const PARTS: Record<string, string>[] = [
   MN_2,
   MN_4,
   MN_3,
+  MN_5,
   // @mn-parts
 ]
 const TITLE_PARTS: Record<string, string>[] = [
