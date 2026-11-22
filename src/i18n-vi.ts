@@ -374,7 +374,7 @@ export const S_VI: Record<StrKey, string> = {
   savePoints: 'Đăng nhập Facebook để lưu điểm an toàn',
   pCitizen: 'Chuẩn bị quốc tịch·thường trú Hàn',
   mockTitle: 'Thi thử',
-  mockDesc: '20 câu · từ 60 điểm là đạt · kiến thức xã hội·văn hóa·pháp luật Hàn',
+  mockDesc: '20 đề × 20 câu · từ 60 điểm là đạt · kiến thức xã hội·văn hóa·pháp luật Hàn',
   mockNote: 'Đây là câu hỏi tự soạn để luyện tập, có thể khác với kỳ thi thật.',
   mockStart: 'Bắt đầu thi thử',
   mockPass: 'Đạt rồi! 🎉',
