@@ -71,6 +71,7 @@ export const S_AR: Record<StrKey, string> = {
   orderSeq: 'بالتسلسل',
   orderRandom: 'عشوائي',
   autoSpeak: 'النطق التلقائي',
+  frontPic: 'إظهار الصورة كتلميح على الوجه الأمامي',
   tapToReveal: 'اضغط لرؤية المعنى',
   correct: 'صحيح!',
   wrong: 'للأسف',

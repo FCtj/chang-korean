@@ -882,5 +882,44 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('delete_my_data removes my feedback', (await q('select count(*)::int n from feedback where user_id = $1', [F.a])).rows[0].n === 0)
 }
 
+// ───────── 일본어판 · 영어판 랭킹 ─────────
+{
+  const R = { a: 'aa111111-1111-1111-1111-111111111111', b: 'aa222222-2222-2222-2222-222222222222', c: 'aa333333-3333-3333-3333-333333333333' }
+  for (const id of Object.values(R)) await q('insert into auth.users values ($1) on conflict do nothing', [id])
+  await q(`insert into profiles (id, display_name, country) values ($1,'하나','ZZ'),($2,'두리','ZZ'),($3,'세나','ZZ') on conflict (id) do nothing`, [R.a, R.b, R.c])
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message)
+    }
+  }
+  const award = (uid, app, kind, ref, pts) => as(uid, async () => (await q('select award_edition_points($1,$2,$3,$4) as n', [app, kind, ref, pts])).rows[0].n)
+  check('award_edition_points: one call max 10', (await award(R.a, 'ja', 'study', null, 50)) === 10)
+  for (let i = 0; i < 45; i++) await award(R.a, 'ja', 'study', null, 10)
+  const aJa = (await q(`select sum(points)::int n from edition_points where user_id = $1 and app = 'ja' and kind = 'study'`, [R.a])).rows[0].n
+  check('award_edition_points: 400 a day', aJa === 400, String(aJa))
+  check('award_edition_points: exam bonus once per unit', (await award(R.a, 'ja', 'exam', 't-topik-1-d01', 150)) === 100 && (await award(R.a, 'ja', 'exam', 't-topik-1-d01', 100)) === 0)
+  check('award_edition_points: bad ref gets nothing', (await award(R.a, 'ja', 'exam', "x'; drop", 50)) === 0)
+  check('award_edition_points: bad app refused', (await err(() => award(R.a, 'ko', 'study', null, 5))).includes('bad_app'))
+  check('award_edition_points: anon gets nothing', (await err(() => q(`set role anon; select award_edition_points('ja','study',null,5)`))) !== '')
+  await db.exec('reset role;')
+  await award(R.b, 'ja', 'study', null, 10)
+  await award(R.c, 'en', 'study', null, 10)
+  const ja = (await q(`select * from get_edition_leaderboard('ja', 'today', 10)`)).rows
+  check('get_edition_leaderboard: per app, ranked', ja.length === 2 && ja[0].display_name === '하나' && Number(ja[0].points) === 500 && Number(ja[1].rank) === 2, JSON.stringify(ja.map((r) => [r.display_name, r.points])))
+  const en = (await q(`select * from get_edition_leaderboard('en', 'month', 10)`)).rows
+  check('get_edition_leaderboard: en separate', en.length === 1 && en[0].display_name === '세나', JSON.stringify(en.map((r) => r.display_name)))
+  const mine = (await as(R.b, () => q(`select * from get_my_edition_rank('ja', 'month')`))).rows[0]
+  check('get_my_edition_rank: rank and total', Number(mine.rank) === 2 && Number(mine.total) === 2 && Number(mine.points) === 10, JSON.stringify(mine))
+  check('edition_points: no direct insert', (await err(() => as(R.b, () => q(`insert into edition_points (user_id, app, kind, points) values ($1, 'ja', 'study', 100)`, [R.b])))) !== '')
+  const fx = (await q(`select has_function_privilege('anon', 'public.get_edition_leaderboard(text,text,int)', 'execute') as lb,
+    has_function_privilege('anon', 'public.award_edition_points(text,text,text,int)', 'execute') as aw`)).rows[0]
+  check('edition leaderboard open to anon; awarding is not', fx.lb === true && fx.aw === false, JSON.stringify(fx))
+  await as(R.a, () => q('select delete_my_data()'))
+  check('delete_my_data removes edition points', (await q('select count(*)::int n from edition_points where user_id = $1', [R.a])).rows[0].n === 0)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

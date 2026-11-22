@@ -20,8 +20,8 @@ export const CONTACT_EMAIL = 'iamexample2@gmail.com'
 export const SIMPLE_MODE = true
 /** 커뮤니티(게시판·그룹·댓글·공유) — 지금은 단어 외우기에 집중하려고 꺼 둠. true 로 바꾸면 다시 보임 (코드·DB 는 그대로) */
 export const COMMUNITY_ENABLED = false
-/** 랭킹(순위표) 탭 — 지금은 꺼 둠. true 로 바꾸면 다시 보임 */
-export const RANKING_ENABLED = false
+/** 랭킹(순위표) 탭. 일본어·영어판은 판마다 따로 (edition_points) */
+export const RANKING_ENABLED = true
 /** 포인트·커피 도장·교환소 화면 — 지금은 꺼 둠 (포인트 정책을 정한 뒤 켜기).
  *  꺼 둬도 포인트 기록은 안 보이게 그대로 쌓임 */
 export const POINTS_ENABLED = false

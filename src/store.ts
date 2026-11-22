@@ -23,6 +23,7 @@ export interface Settings {
   quizSec: number // 문제당 제한시간, 0 = 없음
   order: Order
   autoSpeak: boolean
+  frontPic: boolean // 카드 앞면(외울 단어 쪽)에 그림 힌트 — 기본 끔 (그림이 있으면 뜻을 바로 알아 버려서)
 }
 
 export interface WordStat {
@@ -176,7 +177,7 @@ function initial(): State {
     theme: 'candy',
     country: COUNTRY_OF[native],
     purposes: [],
-    settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true },
+    settings: { direction: 'ko2n', cardSec: 3, reps: 1, autoFaster: false, quizSec: 10, order: 'seq', autoSpeak: true, frontPic: false },
     chunkPlays: {},
     known: {},
     steps: {},

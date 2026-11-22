@@ -65,6 +65,7 @@ export const S_VI: Record<StrKey, string> = {
   orderSeq: 'Theo thứ tự',
   orderRandom: 'Ngẫu nhiên',
   autoSpeak: 'Tự động phát âm',
+  frontPic: 'Hiện hình gợi ý ở mặt trước',
   tapToReveal: 'Chạm để xem nghĩa',
   correct: 'Đúng rồi!',
   wrong: 'Tiếc quá',

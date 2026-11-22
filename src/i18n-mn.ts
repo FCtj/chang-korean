@@ -65,6 +65,7 @@ export const S_MN: Record<StrKey, string> = {
   orderSeq: 'Дарааллаар',
   orderRandom: 'Санамсаргүй',
   autoSpeak: 'Автомат дуудлага',
+  frontPic: 'Урд талд зураг (сануулга) харуулах',
   tapToReveal: 'Дарж утгыг харах',
   correct: 'Зөв!',
   wrong: 'Харамсалтай',

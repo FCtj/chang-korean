@@ -99,6 +99,9 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
     [queue, s.settings.direction],
   )
   const koFirst = dirs[pos] !== 'n2ko'
+  // 외울 단어가 앞면이면 그림을 숨김 (🦷 가 보이면 歯 의 뜻을 외우지 않아도 알아 버림) — 그림은 뒷면 뜻 옆에
+  const frontPic = !koFirst || s.settings.frontPic
+  const listPics = s.settings.direction === 'n2ko' || s.settings.frontPic
 
   function showToast(text: string, ms = 1600) {
     setToast(text)
@@ -329,9 +332,11 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   onClick={() => (kn ? mark(w, false) : jumpTo(w))}
                   aria-label={`${w.ko} ${translation(w)}${kn ? ` ✓ ${t('memorized')}` : ''}`}
                 >
-                  <span className="wchip-emoji" aria-hidden="true">
-                    {w.emoji}
-                  </span>
+                  {listPics && (
+                    <span className="wchip-emoji" aria-hidden="true">
+                      {w.emoji}
+                    </span>
+                  )}
                   <span className="wchip-ko ko">{w.ko}</span>
                   {kn && <span className="wchip-badge" aria-hidden="true">✓</span>}
                 </button>
@@ -364,7 +369,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
             <div className="interlude-words">
               {pendingWords.slice(0, 10).map((w, k) => (
                 <span key={w.id} className="iw" style={{ animationDelay: `${k * 0.05}s` }}>
-                  <span className="iw-emoji">{w.emoji}</span>
+                  {listPics && <span className="iw-emoji">{w.emoji}</span>}
                   <span className="ko">{w.ko}</span>
                 </span>
               ))}
@@ -381,12 +386,14 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
               aria-label={t('tapToReveal')}
             >
               <span className="fcard-inner">
-                <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''}`}>
+                <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''} ${frontPic ? '' : 'no-pic'}`}>
                   {word.kind === 'phrase' && <span className="phrase-tag">💬 {t('phraseTag')}</span>}
-                  {/* 그림은 단어 위에 동그랗게 (글자가 주인공, 그림은 기억을 돕는 짝) */}
-                  <span className="front-pic" aria-hidden="true">
-                    <span className="front-emoji">{word.emoji}</span>
-                  </span>
+                  {/* 그림은 단어 위에 동그랗게 — 뜻을 묻는 앞면(외울 단어)에서는 숨김 (설정에서 켤 수 있음) */}
+                  {frontPic && (
+                    <span className="front-pic" aria-hidden="true">
+                      <span className="front-emoji">{word.emoji}</span>
+                    </span>
+                  )}
                   {koFirst ? (
                     <>
                       <span className="card-word ko">{word.ko}</span>
@@ -483,6 +490,7 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
               />
             </div>
             <Toggle id="sh-speak" label={t('autoSpeak')} on={s.settings.autoSpeak} onChange={(v) => setSettings({ autoSpeak: v })} />
+            <Toggle id="sh-pic" label={t('frontPic')} on={s.settings.frontPic} onChange={(v) => setSettings({ frontPic: v })} />
             <Toggle id="sh-rand" label={t('orderRandom')} on={s.settings.order === 'random'} onChange={(v) => setSettings({ order: v ? 'random' : 'seq' })} />
             <button className="btn btn-pink btn-block" onClick={() => setSheet(false)}>
               {t('ok')}

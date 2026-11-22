@@ -156,6 +156,8 @@ const KO_TRACKS = (): Track[] => TRACK_SOURCES.map((t) => ({ ...t, title: withMn
 // 뜻은 한국어 하나 → 학습자 언어 칸(lo·th·vi·mn·ar)에 모두 넣어서 화면 코드를 그대로 씀
 const L1 = (s: string): TitleL10n => ({ ko: s, lo: s, th: s, vi: s, mn: s, ar: s })
 const ED_ICON = ['🌱', '📘', '📗', '📙', '📕']
+// 'Day NN' 단원 그림은 첫 단어 그림이라 공부 화면 제목에서 답이 보임 → 단원 번호와 상관없는 같은 그림
+const DAY_ICON = '📅'
 function buildEdUnit(trackId: string, trackTitle: TitleL10n, u: EdUnit, i: number): Round {
   const id = `t-${trackId}-${u.key}`
   const rows = [...u.words.map((r) => ({ r, phrase: false })), ...u.phrases.map((r) => ({ r, phrase: true }))]
@@ -172,7 +174,7 @@ function buildEdUnit(trackId: string, trackTitle: TitleL10n, u: EdUnit, i: numbe
     roundId: id,
     ...(phrase ? { kind: 'phrase' as const } : {}),
   }))
-  return { id, tier: 0, no: i + 1, title: L1(u.title), words, pack: { icon: u.icon, purpose: 'school', desc: trackTitle }, track: trackId }
+  return { id, tier: 0, no: i + 1, title: L1(u.title), words, pack: { icon: /^Day \d+/.test(u.title) ? DAY_ICON : u.icon, purpose: 'school', desc: trackTitle }, track: trackId }
 }
 const ED_TRACKS = (): Track[] =>
   ED_LEVELS.map((lv, i) => {

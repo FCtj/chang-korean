@@ -76,6 +76,7 @@ const S = {
   orderSeq: { ko: '순서대로', lo: 'ຕາມລຳດັບ' },
   orderRandom: { ko: '섞기', lo: 'ສຸ່ມ' },
   autoSpeak: { ko: '자동 발음', lo: 'ອອກສຽງອັດຕະໂນມັດ' },
+  frontPic: { ko: '앞면에 그림 힌트 보기', lo: 'ສະແດງຮູບເປັນຄຳໃບ້ຢູ່ໜ້າບັດ' },
   tapToReveal: { ko: '눌러서 뜻 보기', lo: 'ແຕະເພື່ອເບິ່ງຄວາມໝາຍ' },
   correct: { ko: '정답!', lo: 'ຖືກຕ້ອງ!' },
   wrong: { ko: '아쉬워요', lo: 'ຜິດແລ້ວ' },
@@ -572,6 +573,10 @@ const MORE: Partial<Record<'th' | 'vi' | 'mn' | 'ar', { s: Record<StrKey, string
 // 일본어·영어판: '한국어' 가 들어간 화면 문구를 배울 말로 (화면은 한국어만)
 if (!IS_KO) {
   const L = ED_INFO.lang
+  // 랭킹: 판에는 보상(쿠폰)이 없고 카카오 로그인
+  S.joinRanking.ko = '로그인하면 내 이름과 사진으로 랭킹에 올라가요'
+  S.cerTopSub.ko = '이대로 이번 달 끝까지 지켜요! 🔥'
+  F.cerTop.ko = (r: number) => `${r}등 · TOP 10 안이에요!`
   S.tagline.ko = ED_INFO.tagline
   S.korean.ko = L
   S.pickKorean.ko = `${L}를 고르세요`

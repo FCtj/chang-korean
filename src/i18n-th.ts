@@ -65,6 +65,7 @@ export const S_TH: Record<StrKey, string> = {
   orderSeq: 'ตามลำดับ',
   orderRandom: 'สุ่ม',
   autoSpeak: 'ออกเสียงอัตโนมัติ',
+  frontPic: 'แสดงรูปเป็นคำใบ้ด้านหน้า',
   tapToReveal: 'แตะเพื่อดูความหมาย',
   correct: 'ถูกต้อง!',
   wrong: 'เสียดายจัง',

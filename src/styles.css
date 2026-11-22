@@ -7760,3 +7760,19 @@ body {
 .fb-row.fb-skip {
   opacity: 0.6;
 }
+
+/* 카드 앞면 그림 숨김(외울 단어가 앞면): 단어를 더 크게 */
+.fcard-face.front.no-pic .card-word {
+  font-size: clamp(2.8rem, 14vw, 3.8rem);
+}
+.fcard-face.front.no-pic .card-word.lo {
+  font-size: clamp(2rem, 10vw, 2.8rem);
+}
+.rank-join {
+  display: grid;
+  gap: 8px;
+  text-align: center;
+}
+.rank-join .note {
+  margin: 0;
+}

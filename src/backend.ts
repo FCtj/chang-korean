@@ -607,7 +607,14 @@ function schedulePush() {
 // 서버(award_points)가 하루 상한·한 번에 최대 10점·보너스 중복을 막음
 
 function reportPoints(kind: 'study' | 'exam' | 'promo', ref: string | null, points: number) {
-  if (!IS_KO || !supabase || auth.status !== 'in') return
+  if (!supabase || auth.status !== 'in') return
+  if (!IS_KO) {
+    // 일본어·영어판: 판마다 따로 쌓는 점수 (서버가 한 번에 10점 · 하루 400점 등 상한)
+    if (kind === 'promo') return
+    const parts = kind === 'study' ? Array.from({ length: Math.ceil(points / 10) }, (_, i) => Math.min(10, points - i * 10)) : [points]
+    for (const p of parts) supabase.rpc('award_edition_points', { p_app: EDITION, p_kind: kind, p_ref: ref, p_points: p }).then(undefined, () => {})
+    return
+  }
   const calls = kind === 'study' ? Array.from({ length: Math.ceil(points / 10) }, (_, i) => Math.min(10, points - i * 10)) : [points]
   for (const p of calls) supabase.rpc('award_points', { p_kind: kind, p_ref: ref, p_points: p }).then(undefined, () => {})
 }
@@ -629,7 +636,9 @@ export interface RankRow {
 
 export async function fetchLeaderboard(period: Period, country: string | null, limit = 50): Promise<RankRow[]> {
   if (!supabase) return []
-  const { data, error } = await supabase.rpc('get_leaderboard', { p_period: period, p_country: country, p_limit: limit })
+  const { data, error } = IS_KO
+    ? await supabase.rpc('get_leaderboard', { p_period: period, p_country: country, p_limit: limit })
+    : await supabase.rpc('get_edition_leaderboard', { p_app: EDITION, p_period: period, p_limit: limit })
   if (error || !Array.isArray(data)) throw error ?? new Error('bad response')
   const myId = auth.me?.id
   return data.map((r: Record<string, unknown>) => ({
@@ -645,14 +654,17 @@ export async function fetchLeaderboard(period: Period, country: string | null, l
 
 export async function fetchMyRank(period: Period, country: string | null): Promise<{ rank: number; points: number; total: number } | null> {
   if (!supabase || auth.status !== 'in') return null
-  const { data, error } = await supabase.rpc('get_my_rank', { p_period: period, p_country: country })
+  const { data, error } = IS_KO
+    ? await supabase.rpc('get_my_rank', { p_period: period, p_country: country })
+    : await supabase.rpc('get_my_edition_rank', { p_app: EDITION, p_period: period })
   if (error || !Array.isArray(data) || !data[0]) return null
   return { rank: Number(data[0].rank), points: Number(data[0].points), total: Number(data[0].total) }
 }
 
 /** 누군가 점수를 얻으면 onChange 호출 (실시간). 해제 함수 반환 */
 export function subscribeLeaderboard(onChange: () => void): () => void {
-  if (!supabase) return () => {}
+  // 일본어·영어판 점수 표는 직접 읽을 수 없어 실시간 대신 30초마다 다시 불러옴
+  if (!supabase || !IS_KO) return () => {}
   const channel = supabase
     .channel(`leaderboard-${Math.random().toString(36).slice(2)}`)
     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'point_events' }, () => onChange())

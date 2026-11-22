@@ -4,6 +4,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, useMyPublic, type Period, type RankRow } from '../backend'
+import { IS_KO } from '../edition'
+import { LoginButtons } from './SettingsScreen'
 import { demoRanking, todayKey, useStore } from '../store'
 import { sfx } from '../audio'
 import { fireworks, sparkleRain } from '../fx'
@@ -24,7 +26,7 @@ export default function Leaderboard() {
   const [flash, setFlash] = useState(false)
   const myCountry = auth.me?.country ?? s.country
   const c = countryOf(myCountry)
-  const countryParam = scope === 'country' ? myCountry : null
+  const countryParam = IS_KO && scope === 'country' ? myCountry : null
 
   const load = useCallback(async () => {
     if (!backendReady) return
@@ -65,7 +67,7 @@ export default function Leaderboard() {
   }, [load])
 
   // 예시 랭킹: 서버 연결 전에는 전부, 테스트 기간(SAMPLE_DATA)에는 실제 랭킹에 지인 예시를 섞음
-  const useSamples = !backendReady || SAMPLE_DATA
+  const useSamples = IS_KO && (!backendReady || SAMPLE_DATA)
   const demo: RankRow[] = !useSamples
     ? []
     : demoRanking(s)
@@ -73,7 +75,7 @@ export default function Leaderboard() {
         .map((r) => ({ rank: 0, userId: r.me ? 'me' : `sample:${r.name}`, name: r.me ? pub.name : r.name, avatar: r.me ? pub.avatar : (r.avatar ?? null), country: r.country ?? s.country, points: period === 'today' ? Math.round(r.points / 12) : r.points, me: r.me, sample: !r.me }))
         .filter((r) => scope === 'all' || r.country === myCountry)
   const rerank = (xs: RankRow[]) => [...xs].sort((a, b) => b.points - a.points).map((r, i) => ({ ...r, rank: i + 1 }))
-  const list: RankRow[] | null = !backendReady ? rerank(demo) : rows === null ? null : SAMPLE_DATA ? rerank([...rows, ...demo]) : rows
+  const list: RankRow[] | null = !backendReady ? rerank(demo) : rows === null ? null : useSamples ? rerank([...rows, ...demo]) : rows
   const meRow = list?.find((r) => r.me) ?? null
   const myRankView = meRow
     ? { rank: meRow.rank, points: meRow.points, total: Math.max(list!.length, (mine?.total ?? 0) + demo.length) }
@@ -137,21 +139,29 @@ export default function Leaderboard() {
           { id: 'month', label: `📅 ${t('rankMonth')}` },
         ]}
       />
-      <Segmented<'country' | 'all'>
-        name={t('country')}
-        value={scope}
-        onChange={setScope}
-        options={[
-          { id: 'country', label: `${c.flag} ${c[ui]}` },
-          { id: 'all', label: `🌏 ${t('scopeAll')}` },
-        ]}
-      />
-
-      {backendReady && auth.status === 'out' && (
-        <button className="fb-btn" onClick={() => signInWithFacebook()}>
-          <span className="fb-logo" aria-hidden="true">f</span> {t('joinRanking')}
-        </button>
+      {IS_KO && (
+        <Segmented<'country' | 'all'>
+          name={t('country')}
+          value={scope}
+          onChange={setScope}
+          options={[
+            { id: 'country', label: `${c.flag} ${c[ui]}` },
+            { id: 'all', label: `🌏 ${t('scopeAll')}` },
+          ]}
+        />
       )}
+
+      {backendReady && auth.status === 'out' &&
+        (IS_KO ? (
+          <button className="fb-btn" onClick={() => signInWithFacebook()}>
+            <span className="fb-logo" aria-hidden="true">f</span> {t('joinRanking')}
+          </button>
+        ) : (
+          <div className="rank-join">
+            <p className="note">{t('joinRanking')}</p>
+            <LoginButtons />
+          </div>
+        ))}
 
       {(auth.status === 'in' || !backendReady) && (
         <div className="my-rank">
@@ -204,7 +214,7 @@ export default function Leaderboard() {
                 <span className="board-name-text">{r.name}</span>
                 {r.me && <span className="me-tag">{t('me')}</span>}
               </span>
-              {scope === 'all' && <span className="board-flag" title={countryOf(r.country)[ui]}>{countryOf(r.country).flag}</span>}
+              {IS_KO && scope === 'all' && <span className="board-flag" title={countryOf(r.country)[ui]}>{countryOf(r.country).flag}</span>}
               <span className="board-pts num">{r.points.toLocaleString()}</span>
             </li>
           ))}
@@ -212,7 +222,7 @@ export default function Leaderboard() {
       )}
       {myRankView && <p className="note center">{tf('rankOf', myRankView.rank, myRankView.total)}</p>}
       {!backendReady && <p className="note">{t('demoNote')}</p>}
-      {backendReady && SAMPLE_DATA && <p className="note">{t('sampleNote')}</p>}
+      {IS_KO && backendReady && SAMPLE_DATA && <p className="note">{t('sampleNote')}</p>}
 
       {ceremony && (
         <div className="cer-backdrop" onClick={() => setCeremony(null)}>
