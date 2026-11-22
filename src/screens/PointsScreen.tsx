@@ -1,7 +1,7 @@
 // 포인트 탭 (간단 모드): 내 포인트 · 교환소(오픈 예정) · 최근 교환 내역(테스트 예시) · 모으는 법
 import { useApp } from '../ctx'
 import { backendReady, signInWithFacebook, useAuth } from '../backend'
-import { DAILY_CAP, EXAM_BONUS, PROMO_BONUS, useStore } from '../store'
+import { DAILY_CAP, DAILY_DONE_BONUS, EXAM_BONUS, PRACTICE_POINT, PROMO_BONUS, useStore } from '../store'
 import { nextShopItem } from '../data/shop'
 import { ShopGrid } from './Intro'
 import RecentRewards from './RecentRewards'
@@ -50,7 +50,10 @@ export default function PointsScreen() {
         <h2 className="h3">✨ {t('earnTitle')}</h2>
         <ul className="earn-list">
           <li>
-            <span aria-hidden="true">📚</span> {t('earnWord')} <b className="num">+3P</b>
+            <span aria-hidden="true">📝</span> {t('earnWord')} <b className="num">+{PRACTICE_POINT}P</b>
+          </li>
+          <li>
+            <span aria-hidden="true">☕</span> {t('earnDaily')} <b className="num">+{DAILY_DONE_BONUS}P</b>
           </li>
           <li>
             <span aria-hidden="true">🎓</span> {t('earnExam')} <b className="num">+{EXAM_BONUS}P</b>
@@ -62,6 +65,7 @@ export default function PointsScreen() {
             <span aria-hidden="true">⏱️</span> {t('earnCap')} <b className="num">{DAILY_CAP}P</b>
           </li>
         </ul>
+        <p className="note">🛡️ {t('earnFair')}</p>
       </section>
     </div>
   )

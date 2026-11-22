@@ -331,7 +331,6 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   onClick={() => (kn ? mark(w, false) : jumpTo(w))}
                   aria-label={`${w.ko} ${translation(w)}${kn ? ` ✓ ${t('memorized')}` : ''}`}
                 >
-                  <span className="wchip-emoji" aria-hidden="true">{w.emoji}</span>
                   <span className="wchip-ko ko">{w.ko}</span>
                   {kn && <span className="wchip-badge" aria-hidden="true">✓</span>}
                 </button>
@@ -376,9 +375,6 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
               <span className="fcard-inner">
                 <span className={`fcard-face front c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''}`}>
                   {word.kind === 'phrase' && <span className="phrase-tag">💬 {t('phraseTag')}</span>}
-                  <span className="flash-blob" aria-hidden="true">
-                    <span className="flash-emoji">{word.emoji}</span>
-                  </span>
                   {koFirst ? (
                     <>
                       <span className="card-word ko">{word.ko}</span>
@@ -390,13 +386,17 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
                   <span className="flip-hint">↻ {t('tapToReveal')}</span>
                 </span>
                 <span className={`fcard-face back c-${pastel(batchWords.indexOf(word))} ${word.kind === 'phrase' ? 'phrase' : ''}`}>
-                  <span className="back-top">
-                    <span className="back-emoji" aria-hidden="true">{word.emoji}</span>
-                    <span className={koFirst ? 'back-q ko' : 'back-q lo'}>{koFirst ? word.ko : translation(word)}</span>
-                  </span>
+                  {/* 글자 중심: 단어 → 발음 → 뜻 (그림은 뜻 옆에 작게) */}
+                  <span className={koFirst ? 'back-q ko' : 'back-q lo'}>{koFirst ? word.ko : translation(word)}</span>
+                  {koFirst && <Pron ko={word.ko} />}
                   <span className="back-divider" aria-hidden="true" />
-                  <span className={koFirst ? 'back-a lo' : 'back-a ko'}>{koFirst ? translation(word) : word.ko}</span>
-                  <Pron ko={word.ko} />
+                  <span className="back-meaning">
+                    <span className="back-emoji" aria-hidden="true">
+                      {word.emoji}
+                    </span>
+                    <span className={koFirst ? 'back-a lo' : 'back-a ko'}>{koFirst ? translation(word) : word.ko}</span>
+                  </span>
+                  {!koFirst && <Pron ko={word.ko} />}
                 </span>
               </span>
             </button>

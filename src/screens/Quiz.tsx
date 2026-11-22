@@ -71,6 +71,11 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
   const [capHit, setCapHit] = useState(false)
   const [result, setResult] = useState<Result | null>(null)
   const q = queue[pos]
+  // 문제가 보인 시각 (너무 빨리 누른 답은 포인트 없음)
+  const shownAt = useRef(Date.now())
+  useEffect(() => {
+    shownAt.current = Date.now()
+  }, [pos])
   const answered = picked !== null
   const ok = answered && picked !== 'timeout' && picked.id === q.word.id
 
@@ -112,7 +117,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
     recordAnswer(q.word.id, correct)
     if (correct) {
       sfx.correct()
-      const pts = awardPractice(roundId ?? q.word.roundId)
+      const pts = awardPractice(roundId ?? q.word.roundId, Date.now() - shownAt.current, !q.retry)
       setEarned((e) => e + pts)
       burstFrom(el, { count: 12 })
       if (pts > 0) floatFrom(el, `+${pts} ⭐`)

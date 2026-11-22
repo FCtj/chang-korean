@@ -8,7 +8,7 @@ import { PACKS, ROUNDS, translation, type Word } from '../data/words'
 import { SHOP } from '../data/shop'
 import { findCourse, topikTrack, type CourseId } from '../data/courses'
 import { WELCOME_POINTS } from '../config'
-import { finishIntro, setCourse, useStore } from '../store'
+import { finishIntro, setCourse, useStore, MIN_ANSWER_MS } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 import { backendReady, signInWithFacebook, useAuth } from '../backend'
@@ -73,11 +73,14 @@ export default function Intro() {
   const [qi, setQi] = useState(0)
   const [picked, setPicked] = useState<Answer | null>(null)
   const [answers, setAnswers] = useState<Answer[]>([])
+  // 포인트를 받은 문제 (맞혔고, 1초 넘게 생각했을 때만)
+  const [paid, setPaid] = useState<boolean[]>([])
+  const shownAt = useRef(Date.now())
   const optRefs = useRef<(HTMLButtonElement | null)[]>([])
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const q = test[qi]
   const right = answers.filter((a, i) => a !== 'idk' && a !== 'timeout' && a.id === test[i].word.id).length
-  const earned = right * PER_RIGHT
+  const earned = paid.filter(Boolean).length * PER_RIGHT
   const total = s.totalPoints + earned + WELCOME_POINTS
   const lv = levelOf(right, test.length)
 
@@ -85,6 +88,7 @@ export default function Intro() {
   useEffect(() => {
     if (stage !== 'test' || !q) return
     if (q.kind === 'meaning') speakWord(q.word)
+    shownAt.current = Date.now()
     timer.current = setTimeout(() => answer('timeout'), SECONDS * 1000)
     return () => {
       if (timer.current) clearTimeout(timer.current)
@@ -108,15 +112,17 @@ export default function Intro() {
     if (timer.current) clearTimeout(timer.current)
     setPicked(a)
     const ok = a !== 'idk' && a !== 'timeout' && a.id === q.word.id
+    const pay = ok && Date.now() - shownAt.current >= MIN_ANSWER_MS
     if (ok) {
       sfx.correct()
       const el = optRefs.current[q.options.indexOf(a as Word)]
-      floatFrom(el, `+${PER_RIGHT}P`, 'points')
+      if (pay) floatFrom(el, `+${PER_RIGHT}P`, 'points')
       burstFrom(el, { count: 12 })
     } else sfx.wrong()
     setTimeout(
       () => {
         setAnswers((xs) => [...xs, a])
+        setPaid((xs) => [...xs, pay])
         setPicked(null)
         if (qi + 1 < test.length) setQi(qi + 1)
         else setStage('result')
@@ -159,7 +165,7 @@ export default function Intro() {
         <main className="intro test-page">
           <div className="test-head">
             <span className="test-qn num">{tf('qN', qi + 1, test.length)}</span>
-            <span className="pill pill-butter num">💰 {tf('pointsN', right * PER_RIGHT + (picked && picked !== 'idk' && picked !== 'timeout' && isRight(picked) ? PER_RIGHT : 0))}</span>
+            <span className="pill pill-butter num">💰 {tf('pointsN', earned)}</span>
           </div>
           <div className="q-dots" aria-hidden="true">
             {test.map((_, i) => {

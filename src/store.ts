@@ -92,6 +92,10 @@ export interface State {
   topikLevel: number
   /** 마지막으로 본 '새로워졌어요' 소식 (data/news.ts 의 NEWS_ID) */
   newsSeen: string
+  /** 오늘 단원별 연습 문제 포인트 (하루 상한용, 날이 바뀌면 비움) */
+  unitDayPts: Record<string, number>
+  /** 모의 평가 포인트를 받은 날 */
+  mockDay: string
   /** 처음 30초 체험(+환영 포인트)을 마쳤는지 */
   introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
@@ -99,9 +103,16 @@ export interface State {
   totalPoints: number
 }
 
-export const DAILY_CAP = 400 // 하루에 받을 수 있는 최대 학습 점수
-export const EXAM_BONUS = 100
-export const PROMO_BONUS = 300
+// ───────── 포인트 규칙 (docs/points-plan: 공부를 '증명'했을 때만) ─────────
+// 카드 넘기기·외웠어요 = 0P (진도만) · 연습 문제는 첫 번에, 1초 넘게 생각하고 맞힐 때만
+export const DAILY_CAP = 100 // 하루 최대 학습 포인트 (시험 보너스는 따로, 한 번씩만)
+export const EXAM_BONUS = 30 // 졸업시험: 단원마다 처음 통과 한 번
+export const PROMO_BONUS = 100 // 승급시험: 계급마다 처음 통과 한 번
+export const PRACTICE_POINT = 1 // 연습 문제 첫 번 정답
+export const PRACTICE_UNIT_DAY = 10 // 같은 단원 연습 문제는 하루 최대 (반복 파밍 막기)
+export const DAILY_DONE_BONUS = 5 // 오늘 공부 완료 (문제 한 세트를 끝내면, 하루 한 번)
+export const MIN_ANSWER_MS = 1000 // 이보다 빨리 누른 답은 포인트 없음
+export const MOCK_PASS = 60 // 모의 평가: 60점 이상일 때만, 하루 한 번
 export const STAMPS_PER_TICKET = 10
 
 const KEY = 'chang-korean:v2'
@@ -168,6 +179,8 @@ function initial(): State {
     course: null,
     topikLevel: 1,
     newsSeen: '',
+    unitDayPts: {},
+    mockDay: '',
     profileConsent: null,
     totalPoints: 0,
   }
@@ -237,7 +250,7 @@ persist() // 이전 버전 기록을 바꿨으면 바로 저장
 function rollover(s: State): State {
   const day = todayKey()
   let next = s
-  if (next.dayKey !== day) next = { ...next, dayKey: day, dayPoints: 0 }
+  if (next.dayKey !== day) next = { ...next, dayKey: day, dayPoints: 0, unitDayPts: {} }
   if (next.monthKey !== monthOf(day)) next = { ...next, monthKey: monthOf(day), monthPoints: 0, stamps: [] }
   return next
 }
@@ -397,8 +410,9 @@ export function setStepKnown(w: Word, step: number, on: boolean): { points: numb
     }
     return { ...s, stepKnown: { ...s.stepKnown, [key]: m }, known, steps, quizOpen }
   })
-  const points = first ? addCapped(step === 1 ? 3 : 2) : 0
-  return { points, stepDone }
+  // 카드에서 '외웠어요' 는 포인트 없음 (진도만). 공부한 날로는 기록
+  if (first) update((s) => markStudyDay(s))
+  return { points: 0, stepDone }
 }
 
 /** 4지선다 문제·졸업시험이 보이는지: 처음엔 숨김, STEP 1~3을 모두 끝내면 열림 */
@@ -604,7 +618,9 @@ export function recordGroupPass(roundId: string, chunk: number, total: number, v
     plays[chunk] = (plays[chunk] ?? 0) + 1
     return { ...s, chunkPlays: { ...s.chunkPlays, [roundId]: plays } }
   })
-  return addCapped(state.passedRounds.includes(roundId) ? Math.ceil(viewed / 2) : viewed)
+  // 묶음을 다 봐도 포인트 없음 (진도만)
+  if (viewed > 0) update((s) => markStudyDay(s))
+  return 0
 }
 
 export function setLastChunk(roundId: string, chunk: number) {
@@ -613,15 +629,24 @@ export function setLastChunk(roundId: string, chunk: number) {
 }
 
 /** 문제 정답 점수. 하루 상한을 넘으면 0점. 이미 통과한 회차는 절반 */
-/** 모의 평가 끝: 최고 점수 저장 + 맞힌 문제마다 2점 (하루 상한 안에서) */
+/** 모의 평가 끝: 최고 점수 저장 + 60점 이상이면 맞힌 문제마다 1P (하루 한 번, 상한 안에서) */
 export function recordMock(correct: number, total: number): { score: number; points: number } {
   const score = Math.round((correct / total) * 100)
-  update((s) => ({ ...s, bestMock: Math.max(s.bestMock, score) }))
-  return { score, points: correct > 0 ? addCapped(correct * 2) : 0 }
+  const day = todayKey()
+  const eligible = score >= MOCK_PASS && state.mockDay !== day
+  update((s) => ({ ...s, bestMock: Math.max(s.bestMock, score), ...(eligible ? { mockDay: day } : {}) }))
+  // 60점 이상일 때만, 하루 한 번: 맞힌 문제마다 1P
+  return { score, points: eligible ? addCapped(correct) : 0 }
 }
 
-export function awardPractice(roundId: string): number {
-  return addCapped(state.passedRounds.includes(roundId) ? 1 : 2)
+/** 연습 문제 정답 포인트: 첫 번에 · 1초 넘게 생각하고 맞혔을 때만, 같은 단원은 하루 10P까지 */
+export function awardPractice(roundId: string, answerMs: number, firstTry: boolean): number {
+  if (!firstTry || answerMs < MIN_ANSWER_MS) return 0
+  const s = rollover(state)
+  if ((s.unitDayPts[roundId] ?? 0) >= PRACTICE_UNIT_DAY) return 0
+  const pts = addCapped(PRACTICE_POINT)
+  if (pts > 0) update((st) => ({ ...st, unitDayPts: { ...st.unitDayPts, [roundId]: (st.unitDayPts[roundId] ?? 0) + pts } }))
+  return pts
 }
 
 /** 문제 결과 기록. 맞히면 '외운 단어', 틀리면 다시 자동 반복에 들어감 */
@@ -648,6 +673,8 @@ export function completeSession(): boolean {
     gotStamp = true
     return markStudyDay({ ...s, stamps: [...s.stamps, day], streak, lastStudyDay: day })
   })
+  // 오늘 공부 완료 (문제 한 세트를 끝냄): 하루 한 번 +5P
+  if (gotStamp) addCapped(DAILY_DONE_BONUS)
   return gotStamp
 }
 
