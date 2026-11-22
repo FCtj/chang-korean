@@ -5147,8 +5147,7 @@ body {
   background: var(--mint);
 }
 .intro .fcard-stage {
-  flex: 1;
-  min-height: 330px;
+  height: clamp(320px, 50vh, 430px);
 }
 .intro-hint {
   margin: 0;
