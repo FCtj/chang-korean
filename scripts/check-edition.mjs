@@ -18,10 +18,10 @@ const { UNITS, EX } = await load(file)
 if (!Array.isArray(UNITS)) fail('UNITS 없음')
 if (!EX || typeof EX !== 'object') fail('EX 없음')
 const HANGUL = /[가-힣]/
-const KANA = /^[぀-ゟ゠-ヿー・\s、。？！「」『』〜…（）()0-9０-９A-Za-zＡ-Ｚａ-ｚ,.?!%％]+$/
+const KANA = /^[぀-ゟ゠-ヿー・\s、。？！「」『』〜～…（）()0-9０-９A-Za-zＡ-Ｚａ-ｚ,.?!%％]+$/
 const JA = /[぀-ヿ一-鿿]/
 const EN_TERM = /^[A-Za-z0-9][A-Za-z0-9\s'’\-.,?!:;/()&$%]*$/
-const POS = /^\[(명|동|형|부|전|접|대|감|조)\] \S/
+const POS = /^\[(명|동|형|부|전|접|대|감|조)(·(명|동|형|부|전|접|대|감))?\] \S/
 const otherTerms = new Map()
 for (const f of others) if (existsSync(f)) for (const u of (await load(f)).UNITS ?? []) for (const r of [...u.words, ...u.phrases]) otherTerms.set(r[0], f.split('/').pop())
 
@@ -36,8 +36,9 @@ for (const [ui, u] of (UNITS ?? []).entries()) {
   keys.add(u.key)
   if (!u.icon) fail(`${where}: icon 없음`)
   if (!HANGUL.test(u.title ?? '')) fail(`${where}: title 은 한국어`)
-  if ((u.words ?? []).length !== 25) fail(`${where}: 단어 ${(u.words ?? []).length}개 (25개)`)
-  if ((u.phrases ?? []).length !== 5) fail(`${where}: 문장 ${(u.phrases ?? []).length}개 (5개)`)
+  // 단원: 단어 1~25 (출처 목록을 25개씩 나눈 마지막 단원은 적을 수 있음) · 문장 0~5
+  if ((u.words ?? []).length < 1 || (u.words ?? []).length > 25) fail(`${where}: 단어 ${(u.words ?? []).length}개 (1~25개)`)
+  if ((u.phrases ?? []).length > 5) fail(`${where}: 문장 ${(u.phrases ?? []).length}개 (5개까지)`)
   const emoji = new Set()
   const meaning = new Set()
   for (const [kind, rows] of [['단어', u.words ?? []], ['문장', u.phrases ?? []]]) {
@@ -107,7 +108,7 @@ for (const [ui, u] of (UNITS ?? []).entries()) {
   }
 }
 for (const k of Object.keys(EX ?? {})) if (![...terms.keys()].includes(k)) fail(`예문 키 "${k}" 가 단어 목록에 없음`)
-if ((UNITS ?? []).length !== 12) fail(`단원 ${(UNITS ?? []).length}개 (12개)`)
+if (!(UNITS ?? []).length) fail('단원이 없음')
 if (errors) {
   console.error(`\n${errors}개 문제 · 경고 ${warns}`)
   process.exit(1)

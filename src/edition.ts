@@ -25,6 +25,8 @@ interface EdInfo {
   levelDesc: string[]
   /** 홈 레벨 버튼 아래 두 묶음 설명 */
   legend: [string, string]
+  /** 단어 출처 (설정 화면에 표시) */
+  sources: string[]
 }
 
 const TOEIC_SCORE = ['450', '600', '700', '800', '900+']
@@ -41,6 +43,7 @@ export const ED: Record<Edition, EdInfo> = {
     levelLabel: (n) => `${n}급`,
     levelDesc: [],
     legend: ['TOPIK I · 1–2', 'TOPIK II · 3–6'],
+    sources: [],
   },
   ja: {
     app: 'Chang Japanese',
@@ -51,14 +54,13 @@ export const ED: Record<Edition, EdInfo> = {
     tagline: '그림과 소리로 외우는 일본어 단어 · JLPT N5~N1',
     levels: 5,
     levelLabel: (n) => `N${6 - n}`,
-    levelDesc: [
-      'N5 입문 — 인사·숫자·음식·교통·기본 동사·형용사',
-      'N4 초급 — 생활·여행·병원·이사·감정·자주 쓰는 동사',
-      'N3 중급 — 일·돈·건강·관계·환경·매체 · 부사·가타카나어',
-      'N2 중상급 — 비즈니스·경제·정치·과학·의성어·의태어',
-      'N1 상급 — 정치·법·경영·추상어·논설 표현·관용구·사자성어',
-    ],
+    levelDesc: ['N5 입문 — JLPT N5 단어 전체 · 자주 쓰는 순', 'N4 초급 — JLPT N4 단어 전체 · 자주 쓰는 순', 'N3 중급 — JLPT N3 단어 전체 · 자주 쓰는 순', 'N2 — 준비 중', 'N1 — 준비 중'],
     legend: ['N5·N4 기초', 'N3~N1 중·상급'],
+    sources: [
+      '단어 목록: Jonathan Waller의 JLPT N5~N3 목록 (tanos.co.uk, CC BY) — open-anki-jlpt-decks 판 (MIT)',
+      '단원 순서: Jiten 빈도 목록 (jiten.moe, CC BY-SA 4.0) — 자주 쓰는 단어부터',
+      '뜻·예문: 앱에서 새로 씀 (초안 · 검수 중)',
+    ],
   },
   en: {
     app: 'Chang English',
@@ -70,13 +72,18 @@ export const ED: Record<Edition, EdInfo> = {
     levels: 5,
     levelLabel: (n) => TOEIC_SCORE[n - 1] ?? String(n),
     levelDesc: [
-      '450 입문 — 토익 기본 비즈니스·생활 단어',
-      '600 — 토익 핵심 단어 (Part 1~7 자주 나오는 말)',
-      '700 — 환급·일정·보증·규정 등 실무 단어',
-      '800 — 고득점 필수 (Part 5·7 어휘 문제)',
-      '900+ — 최상위 (격식 문서·동의어 바꿔 쓰기)',
+      '450 — 토익 빈출 TSL 1~250위 + 기본 NGSL 701~1,122위',
+      '600 — 토익 빈출 TSL 251~500위 + NGSL 1,123~1,544위',
+      '700 — 토익 빈출 TSL 501~750위 + NGSL 1,545~1,965위',
+      '800 — 토익 빈출 TSL 751~1,000위 + NGSL 1,966~2,387위',
+      '900+ — 토익 빈출 TSL 1,001~1,250위 + NGSL 2,388~2,809위',
     ],
     legend: ['450·600 기본', '700~900+ 고득점'],
+    sources: [
+      '단어 목록: TOEIC Service List 1.2 (토익 전용 1,250개) + New General Service List 1.2 701~2,809위 — Browne, Culligan & Phillips (CC BY-SA 4.0)',
+      '발음: CMU Pronouncing Dictionary (Carnegie Mellon University)',
+      '뜻·예문: 앱에서 새로 씀 (초안 · 검수 중) · 이 단어 데이터는 CC BY-SA 4.0',
+    ],
   },
 }
 

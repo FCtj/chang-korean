@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { PACKS, ROUNDS, translation, type Word } from '../data/words'
 import { SHOP } from '../data/shop'
-import { findCourse, topikTrack, type CourseId } from '../data/courses'
+import { TOPIK_TRACKS, findCourse, topikTrack, type CourseId } from '../data/courses'
 import { POINTS_ENABLED, WELCOME_POINTS } from '../config'
 import { finishIntro, setCourse, useStore, MIN_ANSWER_MS } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
@@ -291,7 +291,9 @@ export default function Intro() {
               // 일본어·영어판: 코스가 하나 → 추천 레벨에서 바로 시작
               if (!IS_KO) {
                 sfx.pop()
-                setCourse('topik', lv.topik ?? 1)
+                // 아직 단어가 없는 레벨(예: N2·N1)이면 단어가 있는 가장 높은 레벨로
+                const have = TOPIK_TRACKS.filter((t) => t.units.length).length || 1
+                setCourse('topik', Math.min(lv.topik ?? 1, have))
                 finishIntro(earned + WELCOME_POINTS)
                 return
               }

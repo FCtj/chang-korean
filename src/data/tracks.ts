@@ -179,7 +179,7 @@ const ED_TRACKS = (): Track[] =>
     const n = i + 1
     const id = `topik-${n}`
     const title = L1(levelName(n))
-    return { id, group: 'topik' as const, level: n, purpose: 'school' as const, icon: ED_ICON[i] ?? '📘', title, desc: L1(ED_INFO.levelDesc[i] ?? ''), units: lv.UNITS.map((u, j) => buildEdUnit(id, title, u, j)) }
+    return { id, group: 'topik' as const, level: n, purpose: 'school' as const, icon: ED_ICON[i] ?? '📘', title, desc: L1(`${ED_INFO.levelDesc[i] ?? ''} · ${lv.UNITS.reduce((a, u) => a + u.words.length, 0).toLocaleString()}단어`), units: lv.UNITS.map((u, j) => buildEdUnit(id, title, u, j)) }
   })
 
 export const TRACKS: Track[] = IS_KO ? KO_TRACKS() : ED_TRACKS()

@@ -245,6 +245,17 @@ export default function SettingsScreen() {
       </details>
       )}
 
+      {!IS_KO && (
+        <section className="panel form ed-sources">
+          <h2 className="h3">📚 단어 출처</h2>
+          <ul className="note">
+            {ED_INFO.sources.map((x) => (
+              <li key={x}>{x}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="panel form">
         <h2 className="h3">🔍 {t('reviewTitle')}</h2>
         <p className="note">{t('reviewIntro')}</p>

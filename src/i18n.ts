@@ -556,6 +556,8 @@ if (!IS_KO) {
   S.askKorean.ko = `알맞은 ${L}는?`
   F.topikLevel.ko = (n: number) => levelLabel(n)
   F.hi.ko = (n: string) => (n ? `안녕, ${n}!` : '안녕하세요!')
+  // 출처 단어 목록은 문장 없이 단어만
+  F.itemsCount.ko = (w: number, p: number) => (p ? `단어 ${w} · 문장 ${p}` : `단어 ${w}`)
 }
 
 export function makeT(ui: UiLang) {
