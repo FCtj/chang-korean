@@ -321,6 +321,14 @@ export const S_VI: Record<StrKey, string> = {
   meaningLabel: 'Nghĩa',
   exampleLabel: 'Câu ví dụ',
   exampleSoon: 'Đang chuẩn bị câu ví dụ',
+  myCourse: 'Khóa học của tôi',
+  changeCourse: 'Đổi khóa học',
+  otherCourses: 'Khóa học khác',
+  courseQ: 'Bạn muốn bắt đầu khóa nào?',
+  courseHint: 'Có thể đổi bất cứ lúc nào ở trang chủ. Kết quả học vẫn được giữ',
+  nowStudying: 'Đang học',
+  levelSoon: 'Đang chuẩn bị từ vựng cấp này. Sắp mở!',
+  courseDone: 'Bạn đã học xong khóa này 🎉 Thử khóa khác nhé',
 }
 
 export const F_VI: FnTable = {
@@ -387,4 +395,5 @@ export const F_VI: FnTable = {
   toReward: (name: string, n: number) => `Còn ${n.toLocaleString()}P để đổi ${name}`,
   mockBest: (n: number) => `Cao nhất ${n} điểm`,
   mockScore: (n: number) => `${n} điểm`,
+  topikLevel: (n: number) => `Cấp ${n}`,
 }

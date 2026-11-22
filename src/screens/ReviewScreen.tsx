@@ -19,7 +19,7 @@ export default function ReviewScreen() {
   const [lang, setLang] = useState<Native>(s.native)
   const groups = useMemo(
     () => [
-      ...TRACKS.map((tr) => ({ label: `${tr.icon} ${tr.title[ui]}`, units: tr.units })),
+      ...TRACKS.filter((tr) => tr.units.length).map((tr) => ({ label: `${tr.icon} ${tr.title[ui]}`, units: tr.units })),
       { label: `⚡ ${t('packsTitle')}`, units: PACKS },
       ...TIERS.map((tier) => ({ label: `${tier.badge} ${tf('tierN', tier.no)}`, units: tier.rounds })),
     ],

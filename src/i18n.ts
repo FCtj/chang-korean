@@ -333,6 +333,14 @@ const S = {
   meaningLabel: { ko: '뜻', lo: 'ຄວາມໝາຍ' },
   exampleLabel: { ko: '예문', lo: 'ຕົວຢ່າງປະໂຫຍກ' },
   exampleSoon: { ko: '예문을 준비하고 있어요', lo: 'ກຳລັງກະກຽມຕົວຢ່າງ' },
+  myCourse: { ko: '내 코스', lo: 'ຫຼັກສູດຂອງຂ້ອຍ' },
+  changeCourse: { ko: '코스 바꾸기', lo: 'ປ່ຽນຫຼັກສູດ' },
+  otherCourses: { ko: '다른 코스', lo: 'ຫຼັກສູດອື່ນ' },
+  courseQ: { ko: '어떤 코스로 시작할까요?', lo: 'ຈະເລີ່ມຮຽນຫຼັກສູດໃດ?' },
+  courseHint: { ko: '언제든 홈에서 바꿀 수 있어요. 공부한 기록은 그대로 남아요', lo: 'ປ່ຽນໄດ້ທຸກເວລາຢູ່ໜ້າຫຼັກ. ບັນທຶກການຮຽນຍັງຢູ່ຄືເກົ່າ' },
+  nowStudying: { ko: '공부 중', lo: 'ກຳລັງຮຽນ' },
+  levelSoon: { ko: '이 급은 단어를 준비하고 있어요. 곧 열려요!', lo: 'ກຳລັງກະກຽມຄຳສັບຂອງລະດັບນີ້. ອີກບໍ່ດົນຈະເປີດ!' },
+  courseDone: { ko: '이 코스를 다 끝냈어요 🎉 다른 코스도 해 봐요', lo: 'ຮຽນຫຼັກສູດນີ້ຈົບແລ້ວ 🎉 ລອງຫຼັກສູດອື່ນເບິ່ງ' },
 } satisfies Record<string, Str>
 
 const F = {
@@ -410,6 +418,7 @@ const F = {
   toReward: { ko: (name: string, n: number) => `${name}까지 ${n.toLocaleString()}P`, lo: (name: string, n: number) => `ອີກ ${n.toLocaleString()}P ຈະໄດ້ ${name}` },
   mockBest: { ko: (n: number) => `최고 ${n}점`, lo: (n: number) => `ສູງສຸດ ${n} ຄະແນນ` },
   mockScore: { ko: (n: number) => `${n}점`, lo: (n: number) => `${n} ຄະແນນ` },
+  topikLevel: { ko: (n: number) => `${n}급`, lo: (n: number) => `ລະດັບ ${n}` },
 } satisfies Record<string, Fn>
 
 /** 학습자 언어: 라오어·태국어가 중심, 베트남어는 베타 */

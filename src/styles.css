@@ -5607,3 +5607,307 @@ body {
 :root[data-theme='carbon'] .wh-ex-ko mark {
   background: rgba(62, 106, 225, 0.25);
 }
+
+/* ═════════ v0.18 코스 (내 코스 · 코스 바꾸기 · 다른 코스 · TOPIK 급) ═════════ */
+.course-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 24px;
+  border: 2px solid var(--line);
+  background: linear-gradient(135deg, var(--surface) 50%, var(--lilac-soft));
+  box-shadow: var(--pop);
+}
+.course-head-icon {
+  flex: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-emoji);
+  font-size: 1.8rem;
+  background: var(--pink-soft);
+}
+.course-head-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.course-head-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pink-deep);
+}
+.course-head-title {
+  font-family: var(--font-cute);
+  font-size: 1.12rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+.course-head-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.course-change {
+  flex: none;
+  align-self: center;
+  border: 2px solid var(--pink);
+  background: var(--surface);
+  color: var(--pink-deep);
+  font-family: var(--font-cute);
+  font-size: 0.82rem;
+  line-height: 1.15;
+  padding: 8px 10px;
+  border-radius: 14px;
+  max-width: 92px;
+  text-align: center;
+}
+.course-units {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 코스 고르기 카드 */
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.course-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 20px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--pop);
+}
+.course-card.on {
+  border-color: var(--pink);
+  background: linear-gradient(135deg, var(--surface) 45%, var(--pink-soft));
+}
+.course-icon {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-emoji);
+  font-size: 1.6rem;
+  background: var(--lilac-soft);
+}
+.course-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.course-title {
+  font-family: var(--font-cute);
+  font-size: 1.02rem;
+}
+.course-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.35;
+}
+.course-meta {
+  font-size: 0.74rem;
+  color: var(--pink-deep);
+  font-weight: 700;
+}
+.course-sheet {
+  max-height: 86dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.course-sheet .course-list {
+  padding-top: 6px;
+}
+.intro-course-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+}
+.intro-course .course-list {
+  padding-top: 6px;
+}
+
+/* 다른 코스 (가로로 넘기기) */
+.other-courses {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.other-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 2px 2px 8px;
+  margin: 0 calc(var(--gutter-r) * -1) 0 calc(var(--gutter-l) * -1);
+  padding-left: var(--gutter-l);
+  padding-right: var(--gutter-r);
+  scrollbar-width: none;
+}
+.other-row::-webkit-scrollbar {
+  display: none;
+}
+.other-card {
+  flex: none;
+  width: 132px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 18px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+  box-shadow: var(--pop);
+}
+.other-icon {
+  font-family: var(--font-emoji);
+  font-size: 1.6rem;
+}
+.other-title {
+  font-family: var(--font-cute);
+  font-size: 0.9rem;
+  line-height: 1.25;
+  min-height: 2.5em;
+}
+.other-card .pack-bar {
+  width: 100%;
+}
+
+/* TOPIK 급 고르기 */
+.topik-levels {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.topik-lv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 2px;
+  border-radius: 14px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 3px 0 var(--line);
+}
+.topik-lv.lv-i {
+  border-top: 4px solid var(--sky);
+}
+.topik-lv.lv-ii {
+  border-top: 4px solid var(--peach);
+}
+.topik-lv.on {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+  box-shadow: 0 3px 0 var(--pink-deep);
+}
+.topik-lv.soon {
+  opacity: 0.6;
+}
+.topik-lv-no {
+  font-family: var(--font-cute);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.topik-lv-sub {
+  font-size: 0.64rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.topik-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: -4px;
+}
+.topik-legend span::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 4px;
+  border-radius: 2px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+.topik-legend .lv-i::before {
+  background: var(--sky);
+}
+.topik-legend .lv-ii::before {
+  background: var(--peach);
+}
+
+/* 블랙(carbon) 테마 */
+:root[data-theme='carbon'] .course-head {
+  border-radius: 16px;
+  background: linear-gradient(135deg, #16181c 50%, rgba(62, 106, 225, 0.16));
+}
+:root[data-theme='carbon'] :is(.course-head-icon, .course-icon) {
+  border-radius: 12px;
+  background: #22262c;
+}
+:root[data-theme='carbon'] .course-change {
+  border-radius: 10px;
+  background: transparent;
+}
+:root[data-theme='carbon'] :is(.course-card, .other-card) {
+  border-radius: 14px;
+}
+:root[data-theme='carbon'] .course-card.on {
+  background: linear-gradient(135deg, #16181c 45%, rgba(62, 106, 225, 0.18));
+}
+:root[data-theme='carbon'] .topik-lv {
+  border-radius: 10px;
+}
+.course-head-title,
+.course-title,
+.course-desc,
+.other-title,
+.course-change,
+.course-head-meta {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.course-change {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  max-width: 84px;
+  padding: 7px 10px;
+  font-size: 0.8rem;
+}
+.course-change > span {
+  font-size: 1.05rem;
+  line-height: 1;
+}

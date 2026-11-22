@@ -1,11 +1,12 @@
-// 처음 30초 체험: 카드 3장 (뒤집기 → 외웠어요 → +10P) → 환영 선물 +100P → 포인트 교환소 미리보기
+// 처음 30초 체험: 카드 3장 (뒤집기 → 외웠어요 → +10P) → 환영 선물 +100P → 포인트 교환소 미리보기 → 코스 고르기
 // 포인트는 끝까지 마쳤을 때 한 번에 들어감 (중간에 나갔다 다시 해도 두 번 받지 않음)
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { PACKS, translation, type Word } from '../data/words'
 import { SHOP } from '../data/shop'
 import { WELCOME_POINTS } from '../config'
-import { finishIntro, useStore } from '../store'
+import { finishIntro, setCourse, useStore } from '../store'
+import CoursePicker from './CoursePicker'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
 import { backendReady, signInWithFacebook, useAuth } from '../backend'
@@ -24,7 +25,7 @@ export default function Intro() {
   }, [])
   const [i, setI] = useState(0)
   const [flipped, setFlipped] = useState(false)
-  const [stage, setStage] = useState<'cards' | 'gift' | 'shop'>('cards')
+  const [stage, setStage] = useState<'cards' | 'gift' | 'shop' | 'course'>('cards')
   const [earned, setEarned] = useState(0)
   const knowBtn = useRef<HTMLButtonElement>(null)
   const w = words[i]
@@ -79,6 +80,28 @@ export default function Intro() {
     )
   }
 
+  if (stage === 'course') {
+    return (
+      <div className="app">
+        <main className="intro intro-course">
+          <div className="intro-course-head">
+            <Elephant size={72} acc="grad" mood="happy" className="float" />
+            <h1 className="h1">{t('courseQ')}</h1>
+            <p className="note">{t('courseHint')}</p>
+          </div>
+          <CoursePicker
+            current={s.course}
+            onPick={(id) => {
+              sfx.pop()
+              setCourse(id)
+              finishIntro(earned + WELCOME_POINTS)
+            }}
+          />
+        </main>
+      </div>
+    )
+  }
+
   if (stage === 'shop') {
     return (
       <div className="app">
@@ -91,7 +114,7 @@ export default function Intro() {
             className="btn btn-pink btn-block btn-big"
             onClick={() => {
               sfx.pop()
-              finishIntro(earned + WELCOME_POINTS)
+              setStage('course')
             }}
           >
             📚 {t('startStudy')}

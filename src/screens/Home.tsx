@@ -1,13 +1,16 @@
+import { useState } from 'react'
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
-import { recommendedTracks, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
+import { courseUnits, currentCourse, setCourse, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
 import { Avatar, Elephant, Icon, ProgressBar, TIER_ACC, pastel, shuffle, useCountUp } from '../ui'
 import { backendReady, useAuth } from '../backend'
 import { GenderPicker } from './ProfileFields'
-import { TRACKS, type Track } from '../data/tracks'
+import { findTrack } from '../data/tracks'
+import { TOPIK_LEVELS, findCourse, topikTrack, type CourseId } from '../data/courses'
 import { nextShopItem } from '../data/shop'
 import { SIMPLE_MODE } from '../config'
-import type { ReactNode } from 'react'
+import UnitList, { MockCard, unitProgress } from './UnitList'
+import { CourseSheet, OtherCourses, courseProgress } from './CoursePicker'
 
 export default function Home() {
   const s = useStore()
@@ -15,8 +18,8 @@ export default function Home() {
   const tierNo = currentTierNo(s)
   const tier = TIERS.find((x) => x.no === tierNo)!
   const cur = nextUnit(s)
-  const recPacks = recommendedPacks(s)
-  const otherPacks = PACKS.filter((p) => !recPacks.includes(p))
+  const course = currentCourse(s)
+  const [sheet, setSheet] = useState(false)
   const stampedToday = s.stamps.includes(todayKey())
   const cardStamps = s.stamps.length % STAMPS_PER_TICKET
   const auth = useAuth()
@@ -68,7 +71,9 @@ export default function Home() {
         </section>
       )}
 
-      {!s.placementDone && (
+      <CourseHead onChange={() => setSheet(true)} />
+
+      {course === 'basic' && !s.placementDone && (
         <button className="level-card" onClick={() => push({ name: 'placement' })}>
           <Elephant size={56} acc="grad" />
           <span className="level-card-body">
@@ -90,13 +95,13 @@ export default function Home() {
             <span className="continue-deco" aria-hidden="true">{s.theme === 'carbon' ? '✦ ✦ ✦' : '✦ ♥ ✦'}</span>
             <span className="continue-top">
               <span className="continue-label">
-                {cur.pack ? `${t('packsTitle')} · ` : ''}
+                {cur.track ? `${findTrack(cur.track)?.title[ui] ?? ''} · ` : cur.pack ? `${t('packsTitle')} · ` : ''}
                 {tf('stepName', step)} · {tf('stepSize', sizes[step - 1])}
               </span>
               <span className="continue-stamp">{stampedToday ? `☕ ${t('todayDone')}` : `☕ ${t('todayTodo')}`}</span>
             </span>
             <span className="continue-title">
-              {cur.pack ? `${cur.pack.icon} ${cur.title[ui]}` : `${tf('roundN', cur.no)} · ${cur.title[ui]}`}
+              {cur.track ? `${cur.pack!.icon} ${tf('unitN', cur.no)} · ${cur.title[ui]}` : cur.pack ? `${cur.pack.icon} ${cur.title[ui]}` : `${tf('roundN', cur.no)} · ${cur.title[ui]}`}
             </span>
             <span className="continue-row">
               <span className="continue-emojis" aria-hidden="true">
@@ -115,64 +120,130 @@ export default function Home() {
           </button>
         )
       })()}
+      {!cur && courseUnits(s, course).length > 0 && <p className="panel center-panel">{t('courseDone')}</p>}
 
-      <MoreLearn>
-      {!SIMPLE_MODE && <div className="mini-stamps" aria-label={t('stampCard')}>
-        <span className="mini-stamps-label">☕ {t('stampCard')}</span>
-        <span className="num mini-stamps-count">
-          {cardStamps}/{STAMPS_PER_TICKET}
-        </span>
-        <span className="mini-cups" aria-hidden="true">
-          {Array.from({ length: STAMPS_PER_TICKET }, (_, i) => (
-            <span key={i} className={i < cardStamps ? 'cup on' : 'cup'}>
-              {i < cardStamps ? '☕' : ''}
-            </span>
-          ))}
-        </span>
-      </div>}
+      {course === 'basic' ? <BasicBody /> : course === 'topik' ? <TopikBody /> : <TrackBody id={course} />}
 
+      <OtherCourses />
+
+      {!SIMPLE_MODE && (
+        <div className="mini-stamps" aria-label={t('stampCard')}>
+          <span className="mini-stamps-label">☕ {t('stampCard')}</span>
+          <span className="num mini-stamps-count">
+            {cardStamps}/{STAMPS_PER_TICKET}
+          </span>
+          <span className="mini-cups" aria-hidden="true">
+            {Array.from({ length: STAMPS_PER_TICKET }, (_, i) => (
+              <span key={i} className={i < cardStamps ? 'cup on' : 'cup'}>
+                {i < cardStamps ? '☕' : ''}
+              </span>
+            ))}
+          </span>
+        </div>
+      )}
+      {SIMPLE_MODE && (
+        <button className="community-card" onClick={() => push({ name: 'community' })}>
+          <span aria-hidden="true">👥</span> {t('communityCard')} →
+        </button>
+      )}
+      {sheet && <CourseSheet onClose={() => setSheet(false)} />}
+    </div>
+  )
+}
+
+/** 내 코스: 지금 공부하는 코스 + 바꾸기 */
+function CourseHead({ onChange }: { onChange: () => void }) {
+  const s = useStore()
+  const { t, tf, ui } = useApp()
+  const id = currentCourse(s)
+  const c = findCourse(id)
+  const lv = topikTrack(s.topikLevel)
+  const { done, total } = id === 'topik' && lv ? { done: lv.units.filter((u) => stepsDone(s, u.id)).length, total: lv.units.length } : courseProgress(s, id)
+  return (
+    <section className="course-head">
+      <span className="course-head-icon" aria-hidden="true">
+        {c.icon}
+      </span>
+      <span className="course-head-body">
+        <span className="course-head-label">{t('myCourse')}</span>
+        <span className="course-head-title">{c.title[ui]}</span>
+        <span className="course-head-meta num">
+          {id === 'topik' ? `${tf('topikLevel', s.topikLevel)} · ` : ''}
+          {total ? tf('unitsDone', done, total) : t('comingSoon')}
+        </span>
+        <span className="pack-bar" aria-hidden="true">
+          <span style={{ width: `${total ? Math.round((done / total) * 100) : 0}%` }} />
+        </span>
+      </span>
+      <button className="course-change" onClick={onChange}>
+        <span aria-hidden="true">⇄</span> {t('changeCourse')}
+      </button>
+    </section>
+  )
+}
+
+/** 목적 트랙 코스 (일자리 · 식당 · 국적) */
+function TrackBody({ id }: { id: CourseId }) {
+  const { t } = useApp()
+  const track = findTrack(id)
+  if (!track) return null
+  return (
+    <section className="course-units">
+      {id === 'citizen' && <MockCard />}
+      {track.units.length ? <UnitList track={track} /> : <p className="panel center-panel">{t('levelSoon')}</p>}
+    </section>
+  )
+}
+
+/** TOPIK 코스: 1~6급 고르기 + 그 급의 단원 */
+function TopikBody() {
+  const s = useStore()
+  const { t, tf, ui } = useApp()
+  const track = topikTrack(s.topikLevel)
+  return (
+    <section className="course-units">
+      <div className="topik-levels" role="tablist" aria-label="TOPIK">
+        {TOPIK_LEVELS.map((n) => {
+          const tr = topikTrack(n)
+          const total = tr?.units.length ?? 0
+          const done = tr ? tr.units.filter((u) => stepsDone(s, u.id)).length : 0
+          const on = n === s.topikLevel
+          return (
+            <button key={n} role="tab" aria-selected={on} className={`topik-lv ${on ? 'on' : ''} ${total ? '' : 'soon'} ${n <= 2 ? 'lv-i' : 'lv-ii'}`} onClick={() => setCourse('topik', n)}>
+              <span className="topik-lv-no">{tf('topikLevel', n)}</span>
+              <span className="topik-lv-sub num">{total ? `${done}/${total}` : t('comingSoon')}</span>
+            </button>
+          )
+        })}
+      </div>
+      <div className="topik-legend" aria-hidden="true">
+        <span className="lv-i">TOPIK I · 1–2</span>
+        <span className="lv-ii">TOPIK II · 3–6</span>
+      </div>
+      {track && <p className="note">{track.desc[ui]}</p>}
+      {track?.units.length ? <UnitList track={track} /> : <p className="panel center-panel">{t('levelSoon')}</p>}
+    </section>
+  )
+}
+
+/** 기초 코스: 꼭 필요한 단어팩 + 1~5계급 */
+function BasicBody() {
+  const s = useStore()
+  const { t, tf, ui, push } = useApp()
+  const recPacks = recommendedPacks(s)
+  const packs = [...recPacks, ...PACKS.filter((p) => !recPacks.includes(p))]
+  return (
+    <>
       <section className="packs">
         <div className="packs-head">
           <h2 className="h3">⚡ {t('packsTitle')}</h2>
           <span className="note">{t('packsSub')}</span>
         </div>
         <div className="pack-grid">
-          {recPacks.map((p, i) => (
-            <PackCard key={p.id} pack={p} badge={i === 0 ? t('startFirst') : t('recommended')} />
+          {packs.map((p, i) => (
+            <PackCard key={p.id} pack={p} badge={i === 0 ? t('startFirst') : recPacks.includes(p) ? t('recommended') : undefined} />
           ))}
         </div>
-        {otherPacks.length > 0 && (
-          <details className="more-packs">
-            <summary>{t('morePacks')}</summary>
-            <div className="pack-grid">
-              {otherPacks.map((p) => (
-                <PackCard key={p.id} pack={p} />
-              ))}
-            </div>
-          </details>
-        )}
-      </section>
-
-      <section className="packs tracks">
-        <div className="packs-head">
-          <h2 className="h3">🎯 {t('tracksTitle')}</h2>
-          <span className="note">{t('tracksSub')}</span>
-        </div>
-        <div className="track-list">
-          {(recommendedTracks(s).length ? recommendedTracks(s) : TRACKS).map((tr) => (
-            <TrackCard key={tr.id} track={tr} />
-          ))}
-        </div>
-        {recommendedTracks(s).length > 0 && TRACKS.length > recommendedTracks(s).length && (
-          <details className="more-packs">
-            <summary>{t('moreTracks')}</summary>
-            <div className="track-list">
-              {TRACKS.filter((tr) => !recommendedTracks(s).includes(tr)).map((tr) => (
-                <TrackCard key={tr.id} track={tr} />
-              ))}
-            </div>
-          </details>
-        )}
       </section>
 
       <div className="path">
@@ -267,49 +338,7 @@ export default function Home() {
           )
         })}
       </div>
-      <button className="mock-card" onClick={() => push({ name: 'mock' })}>
-        <span className="mock-card-icon" aria-hidden="true">
-          🇰🇷
-        </span>
-        <span className="unit-body">
-          <span className="unit-title">
-            {t('pCitizen')} · {t('mockTitle')}
-          </span>
-          <span className="unit-meta">{t('mockDesc')}</span>
-          {s.bestMock > 0 && <span className="unit-no">{tf('mockBest', s.bestMock)}</span>}
-        </span>
-        <span className="pack-badge">{t('mockStart')}</span>
-      </button>
-      {SIMPLE_MODE && (
-        <button className="community-card" onClick={() => push({ name: 'community' })}>
-          <span aria-hidden="true">👥</span> {t('communityCard')} →
-        </button>
-      )}
-      </MoreLearn>
-    </div>
-  )
-}
-
-/** STEP 진행률 0~1 (STEP마다 전체 단어 수만큼 칸) */
-function unitProgress(s: ReturnType<typeof useStore>, r: Round): number {
-  const n = stepSizesOf(r).length
-  if (stepsDone(s, r.id)) return 1
-  const st = stepOf(s, r.id)
-  return ((st - 1) * r.words.length + stepKnownCount(s, r, st)) / (n * r.words.length)
-}
-
-/** 간단 모드: '더 배우기' 안에 단어팩·트랙·계급을 접어 둠 (아니면 그대로 펼침) */
-function MoreLearn({ children }: { children: ReactNode }) {
-  const { t } = useApp()
-  if (!SIMPLE_MODE) return <>{children}</>
-  return (
-    <details className="more-learn">
-      <summary>
-        <span className="more-learn-title">📚 {t('moreLearn')}</span>
-        <span className="more-learn-sub">{t('moreLearnSub')}</span>
-      </summary>
-      <div className="more-learn-body">{children}</div>
-    </details>
+    </>
   )
 }
 
@@ -331,31 +360,6 @@ function WalletCard() {
       </span>
       <span className="wallet-bar" aria-hidden="true">
         <span style={{ width: `${pct}%` }} />
-      </span>
-    </button>
-  )
-}
-
-function TrackCard({ track }: { track: Track }) {
-  const s = useStore()
-  const { tf, ui, push } = useApp()
-  const done = track.units.filter((u) => stepsDone(s, u.id)).length
-  const items = track.units.reduce((n, u) => n + u.words.length, 0)
-  const phrases = track.units.reduce((n, u) => n + u.words.filter((w) => w.kind === 'phrase').length, 0)
-  return (
-    <button className="track-card" onClick={() => push({ name: 'track', trackId: track.id })}>
-      <span className="track-icon" aria-hidden="true">
-        {track.icon}
-      </span>
-      <span className="track-body">
-        <span className="track-title">{track.title[ui]}</span>
-        <span className="track-desc">{track.desc[ui]}</span>
-        <span className="track-meta">
-          {tf('unitsDone', done, track.units.length)} · {tf('itemsCount', items - phrases, phrases)}
-        </span>
-        <span className="pack-bar" aria-hidden="true">
-          <span style={{ width: `${Math.round((done / track.units.length) * 100)}%` }} />
-        </span>
       </span>
     </button>
   )

@@ -320,6 +320,14 @@ export const S_TH: Record<StrKey, string> = {
   meaningLabel: 'ความหมาย',
   exampleLabel: 'ประโยคตัวอย่าง',
   exampleSoon: 'กำลังเตรียมประโยคตัวอย่าง',
+  myCourse: 'คอร์สของฉัน',
+  changeCourse: 'เปลี่ยนคอร์ส',
+  otherCourses: 'คอร์สอื่น',
+  courseQ: 'จะเริ่มเรียนคอร์สไหนดี?',
+  courseHint: 'เปลี่ยนได้ทุกเมื่อที่หน้าแรก บันทึกการเรียนยังอยู่ครบ',
+  nowStudying: 'กำลังเรียน',
+  levelSoon: 'กำลังเตรียมคำศัพท์ระดับนี้ เร็วๆ นี้!',
+  courseDone: 'เรียนคอร์สนี้จบแล้ว 🎉 ลองคอร์สอื่นดูนะ',
 }
 
 export const F_TH: FnTable = {
@@ -385,4 +393,5 @@ export const F_TH: FnTable = {
   toReward: (name: string, n: number) => `อีก ${n.toLocaleString()}P ได้ ${name}`,
   mockBest: (n: number) => `สูงสุด ${n} คะแนน`,
   mockScore: (n: number) => `${n} คะแนน`,
+  topikLevel: (n: number) => `ระดับ ${n}`,
 }

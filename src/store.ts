@@ -4,7 +4,8 @@ import { useSyncExternalStore } from 'react'
 import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, NATIVES, type Native, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
 import { DEMO_PEOPLE } from './data/friends'
-import { TRACKS, type Track } from './data/tracks'
+import { TRACKS, findTrack, type Track } from './data/tracks'
+import { COURSE_IDS, topikTrack, type CourseId } from './data/courses'
 
 export type Direction = 'ko2n' | 'n2ko' | 'mix'
 /** candy = 분홍 파스텔(기본, 여자 선택) · carbon = 묵직한 블랙(남자 선택) */
@@ -84,6 +85,10 @@ export interface State {
   activity: Record<string, DayActivity>
   /** 국적·영주 모의 평가 최고 점수 (100점 만점) */
   bestMock: number
+  /** 지금 공부하는 코스 (null = 아직 안 고름 → 목적으로 추정) */
+  course: CourseId | null
+  /** TOPIK 코스에서 보고 있는 급 (1~6) */
+  topikLevel: number
   /** 처음 30초 체험(+환영 포인트)을 마쳤는지 */
   introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
@@ -157,6 +162,8 @@ function initial(): State {
     activity: {},
     introDone: false,
     bestMock: 0,
+    course: null,
+    topikLevel: 1,
     profileConsent: null,
     totalPoints: 0,
   }
@@ -173,6 +180,9 @@ function load(): State {
       if (!Array.isArray(parsed.studyDays)) merged.studyDays = [...new Set([...(parsed.stamps ?? []), ...(parsed.lastStudyDay ? [parsed.lastStudyDay] : [])])].sort()
       // 체험이 생기기 전에 이미 시작한 사람은 체험을 건너뜀
       if (parsed.introDone === undefined) merged.introDone = !!parsed.started
+      // 코스·TOPIK 급은 아는 값만
+      if (merged.course !== null && !COURSE_IDS.includes(merged.course)) merged.course = null
+      if (!(merged.topikLevel >= 1 && merged.topikLevel <= 6)) merged.topikLevel = 1
       // 나라는 라오스 · 태국 · 베트남 · 기타만
       if (!['LA', 'TH', 'VN', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로
@@ -401,15 +411,29 @@ export function recommendedTracks(s: State): Track[] {
   return TRACKS.filter((t) => s.purposes.includes(t.purpose))
 }
 
-/** 이어서 할 것: 추천 단어팩 → 내 목적 트랙의 다음 단원 → 지금 회차 */
+/** 지금 코스: 고른 것 → 없으면 목적으로 추정 → 기초 */
+export function currentCourse(s: State): CourseId {
+  if (s.course) return s.course
+  const p = s.purposes
+  return p.includes('citizen') ? 'citizen' : p.includes('work') ? 'work' : p.includes('parttime') ? 'restaurant' : p.includes('school') ? 'topik' : 'basic'
+}
+
+export function setCourse(id: CourseId, topikLevel?: number) {
+  update((s) => ({ ...s, course: id, ...(topikLevel ? { topikLevel } : {}) }))
+}
+
+/** 코스 안의 단원들 (기초 = 추천 단어팩 + 회차) */
+export function courseUnits(s: State, id: CourseId = currentCourse(s)): Round[] {
+  if (id === 'basic') return [...recommendedPacks(s), ...ROUNDS]
+  if (id === 'topik') return topikTrack(s.topikLevel)?.units ?? []
+  return findTrack(id)?.units ?? []
+}
+
+/** 이어서 할 것: 지금 코스의 다음 단원 (기초는 추천 단어팩 → 지금 회차) */
 export function nextUnit(s: State): Round | null {
-  return (
-    recommendedPacks(s).find((p) => !stepsDone(s, p.id)) ??
-    recommendedTracks(s)
-      .flatMap((t) => t.units)
-      .find((u) => !stepsDone(s, u.id)) ??
-    currentRound(s)
-  )
+  const c = currentCourse(s)
+  if (c === 'basic') return recommendedPacks(s).find((p) => !stepsDone(s, p.id)) ?? currentRound(s)
+  return courseUnits(s, c).find((u) => !stepsDone(s, u.id)) ?? null
 }
 
 /** 지금 공부해야 할 회차 (열려 있고 아직 통과 못 한 첫 회차) */

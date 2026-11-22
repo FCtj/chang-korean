@@ -5,16 +5,45 @@ import { TRACK_RESTAURANT } from './track-restaurant.ts'
 import { TRACK_WORK_A } from './track-work-a.ts'
 import { TRACK_WORK_B } from './track-work-b.ts'
 import { TRACK_CITIZEN } from './track-citizen.ts'
+// 📝 TOPIK 1~6급: 급별 파일(track-topik-N.ts)이 들어오면 import 하고 TOPIK_UNITS 에 넣음
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 
 export interface TrackSource {
   id: string
+  /** TOPIK 급별 트랙은 'topik' 으로 묶어서 한 코스로 보여 줌 */
+  group?: 'topik'
+  level?: number
   purpose: Purpose
   icon: string
   title: TitleL10n
   desc: TitleL10n
   units: TrackUnitSrc[]
+}
+
+const TOPIK_UNITS: Record<number, TrackUnitSrc[]> = {}
+
+const TOPIK_DESC: Record<number, TitleL10n> = {
+  1: { ko: '생존 기초 — 인사·숫자·시간·장소·음식·쇼핑', lo: 'ຄຳສັບພື້ນຖານ — ທັກທາຍ·ຕົວເລກ·ເວລາ·ສະຖານທີ່·ອາຫານ·ຊື້ເຄື່ອງ', th: 'คำศัพท์พื้นฐาน — ทักทาย·ตัวเลข·เวลา·สถานที่·อาหาร·ช้อปปิ้ง', vi: 'Từ cơ bản — Chào hỏi·Số·Thời gian·Địa điểm·Ăn uống·Mua sắm' },
+  2: { ko: '일상생활 — 교통·공공장소·병원·여행·취미·약속', lo: 'ຊີວິດປະຈຳວັນ — ການເດີນທາງ·ສະຖານທີ່ສາທາລະນະ·ໂຮງໝໍ·ທ່ອງທ່ຽວ·ງານອະດິເລກ·ນັດໝາຍ', th: 'ชีวิตประจำวัน — การเดินทาง·สถานที่ราชการ·โรงพยาบาล·ท่องเที่ยว·งานอดิเรก·นัดหมาย', vi: 'Đời sống — Giao thông·Nơi công cộng·Bệnh viện·Du lịch·Sở thích·Hẹn gặp' },
+  3: { ko: '사회생활 — 직장·학업·주거·건강·인간관계·매체', lo: 'ຊີວິດໃນສັງຄົມ — ບ່ອນເຮັດວຽກ·ການຮຽນ·ທີ່ພັກ·ສຸຂະພາບ·ຄວາມສຳພັນ·ສື່', th: 'ชีวิตในสังคม — ที่ทำงาน·การเรียน·ที่พัก·สุขภาพ·ความสัมพันธ์·สื่อ', vi: 'Xã hội — Công sở·Học tập·Nhà ở·Sức khỏe·Quan hệ·Truyền thông' },
+  4: { ko: '뉴스·사회 — 사회 문제·환경·교육·경제·과학·관용 표현', lo: 'ຂ່າວ·ສັງຄົມ — ບັນຫາສັງຄົມ·ສິ່ງແວດລ້ອມ·ການສຶກສາ·ເສດຖະກິດ·ວິທະຍາສາດ·ສຳນວນ', th: 'ข่าว·สังคม — ปัญหาสังคม·สิ่งแวดล้อม·การศึกษา·เศรษฐกิจ·วิทยาศาสตร์·สำนวน', vi: 'Tin tức·Xã hội — Vấn đề xã hội·Môi trường·Giáo dục·Kinh tế·Khoa học·Thành ngữ' },
+  5: { ko: '전문 분야 — 정치·경제·과학·역사·철학·사자성어', lo: 'ສາຂາສະເພາະ — ການເມືອງ·ເສດຖະກິດ·ວິທະຍາສາດ·ປະຫວັດສາດ·ປັດຊະຍາ·ສຸພາສິດ', th: 'สาขาเฉพาะ — การเมือง·เศรษฐกิจ·วิทยาศาสตร์·ประวัติศาสตร์·ปรัชญา·สำนวนสี่คำ', vi: 'Chuyên ngành — Chính trị·Kinh tế·Khoa học·Lịch sử·Triết học·Thành ngữ Hán' },
+  6: { ko: '학술·논설 — 고급 추상어·논설 동사·관용어·속담', lo: 'ວິຊາການ·ບົດຄວາມ — ຄຳນາມທຳມະ·ຄຳກິລິຍາວິຊາການ·ສຳນວນ·ສຸພາສິດ', th: 'วิชาการ·บทความ — คำนามนามธรรม·กริยาเชิงวิชาการ·สำนวน·สุภาษิต', vi: 'Học thuật·Nghị luận — Danh từ trừu tượng·Động từ nghị luận·Quán ngữ·Tục ngữ' },
+}
+export const TOPIK_ICON = ['📘', '📘', '📗', '📗', '📕', '📕']
+
+function TOPIK_SOURCES(): TrackSource[] {
+  return [1, 2, 3, 4, 5, 6].map((n) => ({
+    id: `topik-${n}`,
+    group: 'topik' as const,
+    level: n,
+    purpose: 'school' as const,
+    icon: TOPIK_ICON[n - 1],
+    title: { ko: `TOPIK ${n}급`, lo: `TOPIK ລະດັບ ${n}`, th: `TOPIK ระดับ ${n}`, vi: `TOPIK cấp ${n}` },
+    desc: TOPIK_DESC[n],
+    units: TOPIK_UNITS[n] ?? [],
+  }))
 }
 
 export const TRACK_SOURCES: TrackSource[] = [
@@ -47,10 +76,13 @@ export const TRACK_SOURCES: TrackSource[] = [
       },
       units: TRACK_CITIZEN,
     },
+  ...TOPIK_SOURCES(),
 ]
 
 export interface Track {
   id: string
+  group?: 'topik'
+  level?: number
   purpose: Purpose
   icon: string
   title: TitleL10n
