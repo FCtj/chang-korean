@@ -287,6 +287,12 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
 
   const knownInBatch = batchWords.filter((w) => !isActive(w)).length
   const pendingWords = pending !== null ? batches[pending] : null
+  // 일시정지: 공부 중에는 「다시 보기」와 「외웠어요」 사이 (손이 가장 쉽게 닿는 곳), 복습에서는 아래 줄
+  const playBtn = (
+    <button className="play-btn sm" onClick={() => setPlaying((p) => !p)} aria-label={playing ? t('pause') : t('play')}>
+      <Icon name={playing ? 'pause' : 'play'} size={26} />
+    </button>
+  )
 
   return (
     <div className="screen">
@@ -417,23 +423,22 @@ export default function Player({ roundId, startChunk, review = false }: { roundI
         ) : null}
 
         {!review && (
-          <div className="act-row">
+          <div className="act-row with-play">
             <button className="btn btn-soft" onClick={() => word && advance()} disabled={!word || pending !== null}>
               <Icon name="repeat" size={18} /> {t('seeAgain')}
             </button>
+            {playBtn}
             <button ref={markBtn} className="btn btn-mint" onClick={() => word && mark(word, true)} disabled={!word || pending !== null}>
               <Icon name="check" size={20} /> {t('memorized')}
             </button>
           </div>
         )}
 
-        <div className="mini-ctrl">
+        <div className={review ? 'mini-ctrl' : 'mini-ctrl pager'}>
           <button className="round-btn sm" onClick={() => { setPhase('front'); setPos((i) => Math.max(0, i - 1)) }} disabled={pos === 0 || pending !== null} aria-label={t('prev')}>
             <Icon name="prev" size={22} />
           </button>
-          <button className="play-btn sm" onClick={() => setPlaying((p) => !p)} aria-label={playing ? t('pause') : t('play')}>
-            <Icon name={playing ? 'pause' : 'play'} size={26} />
-          </button>
+          {review && playBtn}
           <button className="round-btn sm" onClick={() => (pending !== null ? startBatch(pending) : advance())} aria-label={t('next')}>
             <Icon name="next" size={22} />
           </button>
