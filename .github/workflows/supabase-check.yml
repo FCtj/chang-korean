@@ -29,13 +29,13 @@ jobs:
           missing=0
           # 로그인 전(anon)에도 읽혀야 하는 테이블: profiles, point_events (랭킹) → 200 이어야 함
           # 나머지는 로그인한 사람만 → 로그인 전에는 "permission denied"(42501)가 정상 (테이블은 있음)
-          for t in profiles point_events progress groups group_members posts reactions; do
+          for t in profiles point_events progress groups group_members posts reactions daily_activity profile_private; do
             code=$(curl -s -o body.json -w '%{http_code}' --max-time 20 "$URL/rest/v1/$t?select=*&limit=0" -H "apikey: $KEY")
             case "$t" in profiles|point_events) public=1;; *) public=0;; esac
             if [ "$code" = "200" ]; then echo "✓ 테이블 $t"
             elif [ "$public" = "0" ] && grep -q '"42501"' body.json; then echo "✓ 테이블 $t (로그인한 사람만)"
             elif grep -q '"42501"' body.json; then echo "✗ 테이블 $t 권한 없음 → supabase/migrations/20261121160000_table_grants.sql 실행"; missing=1
-            else echo "✗ 테이블 $t (HTTP $code) $(head -c 200 body.json)"; missing=1; fi
+            else echo "✗ 테이블 $t (HTTP $code) $(head -c 200 body.json) → 새 migration SQL 실행 필요"; missing=1; fi
           done
           code=$(curl -s -o body.json -w '%{http_code}' --max-time 20 -X POST "$URL/rest/v1/rpc/get_leaderboard" -H "apikey: $KEY" -H 'Content-Type: application/json' -d '{"p_period":"month"}')
           if [ "$code" = "200" ]; then echo "✓ 랭킹 함수 get_leaderboard"; else echo "✗ 랭킹 함수 (HTTP $code) $(head -c 200 body.json)"; missing=1; fi
