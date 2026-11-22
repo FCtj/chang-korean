@@ -7498,3 +7498,20 @@ body {
 .privacy-more:not([open]) {
   gap: 0;
 }
+
+/* ═════════ 일본어판 · 영어판 (한국인이 배우는 판) ═════════ */
+:root[data-edition='ja'] {
+  --font-ko: 'Hiragino Maru Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', 'Meiryo', system-ui, sans-serif;
+}
+:root[data-edition='en'] {
+  --font-ko: 'Fredoka', 'Jua', system-ui, sans-serif;
+}
+/* 뜻(한국어)은 한국어 글꼴로 */
+:root[data-edition='ja'] .nf-lo,
+:root[data-edition='en'] .nf-lo {
+  font-family: 'Jua', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
+}
+.ed-pron {
+  font-family: system-ui, -apple-system, 'Hiragino Sans', 'Noto Sans JP', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  letter-spacing: 0;
+}

@@ -2,11 +2,14 @@
 // 1순위: 녹음 파일(public/audio/<id>.mp3, AUDIO_READY 목록)
 // 2순위: 안드로이드 앱 → 기기 TTS 엔진 (@capacitor-community/text-to-speech)
 //        웹 → 브라우저 음성 합성 (speechSynthesis)
+import { ED_INFO, IS_KO } from './edition'
 import { Capacitor } from '@capacitor/core'
 import { TextToSpeech } from '@capacitor-community/text-to-speech'
 import { AUDIO_READY, type Lang, type Word } from './data/words'
 
-const BCP47: Record<Lang, string> = { ko: 'ko-KR', lo: 'lo-LA', th: 'th-TH', vi: 'vi-VN', mn: 'mn-MN', ar: 'ar-LB' }
+const BCP47: Record<Lang, string> = IS_KO
+  ? { ko: 'ko-KR', lo: 'lo-LA', th: 'th-TH', vi: 'vi-VN', mn: 'mn-MN', ar: 'ar-LB' }
+  : { ko: ED_INFO.bcp47, lo: 'ko-KR', th: 'ko-KR', vi: 'ko-KR', mn: 'ko-KR', ar: 'ko-KR' }
 const native = Capacitor.isNativePlatform()
 
 let webVoices: SpeechSynthesisVoice[] = []
@@ -23,7 +26,7 @@ if (!native && typeof window !== 'undefined' && 'speechSynthesis' in window) {
 }
 
 function pickWebVoice(lang: Lang): SpeechSynthesisVoice | undefined {
-  const prefix = lang
+  const prefix = BCP47[lang].slice(0, 2).toLowerCase()
   const list = webVoices.filter((v) => v.lang.toLowerCase().replace('_', '-').startsWith(prefix))
   // 구글/네트워크 음성이 보통 더 자연스러움
   return list.find((v) => /google|natural|online/i.test(v.name)) ?? list[0]

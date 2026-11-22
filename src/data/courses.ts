@@ -1,12 +1,13 @@
 // 코스 = 홈에서 '지금 공부하는 것' 한 가지
 // 기초(단어팩 + 1~5계급) · TOPIK(1~6급) · 일·알바(EPS 단어집 · 일자리 · 식당 · 편의점·카페 · 호텔 · 마사지샵 · 가이드) · 국적·영주
 // 'work'·'restaurant' 는 예전 코스 값 (불러올 때 'job' + 그 트랙으로 바꿈)
+import { ED_INFO, IS_KO, LEVELS, levelLabel } from '../edition.ts'
 import { TRACKS, findTrack, type Track } from './tracks.ts'
 import type { TitleL10n } from './track-types.ts'
 import { withMn } from './tr-mn.ts'
 
 export type CourseId = 'basic' | 'topik' | 'job' | 'parenting' | 'citizen'
-export const COURSE_IDS: CourseId[] = ['basic', 'topik', 'job', 'parenting', 'citizen']
+export const COURSE_IDS: CourseId[] = IS_KO ? ['basic', 'topik', 'job', 'parenting', 'citizen'] : ['topik']
 
 export interface Course {
   id: CourseId
@@ -15,7 +16,7 @@ export interface Course {
   desc: TitleL10n
 }
 
-export const TOPIK_LEVELS = [1, 2, 3, 4, 5, 6]
+export const TOPIK_LEVELS = IS_KO ? [1, 2, 3, 4, 5, 6] : LEVELS
 export const topikTrack = (n: number): Track | undefined => findTrack(`topik-${n}`)
 export const TOPIK_TRACKS = TRACKS.filter((t) => t.group === 'topik')
 export const JOB_TRACKS = TRACKS.filter((t) => t.group === 'job')
@@ -51,8 +52,16 @@ function fromTrack(id: CourseId): Course {
   return { id, icon: t.icon, title: t.title, desc: t.desc }
 }
 
-export const COURSES: Course[] = [BASIC, TOPIK, JOB, fromTrack('parenting'), fromTrack('citizen')].map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
-export const findCourse = (id: CourseId): Course => COURSES.find((c) => c.id === id) ?? BASIC
+const L1 = (s: string): TitleL10n => ({ ko: s, lo: s, th: s, vi: s, mn: s, ar: s })
+/** 일본어·영어판: 시험 하나가 곧 코스 (TOPIK 자리) */
+const EXAM: Course = {
+  id: 'topik',
+  icon: ED_INFO.icon,
+  title: L1(`${ED_INFO.exam} ${levelLabel(1)}~${levelLabel(LEVELS.length)}`),
+  desc: L1(ED_INFO.lang === '일본어' ? '일본어능력시험 레벨별 핵심 단어 · 레벨마다 300단어 + 상황 문장' : '토익 목표 점수대별 핵심 단어 · 레벨마다 300단어 + 실전 문장'),
+}
+export const COURSES: Course[] = (IS_KO ? [BASIC, TOPIK, JOB, fromTrack('parenting'), fromTrack('citizen')] : [EXAM]).map((c) => ({ ...c, title: withMn(c.title), desc: withMn(c.desc) }))
+export const findCourse = (id: CourseId): Course => COURSES.find((c) => c.id === id) ?? COURSES[0]
 
 /** 일·알바 코스에서 지금 고른 트랙 */
 export const jobTrack = (id: string): Track | undefined => (isJobTrack(id) ? findTrack(id) : undefined)

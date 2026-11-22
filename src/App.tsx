@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { ED_INFO, EDITION, IS_KO } from './edition'
 import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
 import { makeT } from './i18n'
@@ -56,6 +57,8 @@ export default function App() {
     el.dir = ui === 'ar' ? 'rtl' : 'ltr'
     el.dataset.ui = ui
     el.dataset.native = s.native
+    el.dataset.edition = EDITION
+    if (!IS_KO) document.title = ED_INFO.app
   }, [ui, s.native])
 
   // 테마: candy(분홍) / carbon(블랙). 폰 상단 바 색도 같이
@@ -112,7 +115,7 @@ export default function App() {
   )
 
   // 주소 끝 #admin → 관리자 화면 (처음 쓰는 기기여도 시작 화면 없이 바로)
-  if (adminHash)
+  if (adminHash && IS_KO)
     return (
       <Ctx.Provider value={ctx}>
         <AdminScreen
@@ -194,7 +197,7 @@ export default function App() {
   else if (top.name === 'placement') screen = <Placement ui={ui} mode="retake" onBack={() => ctx.pop()} onDone={() => ctx.home('learn')} />
   else screen = <Quiz key={`${stack.length}-${top.kind}-${top.words.length}`} {...top} />
 
-  const showNews = top.name === 'tabs' && !!s.introDone && s.newsSeen !== NEWS_ID
+  const showNews = IS_KO && top.name === 'tabs' && !!s.introDone && s.newsSeen !== NEWS_ID
   return (
     <Ctx.Provider value={ctx}>
       <div className="app">{screen}</div>

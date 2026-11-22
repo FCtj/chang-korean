@@ -1,5 +1,6 @@
 // 학습 기록·점수·도장 저장 (기기 안 localStorage)
 // 서버를 붙이면 이 파일의 저장/불러오기 부분만 API 호출로 바꾸면 됩니다.
+import { EDITION, IS_KO, LEVELS } from './edition'
 import { useSyncExternalStore } from 'react'
 import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, NATIVES, type Native, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
@@ -128,7 +129,8 @@ export const MIN_ANSWER_MS = 1000 // 이보다 빨리 누른 답은 포인트 �
 export const MOCK_PASS = 60 // 모의 평가: 60점 이상일 때만, 하루 한 번
 export const STAMPS_PER_TICKET = 10
 
-const KEY = 'chang-korean:v2'
+// 판마다 따로 저장 (같은 주소 아래 /ja/ · /en/ 이 기록을 섞지 않게)
+const KEY = IS_KO ? 'chang-korean:v2' : `chang-${EDITION}:v1`
 
 export function todayKey(d = new Date()): string {
   const y = d.getFullYear()
@@ -159,7 +161,7 @@ const COUNTRY_OF: Record<Native, string> = { lo: 'LA', th: 'TH', vi: 'VN', mn: '
 function initial(): State {
   const day = todayKey()
   const native = guessNative()
-  return {
+  const base: State = {
     v: 5,
     started: false,
     placementDone: false,
@@ -209,6 +211,8 @@ function initial(): State {
     cheat: { correct: 0, fast: 0, hourCaps: 0 },
     totalPoints: 0,
   }
+  // 일본어·영어판: 화면·뜻은 한국어, 시작 화면(언어·나라 고르기) 없이 바로 체험 → 시험 코스
+  return IS_KO ? base : { ...base, started: true, ui: 'ko', native: 'lo', country: 'ZZ', course: 'topik', newsSeen: NEWS_ID }
 }
 
 function load(): State {
@@ -228,7 +232,7 @@ function load(): State {
       if (oldCourse === 'work' || oldCourse === 'restaurant') merged = { ...merged, course: 'job', jobTrack: oldCourse }
       if (!isJobTrack(merged.jobTrack ?? '')) merged.jobTrack = ''
       if (merged.course !== null && !COURSE_IDS.includes(merged.course)) merged.course = null
-      if (!(merged.topikLevel >= 1 && merged.topikLevel <= 6)) merged.topikLevel = 1
+      if (!(merged.topikLevel >= 1 && merged.topikLevel <= (IS_KO ? 6 : LEVELS.length))) merged.topikLevel = 1
       // 나라는 라오스 · 태국 · 베트남 · 몽골 · 레바논 · 기타만
       if (!['LA', 'TH', 'VN', 'MN', 'LB', 'ZZ'].includes(merged.country)) merged.country = 'ZZ'
       // v0.8 이전 기록(라오어만 있던 때)은 라오어로

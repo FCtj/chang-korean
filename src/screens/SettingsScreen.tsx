@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { ED_INFO, EDITION, IS_KO } from '../edition'
 import { MASCOT_EMOJI, mascotOf } from '../mascot'
 import { Capacitor } from '@capacitor/core'
 import type { Lang, Purpose } from '../data/words'
@@ -21,10 +22,12 @@ export default function SettingsScreen() {
   const [name, setName] = useState(s.nickname)
   const [voices, setVoices] = useState<Partial<Record<Lang, boolean | null>>>({})
   const me = nativeInfo(s.native)
-  const voiceLangs: { lang: Lang; name: string; sample: string }[] = [
-    { lang: 'ko', name: '한국어', sample: '안녕하세요' },
-    { lang: s.native, name: me.name, sample: me.hello },
-  ]
+  const voiceLangs: { lang: Lang; name: string; sample: string }[] = IS_KO
+    ? [
+        { lang: 'ko', name: '한국어', sample: '안녕하세요' },
+        { lang: s.native, name: me.name, sample: me.hello },
+      ]
+    : [{ lang: 'ko', name: ED_INFO.lang, sample: EDITION === 'ja' ? 'こんにちは' : 'Hello! Nice to meet you.' }]
   const [confirmReset, setConfirmReset] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [deletedMsg, setDeletedMsg] = useState(false)
@@ -52,12 +55,12 @@ export default function SettingsScreen() {
     <div className="page">
       <h1 className="h1">{t('tabSettings')}</h1>
 
-      <section className="panel form">
+      {IS_KO && <section className="panel form">
         <h2 className="h3">🌏 {t('myLang')}</h2>
         <NativePicker value={s.native} onChange={(n) => setLanguage(n)} />
         <p className="note">{t('myLangHint')}</p>
         {(s.native === 'vi' || (s.native === 'mn' && s.ui === 'mn')) && <p className="note beta-note">🧪 {t('viBetaNote')}</p>}
-      </section>
+      </section>}
 
       <section className="panel form">
         <h2 className="h3">{MASCOT_EMOJI[mascotOf(s.country)]} {t('account')}</h2>
@@ -87,7 +90,7 @@ export default function SettingsScreen() {
             🛠️ 관리자 · 사용 현황
           </button>
         )}
-        <div className="field">
+        {IS_KO && <div className="field">
           <span className="label">{t('country')}</span>
           <div className="country-chips" role="radiogroup" aria-label={t('country')}>
             {COUNTRIES.map((c) => (
@@ -96,7 +99,7 @@ export default function SettingsScreen() {
               </button>
             ))}
           </div>
-        </div>
+        </div>}
         {auth.status !== 'in' && (
           <div className="field">
             <span className="label">{t('photo')}</span>
@@ -130,7 +133,7 @@ export default function SettingsScreen() {
             onBlur={() => name.trim() && update((st) => ({ ...st, nickname: name.trim() }))}
           />
         </div>}
-        <div className="field">
+        {IS_KO && <div className="field">
           <span className="label">{t('uiLang')}</span>
           <Segmented<UiLang>
             name={t('uiLang')}
@@ -142,13 +145,15 @@ export default function SettingsScreen() {
               { id: 'ko', label: '🇰🇷 한국어' },
             ]}
           />
-        </div>
+        </div>}
       </section>
 
-      <section className="panel form">
-        <h2 className="h3">🎯 {t('myPurpose')}</h2>
-        <PurposePicker ui={s.ui} value={s.purposes} onChange={(purposes) => update((st) => ({ ...st, purposes }))} />
-      </section>
+      {IS_KO && (
+        <section className="panel form">
+          <h2 className="h3">🎯 {t('myPurpose')}</h2>
+          <PurposePicker ui={s.ui} value={s.purposes} onChange={(purposes) => update((st) => ({ ...st, purposes }))} />
+        </section>
+      )}
 
       <section className="panel form">
         <h2 className="h3">🔁 {t('study')}</h2>
@@ -164,8 +169,8 @@ export default function SettingsScreen() {
             value={s.settings.direction}
             onChange={(direction) => setSettings({ direction })}
             options={[
-              { id: 'ko2n', label: `${t('korean')} → ${t(me.key)}` },
-              { id: 'n2ko', label: `${t(me.key)} → ${t('korean')}` },
+              { id: 'ko2n', label: `${t('korean')} → ${IS_KO ? t(me.key) : '한국어'}` },
+              { id: 'n2ko', label: `${IS_KO ? t(me.key) : '한국어'} → ${t('korean')}` },
               { id: 'mix', label: t('dirMix') },
             ]}
           />
@@ -293,7 +298,7 @@ export default function SettingsScreen() {
         </a>
       </p>
       <p className="foot-note">
-        Chang Korean v0.17.0 (MVP) · {t('contentDraft')}
+        {ED_INFO.app} v0.17.0 (MVP) · {t('contentDraft')}
       </p>
     </div>
   )

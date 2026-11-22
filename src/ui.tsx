@@ -1,4 +1,6 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { IS_KO } from './edition'
+import { edPron } from './edpron'
 import { useApp } from './ctx'
 import { useStore } from './store'
 import { mascotOf, type MascotKind } from './mascot'
@@ -440,6 +442,13 @@ function CarbonMascot({ kind, size, acc, mood, dim, className, style }: { kind: 
 /** 한국어 발음을 학습자 글자로 (라오·태국·베트남식·몽골 키릴) — 영어 로마자 대신 */
 export function Pron({ ko, sm, block, lang }: { ko: string; sm?: boolean; block?: boolean; lang?: Native }) {
   const native = useStore().native
+  if (!IS_KO) {
+    // 일본어판: 가나 · 한글 발음 / 영어판: IPA
+    const ed = edPron(ko)
+    if (!ed) return null
+    const c = `rom-pill${sm ? ' sm' : ''} ed-pron`
+    return block ? <div className={c}>{ed}</div> : <span className={c}>{ed}</span>
+  }
   const n = lang ?? native
   const cls = `rom-pill${sm ? ' sm' : ''} nf-${n}`
   const text = localPron(ko, n)

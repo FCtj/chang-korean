@@ -1,4 +1,5 @@
 // '?' 설명 창: 단어 · 발음 · 뜻 + 예문(한국어 · 발음 · 내 언어) + 사용 팁
+import { IS_KO } from '../edition'
 import { useApp } from '../ctx'
 import { translation, type Word } from '../data/words'
 import { useExample } from '../examples'
@@ -60,7 +61,7 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
                     <Icon name="speaker" size={16} />
                   </button>
                 </div>
-                <span className={`wh-ex-rom nf-${n}`}>{localPron(entry.ex, n)}</span>
+                {IS_KO ? <span className={`wh-ex-rom nf-${n}`}>{localPron(entry.ex, n)}</span> : entry.rom ? <span className="wh-ex-rom ed-pron">{entry.rom}</span> : null}
                 <p className={`wh-ex-tr nf-${n}`}>{exTr}</p>
               </>
             ) : (

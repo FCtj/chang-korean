@@ -1,5 +1,7 @@
 // 단어 예문: src/data/ex-*.ts 를 있는 만큼 불러옴 (처음 '?' 를 누를 때 한 번)
 // 파일이 아직 없어도 앱은 그대로 동작 — 설명 창에 뜻만 보여 줌
+import { IS_KO } from './edition'
+import { ED_EXAMPLES } from './data/tracks'
 import { useEffect, useState } from 'react'
 import type { ExampleEntry, ExampleMap } from './data/example-types'
 
@@ -21,6 +23,8 @@ const merge = <T,>(mods: Record<string, unknown>[]) => {
 }
 
 export function loadExamples(): Promise<Loaded> {
+  // 일본어·영어판: 예문이 단어 데이터에 같이 있음
+  if (!IS_KO) cache ??= { map: ED_EXAMPLES, mn: {}, ar: {} }
   if (cache) return Promise.resolve(cache)
   if (!loading)
     loading = Promise.all([

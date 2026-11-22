@@ -2,6 +2,7 @@
 // 기본은 라오어. 태국어는 i18n-th.ts, 베트남어(베타)는 i18n-vi.ts.
 // 한국어는 운영자 확인용으로 설정에서 바꿀 수 있습니다.
 // ⚠️ 라오어·태국어·베트남어 문구는 초안입니다. 출시 전 원어민 검수가 필요합니다.
+import { ED_INFO, IS_KO, levelLabel, levelName } from './edition'
 import { S_TH, F_TH } from './i18n-th'
 import { S_VI, F_VI } from './i18n-vi'
 import type { Native } from './data/words'
@@ -541,6 +542,20 @@ const MORE: Partial<Record<'th' | 'vi' | 'mn' | 'ar', { s: Record<StrKey, string
   vi: { s: S_VI, f: F_VI },
   ...(MN_MOD ? { mn: { s: MN_MOD.S_MN, f: MN_MOD.F_MN } } : {}),
   ...(AR_MOD ? { ar: { s: AR_MOD.S_AR, f: AR_MOD.F_AR } } : {}),
+}
+
+// 일본어·영어판: '한국어' 가 들어간 화면 문구를 배울 말로 (화면은 한국어만)
+if (!IS_KO) {
+  const L = ED_INFO.lang
+  S.tagline.ko = ED_INFO.tagline
+  S.korean.ko = L
+  S.pickKorean.ko = `${L}를 고르세요`
+  S.beginner.ko = `${L}가 처음이에요`
+  S.testCover.ko = `${L} 실력 테스트`
+  S.testCoverNote.ko = `쉬운 단어부터 ${levelName(ED_INFO.levels)} 수준까지 점점 어려워져요. 몰라도 괜찮아요!`
+  S.askKorean.ko = `알맞은 ${L}는?`
+  F.topikLevel.ko = (n: number) => levelLabel(n)
+  F.hi.ko = (n: string) => (n ? `안녕, ${n}!` : '안녕하세요!')
 }
 
 export function makeT(ui: UiLang) {

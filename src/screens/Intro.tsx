@@ -2,6 +2,7 @@
 // 표지 → 문제 (문제 번호 · 진행 막대 · 20초 · 몰라요) → 결과 (점수 · 내 수준 · 정답 확인 · 추천 코스)
 // → 환영 선물 → 포인트 교환소 미리보기 → 코스 고르기 (추천 코스 표시)
 // 포인트(맞힌 문제 × 10 + 환영 선물)는 끝까지 마쳤을 때 한 번에 들어감
+import { EDITION, IS_KO, levelLabel, levelName } from '../edition'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useApp } from '../ctx'
 import { PACKS, ROUNDS, translation, type Word } from '../data/words'
@@ -27,12 +28,14 @@ interface Q {
 }
 type Answer = Word | 'idk' | 'timeout'
 
-const plain = (ws: Word[]) => ws.filter((w) => w.kind !== 'phrase' && w.ko.length <= 7 && !/[?!.]/.test(w.ko))
+const plain = (ws: Word[]) => ws.filter((w) => w.kind !== 'phrase' && w.ko.length <= (EDITION === 'en' ? 14 : 7) && !/[?!.。？]/.test(w.ko))
 const topikWords = (...lv: number[]) => plain(lv.flatMap((n) => topikTrack(n)?.units.flatMap((u) => u.words) ?? []))
 
 /** 난이도 4단계 × 2문제. 홀수 번째는 '뜻 고르기', 짝수 번째는 '한국어 고르기' */
 function makeTest(): Q[] {
-  const levels: Word[][] = [plain([...PACKS[0].words, ...ROUNDS.filter((r) => r.tier === 1).flatMap((r) => r.words)]), topikWords(1, 2), topikWords(3, 4), topikWords(5, 6)]
+  const levels: Word[][] = IS_KO
+    ? [plain([...PACKS[0].words, ...ROUNDS.filter((r) => r.tier === 1).flatMap((r) => r.words)]), topikWords(1, 2), topikWords(3, 4), topikWords(5, 6)]
+    : [topikWords(1), topikWords(2), topikWords(3), topikWords(4, 5)]
   const out: Q[] = []
   levels.forEach((pool, li) => {
     if (pool.length < 8) return
@@ -58,6 +61,7 @@ function makeTest(): Q[] {
 /** 맞힌 개수 → 수준 · 추천 코스 */
 function levelOf(right: number, total: number): { key: 'lvBeginner' | 'lvElementary' | 'lvIntermediate' | 'lvAdvanced'; course: CourseId; topik?: number } {
   const r = (right / Math.max(1, total)) * 8
+  if (!IS_KO) return r <= 2 ? { key: 'lvBeginner', course: 'topik', topik: 1 } : r <= 4 ? { key: 'lvElementary', course: 'topik', topik: 2 } : r <= 6 ? { key: 'lvIntermediate', course: 'topik', topik: 3 } : { key: 'lvAdvanced', course: 'topik', topik: 4 }
   if (r <= 2) return { key: 'lvBeginner', course: 'basic' }
   if (r <= 4) return { key: 'lvElementary', course: 'topik', topik: 1 }
   if (r <= 6) return { key: 'lvIntermediate', course: 'topik', topik: 3 }
@@ -144,7 +148,7 @@ export default function Intro() {
             {['🌱', '📘', '📗', '📕'].map((icon, i) => (
               <li key={i}>
                 <span className="test-step-icon">{icon}</span>
-                <span className="test-step-label">{i === 0 ? t('lvBeginner') : `TOPIK ${i * 2 - 1}–${i * 2}`}</span>
+                <span className="test-step-label">{!IS_KO ? (i < 3 ? levelLabel(i + 1) : `${levelLabel(4)}·${levelLabel(5)}`) : i === 0 ? t('lvBeginner') : `TOPIK ${i * 2 - 1}–${i * 2}`}</span>
               </li>
             ))}
           </ol>
@@ -255,7 +259,7 @@ export default function Intro() {
             <div className="test-card">
               <span className="test-card-label">{t('recCourse')}</span>
               <span className="test-card-value">
-                {course.icon} {lv.topik ? `TOPIK ${tf('topikLevel', lv.topik)}` : course.title[ui]}
+                {course.icon} {lv.topik ? (IS_KO ? `TOPIK ${tf('topikLevel', lv.topik)}` : levelName(lv.topik)) : course.title[ui]}
               </span>
             </div>
           </div>
@@ -281,7 +285,19 @@ export default function Intro() {
             </ol>
           </section>
           {POINTS_ENABLED && earned > 0 && <p className="center chip chip-butter num test-earned">⭐ {tf('plusP', earned)}</p>}
-          <button className="btn btn-pink btn-block btn-big" onClick={() => setStage(POINTS_ENABLED ? 'gift' : 'course')}>
+          <button
+            className="btn btn-pink btn-block btn-big"
+            onClick={() => {
+              // 일본어·영어판: 코스가 하나 → 추천 레벨에서 바로 시작
+              if (!IS_KO) {
+                sfx.pop()
+                setCourse('topik', lv.topik ?? 1)
+                finishIntro(earned + WELCOME_POINTS)
+                return
+              }
+              setStage(POINTS_ENABLED ? 'gift' : 'course')
+            }}
+          >
             {t('nextLabel')} →
           </button>
         </main>

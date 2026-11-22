@@ -28,6 +28,8 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build:single
+      # 일본어판(/ja/) · 영어판(/en/) — 한국인이 배우는 판
+      - run: npm run build:editions
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

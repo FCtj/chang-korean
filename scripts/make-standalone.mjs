@@ -4,6 +4,33 @@
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 
 const root = new URL('../', import.meta.url)
+
+// 일본어판·영어판: node scripts/make-standalone.mjs ja|en → dist-web/ja/index.html · dist-web/en/index.html
+const ED = process.argv[2]
+if (ED === 'ja' || ED === 'en') {
+  const info = {
+    ja: { app: 'Chang Japanese', emoji: '🗻', desc: '그림과 소리로 외우는 일본어 단어 · JLPT N5~N1 레벨별 핵심 단어' },
+    en: { app: 'Chang English', emoji: '💼', desc: '그림과 소리로 외우는 영어 단어 · TOEIC 450~900+ 점수대별 핵심 단어' },
+  }[ED]
+  let page = readFileSync(new URL(`dist-single-${ED}/index.html`, root), 'utf8')
+  const juaFont = readFileSync(new URL('node_modules/@fontsource/jua/files/jua-korean-400-normal.woff2', root)).toString('base64')
+  const head = `
+    <meta name="description" content="${info.desc}" />
+    <meta property="og:title" content="${info.app} ${info.emoji}" />
+    <meta property="og:description" content="${info.desc}" />
+    <meta property="og:type" content="website" />
+    <style>@font-face{font-family:'Jua';font-style:normal;font-weight:400;font-display:swap;src:url(data:font/woff2;base64,${juaFont}) format('woff2')}</style>`
+  if (!page.includes('<title>Chang Korean</title>')) throw new Error(`dist-single-${ED}/index.html 형식이 예상과 다릅니다`)
+  page = page.replace('<title>Chang Korean</title>', `<title>${info.app}</title>${head}`).replace('<html lang="ko"', `<html lang="${ED}"`)
+  mkdirSync(new URL(`dist-web/${ED}/`, root), { recursive: true })
+  writeFileSync(new URL(`dist-web/${ED}/index.html`, root), page)
+  const id = (page.match(/<meta name="ck-build" content="([^"]+)"/) ?? [])[1]
+  if (!id) throw new Error('빌드 번호(ck-build)가 없음')
+  writeFileSync(new URL(`dist-web/${ED}/version.json`, root), JSON.stringify({ build: id }) + '\n')
+  console.log(`✓ dist-web/${ED}/index.html (${(page.length / 1024).toFixed(0)} KB) · version.json (${id})`)
+  process.exit(0)
+}
+
 let html = readFileSync(new URL('dist-single/index.html', root), 'utf8')
 
 // 한 파일 빌드에서는 빠져 있는 한글 글꼴(Jua)을 직접 넣음

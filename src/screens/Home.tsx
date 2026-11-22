@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ED_INFO, IS_KO } from '../edition'
 import { TIERS, PACKS, PROMO_QUESTIONS, type Round } from '../data/words'
 import { useApp } from '../ctx'
 import { courseUnits, currentCourse, currentJobTrack, setCourse, unitPassed, update, currentTierNo, isPromoOpen, isQuizOpen, isRoundOpen, isStepKnown, isTierOpen, nextUnit, recommendedPacks, stepKnownCount, stepOf, stepSizesOf, stepsDone, todayKey, useStore, STAMPS_PER_TICKET } from '../store'
@@ -42,10 +43,10 @@ export default function Home() {
         </span>
         <div className="home-head-text">
           <div className="home-hi">{tf('hi', s.nickname)}</div>
-          <div className="tier-tag">
+          {IS_KO && <div className="tier-tag">
             <RankAnimal tier={tier.no} size={24} className="tier-tag-animal" />
             {tf('tierN', tier.no)} · {tierName(tier, mascot)![ui]}
-          </div>
+          </div>}
         </div>
         <div className="pills">
           {POINTS_ENABLED && <span className={bump ? 'pill pill-butter num bump' : 'pill pill-butter num'}>⭐ {pts.toLocaleString()}</span>}
@@ -131,7 +132,7 @@ export default function Home() {
 
       {course === 'basic' ? <BasicBody /> : course === 'topik' ? <TopikBody /> : course === 'job' ? <JobBody /> : <TrackBody id={course} />}
 
-      <OtherCourses />
+      {IS_KO && <OtherCourses />}
 
       {!SIMPLE_MODE && POINTS_ENABLED && (
         <div className="mini-stamps" aria-label={t('stampCard')}>
@@ -182,9 +183,11 @@ function CourseHead({ onChange }: { onChange: () => void }) {
           <span style={{ width: `${total ? Math.round((done / total) * 100) : 0}%` }} />
         </span>
       </span>
-      <button className="course-change" onClick={onChange}>
-        <span aria-hidden="true">⇄</span> {t('changeCourse')}
-      </button>
+      {IS_KO && (
+        <button className="course-change" onClick={onChange}>
+          <span aria-hidden="true">⇄</span> {t('changeCourse')}
+        </button>
+      )}
     </section>
   )
 }
@@ -256,8 +259,8 @@ function TopikBody() {
         })}
       </div>
       <div className="topik-legend" aria-hidden="true">
-        <span className="lv-i">TOPIK I · 1–2</span>
-        <span className="lv-ii">TOPIK II · 3–6</span>
+        <span className="lv-i">{IS_KO ? 'TOPIK I · 1–2' : ED_INFO.legend[0]}</span>
+        <span className="lv-ii">{IS_KO ? 'TOPIK II · 3–6' : ED_INFO.legend[1]}</span>
       </div>
       {track && <p className="note">{track.desc[ui]}</p>}
       {track?.units.length ? <UnitList track={track} /> : <p className="panel center-panel">{t('levelSoon')}</p>}

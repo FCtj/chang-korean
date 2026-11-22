@@ -1,6 +1,9 @@
 node_modules/
 dist/
 dist-single/
+dist-single-*/
+dist-ja/
+dist-en/
 *.log
 .DS_Store
 

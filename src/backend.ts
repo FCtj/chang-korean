@@ -1,6 +1,7 @@
 // 서버 연결 (Supabase): Facebook 로그인 · 프로필 · 학습 기록 동기화 · 점수 · 랭킹(실시간)
 // 빌드할 때 VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY 가 없으면 서버 없이(예시 랭킹) 동작합니다.
 // 설정 방법: docs/backend-setup.md
+import { IS_KO } from './edition'
 import { useSyncExternalStore } from 'react'
 import { createClient, type Session, type SupabaseClient } from '@supabase/supabase-js'
 import { Capacitor } from '@capacitor/core'
@@ -31,7 +32,7 @@ const KEY = isPublicKey(envKey) ? envKey : SUPABASE_PUBLISHABLE_KEY
 const native = Capacitor.isNativePlatform()
 
 /** 서버 설정이 들어 있는지 */
-export const backendReady = isUrl(URL_) && isPublicKey(KEY)
+export const backendReady = IS_KO && isUrl(URL_) && isPublicKey(KEY)
 
 export const supabase: SupabaseClient | null = backendReady
   ? createClient(URL_!, KEY!, {

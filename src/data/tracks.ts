@@ -1,6 +1,10 @@
 // 목적별 트랙: 단원(단어 25 + 상황 문장) 여러 개를 한 목적으로 묶음
 // 원본: track-restaurant.ts (🍜 한국 식당·가게 알바), track-work-a/b.ts (🏭 한국 일자리)
 // ⚠️ 라오어·태국어·베트남어는 초안 — 원어민 검수 필요
+import { ED_LEVELS } from './edition-data.ts'
+import type { EdUnit } from './edition-types.ts'
+import { ED_INFO, IS_KO, levelName } from '../edition.ts'
+import type { ExampleEntry } from './example-types.ts'
 import { TRACK_RESTAURANT } from './track-restaurant.ts'
 import { TRACK_WORK_A } from './track-work-a.ts'
 import { TRACK_WORK_B } from './track-work-b.ts'
@@ -146,5 +150,45 @@ function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
   return { id, tier: 0, no: i + 1, title: withMn(u.title), words, pack: { icon: u.icon, purpose: t.purpose, desc: withMn(t.title) }, track: t.id }
 }
 
-export const TRACKS: Track[] = TRACK_SOURCES.map((t) => ({ ...t, title: withMn(t.title), desc: withMn(t.desc), units: t.units.map((u, i) => buildUnit(t, u, i)) }))
+const KO_TRACKS = (): Track[] => TRACK_SOURCES.map((t) => ({ ...t, title: withMn(t.title), desc: withMn(t.desc), units: t.units.map((u, i) => buildUnit(t, u, i)) }))
+
+// ───────── 일본어·영어판: 시험 레벨(JLPT N5…N1 · TOEIC 450…900+) = topik-1…5 ─────────
+// 뜻은 한국어 하나 → 학습자 언어 칸(lo·th·vi·mn·ar)에 모두 넣어서 화면 코드를 그대로 씀
+const L1 = (s: string): TitleL10n => ({ ko: s, lo: s, th: s, vi: s, mn: s, ar: s })
+const ED_ICON = ['🌱', '📘', '📗', '📙', '📕']
+function buildEdUnit(trackId: string, trackTitle: TitleL10n, u: EdUnit, i: number): Round {
+  const id = `t-${trackId}-${u.key}`
+  const rows = [...u.words.map((r) => ({ r, phrase: false })), ...u.phrases.map((r) => ({ r, phrase: true }))]
+  const words: Word[] = rows.map(({ r, phrase }, j) => ({
+    id: `${id}-${String(j + 1).padStart(2, '0')}`,
+    ko: r[0],
+    rom: r[1],
+    lo: r[2],
+    th: r[2],
+    vi: r[2],
+    mn: r[2],
+    ar: r[2],
+    emoji: r[3],
+    roundId: id,
+    ...(phrase ? { kind: 'phrase' as const } : {}),
+  }))
+  return { id, tier: 0, no: i + 1, title: L1(u.title), words, pack: { icon: u.icon, purpose: 'school', desc: trackTitle }, track: trackId }
+}
+const ED_TRACKS = (): Track[] =>
+  ED_LEVELS.map((lv, i) => {
+    const n = i + 1
+    const id = `topik-${n}`
+    const title = L1(levelName(n))
+    return { id, group: 'topik' as const, level: n, purpose: 'school' as const, icon: ED_ICON[i] ?? '📘', title, desc: L1(ED_INFO.levelDesc[i] ?? ''), units: lv.UNITS.map((u, j) => buildEdUnit(id, title, u, j)) }
+  })
+
+export const TRACKS: Track[] = IS_KO ? KO_TRACKS() : ED_TRACKS()
+/** 일본어·영어판: 말 → 읽기 (가나 · IPA) */
+export const ED_READING: Record<string, string> = Object.fromEntries(ED_LEVELS.flatMap((lv) => lv.UNITS.flatMap((u) => [...u.words, ...u.phrases].map((r) => [r[0], r[1]]))))
+/** 일본어·영어판: 문장 카드 */
+export const ED_PHRASES = new Set(ED_LEVELS.flatMap((lv) => lv.UNITS.flatMap((u) => u.phrases.map((r) => r[0]))))
+/** 일본어·영어판 예문 (한국어 번역을 학습자 언어 칸 모두에) */
+export const ED_EXAMPLES: Record<string, ExampleEntry> = Object.fromEntries(
+  ED_LEVELS.flatMap((lv) => Object.entries(lv.EX).map(([k, e]) => [k, { ex: e.ex, rom: e.rom, lo: e.ko, th: e.ko, vi: e.ko, mn: e.ko, ar: e.ko }])),
+)
 export const findTrack = (id: string) => TRACKS.find((t) => t.id === id)
