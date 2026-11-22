@@ -381,7 +381,7 @@ export const EX_TOPIK_1: ExampleMap = {
     },
   },
   '시청': { ex: '시청 앞에서 만나요.', rom: 'sicheong apeseo mannayo.', lo: 'ພົບກັນຢູ່ໜ້າຫ້ອງການປົກຄອງເມືອງເດີ້.', th: 'เจอกันหน้าศาลาว่าการเมืองนะ', vi: 'Gặp nhau trước tòa thị chính nhé.', mn: 'Хотын захиргааны өмнө уулзъя.' },
-  '주민 센터': { ex: '이사하면 주민 센터에 가야 해요.', rom: 'isahamyeon jumin senteoe gaya haeyo.', lo: 'ຖ້າຍ້າຍເຮືອນ ຕ້ອງໄປສູນບໍລິການປະຊາຊົນ.', th: 'ถ้าย้ายบ้านต้องไปศูนย์บริการประชาชน', vi: 'Nếu chuyển nhà thì phải đến ủy ban phường.', mn: 'Нүүсэн бол иргэдэд үйлчлэх төвд очих хэрэгтэй.' },
+  '행정복지센터': { ex: '이사하면 행정복지센터에 가야 해요.', rom: 'isahamyeon jumin senteoe gaya haeyo.', lo: 'ຖ້າຍ້າຍເຮືອນ ຕ້ອງໄປສູນບໍລິການປະຊາຊົນ.', th: 'ถ้าย้ายบ้านต้องไปศูนย์บริการประชาชน', vi: 'Nếu chuyển nhà thì phải đến ủy ban phường.', mn: 'Нүүсэн бол иргэдэд үйлчлэх төвд очих хэрэгтэй.' },
   '환전하다': { ex: '공항에서 돈을 환전했어요.', rom: 'gonghangeseo doneul hwanjeonhaesseoyo.', lo: 'ຂ້ອຍແລກເງິນຢູ່ສະໜາມບິນ.', th: 'ฉันแลกเงินที่สนามบิน', vi: 'Tôi đã đổi tiền ở sân bay.', mn: 'Би нисэх онгоцны буудал дээр мөнгө сольсон.' },
   '송금하다': { ex: '매달 고향에 돈을 송금해요.', rom: 'maedal gohyange doneul songgeumhaeyo.', lo: 'ທຸກເດືອນຂ້ອຍໂອນເງິນກັບບ້ານ.', th: 'ทุกเดือนฉันโอนเงินกลับบ้าน', vi: 'Hằng tháng tôi chuyển tiền về quê.', mn: 'Би сар бүр нутаг руугаа мөнгө шилжүүлдэг.' },
   '외국인 등록증': { ex: '외국인 등록증을 보여 주세요.', rom: 'oegugin deungnokjeungeul boyeo juseyo.', lo: 'ກະລຸນາສະແດງບັດຄົນຕ່າງປະເທດ.', th: 'กรุณาแสดงบัตรประจำตัวคนต่างชาติ', vi: 'Vui lòng cho xem thẻ cư trú người nước ngoài.', mn: 'Гадаад иргэний үнэмлэхээ үзүүлнэ үү.' },

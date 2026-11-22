@@ -38,7 +38,7 @@ export const TRACK_EPS_B: TrackUnitSrc[] = [
       ['이 부품을 여기에 끼우세요.', 'i bupumeul yeogie kkiuseyo.', 'ສຽບຊິ້ນສ່ວນນີ້ໃສ່ບ່ອນນີ້', 'เสียบชิ้นส่วนนี้ตรงนี้', 'Lắp linh kiện này vào đây.', '👇'],
       ['작업 전에 기계를 점검하세요.', 'jageop jeone gigyereul jeomgeomhaseyo.', 'ກ່ອນເຮັດວຽກ ໃຫ້ກວດເຄື່ອງຈັກກ່ອນ', 'ก่อนทำงานให้ตรวจเช็กเครื่องจักรก่อน', 'Kiểm tra máy trước khi làm việc.', '📋'],
       ['작동 중에는 덮개를 열지 마세요.', 'jakdong jungeneun deopgaereul yeolji maseyo.', 'ຕອນເຄື່ອງເຮັດວຽກຢູ່ ຢ່າເປີດຝາ', 'ระหว่างเครื่องทำงานห้ามเปิดฝาครอบ', 'Không được mở nắp khi máy đang chạy.', '🚫'],
-      ['다 포장하면 팔레트에 적재하세요.', 'da pojanghamyeon palleteue jeokjaehaseyo.', 'ຫໍ່ແລ້ວ ໃຫ້ວາງຊ້ອນໃສ່ພາເລດ', 'แพ็กเสร็จแล้วให้เรียงขึ้นพาเลท', 'Đóng gói xong thì xếp lên pallet.', '✅'],
+      ['다 포장하면 팰릿에 적재하세요.', 'da pojanghamyeon paellise jeokjaehaseyo.', 'ຫໍ່ແລ້ວ ໃຫ້ວາງຊ້ອນໃສ່ພາເລດ', 'แพ็กเสร็จแล้วให้เรียงขึ้นพาเลท', 'Đóng gói xong thì xếp lên pallet.', '✅'],
     ],
   },
   {
@@ -69,7 +69,7 @@ export const TRACK_EPS_B: TrackUnitSrc[] = [
       ['집게', 'jipge', 'ທີ່ໜີບ', 'ที่หนีบ', 'cái kẹp', '🗜️'],
       ['사다리', 'sadari', 'ຂັ້ນໄດ', 'บันได', 'cái thang', '🪜'],
       ['손수레', 'sonsure', 'ລໍ້ຍູ້', 'รถเข็น', 'xe đẩy tay', '🛒'],
-      ['팔레트', 'palleteu', 'ພາເລດ', 'พาเลท', 'pallet', '🟫'],
+      ['팰릿', 'paellit', 'ພາເລດ', 'พาเลท', 'pallet', '🟫'],
       ['지게차', 'jigecha', 'ລົດຍົກ', 'รถยก (โฟล์คลิฟท์)', 'xe nâng', '🚜'],
     ],
     phrases: [

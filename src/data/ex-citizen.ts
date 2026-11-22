@@ -1087,7 +1087,7 @@ export const EX_CITIZEN: ExampleMap = {
     vi: 'Tôi đến Hàn Quốc với tư cách là người nhập cư kết hôn.',
   },
   '출입국': {
-    ex: '출입국 사무소에서 비자를 연장했어요.',
+    ex: '출입국·외국인사무소에서 비자를 연장했어요.',
     rom: 'churipguk samusoeseo bijareul yeonjanghaesseoyo.',
     lo: 'ຂ້ອຍຕໍ່ວີຊາຢູ່ຫ້ອງການກວດຄົນເຂົ້າ-ອອກເມືອງ',
     th: 'ฉันต่อวีซ่าที่สำนักงานตรวจคนเข้าเมือง',

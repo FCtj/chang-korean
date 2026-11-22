@@ -856,7 +856,7 @@ export const EX_BASIC_3: ExampleMap = {
       vi: '진짜? dùng với bạn bè; lịch sự hơn: 진짜요? hoặc 정말요?',
     },
   },
-  '화이팅': { ex: '시험 잘 봐요, 화이팅!', rom: 'siheom jal bwayo, hwaiting!', lo: 'ສອບເສັງໃຫ້ດີເດີ້, ສູ້ໆ!', th: 'สอบให้ดีนะ สู้ ๆ', vi: 'Thi tốt nhé, cố lên!' },
+  '파이팅': { ex: '시험 잘 봐요, 파이팅!', rom: 'siheom jal bwayo, hwaiting!', lo: 'ສອບເສັງໃຫ້ດີເດີ້, ສູ້ໆ!', th: 'สอบให้ดีนะ สู้ ๆ', vi: 'Thi tốt nhé, cố lên!' },
   '행복해요': { ex: '가족과 함께 있어서 행복해요.', rom: 'gajokgwa hamkke isseoseo haengbokaeyo.', lo: 'ຂ້ອຍມີຄວາມສຸກທີ່ໄດ້ຢູ່ກັບຄອບຄົວ.', th: 'ฉันมีความสุขที่ได้อยู่กับครอบครัว', vi: 'Tôi hạnh phúc vì được ở bên gia đình.' },
   '남자친구': { ex: '남자친구가 꽃을 줬어요.', rom: 'namjachinguga kkocheul jwosseoyo.', lo: 'ແຟນຊາຍໃຫ້ດອກໄມ້ຂ້ອຍ.', th: 'แฟนหนุ่มให้ดอกไม้ฉัน', vi: 'Bạn trai tặng hoa cho tôi.' },
   '여자친구': { ex: '여자친구와 영화를 봤어요.', rom: 'yeojachinguwa yeonghwareul bwasseoyo.', lo: 'ຂ້ອຍໄປເບິ່ງໜັງກັບແຟນສາວ.', th: 'ฉันดูหนังกับแฟนสาว', vi: 'Tôi đã đi xem phim với bạn gái.' },

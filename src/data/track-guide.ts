@@ -153,7 +153,7 @@ export const TRACK_GUIDE: TrackUnitSrc[] = [
       ['체험', 'cheheom', 'ການລອງເຮັດເອງ', 'การลองทำเอง', 'trải nghiệm', '✨'],
       ['액티비티', 'aektibiti', 'ກິດຈະກຳ', 'กิจกรรม', 'hoạt động vui chơi', '🎯'],
       ['튜빙', 'tyubing', 'ລ່ອງຢາງ', 'ล่องห่วงยาง', 'thả phao trôi sông', '🛟'],
-      ['짚라인', 'jimnain', 'ຊິບໄລນ໌', 'ซิปไลน์', 'đu dây zipline', '🧗'],
+      ['집라인', 'jimnain', 'ຊິບໄລນ໌', 'ซิปไลน์', 'đu dây zipline', '🧗'],
       ['카약', 'kayak', 'ເຮືອຄາຢັກ', 'เรือคายัค', 'chèo thuyền kayak', '🛶'],
       ['열기구', 'yeolgigu', 'ບານລູນອາກາດຮ້ອນ', 'บอลลูนลมร้อน', 'khinh khí cầu', '🎈'],
       ['승마', 'seungma', 'ການຂີ່ມ້າ', 'การขี่ม้า', 'cưỡi ngựa', '🐎'],
@@ -179,7 +179,7 @@ export const TRACK_GUIDE: TrackUnitSrc[] = [
     phrases: [
       ['구명조끼를 꼭 입으세요.', 'gumyeongjokkireul kkok ibeuseyo.', 'ຕ້ອງໃສ່ເສື້ອຊູຊີບທຸກຄັ້ງ', 'ต้องใส่เสื้อชูชีพทุกครั้ง', 'Nhất định phải mặc áo phao.', '❗'],
       ['강사님 말씀을 잘 들으세요.', 'gangsanim malsseumeul jal deureuseyo.', 'ຟັງຄູຝຶກໃຫ້ດີ', 'ฟังครูฝึกให้ดี', 'Hãy nghe kỹ lời huấn luyện viên.', '👂'],
-      ['수영 못 하시는 분 계세요?', 'suyeong mot hasineun bun gyeseyo?', 'ມີໃຜລອຍນ້ຳບໍ່ເປັນບໍ່?', 'มีใครว่ายน้ำไม่เป็นไหม?', 'Có ai không biết bơi không ạ?', '🙋'],
+      ['수영 못하시는 분 계세요?', 'suyeong motasineun bun gyeseyo?', 'ມີໃຜລອຍນ້ຳບໍ່ເປັນບໍ່?', 'มีใครว่ายน้ำไม่เป็นไหม?', 'Có ai không biết bơi không ạ?', '🙋'],
       ['물에 젖을 수 있으니까 갈아입을 옷을 챙기세요.', 'mure jeojeul su isseunikka garaibeul oseul chaenggiseyo.', 'ອາດຈະປຽກນ້ຳ ໃຫ້ເອົາເຄື່ອງນຸ່ງໄປປ່ຽນນຳ', 'อาจเปียกน้ำ ให้เตรียมเสื้อผ้าเปลี่ยนไปด้วย', 'Có thể bị ướt nên hãy mang theo quần áo để thay.', '💧'],
       ['휴대폰은 방수 팩에 넣으세요.', 'hyudaeponeun bangsu paege neoeuseyo.', 'ໃສ່ໂທລະສັບໄວ້ໃນຖົງກັນນ້ຳ', 'ใส่มือถือไว้ในซองกันน้ำ', 'Hãy cho điện thoại vào túi chống nước.', '📱'],
       ['헬멧 끈을 꽉 조여 주세요.', 'helmet kkeuneul kkwak joyeo juseyo.', 'ຮັດສາຍໝວກກັນກະທົບໃຫ້ແໜ້ນ', 'รัดสายหมวกกันน็อกให้แน่น', 'Xin thắt chặt dây mũ bảo hiểm.', '🔗'],

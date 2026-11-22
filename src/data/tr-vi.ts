@@ -954,7 +954,7 @@ export const VI: Record<string, string> = {
   '예뻐요': 'đẹp quá',
   '대박': 'đỉnh quá',
   '진짜?': 'thật á?',
-  '화이팅': 'cố lên',
+  '파이팅': 'cố lên',
   '행복해요': 'hạnh phúc quá',
   '남자친구': 'bạn trai',
   '여자친구': 'bạn gái',
