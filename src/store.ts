@@ -96,6 +96,11 @@ export interface State {
   unitDayPts: Record<string, number>
   /** 모의 평가 포인트를 받은 날 */
   mockDay: string
+  /** 지금 1시간 (날짜-시) 과 그동안 받은 학습 포인트 */
+  hourKey: string
+  hourPoints: number
+  /** 치팅 의심 신호 (오늘): 맞힌 수 · 그중 1초 안에 누른 수 · 1시간 상한에 닿은 횟수 — 교환 전 서버 심사용 */
+  signals: { day: string; correct: number; fast: number; hourCaps: number }
   /** 처음 30초 체험(+환영 포인트)을 마쳤는지 */
   introDone: boolean
   /** 성별·내 언어를 서버에 저장하는 데 동의했는지 (null = 아직 안 물어봄) */
@@ -105,7 +110,8 @@ export interface State {
 
 // ───────── 포인트 규칙 (docs/points-plan: 공부를 '증명'했을 때만) ─────────
 // 카드 넘기기·외웠어요 = 0P (진도만) · 연습 문제는 첫 번에, 1초 넘게 생각하고 맞힐 때만
-export const DAILY_CAP = 100 // 하루 최대 학습 포인트 (시험 보너스는 따로, 한 번씩만)
+export const DAILY_CAP = 300 // 하루 최대 학습 포인트 (공부 벌레도 충분히 · 시험 보너스는 따로, 한 번씩만)
+export const HOURLY_CAP = 60 // 1시간 최대 — 사람이 정상 속도로는 넘기 어려움. 자주 닿으면 의심 신호
 export const EXAM_BONUS = 30 // 졸업시험: 단원마다 처음 통과 한 번
 export const PROMO_BONUS = 100 // 승급시험: 계급마다 처음 통과 한 번
 export const PRACTICE_POINT = 1 // 연습 문제 첫 번 정답
@@ -185,6 +191,9 @@ function initial(): State {
     newsSeen: '',
     unitDayPts: {},
     mockDay: '',
+    hourKey: '',
+    hourPoints: 0,
+    signals: { day: '', correct: 0, fast: 0, hourCaps: 0 },
     profileConsent: null,
     totalPoints: 0,
   }
@@ -251,9 +260,17 @@ function persist() {
 persist() // 이전 버전 기록을 바꿨으면 바로 저장
 
 /** 날짜·달이 바뀌었으면 일일 점수 / 월간 점수·도장 초기화 */
+// function 선언(호이스팅): 아래 rollover 가 파일을 불러올 때(load) 바로 쓰기 때문
+function hourKeyNow(): string {
+  return `${todayKey()}-${new Date().getHours()}`
+}
+
 function rollover(s: State): State {
   const day = todayKey()
   let next = s
+  const hk = hourKeyNow()
+  if (next.hourKey !== hk) next = { ...next, hourKey: hk, hourPoints: 0 }
+  if (next.signals?.day !== day) next = { ...next, signals: { day, correct: 0, fast: 0, hourCaps: 0 } }
   if (next.dayKey !== day) next = { ...next, dayKey: day, dayPoints: 0, unitDayPts: {} }
   if (next.monthKey !== monthOf(day)) next = { ...next, monthKey: monthOf(day), monthPoints: 0, stamps: [] }
   return next
@@ -607,12 +624,32 @@ export function learningRecord(s: State) {
 
 function addCapped(base: number): number {
   const s = rollover(state)
-  const pts = Math.min(base, Math.max(0, DAILY_CAP - s.dayPoints))
-  if (pts > 0) {
-    update((st) => markStudyDay({ ...st, dayPoints: st.dayPoints + pts, monthPoints: st.monthPoints + pts, totalPoints: st.totalPoints + pts }))
-    report('study', null, pts)
+  const room = Math.max(0, Math.min(DAILY_CAP - s.dayPoints, HOURLY_CAP - s.hourPoints))
+  const pts = Math.min(base, room)
+  // 이번 1시간 상한에 처음 닿는 순간 = 의심 신호 하나
+  const hitHour = s.hourPoints < HOURLY_CAP && s.hourPoints + pts >= HOURLY_CAP
+  if (pts > 0 || hitHour) {
+    update((st) => {
+      const r = rollover(st)
+      return markStudyDay({
+        ...r,
+        dayPoints: r.dayPoints + pts,
+        hourPoints: r.hourPoints + pts,
+        monthPoints: r.monthPoints + pts,
+        totalPoints: r.totalPoints + pts,
+        ...(hitHour ? { signals: { ...r.signals, hourCaps: r.signals.hourCaps + 1 } } : {}),
+      })
+    })
+    if (pts > 0) report('study', null, pts)
   }
   return pts
+}
+
+/** 지금 포인트를 더 못 받는 이유: 하루 상한 / 1시간 상한 / 없음 */
+export function capState(s: State = rollover(state)): 'day' | 'hour' | null {
+  if (s.dayPoints >= DAILY_CAP) return 'day'
+  if (s.hourKey === hourKeyNow() && s.hourPoints >= HOURLY_CAP) return 'hour'
+  return null
 }
 
 /** 묶음을 한 번 다 본 것을 기록하고 점수(본 단어 수만큼, 하루 상한 있음)를 줌 */
@@ -646,7 +683,13 @@ export function recordMock(correct: number, total: number): { score: number; poi
 
 /** 연습 문제 정답 포인트: 첫 번에 · 1초 넘게 생각하고 맞혔을 때만, 같은 단원은 하루 10P까지 */
 export function awardPractice(roundId: string, answerMs: number, firstTry: boolean): number {
-  if (!firstTry || answerMs < MIN_ANSWER_MS) return 0
+  // 의심 신호: 맞힌 수와 그중 너무 빨리 누른 수
+  const fast = answerMs < MIN_ANSWER_MS
+  update((st) => {
+    const r = rollover(st)
+    return { ...r, signals: { ...r.signals, correct: r.signals.correct + 1, fast: r.signals.fast + (fast ? 1 : 0) } }
+  })
+  if (!firstTry || fast) return 0
   const s = rollover(state)
   if ((s.unitDayPts[roundId] ?? 0) >= PRACTICE_UNIT_DAY) return 0
   const pts = addCapped(PRACTICE_POINT)

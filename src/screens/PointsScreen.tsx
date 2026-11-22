@@ -1,7 +1,7 @@
 // 포인트 탭 (간단 모드): 내 포인트 · 교환소(오픈 예정) · 최근 교환 내역(테스트 예시) · 모으는 법
 import { useApp } from '../ctx'
 import { backendReady, signInWithFacebook, useAuth } from '../backend'
-import { DAILY_CAP, DAILY_DONE_BONUS, EXAM_BONUS, PRACTICE_POINT, PROMO_BONUS, useStore } from '../store'
+import { DAILY_CAP, DAILY_DONE_BONUS, EXAM_BONUS, HOURLY_CAP, PRACTICE_POINT, PROMO_BONUS, useStore } from '../store'
 import { nextShopItem } from '../data/shop'
 import { ShopGrid } from './Intro'
 import RecentRewards from './RecentRewards'
@@ -63,6 +63,9 @@ export default function PointsScreen() {
           </li>
           <li>
             <span aria-hidden="true">⏱️</span> {t('earnCap')} <b className="num">{DAILY_CAP}P</b>
+          </li>
+          <li>
+            <span aria-hidden="true">⏳</span> {t('earnHourCap')} <b className="num">{HOURLY_CAP}P</b>
           </li>
         </ul>
         <p className="note">🛡️ {t('earnFair')}</p>

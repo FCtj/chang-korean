@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react'
 import { translation, type Word } from '../data/words'
 import { useApp, type QuizKind } from '../ctx'
 import { demoAutoAchievement } from '../community'
-import { awardPractice, completeSession, getState, recordAnswer, recordExam, recordPromo, DAILY_CAP, type Direction } from '../store'
+import { awardPractice, capState, completeSession, getState, recordAnswer, recordExam, recordPromo, type Direction } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { useStudyClock } from '../activity'
 import WordHelp from './WordHelp'
@@ -53,7 +53,7 @@ interface Result {
   bonus: number
   stamp: boolean
   passed: boolean
-  capHit: boolean
+  capHit: 'day' | 'hour' | null
 }
 
 export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[]; roundId?: string; tierNo?: number; label: string }) {
@@ -68,7 +68,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
   const [picked, setPicked] = useState<Word | 'timeout' | null>(null)
   const [wrongIds, setWrongIds] = useState<string[]>([])
   const [earned, setEarned] = useState(0)
-  const [capHit, setCapHit] = useState(false)
+  const [capHit, setCapHit] = useState<'day' | 'hour' | null>(null)
   const [result, setResult] = useState<Result | null>(null)
   const q = queue[pos]
   // 문제가 보인 시각 (너무 빨리 누른 답은 포인트 없음)
@@ -121,7 +121,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
       setEarned((e) => e + pts)
       burstFrom(el, { count: 12 })
       if (pts > 0) floatFrom(el, `+${pts} ⭐`)
-      if (pts === 0 && getState().dayPoints >= DAILY_CAP) setCapHit(true)
+      if (pts === 0) setCapHit(capState())
       if (q.type === 'n2k' && settings.autoSpeak) speakWord(q.word)
       autoNext.current = setTimeout(next, q.type === 'n2k' && settings.autoSpeak ? 1500 : 900)
     } else {
@@ -174,7 +174,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
         sparkleRain(isTest ? 34 : 18)
       }, 200)
     }
-    setResult({ firstTry, total, wrong, earned: 0, bonus, stamp, passed, capHit: getState().dayPoints >= DAILY_CAP })
+    setResult({ firstTry, total, wrong, earned: 0, bonus, stamp, passed, capHit: capState() })
   }
 
   if (result) {
@@ -288,7 +288,7 @@ export default function Quiz(props: { kind: QuizKind; words: Word[]; pool: Word[
             )}
           </div>
         )}
-        {capHit && <p className="note">{t('dailyCap')}</p>}
+        {capHit && <p className="note">{t(capHit === 'hour' ? 'hourCap' : 'dailyCap')}</p>}
       </div>
     </div>
   )
@@ -341,7 +341,7 @@ function ResultView({
           {r.bonus > 0 && <span className="chip chip-butter num">🎁 {tf('earned', r.bonus)}</span>}
           {r.stamp && <span className="chip chip-mint">☕ {t('stampGot')}</span>}
         </div>
-        {r.capHit && <p className="note">{t('dailyCap')}</p>}
+        {r.capHit && <p className="note">{t(r.capHit === 'hour' ? 'hourCap' : 'dailyCap')}</p>}
 
         {r.wrong.length > 0 && (
           <section className="panel">

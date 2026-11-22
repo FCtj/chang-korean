@@ -104,6 +104,8 @@ export const S_VI: Record<StrKey, string> = {
   stickers: 'Sổ sticker từ vựng',
   stickersDesc: 'Từ nào bấm “Đã nhớ” thì sticker sẽ được tô màu',
   dailyCap: 'Hôm nay bạn đã nhận đủ điểm rồi. Mai gặp lại nhé!',
+  hourCap: 'Bạn đã nhận đủ điểm trong giờ này. Nghỉ một chút rồi học tiếp nhé!',
+  earnHourCap: 'Tối đa mỗi giờ',
   uiLang: 'Ngôn ngữ giao diện',
   study: 'Cài đặt học',
   voice: 'Giọng phát âm',
