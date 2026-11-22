@@ -22,4 +22,6 @@ export interface TrackUnitSrc {
   title: TitleL10n
   words: TRow[]
   phrases: TRow[]
+  /** 검수로 나중에 더한 단어·문장 — 맨 뒤에 붙여서 기존 단어 번호(학습 기록)가 밀리지 않게 */
+  added?: { row: TRow; phrase?: boolean }[]
 }

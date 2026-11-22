@@ -26,7 +26,7 @@ function checkUnits(trackName, units) {
     if (!u.icon?.trim()) fail(`${where}: 아이콘 없음`)
     if ((u.words?.length ?? 0) < 20) fail(`${where}: 단어 ${u.words?.length ?? 0}개 (20개 이상)`)
     if ((u.phrases?.length ?? 0) < 5) fail(`${where}: 문장 ${u.phrases?.length ?? 0}개 (5개 이상)`)
-    const rows = [...(u.words ?? []).map((r) => ['단어', r]), ...(u.phrases ?? []).map((r) => ['문장', r])]
+    const rows = [...(u.words ?? []).map((r) => ['단어', r]), ...(u.phrases ?? []).map((r) => ['문장', r]), ...(u.added ?? []).map((a) => [a.phrase ? '문장' : '단어', a.row])]
     const uniq = { ko: new Map(), lo: new Map(), th: new Map(), vi: new Map(), emoji: new Map() }
     for (const [kind, r] of rows) {
       if (!Array.isArray(r) || r.length !== 6) {
@@ -47,8 +47,8 @@ function checkUnits(trackName, units) {
       if (seenKo.has(ko) && seenKo.get(ko) !== u.key) fail(`${trackName}: 한국어 "${ko}" 가 ${seenKo.get(ko)} 와 ${u.key} 에 모두 있음`)
       seenKo.set(ko, u.key)
     }
-    words += u.words?.length ?? 0
-    phrases += u.phrases?.length ?? 0
+    words += (u.words?.length ?? 0) + (u.added ?? []).filter((a) => !a.phrase).length
+    phrases += (u.phrases?.length ?? 0) + (u.added ?? []).filter((a) => a.phrase).length
   }
   return { words, phrases, units: units.length }
 }
@@ -78,7 +78,7 @@ if (arg) {
   const topikSeen = new Map()
   for (const t of TRACK_SOURCES.filter((x) => x.group === 'topik'))
     for (const u of t.units)
-      for (const r of u.words) {
+      for (const r of [...u.words, ...(u.added ?? []).filter((x) => !x.phrase).map((x) => x.row)]) {
         if (topikSeen.has(r[0])) fail(`TOPIK: "${r[0]}" 가 ${topikSeen.get(r[0])} 와 ${t.id}/${u.key} 에 모두 있음`)
         else topikSeen.set(r[0], `${t.id}/${u.key}`)
       }

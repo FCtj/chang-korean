@@ -129,7 +129,7 @@ export interface Track {
 
 function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
   const id = `t-${t.id}-${u.key}`
-  const rows = [...u.words.map((r) => ({ r, phrase: false })), ...u.phrases.map((r) => ({ r, phrase: true }))]
+  const rows = [...u.words.map((r) => ({ r, phrase: false })), ...u.phrases.map((r) => ({ r, phrase: true })), ...(u.added ?? []).map((a) => ({ r: a.row, phrase: !!a.phrase }))]
   const words: Word[] = rows.map(({ r, phrase }, j) => withFix({
     id: `${id}-${String(j + 1).padStart(2, '0')}`,
     ko: r[0],
