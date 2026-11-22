@@ -14,7 +14,7 @@ const fail = (m) => {
 const ARABIC = /[\u0600-\u06FF]/
 const HANGUL = /[가-힣]/
 function checkValue(name, ko, v) {
-  const texts = typeof v === 'string' ? [v] : v && typeof v === 'object' ? [v.mn, ...(v.tip !== undefined ? [v.tip] : [])] : [v]
+  const texts = typeof v === 'string' ? [v] : v && typeof v === 'object' ? [v.ar, ...(v.tip !== undefined ? [v.tip] : [])] : [v]
   for (const x of texts) {
     if (typeof x !== 'string' || !x.trim()) fail(`${name}: "${ko}" 비어 있음`)
     else {
