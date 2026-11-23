@@ -1,0 +1,15401 @@
+[
+{
+"w": "ache",
+"mark": "",
+"forms": [
+"headache"
+]
+},
+{
+"w": "afford",
+"mark": "**",
+"forms": []
+},
+{
+"w": "achieve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "afraid",
+"mark": "*",
+"forms": []
+},
+{
+"w": "acid",
+"mark": "",
+"forms": []
+},
+{
+"w": "after",
+"mark": "*",
+"forms": []
+},
+{
+"w": "a",
+"mark": "*",
+"forms": [
+"an"
+]
+},
+{
+"w": "acknowledge",
+"mark": "",
+"forms": []
+},
+{
+"w": "afternoon",
+"mark": "*",
+"forms": []
+},
+{
+"w": "abandon",
+"mark": "",
+"forms": []
+},
+{
+"w": "acquire",
+"mark": "",
+"forms": []
+},
+{
+"w": "again",
+"mark": "*",
+"forms": []
+},
+{
+"w": "able",
+"mark": "**",
+"forms": [
+"disabled"
+]
+},
+{
+"w": "acquisition",
+"mark": "",
+"forms": []
+},
+{
+"w": "against",
+"mark": "*",
+"forms": []
+},
+{
+"w": "aboard",
+"mark": "",
+"forms": []
+},
+{
+"w": "across",
+"mark": "*",
+"forms": []
+},
+{
+"w": "age",
+"mark": "*",
+"forms": []
+},
+{
+"w": "abort",
+"mark": "",
+"forms": [
+"abortion"
+]
+},
+{
+"w": "act",
+"mark": "*",
+"forms": [
+"actual",
+"interact"
+]
+},
+{
+"w": "agency",
+"mark": "",
+"forms": []
+},
+{
+"w": "abound",
+"mark": "",
+"forms": [
+"abundant"
+]
+},
+{
+"w": "adapt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "agenda",
+"mark": "",
+"forms": []
+},
+{
+"w": "about",
+"mark": "*",
+"forms": []
+},
+{
+"w": "add",
+"mark": "*",
+"forms": []
+},
+{
+"w": "agent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "above",
+"mark": "*",
+"forms": []
+},
+{
+"w": "addict",
+"mark": "",
+"forms": []
+},
+{
+"w": "aggress",
+"mark": "",
+"forms": [
+"aggressive"
+]
+},
+{
+"w": "abroad",
+"mark": "",
+"forms": []
+},
+{
+"w": "address",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ago",
+"mark": "*",
+"forms": []
+},
+{
+"w": "absent",
+"mark": "",
+"forms": []
+},
+{
+"w": "adequate",
+"mark": "",
+"forms": []
+},
+{
+"w": "agree",
+"mark": "*",
+"forms": [
+"disagree"
+]
+},
+{
+"w": "absolute",
+"mark": "**",
+"forms": []
+},
+{
+"w": "adjust",
+"mark": "",
+"forms": []
+},
+{
+"w": "agriculture",
+"mark": "",
+"forms": []
+},
+{
+"w": "absorb",
+"mark": "",
+"forms": []
+},
+{
+"w": "administer",
+"mark": "",
+"forms": []
+},
+{
+"w": "ahead",
+"mark": "*",
+"forms": []
+},
+{
+"w": "abstract",
+"mark": "",
+"forms": [
+"administration"
+]
+},
+{
+"w": "aid",
+"mark": "**",
+"forms": []
+},
+{
+"w": "absurd",
+"mark": "",
+"forms": []
+},
+{
+"w": "admire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "aim",
+"mark": "**",
+"forms": []
+},
+{
+"w": "abuse",
+"mark": "",
+"forms": []
+},
+{
+"w": "admit",
+"mark": "**",
+"forms": [
+"admission"
+]
+},
+{
+"w": "air",
+"mark": "*",
+"forms": []
+},
+{
+"w": "academy",
+"mark": "",
+"forms": []
+},
+{
+"w": "adolescent",
+"mark": "",
+"forms": []
+},
+{
+"w": "airline",
+"mark": "**",
+"forms": []
+},
+{
+"w": "accelerate",
+"mark": "",
+"forms": []
+},
+{
+"w": "adopt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "airplane",
+"mark": "*",
+"forms": []
+},
+{
+"w": "accent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "adult",
+"mark": "*",
+"forms": []
+},
+{
+"w": "airport",
+"mark": "**",
+"forms": []
+},
+{
+"w": "accept",
+"mark": "**",
+"forms": []
+},
+{
+"w": "advance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "alarm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "access",
+"mark": "**",
+"forms": []
+},
+{
+"w": "advantage",
+"mark": "**",
+"forms": [
+"disadvantage"
+]
+},
+{
+"w": "album",
+"mark": "*",
+"forms": []
+},
+{
+"w": "accident",
+"mark": "**",
+"forms": []
+},
+{
+"w": "adventure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "alcohol",
+"mark": "**",
+"forms": []
+},
+{
+"w": "accommodate",
+"mark": "",
+"forms": []
+},
+{
+"w": "adverse",
+"mark": "",
+"forms": []
+},
+{
+"w": "alert",
+"mark": "",
+"forms": []
+},
+{
+"w": "accompany",
+"mark": "",
+"forms": []
+},
+{
+"w": "advertise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "alien",
+"mark": "",
+"forms": []
+},
+{
+"w": "accomplish",
+"mark": "",
+"forms": []
+},
+{
+"w": "advice",
+"mark": "**",
+"forms": []
+},
+{
+"w": "alike",
+"mark": "",
+"forms": []
+},
+{
+"w": "accord",
+"mark": "",
+"forms": []
+},
+{
+"w": "advise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "alive",
+"mark": "**",
+"forms": []
+},
+{
+"w": "account",
+"mark": "**",
+"forms": []
+},
+{
+"w": "advocate",
+"mark": "",
+"forms": []
+},
+{
+"w": "all",
+"mark": "*",
+"forms": []
+},
+{
+"w": "accumulate",
+"mark": "",
+"forms": []
+},
+{
+"w": "aesthetic",
+"mark": "",
+"forms": []
+},
+{
+"w": "allocate",
+"mark": "",
+"forms": []
+},
+{
+"w": "accurate",
+"mark": "",
+"forms": []
+},
+{
+"w": "affair",
+"mark": "**",
+"forms": []
+},
+{
+"w": "allow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "accuse",
+"mark": "**",
+"forms": []
+},
+{
+"w": "affect",
+"mark": "**",
+"forms": [
+"affection"
+]
+},
+{
+"w": "ally",
+"mark": "",
+"forms": []
+},
+{
+"w": "almost",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ask",
+"mark": "*",
+"forms": []
+},
+{
+"w": "alone",
+"mark": "*",
+"forms": []
+},
+{
+"w": "anticipate",
+"mark": "",
+"forms": []
+},
+{
+"w": "asleep",
+"mark": "**",
+"forms": []
+},
+{
+"w": "along",
+"mark": "*",
+"forms": []
+},
+{
+"w": "anxiety",
+"mark": "",
+"forms": []
+},
+{
+"w": "aspect",
+"mark": "",
+"forms": []
+},
+{
+"w": "alongside",
+"mark": "",
+"forms": []
+},
+{
+"w": "anxious",
+"mark": "**",
+"forms": []
+},
+{
+"w": "aspire",
+"mark": "",
+"forms": []
+},
+{
+"w": "aloud",
+"mark": "**",
+"forms": []
+},
+{
+"w": "any",
+"mark": "*",
+"forms": []
+},
+{
+"w": "assault",
+"mark": "",
+"forms": []
+},
+{
+"w": "already",
+"mark": "*",
+"forms": []
+},
+{
+"w": "apart",
+"mark": "**",
+"forms": []
+},
+{
+"w": "assemble",
+"mark": "",
+"forms": []
+},
+{
+"w": "alright",
+"mark": "*",
+"forms": []
+},
+{
+"w": "apartment",
+"mark": "*",
+"forms": []
+},
+{
+"w": "assert",
+"mark": "",
+"forms": []
+},
+{
+"w": "also",
+"mark": "*",
+"forms": []
+},
+{
+"w": "apology",
+"mark": "",
+"forms": []
+},
+{
+"w": "assess",
+"mark": "**",
+"forms": []
+},
+{
+"w": "alter",
+"mark": "**",
+"forms": []
+},
+{
+"w": "apparent",
+"mark": "",
+"forms": []
+},
+{
+"w": "asset",
+"mark": "",
+"forms": []
+},
+{
+"w": "alternate",
+"mark": "",
+"forms": [
+"alternative"
+]
+},
+{
+"w": "appeal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "assign",
+"mark": "**",
+"forms": [
+"assignment"
+]
+},
+{
+"w": "although",
+"mark": "**",
+"forms": []
+},
+{
+"w": "appear",
+"mark": "**",
+"forms": [
+"disappear"
+]
+},
+{
+"w": "assist",
+"mark": "**",
+"forms": [
+"assistant"
+]
+},
+{
+"w": "altogether",
+"mark": "**",
+"forms": []
+},
+{
+"w": "apple",
+"mark": "*",
+"forms": []
+},
+{
+"w": "associate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "always",
+"mark": "*",
+"forms": []
+},
+{
+"w": "apply",
+"mark": "**",
+"forms": [
+"applicant"
+]
+},
+{
+"w": "assume",
+"mark": "**",
+"forms": []
+},
+{
+"w": "amaze",
+"mark": "**",
+"forms": []
+},
+{
+"w": "appoint",
+"mark": "**",
+"forms": []
+},
+{
+"w": "assure",
+"mark": "",
+"forms": []
+},
+{
+"w": "ambassador",
+"mark": "",
+"forms": []
+},
+{
+"w": "appreciate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "astonish",
+"mark": "",
+"forms": []
+},
+{
+"w": "ambition",
+"mark": "",
+"forms": [
+"ambitious"
+]
+},
+{
+"w": "approach",
+"mark": "**",
+"forms": []
+},
+{
+"w": "at",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ambulance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "appropriate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "athlete",
+"mark": "",
+"forms": []
+},
+{
+"w": "among",
+"mark": "**",
+"forms": []
+},
+{
+"w": "approve",
+"mark": "",
+"forms": []
+},
+{
+"w": "atmosphere",
+"mark": "**",
+"forms": []
+},
+{
+"w": "amount",
+"mark": "**",
+"forms": []
+},
+{
+"w": "approximate",
+"mark": "",
+"forms": []
+},
+{
+"w": "atom",
+"mark": "",
+"forms": []
+},
+{
+"w": "amuse",
+"mark": "**",
+"forms": []
+},
+{
+"w": "architect",
+"mark": "",
+"forms": [
+"architecture"
+]
+},
+{
+"w": "attach",
+"mark": "**",
+"forms": []
+},
+{
+"w": "analysis",
+"mark": "**",
+"forms": []
+},
+{
+"w": "area",
+"mark": "*",
+"forms": []
+},
+{
+"w": "attack",
+"mark": "**",
+"forms": []
+},
+{
+"w": "analyze",
+"mark": "",
+"forms": []
+},
+{
+"w": "argue",
+"mark": "**",
+"forms": []
+},
+{
+"w": "attempt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "anchor",
+"mark": "",
+"forms": []
+},
+{
+"w": "arise",
+"mark": "",
+"forms": []
+},
+{
+"w": "attend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ancient",
+"mark": "",
+"forms": []
+},
+{
+"w": "arm",
+"mark": "*",
+"forms": []
+},
+{
+"w": "attention",
+"mark": "**",
+"forms": []
+},
+{
+"w": "and",
+"mark": "*",
+"forms": []
+},
+{
+"w": "army",
+"mark": "**",
+"forms": []
+},
+{
+"w": "attitude",
+"mark": "**",
+"forms": []
+},
+{
+"w": "angel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "around",
+"mark": "*",
+"forms": []
+},
+{
+"w": "attract",
+"mark": "**",
+"forms": []
+},
+{
+"w": "anger",
+"mark": "**",
+"forms": []
+},
+{
+"w": "arrange",
+"mark": "**",
+"forms": []
+},
+{
+"w": "attribute",
+"mark": "",
+"forms": []
+},
+{
+"w": "angle",
+"mark": "",
+"forms": []
+},
+{
+"w": "arrest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "auction",
+"mark": "",
+"forms": []
+},
+{
+"w": "animal",
+"mark": "*",
+"forms": []
+},
+{
+"w": "arrive",
+"mark": "*",
+"forms": []
+},
+{
+"w": "audience",
+"mark": "**",
+"forms": []
+},
+{
+"w": "anniversary",
+"mark": "",
+"forms": []
+},
+{
+"w": "arrow",
+"mark": "",
+"forms": []
+},
+{
+"w": "aunt",
+"mark": "*",
+"forms": []
+},
+{
+"w": "announce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "art",
+"mark": "*",
+"forms": []
+},
+{
+"w": "authentic",
+"mark": "",
+"forms": []
+},
+{
+"w": "annoy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "article",
+"mark": "**",
+"forms": []
+},
+{
+"w": "author",
+"mark": "",
+"forms": []
+},
+{
+"w": "annual",
+"mark": "**",
+"forms": []
+},
+{
+"w": "artifice",
+"mark": "",
+"forms": [
+"artificial"
+]
+},
+{
+"w": "automatic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "another",
+"mark": "*",
+"forms": []
+},
+{
+"w": "as",
+"mark": "*",
+"forms": []
+},
+{
+"w": "autumn",
+"mark": "*",
+"forms": []
+},
+{
+"w": "answer",
+"mark": "*",
+"forms": []
+},
+{
+"w": "aside",
+"mark": "**",
+"forms": []
+},
+{
+"w": "avail",
+"mark": "",
+"forms": [
+"available"
+]
+},
+{
+"w": "average",
+"mark": "**",
+"forms": []
+},
+{
+"w": "base",
+"mark": "*",
+"forms": []
+},
+{
+"w": "belong",
+"mark": "**",
+"forms": []
+},
+{
+"w": "avoid",
+"mark": "**",
+"forms": []
+},
+{
+"w": "baseball",
+"mark": "*",
+"forms": []
+},
+{
+"w": "below",
+"mark": "*",
+"forms": []
+},
+{
+"w": "await",
+"mark": "",
+"forms": []
+},
+{
+"w": "basis",
+"mark": "**",
+"forms": []
+},
+{
+"w": "belt",
+"mark": "*",
+"forms": []
+},
+{
+"w": "awake",
+"mark": "**",
+"forms": []
+},
+{
+"w": "basket",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bench",
+"mark": "**",
+"forms": []
+},
+{
+"w": "award",
+"mark": "**",
+"forms": []
+},
+{
+"w": "basketball",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "aware",
+"mark": "**",
+"forms": [
+"unaware"
+]
+},
+{
+"w": "bat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "beneath",
+"mark": "**",
+"forms": []
+},
+{
+"w": "away",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bath",
+"mark": "*",
+"forms": []
+},
+{
+"w": "benefit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "awe",
+"mark": "",
+"forms": [
+"awful"
+]
+},
+{
+"w": "battery",
+"mark": "**",
+"forms": []
+},
+{
+"w": "beside",
+"mark": "*",
+"forms": []
+},
+{
+"w": "awkward",
+"mark": "**",
+"forms": []
+},
+{
+"w": "battle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bay",
+"mark": "**",
+"forms": []
+},
+{
+"w": "betray",
+"mark": "",
+"forms": []
+},
+{
+"w": "be",
+"mark": "*",
+"forms": []
+},
+{
+"w": "between",
+"mark": "*",
+"forms": []
+},
+{
+"w": "beach",
+"mark": "*",
+"forms": []
+},
+{
+"w": "beyond",
+"mark": "**",
+"forms": []
+},
+{
+"w": "beam",
+"mark": "",
+"forms": []
+},
+{
+"w": "bias",
+"mark": "",
+"forms": []
+},
+{
+"w": "baby",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bean",
+"mark": "**",
+"forms": []
+},
+{
+"w": "big",
+"mark": "*",
+"forms": []
+},
+{
+"w": "back",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bear",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bike",
+"mark": "*",
+"forms": []
+},
+{
+"w": "background",
+"mark": "**",
+"forms": []
+},
+{
+"w": "beard",
+"mark": "",
+"forms": []
+},
+{
+"w": "bill",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bacon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "beast",
+"mark": "",
+"forms": []
+},
+{
+"w": "billion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bad",
+"mark": "*",
+"forms": []
+},
+{
+"w": "beat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "badminton",
+"mark": "*",
+"forms": []
+},
+{
+"w": "beauty",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bind",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bag",
+"mark": "*",
+"forms": []
+},
+{
+"w": "because",
+"mark": "*",
+"forms": []
+},
+{
+"w": "biography",
+"mark": "",
+"forms": []
+},
+{
+"w": "bake",
+"mark": "*",
+"forms": []
+},
+{
+"w": "become",
+"mark": "*",
+"forms": []
+},
+{
+"w": "biology",
+"mark": "",
+"forms": []
+},
+{
+"w": "balance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bed",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bird",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ball",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bee",
+"mark": "*",
+"forms": []
+},
+{
+"w": "birth",
+"mark": "*",
+"forms": []
+},
+{
+"w": "balloon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "beef",
+"mark": "*",
+"forms": []
+},
+{
+"w": "biscuit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ban",
+"mark": "",
+"forms": []
+},
+{
+"w": "beer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "banana",
+"mark": "*",
+"forms": []
+},
+{
+"w": "before",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bite",
+"mark": "**",
+"forms": []
+},
+{
+"w": "band",
+"mark": "**",
+"forms": []
+},
+{
+"w": "beg",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bitter",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bang",
+"mark": "**",
+"forms": []
+},
+{
+"w": "begin",
+"mark": "*",
+"forms": []
+},
+{
+"w": "black",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bank",
+"mark": "*",
+"forms": []
+},
+{
+"w": "behalf",
+"mark": "",
+"forms": []
+},
+{
+"w": "blame",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bankrupt",
+"mark": "",
+"forms": []
+},
+{
+"w": "behave",
+"mark": "",
+"forms": []
+},
+{
+"w": "blank",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bar",
+"mark": "**",
+"forms": []
+},
+{
+"w": "blanket",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "behind",
+"mark": "*",
+"forms": []
+},
+{
+"w": "blast",
+"mark": "",
+"forms": []
+},
+{
+"w": "bargain",
+"mark": "",
+"forms": []
+},
+{
+"w": "belief",
+"mark": "**",
+"forms": []
+},
+{
+"w": "blend",
+"mark": "",
+"forms": []
+},
+{
+"w": "bark",
+"mark": "**",
+"forms": []
+},
+{
+"w": "believe",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bless",
+"mark": "**",
+"forms": []
+},
+{
+"w": "barrier",
+"mark": "",
+"forms": []
+},
+{
+"w": "bell",
+"mark": "*",
+"forms": []
+},
+{
+"w": "blind",
+"mark": "**",
+"forms": []
+},
+{
+"w": "blink",
+"mark": "",
+"forms": []
+},
+{
+"w": "brake",
+"mark": "**",
+"forms": []
+},
+{
+"w": "burn",
+"mark": "*",
+"forms": []
+},
+{
+"w": "block",
+"mark": "**",
+"forms": []
+},
+{
+"w": "branch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "burst",
+"mark": "**",
+"forms": []
+},
+{
+"w": "blonde",
+"mark": "**",
+"forms": []
+},
+{
+"w": "brand",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bury",
+"mark": "**",
+"forms": []
+},
+{
+"w": "blood",
+"mark": "*",
+"forms": []
+},
+{
+"w": "brave",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bus",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bloom",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bread",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bush",
+"mark": "**",
+"forms": []
+},
+{
+"w": "blossom",
+"mark": "",
+"forms": []
+},
+{
+"w": "break",
+"mark": "*",
+"forms": []
+},
+{
+"w": "business",
+"mark": "*",
+"forms": []
+},
+{
+"w": "blow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "breakfast",
+"mark": "*",
+"forms": []
+},
+{
+"w": "busy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "blue",
+"mark": "*",
+"forms": []
+},
+{
+"w": "breast",
+"mark": "**",
+"forms": []
+},
+{
+"w": "but",
+"mark": "*",
+"forms": []
+},
+{
+"w": "board",
+"mark": "*",
+"forms": []
+},
+{
+"w": "breath",
+"mark": "**",
+"forms": []
+},
+{
+"w": "butcher",
+"mark": "",
+"forms": []
+},
+{
+"w": "boat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "breathe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "butter",
+"mark": "*",
+"forms": []
+},
+{
+"w": "body",
+"mark": "*",
+"forms": [
+"embody"
+]
+},
+{
+"w": "breed",
+"mark": "",
+"forms": []
+},
+{
+"w": "button",
+"mark": "*",
+"forms": []
+},
+{
+"w": "boil",
+"mark": "**",
+"forms": []
+},
+{
+"w": "breeze",
+"mark": "",
+"forms": []
+},
+{
+"w": "buy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bold",
+"mark": "",
+"forms": []
+},
+{
+"w": "brick",
+"mark": "**",
+"forms": []
+},
+{
+"w": "buzz",
+"mark": "",
+"forms": []
+},
+{
+"w": "bomb",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bridge",
+"mark": "*",
+"forms": []
+},
+{
+"w": "by",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bond",
+"mark": "**",
+"forms": []
+},
+{
+"w": "brief",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bone",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bright",
+"mark": "*",
+"forms": []
+},
+{
+"w": "book",
+"mark": "*",
+"forms": []
+},
+{
+"w": "brilliant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "boom",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bring",
+"mark": "*",
+"forms": []
+},
+{
+"w": "boost",
+"mark": "",
+"forms": []
+},
+{
+"w": "broad",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cable",
+"mark": "**",
+"forms": []
+},
+{
+"w": "boot",
+"mark": "**",
+"forms": []
+},
+{
+"w": "broadcast",
+"mark": "",
+"forms": []
+},
+{
+"w": "cage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "border",
+"mark": "",
+"forms": []
+},
+{
+"w": "brother",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cake",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bore",
+"mark": "**",
+"forms": []
+},
+{
+"w": "brown",
+"mark": "*",
+"forms": []
+},
+{
+"w": "calculate",
+"mark": "**",
+"forms": [
+"calculator"
+]
+},
+{
+"w": "borrow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "brush",
+"mark": "*",
+"forms": []
+},
+{
+"w": "calendar",
+"mark": "**",
+"forms": []
+},
+{
+"w": "boss",
+"mark": "**",
+"forms": []
+},
+{
+"w": "brute",
+"mark": "",
+"forms": [
+"brutal"
+]
+},
+{
+"w": "call",
+"mark": "*",
+"forms": []
+},
+{
+"w": "both",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bubble",
+"mark": "**",
+"forms": []
+},
+{
+"w": "calm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bother",
+"mark": "**",
+"forms": []
+},
+{
+"w": "budget",
+"mark": "**",
+"forms": []
+},
+{
+"w": "camera",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bottle",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bug",
+"mark": "**",
+"forms": []
+},
+{
+"w": "camp",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bottom",
+"mark": "*",
+"forms": []
+},
+{
+"w": "build",
+"mark": "*",
+"forms": []
+},
+{
+"w": "campaign",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bounce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bulk",
+"mark": "",
+"forms": []
+},
+{
+"w": "can",
+"mark": "*",
+"forms": []
+},
+{
+"w": "boundary",
+"mark": "",
+"forms": []
+},
+{
+"w": "bull",
+"mark": "",
+"forms": []
+},
+{
+"w": "cancel",
+"mark": "",
+"forms": []
+},
+{
+"w": "bow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bully",
+"mark": "",
+"forms": []
+},
+{
+"w": "cancer",
+"mark": "",
+"forms": []
+},
+{
+"w": "bowl",
+"mark": "**",
+"forms": []
+},
+{
+"w": "bump",
+"mark": "**",
+"forms": []
+},
+{
+"w": "candidate",
+"mark": "",
+"forms": []
+},
+{
+"w": "box",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bunch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "candy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "boy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "bundle",
+"mark": "",
+"forms": []
+},
+{
+"w": "canvas",
+"mark": "",
+"forms": []
+},
+{
+"w": "brain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "burden",
+"mark": "",
+"forms": []
+},
+{
+"w": "cap",
+"mark": "*",
+"forms": []
+},
+{
+"w": "capable",
+"mark": "**",
+"forms": []
+},
+{
+"w": "certain",
+"mark": "*",
+"forms": []
+},
+{
+"w": "chocolate",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cape",
+"mark": "**",
+"forms": []
+},
+{
+"w": "certificate",
+"mark": "",
+"forms": []
+},
+{
+"w": "choice",
+"mark": "**",
+"forms": []
+},
+{
+"w": "capital",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "choir",
+"mark": "",
+"forms": []
+},
+{
+"w": "captain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chair",
+"mark": "*",
+"forms": []
+},
+{
+"w": "choose",
+"mark": "*",
+"forms": []
+},
+{
+"w": "capture",
+"mark": "",
+"forms": []
+},
+{
+"w": "chairman",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chop",
+"mark": "**",
+"forms": []
+},
+{
+"w": "car",
+"mark": "*",
+"forms": []
+},
+{
+"w": "challenge",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chorus",
+"mark": "",
+"forms": []
+},
+{
+"w": "card",
+"mark": "*",
+"forms": []
+},
+{
+"w": "chamber",
+"mark": "",
+"forms": []
+},
+{
+"w": "chronic",
+"mark": "",
+"forms": []
+},
+{
+"w": "care",
+"mark": "*",
+"forms": []
+},
+{
+"w": "champion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "church",
+"mark": "*",
+"forms": []
+},
+{
+"w": "career",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chance",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cigarette",
+"mark": "**",
+"forms": []
+},
+{
+"w": "carpet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "change",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cinema",
+"mark": "**",
+"forms": []
+},
+{
+"w": "carrot",
+"mark": "*",
+"forms": []
+},
+{
+"w": "channel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "circle",
+"mark": "*",
+"forms": []
+},
+{
+"w": "carry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "chaos",
+"mark": "",
+"forms": []
+},
+{
+"w": "circulate",
+"mark": "",
+"forms": []
+},
+{
+"w": "cart",
+"mark": "**",
+"forms": []
+},
+{
+"w": "character",
+"mark": "**",
+"forms": []
+},
+{
+"w": "circumstance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "carve",
+"mark": "",
+"forms": []
+},
+{
+"w": "characteristic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cite",
+"mark": "",
+"forms": []
+},
+{
+"w": "case",
+"mark": "*",
+"forms": [
+"casual"
+]
+},
+{
+"w": "charge",
+"mark": "**",
+"forms": [
+"discharge"
+]
+},
+{
+"w": "citizen",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cash",
+"mark": "*",
+"forms": []
+},
+{
+"w": "charity",
+"mark": "",
+"forms": []
+},
+{
+"w": "city",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cast",
+"mark": "**",
+"forms": []
+},
+{
+"w": "charm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "civil",
+"mark": "**",
+"forms": []
+},
+{
+"w": "castle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chart",
+"mark": "**",
+"forms": []
+},
+{
+"w": "claim",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "chase",
+"mark": "**",
+"forms": []
+},
+{
+"w": "clap",
+"mark": "",
+"forms": []
+},
+{
+"w": "catalogue",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "clash",
+"mark": "",
+"forms": []
+},
+{
+"w": "catch",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cheap",
+"mark": "*",
+"forms": []
+},
+{
+"w": "class",
+"mark": "*",
+"forms": [
+"classic",
+"classify"
+]
+},
+{
+"w": "category",
+"mark": "**",
+"forms": []
+},
+{
+"w": "check",
+"mark": "*",
+"forms": []
+},
+{
+"w": "clause",
+"mark": "",
+"forms": []
+},
+{
+"w": "cater",
+"mark": "",
+"forms": []
+},
+{
+"w": "cheek",
+"mark": "**",
+"forms": []
+},
+{
+"w": "clay",
+"mark": "",
+"forms": []
+},
+{
+"w": "cattle",
+"mark": "",
+"forms": []
+},
+{
+"w": "cheer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "clean",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cause",
+"mark": "**",
+"forms": [
+"causal"
+]
+},
+{
+"w": "cheese",
+"mark": "*",
+"forms": []
+},
+{
+"w": "clear",
+"mark": "*",
+"forms": [
+"clarify"
+]
+},
+{
+"w": "caution",
+"mark": "",
+"forms": []
+},
+{
+"w": "chef",
+"mark": "",
+"forms": []
+},
+{
+"w": "clerk",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cave",
+"mark": "",
+"forms": []
+},
+{
+"w": "chemical",
+"mark": "",
+"forms": []
+},
+{
+"w": "clever",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cease",
+"mark": "",
+"forms": []
+},
+{
+"w": "chest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "click",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ceiling",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chew",
+"mark": "**",
+"forms": []
+},
+{
+"w": "client",
+"mark": "**",
+"forms": []
+},
+{
+"w": "celebrate",
+"mark": "",
+"forms": []
+},
+{
+"w": "chicken",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cliff",
+"mark": "**",
+"forms": []
+},
+{
+"w": "celebrity",
+"mark": "",
+"forms": []
+},
+{
+"w": "chief",
+"mark": "**",
+"forms": []
+},
+{
+"w": "climate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cell",
+"mark": "**",
+"forms": []
+},
+{
+"w": "child",
+"mark": "*",
+"forms": []
+},
+{
+"w": "climb",
+"mark": "*",
+"forms": []
+},
+{
+"w": "censor",
+"mark": "",
+"forms": []
+},
+{
+"w": "chill",
+"mark": "",
+"forms": []
+},
+{
+"w": "cling",
+"mark": "",
+"forms": []
+},
+{
+"w": "center",
+"mark": "*",
+"forms": []
+},
+{
+"w": "chin",
+"mark": "",
+"forms": []
+},
+{
+"w": "clinic",
+"mark": "",
+"forms": []
+},
+{
+"w": "century",
+"mark": "**",
+"forms": []
+},
+{
+"w": "chip",
+"mark": "**",
+"forms": []
+},
+{
+"w": "clip",
+"mark": "**",
+"forms": []
+},
+{
+"w": "clock",
+"mark": "*",
+"forms": []
+},
+{
+"w": "committee",
+"mark": "**",
+"forms": []
+},
+{
+"w": "concrete",
+"mark": "",
+"forms": []
+},
+{
+"w": "close",
+"mark": "*",
+"forms": [
+"disclose",
+"enclose"
+]
+},
+{
+"w": "commodity",
+"mark": "",
+"forms": []
+},
+{
+"w": "condemn",
+"mark": "",
+"forms": []
+},
+{
+"w": "clothes",
+"mark": "*",
+"forms": []
+},
+{
+"w": "common",
+"mark": "**",
+"forms": []
+},
+{
+"w": "condition",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cloud",
+"mark": "*",
+"forms": []
+},
+{
+"w": "communicate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "conduct",
+"mark": "",
+"forms": []
+},
+{
+"w": "club",
+"mark": "*",
+"forms": [
+"communication"
+]
+},
+{
+"w": "confer",
+"mark": "",
+"forms": []
+},
+{
+"w": "clue",
+"mark": "**",
+"forms": []
+},
+{
+"w": "communist",
+"mark": "",
+"forms": []
+},
+{
+"w": "confess",
+"mark": "",
+"forms": []
+},
+{
+"w": "cluster",
+"mark": "",
+"forms": []
+},
+{
+"w": "community",
+"mark": "**",
+"forms": []
+},
+{
+"w": "confide",
+"mark": "",
+"forms": [
+"confident"
+]
+},
+{
+"w": "coach",
+"mark": "**",
+"forms": []
+},
+{
+"w": "companion",
+"mark": "",
+"forms": []
+},
+{
+"w": "confine",
+"mark": "",
+"forms": []
+},
+{
+"w": "coal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "company",
+"mark": "*",
+"forms": []
+},
+{
+"w": "confirm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "coast",
+"mark": "**",
+"forms": []
+},
+{
+"w": "compare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "conflict",
+"mark": "**",
+"forms": []
+},
+{
+"w": "coat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "compatible",
+"mark": "",
+"forms": []
+},
+{
+"w": "conform",
+"mark": "",
+"forms": []
+},
+{
+"w": "code",
+"mark": "**",
+"forms": []
+},
+{
+"w": "compel",
+"mark": "",
+"forms": []
+},
+{
+"w": "confront",
+"mark": "",
+"forms": []
+},
+{
+"w": "coffee",
+"mark": "*",
+"forms": []
+},
+{
+"w": "compensate",
+"mark": "",
+"forms": []
+},
+{
+"w": "confuse",
+"mark": "**",
+"forms": []
+},
+{
+"w": "coin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "compete",
+"mark": "",
+"forms": [
+"competent"
+]
+},
+{
+"w": "congratulate",
+"mark": "*",
+"forms": []
+},
+{
+"w": "coincide",
+"mark": "",
+"forms": []
+},
+{
+"w": "compile",
+"mark": "",
+"forms": []
+},
+{
+"w": "congress",
+"mark": "",
+"forms": []
+},
+{
+"w": "cold",
+"mark": "*",
+"forms": []
+},
+{
+"w": "complain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "connect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "collaborate",
+"mark": "",
+"forms": []
+},
+{
+"w": "complement",
+"mark": "",
+"forms": []
+},
+{
+"w": "conscience",
+"mark": "",
+"forms": []
+},
+{
+"w": "collapse",
+"mark": "",
+"forms": []
+},
+{
+"w": "complete",
+"mark": "**",
+"forms": []
+},
+{
+"w": "conscious",
+"mark": "**",
+"forms": []
+},
+{
+"w": "collar",
+"mark": "",
+"forms": []
+},
+{
+"w": "complex",
+"mark": "**",
+"forms": [
+"complexity"
+]
+},
+{
+"w": "consent",
+"mark": "",
+"forms": []
+},
+{
+"w": "colleague",
+"mark": "",
+"forms": []
+},
+{
+"w": "complicate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "conserve",
+"mark": "",
+"forms": []
+},
+{
+"w": "collect",
+"mark": "*",
+"forms": []
+},
+{
+"w": "component",
+"mark": "",
+"forms": []
+},
+{
+"w": "consider",
+"mark": "**",
+"forms": []
+},
+{
+"w": "college",
+"mark": "*",
+"forms": []
+},
+{
+"w": "compose",
+"mark": "",
+"forms": []
+},
+{
+"w": "consist",
+"mark": "",
+"forms": [
+"consistent"
+]
+},
+{
+"w": "colony",
+"mark": "",
+"forms": []
+},
+{
+"w": "compound",
+"mark": "",
+"forms": []
+},
+{
+"w": "constant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "color",
+"mark": "*",
+"forms": []
+},
+{
+"w": "comprehend",
+"mark": "",
+"forms": []
+},
+{
+"w": "constitute",
+"mark": "",
+"forms": [
+"constitution"
+]
+},
+{
+"w": "column",
+"mark": "",
+"forms": [
+"comprehensive"
+]
+},
+{
+"w": "constrain",
+"mark": "",
+"forms": []
+},
+{
+"w": "combat",
+"mark": "",
+"forms": []
+},
+{
+"w": "comprise",
+"mark": "",
+"forms": []
+},
+{
+"w": "construct",
+"mark": "",
+"forms": [
+"construction"
+]
+},
+{
+"w": "combine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "compromise",
+"mark": "",
+"forms": []
+},
+{
+"w": "consult",
+"mark": "",
+"forms": []
+},
+{
+"w": "come",
+"mark": "*",
+"forms": []
+},
+{
+"w": "compute",
+"mark": "*",
+"forms": [
+"computer"
+]
+},
+{
+"w": "consume",
+"mark": "**",
+"forms": []
+},
+{
+"w": "comedy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "conceal",
+"mark": "",
+"forms": []
+},
+{
+"w": "comfort",
+"mark": "**",
+"forms": [
+"comfortable"
+]
+},
+{
+"w": "conceive",
+"mark": "",
+"forms": []
+},
+{
+"w": "contact",
+"mark": "**",
+"forms": []
+},
+{
+"w": "comic",
+"mark": "*",
+"forms": []
+},
+{
+"w": "concentrate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "contain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "command",
+"mark": "**",
+"forms": []
+},
+{
+"w": "concept",
+"mark": "**",
+"forms": []
+},
+{
+"w": "contemporary",
+"mark": "",
+"forms": []
+},
+{
+"w": "comment",
+"mark": "**",
+"forms": []
+},
+{
+"w": "concern",
+"mark": "**",
+"forms": []
+},
+{
+"w": "contend",
+"mark": "",
+"forms": []
+},
+{
+"w": "commerce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "concert",
+"mark": "**",
+"forms": []
+},
+{
+"w": "content",
+"mark": "**",
+"forms": []
+},
+{
+"w": "commit",
+"mark": "",
+"forms": [
+"commission"
+]
+},
+{
+"w": "conclude",
+"mark": "",
+"forms": []
+},
+{
+"w": "contest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "context",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cost",
+"mark": "*",
+"forms": []
+},
+{
+"w": "crime",
+"mark": "**",
+"forms": [
+"criminal"
+]
+},
+{
+"w": "continent",
+"mark": "",
+"forms": []
+},
+{
+"w": "costume",
+"mark": "",
+"forms": []
+},
+{
+"w": "crisis",
+"mark": "**",
+"forms": []
+},
+{
+"w": "continue",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cottage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "crisp",
+"mark": "**",
+"forms": []
+},
+{
+"w": "contract",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cotton",
+"mark": "**",
+"forms": []
+},
+{
+"w": "criterion",
+"mark": "",
+"forms": []
+},
+{
+"w": "contradict",
+"mark": "",
+"forms": []
+},
+{
+"w": "cough",
+"mark": "**",
+"forms": []
+},
+{
+"w": "critic",
+"mark": "",
+"forms": []
+},
+{
+"w": "contrary",
+"mark": "",
+"forms": []
+},
+{
+"w": "could",
+"mark": "*",
+"forms": []
+},
+{
+"w": "contrast",
+"mark": "",
+"forms": []
+},
+{
+"w": "council",
+"mark": "**",
+"forms": []
+},
+{
+"w": "crop",
+"mark": "",
+"forms": []
+},
+{
+"w": "contribute",
+"mark": "**",
+"forms": []
+},
+{
+"w": "counsel",
+"mark": "",
+"forms": []
+},
+{
+"w": "cross",
+"mark": "*",
+"forms": []
+},
+{
+"w": "control",
+"mark": "*",
+"forms": []
+},
+{
+"w": "count",
+"mark": "**",
+"forms": []
+},
+{
+"w": "crowd",
+"mark": "**",
+"forms": []
+},
+{
+"w": "controversy",
+"mark": "",
+"forms": []
+},
+{
+"w": "crown",
+"mark": "**",
+"forms": []
+},
+{
+"w": "convene",
+"mark": "",
+"forms": []
+},
+{
+"w": "counterpart",
+"mark": "",
+"forms": []
+},
+{
+"w": "crucial",
+"mark": "",
+"forms": []
+},
+{
+"w": "country",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cruel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "converse",
+"mark": "**",
+"forms": [
+"conversation"
+]
+},
+{
+"w": "countryside",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cruise",
+"mark": "",
+"forms": []
+},
+{
+"w": "convert",
+"mark": "",
+"forms": []
+},
+{
+"w": "county",
+"mark": "**",
+"forms": []
+},
+{
+"w": "crush",
+"mark": "",
+"forms": []
+},
+{
+"w": "convey",
+"mark": "",
+"forms": []
+},
+{
+"w": "couple",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "convict",
+"mark": "",
+"forms": []
+},
+{
+"w": "coupon",
+"mark": "",
+"forms": []
+},
+{
+"w": "crystal",
+"mark": "",
+"forms": []
+},
+{
+"w": "convince",
+"mark": "**",
+"forms": []
+},
+{
+"w": "courage",
+"mark": "",
+"forms": []
+},
+{
+"w": "cultivate",
+"mark": "",
+"forms": []
+},
+{
+"w": "cook",
+"mark": "*",
+"forms": []
+},
+{
+"w": "culture",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cookie",
+"mark": "*",
+"forms": []
+},
+{
+"w": "course",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cup",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cool",
+"mark": "*",
+"forms": []
+},
+{
+"w": "court",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cooperate",
+"mark": "",
+"forms": []
+},
+{
+"w": "cousin",
+"mark": "*",
+"forms": []
+},
+{
+"w": "curious",
+"mark": "**",
+"forms": [
+"curiosity"
+]
+},
+{
+"w": "coordinate",
+"mark": "",
+"forms": []
+},
+{
+"w": "cover",
+"mark": "*",
+"forms": [
+"discover"
+]
+},
+{
+"w": "curl",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cop",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "currency",
+"mark": "",
+"forms": []
+},
+{
+"w": "cope",
+"mark": "**",
+"forms": []
+},
+{
+"w": "crack",
+"mark": "**",
+"forms": []
+},
+{
+"w": "current",
+"mark": "**",
+"forms": []
+},
+{
+"w": "copy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "craft",
+"mark": "",
+"forms": []
+},
+{
+"w": "curriculum",
+"mark": "",
+"forms": []
+},
+{
+"w": "copyright",
+"mark": "",
+"forms": []
+},
+{
+"w": "crash",
+"mark": "**",
+"forms": []
+},
+{
+"w": "curry",
+"mark": "",
+"forms": []
+},
+{
+"w": "cord",
+"mark": "",
+"forms": []
+},
+{
+"w": "crawl",
+"mark": "**",
+"forms": []
+},
+{
+"w": "curse",
+"mark": "",
+"forms": []
+},
+{
+"w": "core",
+"mark": "",
+"forms": []
+},
+{
+"w": "crayon",
+"mark": "*",
+"forms": []
+},
+{
+"w": "curtain",
+"mark": "*",
+"forms": []
+},
+{
+"w": "corn",
+"mark": "",
+"forms": []
+},
+{
+"w": "craze",
+"mark": "",
+"forms": [
+"crazy"
+]
+},
+{
+"w": "curve",
+"mark": "",
+"forms": []
+},
+{
+"w": "corner",
+"mark": "*",
+"forms": []
+},
+{
+"w": "cream",
+"mark": "*",
+"forms": []
+},
+{
+"w": "custody",
+"mark": "",
+"forms": []
+},
+{
+"w": "corporate",
+"mark": "",
+"forms": [
+"corporation"
+]
+},
+{
+"w": "create",
+"mark": "**",
+"forms": [
+"creature"
+]
+},
+{
+"w": "custom",
+"mark": "",
+"forms": []
+},
+{
+"w": "correct",
+"mark": "**",
+"forms": []
+},
+{
+"w": "credible",
+"mark": "",
+"forms": [
+"incredible"
+]
+},
+{
+"w": "customer",
+"mark": "*",
+"forms": []
+},
+{
+"w": "correspond",
+"mark": "",
+"forms": []
+},
+{
+"w": "credit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "cut",
+"mark": "*",
+"forms": []
+},
+{
+"w": "corridor",
+"mark": "",
+"forms": []
+},
+{
+"w": "creep",
+"mark": "",
+"forms": []
+},
+{
+"w": "cute",
+"mark": "**",
+"forms": []
+},
+{
+"w": "corrupt",
+"mark": "",
+"forms": []
+},
+{
+"w": "crew",
+"mark": "",
+"forms": []
+},
+{
+"w": "cycle",
+"mark": "**",
+"forms": [
+"recycle",
+"cyclist"
+]
+},
+{
+"w": "cynical",
+"mark": "",
+"forms": []
+},
+{
+"w": "defeat",
+"mark": "",
+"forms": []
+},
+{
+"w": "desert",
+"mark": "**",
+"forms": []
+},
+{
+"w": "defend",
+"mark": "",
+"forms": [
+"defendant"
+]
+},
+{
+"w": "deserve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "defense",
+"mark": "**",
+"forms": []
+},
+{
+"w": "design",
+"mark": "*",
+"forms": []
+},
+{
+"w": "deficiency",
+"mark": "",
+"forms": []
+},
+{
+"w": "designate",
+"mark": "",
+"forms": []
+},
+{
+"w": "dairy",
+"mark": "",
+"forms": []
+},
+{
+"w": "deficit",
+"mark": "",
+"forms": []
+},
+{
+"w": "desire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "damage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "define",
+"mark": "**",
+"forms": []
+},
+{
+"w": "desk",
+"mark": "*",
+"forms": []
+},
+{
+"w": "damp",
+"mark": "",
+"forms": []
+},
+{
+"w": "definite",
+"mark": "**",
+"forms": []
+},
+{
+"w": "despair",
+"mark": "",
+"forms": []
+},
+{
+"w": "dance",
+"mark": "*",
+"forms": []
+},
+{
+"w": "degree",
+"mark": "**",
+"forms": []
+},
+{
+"w": "desperate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "danger",
+"mark": "*",
+"forms": []
+},
+{
+"w": "delay",
+"mark": "**",
+"forms": []
+},
+{
+"w": "despite",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "delegate",
+"mark": "",
+"forms": []
+},
+{
+"w": "destine",
+"mark": "",
+"forms": [
+"destination"
+]
+},
+{
+"w": "dark",
+"mark": "*",
+"forms": []
+},
+{
+"w": "delete",
+"mark": "",
+"forms": []
+},
+{
+"w": "destiny",
+"mark": "",
+"forms": []
+},
+{
+"w": "darling",
+"mark": "**",
+"forms": []
+},
+{
+"w": "deliberate",
+"mark": "",
+"forms": []
+},
+{
+"w": "destroy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dash",
+"mark": "",
+"forms": []
+},
+{
+"w": "delicate",
+"mark": "",
+"forms": []
+},
+{
+"w": "destruct",
+"mark": "",
+"forms": [
+"destruction"
+]
+},
+{
+"w": "database",
+"mark": "",
+"forms": []
+},
+{
+"w": "delicious",
+"mark": "*",
+"forms": []
+},
+{
+"w": "detach",
+"mark": "",
+"forms": []
+},
+{
+"w": "date",
+"mark": "*",
+"forms": []
+},
+{
+"w": "delight",
+"mark": "**",
+"forms": []
+},
+{
+"w": "detail",
+"mark": "**",
+"forms": []
+},
+{
+"w": "datum",
+"mark": "",
+"forms": [
+"data"
+]
+},
+{
+"w": "deliver",
+"mark": "**",
+"forms": []
+},
+{
+"w": "detect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "daughter",
+"mark": "*",
+"forms": []
+},
+{
+"w": "demand",
+"mark": "**",
+"forms": []
+},
+{
+"w": "determine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dawn",
+"mark": "**",
+"forms": []
+},
+{
+"w": "democracy",
+"mark": "",
+"forms": []
+},
+{
+"w": "develop",
+"mark": "**",
+"forms": []
+},
+{
+"w": "day",
+"mark": "*",
+"forms": []
+},
+{
+"w": "democrat",
+"mark": "",
+"forms": []
+},
+{
+"w": "device",
+"mark": "",
+"forms": []
+},
+{
+"w": "dead",
+"mark": "*",
+"forms": []
+},
+{
+"w": "demon",
+"mark": "",
+"forms": []
+},
+{
+"w": "devil",
+"mark": "",
+"forms": []
+},
+{
+"w": "deal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "demonstrate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "devise",
+"mark": "",
+"forms": []
+},
+{
+"w": "death",
+"mark": "*",
+"forms": []
+},
+{
+"w": "dense",
+"mark": "",
+"forms": []
+},
+{
+"w": "devote",
+"mark": "",
+"forms": []
+},
+{
+"w": "debate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dentist",
+"mark": "**",
+"forms": []
+},
+{
+"w": "diabetes",
+"mark": "",
+"forms": []
+},
+{
+"w": "debt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "deny",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dialogue",
+"mark": "*",
+"forms": []
+},
+{
+"w": "decade",
+"mark": "",
+"forms": []
+},
+{
+"w": "depart",
+"mark": "",
+"forms": []
+},
+{
+"w": "diary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "decay",
+"mark": "",
+"forms": []
+},
+{
+"w": "dictate",
+"mark": "",
+"forms": []
+},
+{
+"w": "decent",
+"mark": "",
+"forms": []
+},
+{
+"w": "depend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dictionary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "decide",
+"mark": "*",
+"forms": [
+"decision"
+]
+},
+{
+"w": "die",
+"mark": "*",
+"forms": []
+},
+{
+"w": "deck",
+"mark": "**",
+"forms": []
+},
+{
+"w": "depict",
+"mark": "",
+"forms": []
+},
+{
+"w": "diet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "declare",
+"mark": "",
+"forms": []
+},
+{
+"w": "deposit",
+"mark": "",
+"forms": []
+},
+{
+"w": "differ",
+"mark": "",
+"forms": [
+"different"
+]
+},
+{
+"w": "decline",
+"mark": "",
+"forms": [
+"declension"
+]
+},
+{
+"w": "depress",
+"mark": "**",
+"forms": []
+},
+{
+"w": "difficult",
+"mark": "*",
+"forms": []
+},
+{
+"w": "decorate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "deprive",
+"mark": "",
+"forms": []
+},
+{
+"w": "dig",
+"mark": "**",
+"forms": []
+},
+{
+"w": "decrease",
+"mark": "",
+"forms": []
+},
+{
+"w": "derive",
+"mark": "",
+"forms": []
+},
+{
+"w": "dignity",
+"mark": "",
+"forms": []
+},
+{
+"w": "dedicate",
+"mark": "",
+"forms": []
+},
+{
+"w": "descend",
+"mark": "",
+"forms": []
+},
+{
+"w": "dimension",
+"mark": "",
+"forms": []
+},
+{
+"w": "deep",
+"mark": "*",
+"forms": []
+},
+{
+"w": "describe",
+"mark": "**",
+"forms": [
+"description"
+]
+},
+{
+"w": "diminish",
+"mark": "",
+"forms": []
+},
+{
+"w": "dine",
+"mark": "",
+"forms": []
+},
+{
+"w": "dog",
+"mark": "*",
+"forms": []
+},
+{
+"w": "dump",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dinner",
+"mark": "*",
+"forms": []
+},
+{
+"w": "doll",
+"mark": "*",
+"forms": []
+},
+{
+"w": "during",
+"mark": "*",
+"forms": []
+},
+{
+"w": "dip",
+"mark": "",
+"forms": []
+},
+{
+"w": "dolphin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dust",
+"mark": "**",
+"forms": []
+},
+{
+"w": "diplomat",
+"mark": "",
+"forms": []
+},
+{
+"w": "domain",
+"mark": "",
+"forms": []
+},
+{
+"w": "duty",
+"mark": "**",
+"forms": []
+},
+{
+"w": "direct",
+"mark": "**",
+"forms": []
+},
+{
+"w": "domestic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dwell",
+"mark": "",
+"forms": []
+},
+{
+"w": "dirt",
+"mark": "**",
+"forms": [
+"dirty"
+]
+},
+{
+"w": "dominate",
+"mark": "",
+"forms": [
+"dominant"
+]
+},
+{
+"w": "dynamic",
+"mark": "",
+"forms": []
+},
+{
+"w": "disappoint",
+"mark": "**",
+"forms": []
+},
+{
+"w": "donate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "disaster",
+"mark": "",
+"forms": []
+},
+{
+"w": "door",
+"mark": "*",
+"forms": []
+},
+{
+"w": "disc",
+"mark": "**",
+"forms": [
+"disk"
+]
+},
+{
+"w": "dose",
+"mark": "",
+"forms": []
+},
+{
+"w": "discipline",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dot",
+"mark": "",
+"forms": []
+},
+{
+"w": "discourse",
+"mark": "",
+"forms": []
+},
+{
+"w": "double",
+"mark": "*",
+"forms": []
+},
+{
+"w": "each",
+"mark": "**",
+"forms": []
+},
+{
+"w": "discriminate",
+"mark": "",
+"forms": []
+},
+{
+"w": "doubt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "eager",
+"mark": "",
+"forms": []
+},
+{
+"w": "discuss",
+"mark": "*",
+"forms": []
+},
+{
+"w": "doughnut",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ear",
+"mark": "*",
+"forms": []
+},
+{
+"w": "disgust",
+"mark": "**",
+"forms": []
+},
+{
+"w": "down",
+"mark": "*",
+"forms": []
+},
+{
+"w": "early",
+"mark": "*",
+"forms": []
+},
+{
+"w": "dish",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dozen",
+"mark": "**",
+"forms": []
+},
+{
+"w": "earn",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dismiss",
+"mark": "",
+"forms": []
+},
+{
+"w": "draft",
+"mark": "",
+"forms": []
+},
+{
+"w": "earth",
+"mark": "*",
+"forms": []
+},
+{
+"w": "display",
+"mark": "**",
+"forms": []
+},
+{
+"w": "drag",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ease",
+"mark": "**",
+"forms": [
+"disease",
+"easy"
+]
+},
+{
+"w": "dispute",
+"mark": "",
+"forms": []
+},
+{
+"w": "drain",
+"mark": "",
+"forms": []
+},
+{
+"w": "east",
+"mark": "*",
+"forms": []
+},
+{
+"w": "disrupt",
+"mark": "",
+"forms": []
+},
+{
+"w": "drama",
+"mark": "**",
+"forms": []
+},
+{
+"w": "eat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "distance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "draw",
+"mark": "*",
+"forms": [
+"drawer"
+]
+},
+{
+"w": "economy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "distinct",
+"mark": "",
+"forms": []
+},
+{
+"w": "dread",
+"mark": "",
+"forms": []
+},
+{
+"w": "edge",
+"mark": "**",
+"forms": []
+},
+{
+"w": "distinguish",
+"mark": "",
+"forms": []
+},
+{
+"w": "dream",
+"mark": "*",
+"forms": []
+},
+{
+"w": "edit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "distort",
+"mark": "",
+"forms": []
+},
+{
+"w": "dress",
+"mark": "*",
+"forms": []
+},
+{
+"w": "educate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "distract",
+"mark": "",
+"forms": []
+},
+{
+"w": "drill",
+"mark": "",
+"forms": []
+},
+{
+"w": "effect",
+"mark": "**",
+"forms": [
+"effective"
+]
+},
+{
+"w": "distribute",
+"mark": "",
+"forms": []
+},
+{
+"w": "drink",
+"mark": "*",
+"forms": []
+},
+{
+"w": "efficient",
+"mark": "",
+"forms": []
+},
+{
+"w": "district",
+"mark": "**",
+"forms": []
+},
+{
+"w": "drive",
+"mark": "*",
+"forms": []
+},
+{
+"w": "effort",
+"mark": "**",
+"forms": []
+},
+{
+"w": "disturb",
+"mark": "**",
+"forms": []
+},
+{
+"w": "drop",
+"mark": "*",
+"forms": []
+},
+{
+"w": "egg",
+"mark": "*",
+"forms": []
+},
+{
+"w": "dive",
+"mark": "**",
+"forms": []
+},
+{
+"w": "drown",
+"mark": "",
+"forms": []
+},
+{
+"w": "eight",
+"mark": "*",
+"forms": []
+},
+{
+"w": "diverse",
+"mark": "",
+"forms": []
+},
+{
+"w": "drug",
+"mark": "**",
+"forms": []
+},
+{
+"w": "either",
+"mark": "**",
+"forms": []
+},
+{
+"w": "divide",
+"mark": "**",
+"forms": []
+},
+{
+"w": "drum",
+"mark": "*",
+"forms": []
+},
+{
+"w": "elaborate",
+"mark": "",
+"forms": []
+},
+{
+"w": "divine",
+"mark": "",
+"forms": []
+},
+{
+"w": "elect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "divorce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "electric",
+"mark": "**",
+"forms": []
+},
+{
+"w": "dual",
+"mark": "",
+"forms": []
+},
+{
+"w": "do",
+"mark": "*",
+"forms": []
+},
+{
+"w": "electronic",
+"mark": "",
+"forms": []
+},
+{
+"w": "duck",
+"mark": "*",
+"forms": []
+},
+{
+"w": "doctor",
+"mark": "*",
+"forms": []
+},
+{
+"w": "elegant",
+"mark": "",
+"forms": []
+},
+{
+"w": "due",
+"mark": "**",
+"forms": []
+},
+{
+"w": "document",
+"mark": "**",
+"forms": []
+},
+{
+"w": "element",
+"mark": "**",
+"forms": [
+"elementary"
+]
+},
+{
+"w": "dull",
+"mark": "",
+"forms": []
+},
+{
+"w": "elephant",
+"mark": "*",
+"forms": []
+},
+{
+"w": "envelope",
+"mark": "**",
+"forms": []
+},
+{
+"w": "exceed",
+"mark": "",
+"forms": []
+},
+{
+"w": "elevate",
+"mark": "",
+"forms": [
+"elevator"
+]
+},
+{
+"w": "environ",
+"mark": "",
+"forms": [
+"environment"
+]
+},
+{
+"w": "excel",
+"mark": "",
+"forms": [
+"excellent"
+]
+},
+{
+"w": "eleven",
+"mark": "*",
+"forms": []
+},
+{
+"w": "envy",
+"mark": "",
+"forms": []
+},
+{
+"w": "except",
+"mark": "**",
+"forms": []
+},
+{
+"w": "eliminate",
+"mark": "",
+"forms": []
+},
+{
+"w": "equal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "excess",
+"mark": "",
+"forms": []
+},
+{
+"w": "elite",
+"mark": "",
+"forms": []
+},
+{
+"w": "equip",
+"mark": "",
+"forms": [
+"equipment"
+]
+},
+{
+"w": "exchange",
+"mark": "**",
+"forms": []
+},
+{
+"w": "else",
+"mark": "**",
+"forms": []
+},
+{
+"w": "era",
+"mark": "",
+"forms": []
+},
+{
+"w": "excite",
+"mark": "**",
+"forms": []
+},
+{
+"w": "embarrass",
+"mark": "**",
+"forms": []
+},
+{
+"w": "erase",
+"mark": "",
+"forms": [
+"eraser"
+]
+},
+{
+"w": "exclude",
+"mark": "",
+"forms": [
+"exclusive"
+]
+},
+{
+"w": "embassy",
+"mark": "",
+"forms": []
+},
+{
+"w": "erect",
+"mark": "",
+"forms": []
+},
+{
+"w": "excuse",
+"mark": "**",
+"forms": []
+},
+{
+"w": "embrace",
+"mark": "",
+"forms": []
+},
+{
+"w": "err",
+"mark": "",
+"forms": [
+"error"
+]
+},
+{
+"w": "executive",
+"mark": "",
+"forms": []
+},
+{
+"w": "emerge",
+"mark": "",
+"forms": [
+"emergence"
+]
+},
+{
+"w": "escape",
+"mark": "**",
+"forms": []
+},
+{
+"w": "exercise",
+"mark": "*",
+"forms": []
+},
+{
+"w": "emergency",
+"mark": "",
+"forms": []
+},
+{
+"w": "especial",
+"mark": "**",
+"forms": [
+"especially"
+]
+},
+{
+"w": "exhaust",
+"mark": "**",
+"forms": []
+},
+{
+"w": "emit",
+"mark": "",
+"forms": [
+"emission"
+]
+},
+{
+"w": "essay",
+"mark": "**",
+"forms": []
+},
+{
+"w": "exhibit",
+"mark": "",
+"forms": []
+},
+{
+"w": "emotion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "essence",
+"mark": "",
+"forms": [
+"essential"
+]
+},
+{
+"w": "exist",
+"mark": "**",
+"forms": []
+},
+{
+"w": "emphasis",
+"mark": "",
+"forms": []
+},
+{
+"w": "establish",
+"mark": "**",
+"forms": []
+},
+{
+"w": "exit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "emphasize",
+"mark": "**",
+"forms": []
+},
+{
+"w": "estate",
+"mark": "",
+"forms": []
+},
+{
+"w": "exotic",
+"mark": "",
+"forms": []
+},
+{
+"w": "empire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "estimate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "expand",
+"mark": "**",
+"forms": []
+},
+{
+"w": "employ",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ethic",
+"mark": "",
+"forms": [
+"ethical"
+]
+},
+{
+"w": "expect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "empty",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ethnic",
+"mark": "",
+"forms": []
+},
+{
+"w": "expense",
+"mark": "**",
+"forms": [
+"expensive"
+]
+},
+{
+"w": "encounter",
+"mark": "",
+"forms": []
+},
+{
+"w": "evacuate",
+"mark": "",
+"forms": []
+},
+{
+"w": "experience",
+"mark": "**",
+"forms": []
+},
+{
+"w": "end",
+"mark": "*",
+"forms": []
+},
+{
+"w": "evaluate",
+"mark": "",
+"forms": []
+},
+{
+"w": "experiment",
+"mark": "**",
+"forms": []
+},
+{
+"w": "endure",
+"mark": "",
+"forms": []
+},
+{
+"w": "even",
+"mark": "**",
+"forms": []
+},
+{
+"w": "expert",
+"mark": "**",
+"forms": []
+},
+{
+"w": "enemy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "evening",
+"mark": "*",
+"forms": []
+},
+{
+"w": "expertise",
+"mark": "",
+"forms": []
+},
+{
+"w": "energy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "event",
+"mark": "**",
+"forms": [
+"eventually"
+]
+},
+{
+"w": "explain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "engage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ever",
+"mark": "**",
+"forms": []
+},
+{
+"w": "explicit",
+"mark": "",
+"forms": []
+},
+{
+"w": "engine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "every",
+"mark": "*",
+"forms": []
+},
+{
+"w": "explode",
+"mark": "",
+"forms": []
+},
+{
+"w": "engineer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "evidence",
+"mark": "**",
+"forms": []
+},
+{
+"w": "explore",
+"mark": "",
+"forms": []
+},
+{
+"w": "enhance",
+"mark": "",
+"forms": []
+},
+{
+"w": "evil",
+"mark": "**",
+"forms": []
+},
+{
+"w": "export",
+"mark": "",
+"forms": []
+},
+{
+"w": "enormous",
+"mark": "**",
+"forms": []
+},
+{
+"w": "evitable",
+"mark": "",
+"forms": [
+"inevitable"
+]
+},
+{
+"w": "expose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "enough",
+"mark": "*",
+"forms": []
+},
+{
+"w": "evolution",
+"mark": "",
+"forms": []
+},
+{
+"w": "express",
+"mark": "**",
+"forms": []
+},
+{
+"w": "enter",
+"mark": "*",
+"forms": []
+},
+{
+"w": "evolve",
+"mark": "",
+"forms": []
+},
+{
+"w": "extend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "enterprise",
+"mark": "",
+"forms": []
+},
+{
+"w": "exact",
+"mark": "**",
+"forms": []
+},
+{
+"w": "extent",
+"mark": "",
+"forms": []
+},
+{
+"w": "entertain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "exaggerate",
+"mark": "",
+"forms": []
+},
+{
+"w": "external",
+"mark": "",
+"forms": []
+},
+{
+"w": "enthusiastic",
+"mark": "",
+"forms": []
+},
+{
+"w": "examine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "extinct",
+"mark": "",
+"forms": []
+},
+{
+"w": "entire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "extra",
+"mark": "**",
+"forms": []
+},
+{
+"w": "entry",
+"mark": "",
+"forms": []
+},
+{
+"w": "example",
+"mark": "*",
+"forms": []
+},
+{
+"w": "extract",
+"mark": "",
+"forms": []
+},
+{
+"w": "extraordinary",
+"mark": "",
+"forms": []
+},
+{
+"w": "fasten",
+"mark": "",
+"forms": []
+},
+{
+"w": "finger",
+"mark": "*",
+"forms": []
+},
+{
+"w": "extreme",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "finish",
+"mark": "*",
+"forms": []
+},
+{
+"w": "eye",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fate",
+"mark": "",
+"forms": [
+"fatal"
+]
+},
+{
+"w": "finite",
+"mark": "",
+"forms": []
+},
+{
+"w": "eyebrow",
+"mark": "",
+"forms": []
+},
+{
+"w": "father",
+"mark": "*",
+"forms": [
+"dad",
+"daddy"
+]
+},
+{
+"w": "fire",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fault",
+"mark": "**",
+"forms": []
+},
+{
+"w": "firm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "favor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "first",
+"mark": "*",
+"forms": []
+},
+{
+"w": "favorite",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fish",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fear",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fabric",
+"mark": "",
+"forms": []
+},
+{
+"w": "feature",
+"mark": "**",
+"forms": []
+},
+{
+"w": "five",
+"mark": "*",
+"forms": []
+},
+{
+"w": "face",
+"mark": "*",
+"forms": []
+},
+{
+"w": "federal",
+"mark": "",
+"forms": []
+},
+{
+"w": "fix",
+"mark": "*",
+"forms": []
+},
+{
+"w": "facilitate",
+"mark": "",
+"forms": []
+},
+{
+"w": "fee",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flag",
+"mark": "**",
+"forms": []
+},
+{
+"w": "facility",
+"mark": "",
+"forms": []
+},
+{
+"w": "feed",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flame",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fact",
+"mark": "*",
+"forms": [
+"factual"
+]
+},
+{
+"w": "feel",
+"mark": "*",
+"forms": []
+},
+{
+"w": "flash",
+"mark": "**",
+"forms": []
+},
+{
+"w": "factor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fellow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "factory",
+"mark": "**",
+"forms": []
+},
+{
+"w": "female",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flavor",
+"mark": "",
+"forms": []
+},
+{
+"w": "faculty",
+"mark": "",
+"forms": []
+},
+{
+"w": "fence",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flaw",
+"mark": "",
+"forms": []
+},
+{
+"w": "fade",
+"mark": "",
+"forms": []
+},
+{
+"w": "ferry",
+"mark": "",
+"forms": []
+},
+{
+"w": "flee",
+"mark": "",
+"forms": []
+},
+{
+"w": "fail",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fertile",
+"mark": "",
+"forms": []
+},
+{
+"w": "flesh",
+"mark": "",
+"forms": []
+},
+{
+"w": "faint",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flexible",
+"mark": "",
+"forms": []
+},
+{
+"w": "festival",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fair",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flight",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fever",
+"mark": "**",
+"forms": []
+},
+{
+"w": "faith",
+"mark": "**",
+"forms": []
+},
+{
+"w": "few",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flip",
+"mark": "",
+"forms": []
+},
+{
+"w": "fall",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fiber",
+"mark": "",
+"forms": []
+},
+{
+"w": "float",
+"mark": "**",
+"forms": []
+},
+{
+"w": "false",
+"mark": "",
+"forms": []
+},
+{
+"w": "fiction",
+"mark": "",
+"forms": []
+},
+{
+"w": "flock",
+"mark": "",
+"forms": []
+},
+{
+"w": "fame",
+"mark": "",
+"forms": [
+"famous"
+]
+},
+{
+"w": "field",
+"mark": "*",
+"forms": []
+},
+{
+"w": "flood",
+"mark": "**",
+"forms": []
+},
+{
+"w": "familiar",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fierce",
+"mark": "",
+"forms": []
+},
+{
+"w": "floor",
+"mark": "*",
+"forms": []
+},
+{
+"w": "family",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fight",
+"mark": "*",
+"forms": []
+},
+{
+"w": "flourish",
+"mark": "",
+"forms": []
+},
+{
+"w": "fan",
+"mark": "*",
+"forms": []
+},
+{
+"w": "figure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "flow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fancy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "file",
+"mark": "*",
+"forms": []
+},
+{
+"w": "flower",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fantastic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fill",
+"mark": "*",
+"forms": []
+},
+{
+"w": "flush",
+"mark": "",
+"forms": []
+},
+{
+"w": "far",
+"mark": "*",
+"forms": []
+},
+{
+"w": "film",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fly",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fare",
+"mark": "",
+"forms": []
+},
+{
+"w": "filter",
+"mark": "",
+"forms": []
+},
+{
+"w": "focus",
+"mark": "*",
+"forms": []
+},
+{
+"w": "farm",
+"mark": "*",
+"forms": []
+},
+{
+"w": "final",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fog",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fascinate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "finance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fold",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fashion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "find",
+"mark": "*",
+"forms": []
+},
+{
+"w": "folk",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fast",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fine",
+"mark": "*",
+"forms": []
+},
+{
+"w": "follow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fond",
+"mark": "",
+"forms": []
+},
+{
+"w": "freeze",
+"mark": "**",
+"forms": []
+},
+{
+"w": "game",
+"mark": "*",
+"forms": []
+},
+{
+"w": "food",
+"mark": "*",
+"forms": []
+},
+{
+"w": "frequent",
+"mark": "",
+"forms": []
+},
+{
+"w": "gang",
+"mark": "",
+"forms": []
+},
+{
+"w": "fool",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fresh",
+"mark": "*",
+"forms": []
+},
+{
+"w": "gap",
+"mark": "",
+"forms": []
+},
+{
+"w": "foot",
+"mark": "*",
+"forms": []
+},
+{
+"w": "friend",
+"mark": "*",
+"forms": [
+"friendship"
+]
+},
+{
+"w": "garage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "football",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fright",
+"mark": "**",
+"forms": []
+},
+{
+"w": "garden",
+"mark": "*",
+"forms": []
+},
+{
+"w": "for",
+"mark": "*",
+"forms": []
+},
+{
+"w": "frog",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gas",
+"mark": "*",
+"forms": []
+},
+{
+"w": "forbid",
+"mark": "",
+"forms": []
+},
+{
+"w": "from",
+"mark": "*",
+"forms": []
+},
+{
+"w": "gasoline",
+"mark": "",
+"forms": []
+},
+{
+"w": "force",
+"mark": "**",
+"forms": [
+"enforce"
+]
+},
+{
+"w": "front",
+"mark": "*",
+"forms": []
+},
+{
+"w": "gate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "forecast",
+"mark": "",
+"forms": []
+},
+{
+"w": "frost",
+"mark": "",
+"forms": []
+},
+{
+"w": "gather",
+"mark": "**",
+"forms": []
+},
+{
+"w": "forehead",
+"mark": "",
+"forms": []
+},
+{
+"w": "frown",
+"mark": "",
+"forms": []
+},
+{
+"w": "gaze",
+"mark": "",
+"forms": []
+},
+{
+"w": "foreign",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fruit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "gear",
+"mark": "**",
+"forms": []
+},
+{
+"w": "forest",
+"mark": "*",
+"forms": []
+},
+{
+"w": "frustrate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gender",
+"mark": "",
+"forms": []
+},
+{
+"w": "forever",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fry",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gene",
+"mark": "",
+"forms": [
+"genetic"
+]
+},
+{
+"w": "forget",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fuel",
+"mark": "",
+"forms": []
+},
+{
+"w": "general",
+"mark": "**",
+"forms": []
+},
+{
+"w": "forgive",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fulfil",
+"mark": "",
+"forms": []
+},
+{
+"w": "generate",
+"mark": "",
+"forms": [
+"generation"
+]
+},
+{
+"w": "fork",
+"mark": "*",
+"forms": []
+},
+{
+"w": "full",
+"mark": "*",
+"forms": []
+},
+{
+"w": "generous",
+"mark": "",
+"forms": []
+},
+{
+"w": "form",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fun",
+"mark": "*",
+"forms": []
+},
+{
+"w": "genius",
+"mark": "",
+"forms": []
+},
+{
+"w": "function",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gentle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "format",
+"mark": "",
+"forms": []
+},
+{
+"w": "fund",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gentleman",
+"mark": "*",
+"forms": []
+},
+{
+"w": "former",
+"mark": "",
+"forms": []
+},
+{
+"w": "fundamental",
+"mark": "",
+"forms": []
+},
+{
+"w": "genuine",
+"mark": "",
+"forms": []
+},
+{
+"w": "formula",
+"mark": "",
+"forms": []
+},
+{
+"w": "funeral",
+"mark": "",
+"forms": []
+},
+{
+"w": "geography",
+"mark": "",
+"forms": []
+},
+{
+"w": "forth",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fur",
+"mark": "**",
+"forms": []
+},
+{
+"w": "geology",
+"mark": "",
+"forms": []
+},
+{
+"w": "fortunate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "furnish",
+"mark": "",
+"forms": []
+},
+{
+"w": "gesture",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fortune",
+"mark": "**",
+"forms": []
+},
+{
+"w": "furniture",
+"mark": "**",
+"forms": []
+},
+{
+"w": "get",
+"mark": "*",
+"forms": []
+},
+{
+"w": "forward",
+"mark": "**",
+"forms": []
+},
+{
+"w": "furthermore",
+"mark": "",
+"forms": []
+},
+{
+"w": "ghost",
+"mark": "**",
+"forms": []
+},
+{
+"w": "foster",
+"mark": "",
+"forms": []
+},
+{
+"w": "fury",
+"mark": "",
+"forms": [
+"furious"
+]
+},
+{
+"w": "giant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "found",
+"mark": "**",
+"forms": [
+"foundation"
+]
+},
+{
+"w": "fuse",
+"mark": "",
+"forms": []
+},
+{
+"w": "gift",
+"mark": "**",
+"forms": []
+},
+{
+"w": "fountain",
+"mark": "",
+"forms": []
+},
+{
+"w": "future",
+"mark": "*",
+"forms": []
+},
+{
+"w": "giraffe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "four",
+"mark": "*",
+"forms": []
+},
+{
+"w": "girl",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fox",
+"mark": "*",
+"forms": []
+},
+{
+"w": "give",
+"mark": "*",
+"forms": []
+},
+{
+"w": "fraction",
+"mark": "",
+"forms": []
+},
+{
+"w": "glad",
+"mark": "*",
+"forms": []
+},
+{
+"w": "frame",
+"mark": "**",
+"forms": []
+},
+{
+"w": "glance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "framework",
+"mark": "",
+"forms": []
+},
+{
+"w": "glare",
+"mark": "",
+"forms": []
+},
+{
+"w": "gallery",
+"mark": "",
+"forms": []
+},
+{
+"w": "frankly",
+"mark": "**",
+"forms": []
+},
+{
+"w": "glass",
+"mark": "*",
+"forms": []
+},
+{
+"w": "gamble",
+"mark": "",
+"forms": []
+},
+{
+"w": "free",
+"mark": "*",
+"forms": []
+},
+{
+"w": "globe",
+"mark": "",
+"forms": [
+"global"
+]
+},
+{
+"w": "glory",
+"mark": "**",
+"forms": []
+},
+{
+"w": "grocery",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hang",
+"mark": "*",
+"forms": []
+},
+{
+"w": "glove",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gross",
+"mark": "",
+"forms": []
+},
+{
+"w": "happen",
+"mark": "**",
+"forms": []
+},
+{
+"w": "glow",
+"mark": "",
+"forms": []
+},
+{
+"w": "ground",
+"mark": "*",
+"forms": []
+},
+{
+"w": "happy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "glue",
+"mark": "**",
+"forms": []
+},
+{
+"w": "group",
+"mark": "*",
+"forms": []
+},
+{
+"w": "harbor",
+"mark": "",
+"forms": []
+},
+{
+"w": "go",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hard",
+"mark": "*",
+"forms": [
+"hardly"
+]
+},
+{
+"w": "goal",
+"mark": "*",
+"forms": []
+},
+{
+"w": "guarantee",
+"mark": "**",
+"forms": []
+},
+{
+"w": "harm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "goat",
+"mark": "",
+"forms": []
+},
+{
+"w": "guard",
+"mark": "**",
+"forms": []
+},
+{
+"w": "harmony",
+"mark": "",
+"forms": [
+"harmonious"
+]
+},
+{
+"w": "god",
+"mark": "*",
+"forms": []
+},
+{
+"w": "guardian",
+"mark": "",
+"forms": []
+},
+{
+"w": "harsh",
+"mark": "",
+"forms": []
+},
+{
+"w": "gold",
+"mark": "*",
+"forms": []
+},
+{
+"w": "guess",
+"mark": "*",
+"forms": []
+},
+{
+"w": "harvest",
+"mark": "",
+"forms": []
+},
+{
+"w": "golf",
+"mark": "**",
+"forms": []
+},
+{
+"w": "guest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "good",
+"mark": "*",
+"forms": [
+"goods"
+]
+},
+{
+"w": "guide",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hate",
+"mark": "*",
+"forms": []
+},
+{
+"w": "goodbye",
+"mark": "*",
+"forms": [
+"bye"
+]
+},
+{
+"w": "guideline",
+"mark": "",
+"forms": []
+},
+{
+"w": "haunt",
+"mark": "",
+"forms": []
+},
+{
+"w": "gorgeous",
+"mark": "**",
+"forms": []
+},
+{
+"w": "guilt",
+"mark": "**",
+"forms": [
+"guilty"
+]
+},
+{
+"w": "have",
+"mark": "*",
+"forms": []
+},
+{
+"w": "govern",
+"mark": "**",
+"forms": [
+"government"
+]
+},
+{
+"w": "guitar",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hazard",
+"mark": "",
+"forms": []
+},
+{
+"w": "grab",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gulf",
+"mark": "",
+"forms": []
+},
+{
+"w": "he",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grace",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gum",
+"mark": "*",
+"forms": []
+},
+{
+"w": "head",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grade",
+"mark": "**",
+"forms": [
+"gradual"
+]
+},
+{
+"w": "gun",
+"mark": "**",
+"forms": []
+},
+{
+"w": "headquarters",
+"mark": "",
+"forms": []
+},
+{
+"w": "graduate",
+"mark": "",
+"forms": []
+},
+{
+"w": "guy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "heal",
+"mark": "",
+"forms": []
+},
+{
+"w": "grain",
+"mark": "",
+"forms": []
+},
+{
+"w": "gymnasium",
+"mark": "",
+"forms": []
+},
+{
+"w": "health",
+"mark": "**",
+"forms": [
+"healthy"
+]
+},
+{
+"w": "grand",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hear",
+"mark": "**",
+"forms": []
+},
+{
+"w": "grandfather",
+"mark": "*",
+"forms": []
+},
+{
+"w": "heart",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "heat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grape",
+"mark": "*",
+"forms": []
+},
+{
+"w": "heaven",
+"mark": "**",
+"forms": []
+},
+{
+"w": "habit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "graph",
+"mark": "**",
+"forms": [
+"graphic"
+]
+},
+{
+"w": "heavy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "habitat",
+"mark": "",
+"forms": []
+},
+{
+"w": "grasp",
+"mark": "",
+"forms": []
+},
+{
+"w": "heel",
+"mark": "",
+"forms": []
+},
+{
+"w": "hair",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grass",
+"mark": "*",
+"forms": []
+},
+{
+"w": "height",
+"mark": "**",
+"forms": []
+},
+{
+"w": "grateful",
+"mark": "",
+"forms": []
+},
+{
+"w": "half",
+"mark": "**",
+"forms": []
+},
+{
+"w": "heir",
+"mark": "",
+"forms": []
+},
+{
+"w": "grave",
+"mark": "",
+"forms": []
+},
+{
+"w": "hall",
+"mark": "**",
+"forms": []
+},
+{
+"w": "helicopter",
+"mark": "**",
+"forms": []
+},
+{
+"w": "gray",
+"mark": "*",
+"forms": []
+},
+{
+"w": "halt",
+"mark": "",
+"forms": []
+},
+{
+"w": "hell",
+"mark": "**",
+"forms": []
+},
+{
+"w": "great",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hamburger",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hello",
+"mark": "*",
+"forms": []
+},
+{
+"w": "greed",
+"mark": "",
+"forms": []
+},
+{
+"w": "hammer",
+"mark": "",
+"forms": []
+},
+{
+"w": "helmet",
+"mark": "*",
+"forms": []
+},
+{
+"w": "green",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hand",
+"mark": "*",
+"forms": []
+},
+{
+"w": "help",
+"mark": "*",
+"forms": []
+},
+{
+"w": "greet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "handicap",
+"mark": "",
+"forms": []
+},
+{
+"w": "hence",
+"mark": "",
+"forms": []
+},
+{
+"w": "grief",
+"mark": "",
+"forms": []
+},
+{
+"w": "handle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "here",
+"mark": "*",
+"forms": []
+},
+{
+"w": "grip",
+"mark": "",
+"forms": []
+},
+{
+"w": "handsome",
+"mark": "**",
+"forms": []
+},
+{
+"w": "heritage",
+"mark": "",
+"forms": []
+},
+{
+"w": "hero",
+"mark": "*",
+"forms": []
+},
+{
+"w": "household",
+"mark": "",
+"forms": []
+},
+{
+"w": "immense",
+"mark": "",
+"forms": []
+},
+{
+"w": "hesitate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "how",
+"mark": "*",
+"forms": []
+},
+{
+"w": "immigrate",
+"mark": "",
+"forms": []
+},
+{
+"w": "hide",
+"mark": "**",
+"forms": []
+},
+{
+"w": "however",
+"mark": "*",
+"forms": []
+},
+{
+"w": "immune",
+"mark": "",
+"forms": []
+},
+{
+"w": "hierarchy",
+"mark": "",
+"forms": []
+},
+{
+"w": "hug",
+"mark": "**",
+"forms": []
+},
+{
+"w": "impact",
+"mark": "",
+"forms": []
+},
+{
+"w": "high",
+"mark": "*",
+"forms": []
+},
+{
+"w": "huge",
+"mark": "**",
+"forms": []
+},
+{
+"w": "imperial",
+"mark": "",
+"forms": []
+},
+{
+"w": "highlight",
+"mark": "",
+"forms": []
+},
+{
+"w": "human",
+"mark": "*",
+"forms": []
+},
+{
+"w": "implement",
+"mark": "",
+"forms": []
+},
+{
+"w": "highway",
+"mark": "**",
+"forms": []
+},
+{
+"w": "humor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "imply",
+"mark": "",
+"forms": []
+},
+{
+"w": "hike",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hundred",
+"mark": "*",
+"forms": []
+},
+{
+"w": "import",
+"mark": "",
+"forms": []
+},
+{
+"w": "hill",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hunger",
+"mark": "**",
+"forms": [
+"hungry"
+]
+},
+{
+"w": "hint",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hunt",
+"mark": "*",
+"forms": []
+},
+{
+"w": "impose",
+"mark": "",
+"forms": []
+},
+{
+"w": "hire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hurry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "impress",
+"mark": "**",
+"forms": []
+},
+{
+"w": "history",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hurt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "improve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "husband",
+"mark": "*",
+"forms": []
+},
+{
+"w": "in",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hobby",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hut",
+"mark": "",
+"forms": []
+},
+{
+"w": "incentive",
+"mark": "",
+"forms": []
+},
+{
+"w": "hold",
+"mark": "*",
+"forms": []
+},
+{
+"w": "hypothesis",
+"mark": "",
+"forms": []
+},
+{
+"w": "incident",
+"mark": "",
+"forms": []
+},
+{
+"w": "hole",
+"mark": "**",
+"forms": []
+},
+{
+"w": "incline",
+"mark": "",
+"forms": []
+},
+{
+"w": "holiday",
+"mark": "*",
+"forms": []
+},
+{
+"w": "include",
+"mark": "**",
+"forms": []
+},
+{
+"w": "holy",
+"mark": "",
+"forms": []
+},
+{
+"w": "income",
+"mark": "**",
+"forms": []
+},
+{
+"w": "home",
+"mark": "*",
+"forms": []
+},
+{
+"w": "incorporate",
+"mark": "",
+"forms": []
+},
+{
+"w": "homework",
+"mark": "*",
+"forms": []
+},
+{
+"w": "I",
+"mark": "*",
+"forms": []
+},
+{
+"w": "increase",
+"mark": "**",
+"forms": []
+},
+{
+"w": "honest",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ice",
+"mark": "*",
+"forms": []
+},
+{
+"w": "indeed",
+"mark": "**",
+"forms": []
+},
+{
+"w": "honey",
+"mark": "**",
+"forms": []
+},
+{
+"w": "idea",
+"mark": "*",
+"forms": []
+},
+{
+"w": "index",
+"mark": "",
+"forms": []
+},
+{
+"w": "honor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ideal",
+"mark": "",
+"forms": []
+},
+{
+"w": "indicate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hook",
+"mark": "",
+"forms": []
+},
+{
+"w": "identical",
+"mark": "",
+"forms": []
+},
+{
+"w": "individual",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hope",
+"mark": "*",
+"forms": []
+},
+{
+"w": "identity",
+"mark": "**",
+"forms": [
+"identify"
+]
+},
+{
+"w": "induce",
+"mark": "",
+"forms": []
+},
+{
+"w": "horizon",
+"mark": "",
+"forms": []
+},
+{
+"w": "ideology",
+"mark": "",
+"forms": []
+},
+{
+"w": "industry",
+"mark": "**",
+"forms": []
+},
+{
+"w": "horror",
+"mark": "",
+"forms": []
+},
+{
+"w": "if",
+"mark": "*",
+"forms": []
+},
+{
+"w": "infant",
+"mark": "",
+"forms": []
+},
+{
+"w": "horse",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ignore",
+"mark": "**",
+"forms": []
+},
+{
+"w": "infect",
+"mark": "",
+"forms": []
+},
+{
+"w": "hospital",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ill",
+"mark": "**",
+"forms": []
+},
+{
+"w": "infer",
+"mark": "",
+"forms": [
+"inference"
+]
+},
+{
+"w": "host",
+"mark": "",
+"forms": []
+},
+{
+"w": "illude",
+"mark": "",
+"forms": [
+"illusion"
+]
+},
+{
+"w": "inflate",
+"mark": "",
+"forms": []
+},
+{
+"w": "hostile",
+"mark": "",
+"forms": []
+},
+{
+"w": "illustrate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "influence",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hot",
+"mark": "*",
+"forms": []
+},
+{
+"w": "image",
+"mark": "*",
+"forms": []
+},
+{
+"w": "inform",
+"mark": "**",
+"forms": []
+},
+{
+"w": "hotel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "imagine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ingredient",
+"mark": "",
+"forms": []
+},
+{
+"w": "hour",
+"mark": "*",
+"forms": []
+},
+{
+"w": "imitate",
+"mark": "",
+"forms": []
+},
+{
+"w": "inhabit",
+"mark": "",
+"forms": []
+},
+{
+"w": "house",
+"mark": "*",
+"forms": []
+},
+{
+"w": "immediate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "inherent",
+"mark": "",
+"forms": []
+},
+{
+"w": "inhibit",
+"mark": "",
+"forms": []
+},
+{
+"w": "intermediate",
+"mark": "",
+"forms": []
+},
+{
+"w": "job",
+"mark": "*",
+"forms": []
+},
+{
+"w": "initial",
+"mark": "",
+"forms": []
+},
+{
+"w": "internal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "jog",
+"mark": "",
+"forms": []
+},
+{
+"w": "inject",
+"mark": "",
+"forms": []
+},
+{
+"w": "internet",
+"mark": "*",
+"forms": []
+},
+{
+"w": "join",
+"mark": "*",
+"forms": []
+},
+{
+"w": "injure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "interpret",
+"mark": "",
+"forms": []
+},
+{
+"w": "joint",
+"mark": "",
+"forms": []
+},
+{
+"w": "inn",
+"mark": "",
+"forms": []
+},
+{
+"w": "interrupt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "joke",
+"mark": "**",
+"forms": []
+},
+{
+"w": "innocent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "interval",
+"mark": "",
+"forms": []
+},
+{
+"w": "journal",
+"mark": "",
+"forms": []
+},
+{
+"w": "innovate",
+"mark": "",
+"forms": []
+},
+{
+"w": "intervene",
+"mark": "",
+"forms": []
+},
+{
+"w": "journey",
+"mark": "**",
+"forms": []
+},
+{
+"w": "input",
+"mark": "",
+"forms": []
+},
+{
+"w": "intimate",
+"mark": "",
+"forms": []
+},
+{
+"w": "joy",
+"mark": "**",
+"forms": [
+"enjoy"
+]
+},
+{
+"w": "inquire",
+"mark": "",
+"forms": []
+},
+{
+"w": "into",
+"mark": "*",
+"forms": []
+},
+{
+"w": "judge",
+"mark": "**",
+"forms": []
+},
+{
+"w": "insect",
+"mark": "",
+"forms": []
+},
+{
+"w": "intrigue",
+"mark": "",
+"forms": []
+},
+{
+"w": "juice",
+"mark": "*",
+"forms": []
+},
+{
+"w": "insert",
+"mark": "",
+"forms": []
+},
+{
+"w": "introduce",
+"mark": "*",
+"forms": []
+},
+{
+"w": "jump",
+"mark": "*",
+"forms": []
+},
+{
+"w": "inside",
+"mark": "*",
+"forms": []
+},
+{
+"w": "invade",
+"mark": "",
+"forms": []
+},
+{
+"w": "junior",
+"mark": "**",
+"forms": []
+},
+{
+"w": "insight",
+"mark": "",
+"forms": []
+},
+{
+"w": "invent",
+"mark": "**",
+"forms": [
+"inventor"
+]
+},
+{
+"w": "jury",
+"mark": "",
+"forms": []
+},
+{
+"w": "insist",
+"mark": "**",
+"forms": []
+},
+{
+"w": "invest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "just",
+"mark": "*",
+"forms": []
+},
+{
+"w": "inspect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "investigate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "justice",
+"mark": "**",
+"forms": []
+},
+{
+"w": "inspire",
+"mark": "",
+"forms": []
+},
+{
+"w": "invite",
+"mark": "*",
+"forms": []
+},
+{
+"w": "install",
+"mark": "",
+"forms": []
+},
+{
+"w": "involve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "instance",
+"mark": "**",
+"forms": []
+},
+{
+"w": "iron",
+"mark": "**",
+"forms": []
+},
+{
+"w": "instant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "irony",
+"mark": "",
+"forms": []
+},
+{
+"w": "instead",
+"mark": "**",
+"forms": []
+},
+{
+"w": "keen",
+"mark": "",
+"forms": []
+},
+{
+"w": "irritate",
+"mark": "",
+"forms": []
+},
+{
+"w": "instinct",
+"mark": "",
+"forms": []
+},
+{
+"w": "keep",
+"mark": "*",
+"forms": []
+},
+{
+"w": "island",
+"mark": "**",
+"forms": []
+},
+{
+"w": "institute",
+"mark": "",
+"forms": [
+"institution"
+]
+},
+{
+"w": "key",
+"mark": "*",
+"forms": []
+},
+{
+"w": "isolate",
+"mark": "",
+"forms": []
+},
+{
+"w": "instruct",
+"mark": "**",
+"forms": []
+},
+{
+"w": "kick",
+"mark": "*",
+"forms": []
+},
+{
+"w": "issue",
+"mark": "*",
+"forms": []
+},
+{
+"w": "instrument",
+"mark": "**",
+"forms": []
+},
+{
+"w": "kid",
+"mark": "*",
+"forms": []
+},
+{
+"w": "it",
+"mark": "*",
+"forms": []
+},
+{
+"w": "insult",
+"mark": "",
+"forms": []
+},
+{
+"w": "kill",
+"mark": "*",
+"forms": []
+},
+{
+"w": "item",
+"mark": "**",
+"forms": []
+},
+{
+"w": "insure",
+"mark": "**",
+"forms": [
+"insurance"
+]
+},
+{
+"w": "kind",
+"mark": "*",
+"forms": []
+},
+{
+"w": "integrate",
+"mark": "",
+"forms": []
+},
+{
+"w": "king",
+"mark": "*",
+"forms": []
+},
+{
+"w": "intellect",
+"mark": "",
+"forms": [
+"intellectual"
+]
+},
+{
+"w": "kiss",
+"mark": "*",
+"forms": []
+},
+{
+"w": "intelligent",
+"mark": "",
+"forms": []
+},
+{
+"w": "kit",
+"mark": "",
+"forms": []
+},
+{
+"w": "intend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "jacket",
+"mark": "*",
+"forms": []
+},
+{
+"w": "kitchen",
+"mark": "*",
+"forms": []
+},
+{
+"w": "intense",
+"mark": "**",
+"forms": []
+},
+{
+"w": "jail",
+"mark": "",
+"forms": []
+},
+{
+"w": "knee",
+"mark": "**",
+"forms": []
+},
+{
+"w": "intent",
+"mark": "**",
+"forms": [
+"intention"
+]
+},
+{
+"w": "jam",
+"mark": "*",
+"forms": []
+},
+{
+"w": "knife",
+"mark": "*",
+"forms": []
+},
+{
+"w": "interest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "jar",
+"mark": "",
+"forms": []
+},
+{
+"w": "knight",
+"mark": "",
+"forms": []
+},
+{
+"w": "interfere",
+"mark": "",
+"forms": []
+},
+{
+"w": "jaw",
+"mark": "**",
+"forms": []
+},
+{
+"w": "knock",
+"mark": "**",
+"forms": []
+},
+{
+"w": "interior",
+"mark": "",
+"forms": []
+},
+{
+"w": "jeans",
+"mark": "**",
+"forms": []
+},
+{
+"w": "knot",
+"mark": "",
+"forms": []
+},
+{
+"w": "know",
+"mark": "*",
+"forms": []
+},
+{
+"w": "league",
+"mark": "**",
+"forms": []
+},
+{
+"w": "linguistic",
+"mark": "",
+"forms": []
+},
+{
+"w": "knowledge",
+"mark": "**",
+"forms": []
+},
+{
+"w": "leak",
+"mark": "",
+"forms": []
+},
+{
+"w": "link",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lean",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lion",
+"mark": "*",
+"forms": []
+},
+{
+"w": "leap",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lip",
+"mark": "*",
+"forms": []
+},
+{
+"w": "learn",
+"mark": "*",
+"forms": []
+},
+{
+"w": "liquid",
+"mark": "",
+"forms": []
+},
+{
+"w": "lease",
+"mark": "",
+"forms": []
+},
+{
+"w": "list",
+"mark": "**",
+"forms": []
+},
+{
+"w": "label",
+"mark": "**",
+"forms": []
+},
+{
+"w": "leather",
+"mark": "",
+"forms": []
+},
+{
+"w": "listen",
+"mark": "*",
+"forms": []
+},
+{
+"w": "labor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "leave",
+"mark": "**",
+"forms": []
+},
+{
+"w": "literature",
+"mark": "",
+"forms": []
+},
+{
+"w": "laboratory",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lecture",
+"mark": "",
+"forms": []
+},
+{
+"w": "little",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lack",
+"mark": "**",
+"forms": []
+},
+{
+"w": "left",
+"mark": "*",
+"forms": []
+},
+{
+"w": "live",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ladder",
+"mark": "",
+"forms": []
+},
+{
+"w": "livingroom",
+"mark": "**",
+"forms": []
+},
+{
+"w": "leg",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lady",
+"mark": "*",
+"forms": []
+},
+{
+"w": "load",
+"mark": "**",
+"forms": []
+},
+{
+"w": "legal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lake",
+"mark": "*",
+"forms": []
+},
+{
+"w": "loan",
+"mark": "**",
+"forms": []
+},
+{
+"w": "legend",
+"mark": "",
+"forms": []
+},
+{
+"w": "lamb",
+"mark": "**",
+"forms": []
+},
+{
+"w": "local",
+"mark": "**",
+"forms": []
+},
+{
+"w": "legislate",
+"mark": "",
+"forms": []
+},
+{
+"w": "lamp",
+"mark": "**",
+"forms": []
+},
+{
+"w": "legitimate",
+"mark": "",
+"forms": []
+},
+{
+"w": "locate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "land",
+"mark": "*",
+"forms": []
+},
+{
+"w": "leisure",
+"mark": "",
+"forms": []
+},
+{
+"w": "lock",
+"mark": "**",
+"forms": []
+},
+{
+"w": "landscape",
+"mark": "",
+"forms": []
+},
+{
+"w": "lemon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "log",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lane",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "logic",
+"mark": "",
+"forms": []
+},
+{
+"w": "language",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lesson",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lone",
+"mark": "",
+"forms": []
+},
+{
+"w": "lap",
+"mark": "",
+"forms": []
+},
+{
+"w": "let",
+"mark": "**",
+"forms": []
+},
+{
+"w": "long",
+"mark": "*",
+"forms": []
+},
+{
+"w": "large",
+"mark": "*",
+"forms": []
+},
+{
+"w": "letter",
+"mark": "*",
+"forms": [
+"literal"
+]
+},
+{
+"w": "look",
+"mark": "*",
+"forms": []
+},
+{
+"w": "laser",
+"mark": "*",
+"forms": []
+},
+{
+"w": "level",
+"mark": "**",
+"forms": []
+},
+{
+"w": "loose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "last",
+"mark": "*",
+"forms": []
+},
+{
+"w": "liberal",
+"mark": "",
+"forms": []
+},
+{
+"w": "lose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "late",
+"mark": "*",
+"forms": []
+},
+{
+"w": "liberty",
+"mark": "",
+"forms": []
+},
+{
+"w": "loss",
+"mark": "**",
+"forms": []
+},
+{
+"w": "latter",
+"mark": "",
+"forms": []
+},
+{
+"w": "library",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lot",
+"mark": "**",
+"forms": []
+},
+{
+"w": "laugh",
+"mark": "**",
+"forms": []
+},
+{
+"w": "license",
+"mark": "**",
+"forms": []
+},
+{
+"w": "loud",
+"mark": "**",
+"forms": []
+},
+{
+"w": "launch",
+"mark": "",
+"forms": []
+},
+{
+"w": "lid",
+"mark": "**",
+"forms": []
+},
+{
+"w": "love",
+"mark": "*",
+"forms": []
+},
+{
+"w": "laundry",
+"mark": "",
+"forms": []
+},
+{
+"w": "lie",
+"mark": "*",
+"forms": []
+},
+{
+"w": "low",
+"mark": "*",
+"forms": []
+},
+{
+"w": "law",
+"mark": "**",
+"forms": []
+},
+{
+"w": "life",
+"mark": "*",
+"forms": []
+},
+{
+"w": "loyal",
+"mark": "",
+"forms": []
+},
+{
+"w": "lawn",
+"mark": "**",
+"forms": []
+},
+{
+"w": "lift",
+"mark": "**",
+"forms": []
+},
+{
+"w": "luck",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lawyer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "light",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lump",
+"mark": "",
+"forms": []
+},
+{
+"w": "lay",
+"mark": "**",
+"forms": [
+"layer"
+]
+},
+{
+"w": "like",
+"mark": "*",
+"forms": [
+"likely"
+]
+},
+{
+"w": "lunch",
+"mark": "*",
+"forms": []
+},
+{
+"w": "lazy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "likewise",
+"mark": "",
+"forms": []
+},
+{
+"w": "luxury",
+"mark": "",
+"forms": []
+},
+{
+"w": "lead",
+"mark": "**",
+"forms": []
+},
+{
+"w": "limit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "leaf",
+"mark": "**",
+"forms": []
+},
+{
+"w": "line",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mathematics",
+"mark": "*",
+"forms": []
+},
+{
+"w": "metal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "math",
+"mark": "*",
+"forms": []
+},
+{
+"w": "method",
+"mark": "**",
+"forms": []
+},
+{
+"w": "matter",
+"mark": "**",
+"forms": [
+"material"
+]
+},
+{
+"w": "metropolitan",
+"mark": "",
+"forms": []
+},
+{
+"w": "machine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mature",
+"mark": "",
+"forms": []
+},
+{
+"w": "microphone",
+"mark": "",
+"forms": []
+},
+{
+"w": "mad",
+"mark": "*",
+"forms": []
+},
+{
+"w": "maximum",
+"mark": "**",
+"forms": []
+},
+{
+"w": "microwave",
+"mark": "**",
+"forms": []
+},
+{
+"w": "magazine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "may",
+"mark": "*",
+"forms": []
+},
+{
+"w": "middle",
+"mark": "*",
+"forms": []
+},
+{
+"w": "magic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "maybe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "might",
+"mark": "*",
+"forms": []
+},
+{
+"w": "magnet",
+"mark": "",
+"forms": []
+},
+{
+"w": "mayor",
+"mark": "",
+"forms": []
+},
+{
+"w": "migrate",
+"mark": "",
+"forms": [
+"migrant"
+]
+},
+{
+"w": "magnificent",
+"mark": "",
+"forms": []
+},
+{
+"w": "meal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mild",
+"mark": "",
+"forms": []
+},
+{
+"w": "mail",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mean",
+"mark": "**",
+"forms": []
+},
+{
+"w": "military",
+"mark": "**",
+"forms": []
+},
+{
+"w": "main",
+"mark": "**",
+"forms": []
+},
+{
+"w": "meanwhile",
+"mark": "",
+"forms": []
+},
+{
+"w": "milk",
+"mark": "*",
+"forms": []
+},
+{
+"w": "maintain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "measure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mill",
+"mark": "**",
+"forms": []
+},
+{
+"w": "major",
+"mark": "**",
+"forms": [
+"majority"
+]
+},
+{
+"w": "meat",
+"mark": "*",
+"forms": []
+},
+{
+"w": "million",
+"mark": "",
+"forms": []
+},
+{
+"w": "make",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mechanic",
+"mark": "",
+"forms": []
+},
+{
+"w": "mind",
+"mark": "*",
+"forms": []
+},
+{
+"w": "male",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mechanism",
+"mark": "",
+"forms": []
+},
+{
+"w": "mine",
+"mark": "",
+"forms": [
+"miner"
+]
+},
+{
+"w": "man",
+"mark": "*",
+"forms": []
+},
+{
+"w": "medal",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mineral",
+"mark": "",
+"forms": []
+},
+{
+"w": "manage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mediate",
+"mark": "",
+"forms": []
+},
+{
+"w": "minimal",
+"mark": "",
+"forms": []
+},
+{
+"w": "manifest",
+"mark": "",
+"forms": []
+},
+{
+"w": "medical",
+"mark": "**",
+"forms": []
+},
+{
+"w": "minimum",
+"mark": "",
+"forms": []
+},
+{
+"w": "manipulate",
+"mark": "",
+"forms": []
+},
+{
+"w": "medicine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ministry",
+"mark": "",
+"forms": []
+},
+{
+"w": "manner",
+"mark": "**",
+"forms": []
+},
+{
+"w": "medieval",
+"mark": "",
+"forms": []
+},
+{
+"w": "minor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "manufacture",
+"mark": "**",
+"forms": []
+},
+{
+"w": "medium",
+"mark": "",
+"forms": [
+"media"
+]
+},
+{
+"w": "minute",
+"mark": "**",
+"forms": []
+},
+{
+"w": "many",
+"mark": "*",
+"forms": []
+},
+{
+"w": "meet",
+"mark": "*",
+"forms": []
+},
+{
+"w": "miracle",
+"mark": "",
+"forms": []
+},
+{
+"w": "map",
+"mark": "*",
+"forms": []
+},
+{
+"w": "melon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mirror",
+"mark": "**",
+"forms": []
+},
+{
+"w": "marathon",
+"mark": "*",
+"forms": []
+},
+{
+"w": "melt",
+"mark": "**",
+"forms": []
+},
+{
+"w": "miss",
+"mark": "*",
+"forms": []
+},
+{
+"w": "margin",
+"mark": "",
+"forms": []
+},
+{
+"w": "member",
+"mark": "*",
+"forms": [
+"membership"
+]
+},
+{
+"w": "missile",
+"mark": "",
+"forms": []
+},
+{
+"w": "marine",
+"mark": "",
+"forms": []
+},
+{
+"w": "memory",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mission",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mark",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mental",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mix",
+"mark": "**",
+"forms": []
+},
+{
+"w": "market",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mention",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mobile",
+"mark": "",
+"forms": []
+},
+{
+"w": "marry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "menu",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mock",
+"mark": "",
+"forms": []
+},
+{
+"w": "marvel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "merchant",
+"mark": "",
+"forms": []
+},
+{
+"w": "mode",
+"mark": "",
+"forms": []
+},
+{
+"w": "mask",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mere",
+"mark": "",
+"forms": []
+},
+{
+"w": "modify",
+"mark": "",
+"forms": []
+},
+{
+"w": "mass",
+"mark": "**",
+"forms": []
+},
+{
+"w": "merge",
+"mark": "",
+"forms": []
+},
+{
+"w": "model",
+"mark": "*",
+"forms": []
+},
+{
+"w": "master",
+"mark": "**",
+"forms": []
+},
+{
+"w": "merit",
+"mark": "",
+"forms": []
+},
+{
+"w": "moderate",
+"mark": "",
+"forms": []
+},
+{
+"w": "match",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mess",
+"mark": "**",
+"forms": []
+},
+{
+"w": "modern",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "message",
+"mark": "**",
+"forms": []
+},
+{
+"w": "modest",
+"mark": "",
+"forms": []
+},
+{
+"w": "moist",
+"mark": "",
+"forms": [
+"moisture"
+]
+},
+{
+"w": "mystery",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nevertheless",
+"mark": "",
+"forms": []
+},
+{
+"w": "molecule",
+"mark": "",
+"forms": []
+},
+{
+"w": "myth",
+"mark": "",
+"forms": []
+},
+{
+"w": "new",
+"mark": "*",
+"forms": []
+},
+{
+"w": "moment",
+"mark": "**",
+"forms": []
+},
+{
+"w": "news",
+"mark": "*",
+"forms": []
+},
+{
+"w": "money",
+"mark": "*",
+"forms": []
+},
+{
+"w": "newspaper",
+"mark": "*",
+"forms": []
+},
+{
+"w": "monitor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "next",
+"mark": "*",
+"forms": []
+},
+{
+"w": "monkey",
+"mark": "*",
+"forms": []
+},
+{
+"w": "nice",
+"mark": "*",
+"forms": []
+},
+{
+"w": "nail",
+"mark": "**",
+"forms": []
+},
+{
+"w": "monster",
+"mark": "",
+"forms": []
+},
+{
+"w": "night",
+"mark": "*",
+"forms": []
+},
+{
+"w": "naive",
+"mark": "",
+"forms": []
+},
+{
+"w": "month",
+"mark": "*",
+"forms": []
+},
+{
+"w": "nightmare",
+"mark": "",
+"forms": []
+},
+{
+"w": "naked",
+"mark": "",
+"forms": []
+},
+{
+"w": "monument",
+"mark": "",
+"forms": []
+},
+{
+"w": "nine",
+"mark": "*",
+"forms": []
+},
+{
+"w": "name",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mood",
+"mark": "**",
+"forms": []
+},
+{
+"w": "no",
+"mark": "*",
+"forms": []
+},
+{
+"w": "narrate",
+"mark": "",
+"forms": []
+},
+{
+"w": "moon",
+"mark": "*",
+"forms": [
+"half­moon"
+]
+},
+{
+"w": "noble",
+"mark": "",
+"forms": []
+},
+{
+"w": "narrow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "moral",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nod",
+"mark": "",
+"forms": []
+},
+{
+"w": "nasty",
+"mark": "",
+"forms": []
+},
+{
+"w": "moreover",
+"mark": "**",
+"forms": []
+},
+{
+"w": "noise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nation",
+"mark": "*",
+"forms": [
+"international"
+]
+},
+{
+"w": "morning",
+"mark": "*",
+"forms": []
+},
+{
+"w": "nominate",
+"mark": "",
+"forms": []
+},
+{
+"w": "native",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mortal",
+"mark": "",
+"forms": []
+},
+{
+"w": "none",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nature",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mother",
+"mark": "*",
+"forms": [
+"mom",
+"mommy"
+]
+},
+{
+"w": "nonetheless",
+"mark": "",
+"forms": []
+},
+{
+"w": "navy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "motion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "noon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "near",
+"mark": "*",
+"forms": []
+},
+{
+"w": "motive",
+"mark": "",
+"forms": []
+},
+{
+"w": "nor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "motor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "neat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "norm",
+"mark": "",
+"forms": [
+"normal"
+]
+},
+{
+"w": "mount",
+"mark": "**",
+"forms": []
+},
+{
+"w": "necessary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "north",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mountain",
+"mark": "*",
+"forms": []
+},
+{
+"w": "neck",
+"mark": "*",
+"forms": []
+},
+{
+"w": "nose",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mouse",
+"mark": "*",
+"forms": []
+},
+{
+"w": "need",
+"mark": "*",
+"forms": []
+},
+{
+"w": "not",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mouth",
+"mark": "*",
+"forms": []
+},
+{
+"w": "needle",
+"mark": "",
+"forms": []
+},
+{
+"w": "note",
+"mark": "*",
+"forms": [
+"notion"
+]
+},
+{
+"w": "move",
+"mark": "*",
+"forms": []
+},
+{
+"w": "negate",
+"mark": "",
+"forms": [
+"negative"
+]
+},
+{
+"w": "notebook",
+"mark": "*",
+"forms": []
+},
+{
+"w": "movie",
+"mark": "*",
+"forms": []
+},
+{
+"w": "neglect",
+"mark": "",
+"forms": []
+},
+{
+"w": "nothing",
+"mark": "*",
+"forms": []
+},
+{
+"w": "much",
+"mark": "*",
+"forms": []
+},
+{
+"w": "negotiate",
+"mark": "",
+"forms": []
+},
+{
+"w": "notice",
+"mark": "**",
+"forms": []
+},
+{
+"w": "mud",
+"mark": "**",
+"forms": []
+},
+{
+"w": "neighbor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "novel",
+"mark": "",
+"forms": []
+},
+{
+"w": "multiple",
+"mark": "",
+"forms": []
+},
+{
+"w": "neither",
+"mark": "**",
+"forms": []
+},
+{
+"w": "now",
+"mark": "*",
+"forms": []
+},
+{
+"w": "murder",
+"mark": "",
+"forms": []
+},
+{
+"w": "nephew",
+"mark": "",
+"forms": []
+},
+{
+"w": "nowadays",
+"mark": "**",
+"forms": []
+},
+{
+"w": "muscle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nerve",
+"mark": "**",
+"forms": [
+"nervous"
+]
+},
+{
+"w": "nowhere",
+"mark": "**",
+"forms": []
+},
+{
+"w": "museum",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "nuclear",
+"mark": "",
+"forms": []
+},
+{
+"w": "mushroom",
+"mark": "**",
+"forms": []
+},
+{
+"w": "net",
+"mark": "**",
+"forms": []
+},
+{
+"w": "number",
+"mark": "*",
+"forms": []
+},
+{
+"w": "music",
+"mark": "*",
+"forms": []
+},
+{
+"w": "network",
+"mark": "",
+"forms": []
+},
+{
+"w": "numerous",
+"mark": "",
+"forms": []
+},
+{
+"w": "must",
+"mark": "*",
+"forms": []
+},
+{
+"w": "neutral",
+"mark": "",
+"forms": []
+},
+{
+"w": "nurse",
+"mark": "*",
+"forms": []
+},
+{
+"w": "mutual",
+"mark": "",
+"forms": []
+},
+{
+"w": "never",
+"mark": "*",
+"forms": []
+},
+{
+"w": "nut",
+"mark": "**",
+"forms": []
+},
+{
+"w": "opportune",
+"mark": "",
+"forms": [
+"opportunity"
+]
+},
+{
+"w": "own",
+"mark": "**",
+"forms": []
+},
+{
+"w": "oppose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "opt",
+"mark": "",
+"forms": [
+"option"
+]
+},
+{
+"w": "optimist",
+"mark": "",
+"forms": []
+},
+{
+"w": "oak",
+"mark": "**",
+"forms": []
+},
+{
+"w": "or",
+"mark": "*",
+"forms": []
+},
+{
+"w": "obey",
+"mark": "",
+"forms": []
+},
+{
+"w": "pace",
+"mark": "",
+"forms": []
+},
+{
+"w": "oral",
+"mark": "",
+"forms": []
+},
+{
+"w": "object",
+"mark": "**",
+"forms": [
+"objective"
+]
+},
+{
+"w": "pack",
+"mark": "**",
+"forms": []
+},
+{
+"w": "orange",
+"mark": "*",
+"forms": []
+},
+{
+"w": "oblige",
+"mark": "",
+"forms": []
+},
+{
+"w": "pad",
+"mark": "",
+"forms": []
+},
+{
+"w": "orbit",
+"mark": "",
+"forms": []
+},
+{
+"w": "observe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "page",
+"mark": "*",
+"forms": []
+},
+{
+"w": "orchestra",
+"mark": "",
+"forms": []
+},
+{
+"w": "obsess",
+"mark": "",
+"forms": []
+},
+{
+"w": "pain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "order",
+"mark": "**",
+"forms": [
+"disorder"
+]
+},
+{
+"w": "obtain",
+"mark": "",
+"forms": []
+},
+{
+"w": "paint",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ordinary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "obvious",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pair",
+"mark": "**",
+"forms": []
+},
+{
+"w": "organ",
+"mark": "",
+"forms": []
+},
+{
+"w": "occasion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "palace",
+"mark": "**",
+"forms": []
+},
+{
+"w": "occupy",
+"mark": "",
+"forms": [
+"occupation"
+]
+},
+{
+"w": "pale",
+"mark": "",
+"forms": []
+},
+{
+"w": "orient",
+"mark": "",
+"forms": [
+"orientation"
+]
+},
+{
+"w": "occur",
+"mark": "**",
+"forms": [
+"occurrence"
+]
+},
+{
+"w": "palm",
+"mark": "",
+"forms": []
+},
+{
+"w": "origin",
+"mark": "",
+"forms": [
+"original"
+]
+},
+{
+"w": "ocean",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pan",
+"mark": "**",
+"forms": []
+},
+{
+"w": "other",
+"mark": "**",
+"forms": []
+},
+{
+"w": "odd",
+"mark": "**",
+"forms": []
+},
+{
+"w": "otherwise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "panel",
+"mark": "",
+"forms": []
+},
+{
+"w": "of",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ought",
+"mark": "**",
+"forms": []
+},
+{
+"w": "panic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "off",
+"mark": "*",
+"forms": []
+},
+{
+"w": "out",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pants",
+"mark": "*",
+"forms": []
+},
+{
+"w": "offend",
+"mark": "",
+"forms": []
+},
+{
+"w": "outcome",
+"mark": "",
+"forms": []
+},
+{
+"w": "paper",
+"mark": "*",
+"forms": []
+},
+{
+"w": "offer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "outline",
+"mark": "",
+"forms": []
+},
+{
+"w": "parade",
+"mark": "**",
+"forms": []
+},
+{
+"w": "office",
+"mark": "*",
+"forms": [
+"official"
+]
+},
+{
+"w": "output",
+"mark": "",
+"forms": []
+},
+{
+"w": "paragraph",
+"mark": "**",
+"forms": []
+},
+{
+"w": "officer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "outrage",
+"mark": "",
+"forms": []
+},
+{
+"w": "parallel",
+"mark": "",
+"forms": []
+},
+{
+"w": "often",
+"mark": "*",
+"forms": []
+},
+{
+"w": "outstanding",
+"mark": "",
+"forms": []
+},
+{
+"w": "pardon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "oil",
+"mark": "*",
+"forms": []
+},
+{
+"w": "oven",
+"mark": "**",
+"forms": []
+},
+{
+"w": "parent",
+"mark": "*",
+"forms": []
+},
+{
+"w": "okay",
+"mark": "*",
+"forms": []
+},
+{
+"w": "over",
+"mark": "*",
+"forms": []
+},
+{
+"w": "park",
+"mark": "*",
+"forms": []
+},
+{
+"w": "old",
+"mark": "*",
+"forms": []
+},
+{
+"w": "overall",
+"mark": "**",
+"forms": []
+},
+{
+"w": "parliament",
+"mark": "",
+"forms": []
+},
+{
+"w": "on",
+"mark": "*",
+"forms": []
+},
+{
+"w": "overcome",
+"mark": "",
+"forms": []
+},
+{
+"w": "part",
+"mark": "*",
+"forms": []
+},
+{
+"w": "once",
+"mark": "**",
+"forms": []
+},
+{
+"w": "overhead",
+"mark": "",
+"forms": []
+},
+{
+"w": "participate",
+"mark": "",
+"forms": []
+},
+{
+"w": "one",
+"mark": "*",
+"forms": []
+},
+{
+"w": "overlap",
+"mark": "",
+"forms": []
+},
+{
+"w": "particle",
+"mark": "",
+"forms": []
+},
+{
+"w": "only",
+"mark": "*",
+"forms": []
+},
+{
+"w": "overlook",
+"mark": "",
+"forms": []
+},
+{
+"w": "particular",
+"mark": "**",
+"forms": [
+"particularly"
+]
+},
+{
+"w": "open",
+"mark": "*",
+"forms": []
+},
+{
+"w": "overnight",
+"mark": "",
+"forms": []
+},
+{
+"w": "partner",
+"mark": "*",
+"forms": []
+},
+{
+"w": "opera",
+"mark": "**",
+"forms": []
+},
+{
+"w": "oversea",
+"mark": "",
+"forms": []
+},
+{
+"w": "party",
+"mark": "*",
+"forms": []
+},
+{
+"w": "operate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "overwhelm",
+"mark": "",
+"forms": []
+},
+{
+"w": "pass",
+"mark": "*",
+"forms": []
+},
+{
+"w": "opinion",
+"mark": "**",
+"forms": []
+},
+{
+"w": "owe",
+"mark": "",
+"forms": []
+},
+{
+"w": "passage",
+"mark": "",
+"forms": []
+},
+{
+"w": "passenger",
+"mark": "",
+"forms": []
+},
+{
+"w": "persuade",
+"mark": "",
+"forms": []
+},
+{
+"w": "plate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "passion",
+"mark": "",
+"forms": []
+},
+{
+"w": "pet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "platform",
+"mark": "",
+"forms": []
+},
+{
+"w": "passport",
+"mark": "",
+"forms": []
+},
+{
+"w": "phase",
+"mark": "",
+"forms": []
+},
+{
+"w": "play",
+"mark": "*",
+"forms": []
+},
+{
+"w": "past",
+"mark": "**",
+"forms": []
+},
+{
+"w": "phenomenon",
+"mark": "",
+"forms": []
+},
+{
+"w": "please",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pat",
+"mark": "",
+"forms": []
+},
+{
+"w": "philosophy",
+"mark": "",
+"forms": []
+},
+{
+"w": "patch",
+"mark": "",
+"forms": []
+},
+{
+"w": "photograph",
+"mark": "**",
+"forms": []
+},
+{
+"w": "plenty",
+"mark": "**",
+"forms": []
+},
+{
+"w": "patent",
+"mark": "",
+"forms": []
+},
+{
+"w": "phrase",
+"mark": "",
+"forms": []
+},
+{
+"w": "plot",
+"mark": "",
+"forms": []
+},
+{
+"w": "path",
+"mark": "**",
+"forms": []
+},
+{
+"w": "physical",
+"mark": "**",
+"forms": []
+},
+{
+"w": "plus",
+"mark": "**",
+"forms": []
+},
+{
+"w": "patient",
+"mark": "**",
+"forms": []
+},
+{
+"w": "physics",
+"mark": "",
+"forms": []
+},
+{
+"w": "pocket",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pattern",
+"mark": "**",
+"forms": []
+},
+{
+"w": "piano",
+"mark": "*",
+"forms": []
+},
+{
+"w": "poem",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pause",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pick",
+"mark": "*",
+"forms": []
+},
+{
+"w": "poet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pave",
+"mark": "",
+"forms": []
+},
+{
+"w": "picnic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "point",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pay",
+"mark": "*",
+"forms": []
+},
+{
+"w": "picture",
+"mark": "*",
+"forms": []
+},
+{
+"w": "poison",
+"mark": "**",
+"forms": []
+},
+{
+"w": "peace",
+"mark": "**",
+"forms": [
+"peaceful"
+]
+},
+{
+"w": "pie",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pole",
+"mark": "**",
+"forms": [
+"polar"
+]
+},
+{
+"w": "peak",
+"mark": "",
+"forms": []
+},
+{
+"w": "piece",
+"mark": "**",
+"forms": []
+},
+{
+"w": "police",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pear",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pig",
+"mark": "*",
+"forms": []
+},
+{
+"w": "policy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "peasant",
+"mark": "",
+"forms": []
+},
+{
+"w": "pile",
+"mark": "**",
+"forms": []
+},
+{
+"w": "polish",
+"mark": "",
+"forms": []
+},
+{
+"w": "peel",
+"mark": "",
+"forms": []
+},
+{
+"w": "pill",
+"mark": "",
+"forms": []
+},
+{
+"w": "polite",
+"mark": "**",
+"forms": []
+},
+{
+"w": "peer",
+"mark": "",
+"forms": []
+},
+{
+"w": "pilot",
+"mark": "*",
+"forms": []
+},
+{
+"w": "politics",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pen",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "poll",
+"mark": "",
+"forms": []
+},
+{
+"w": "penalty",
+"mark": "",
+"forms": []
+},
+{
+"w": "pinch",
+"mark": "",
+"forms": []
+},
+{
+"w": "pollute",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pencil",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pond",
+"mark": "",
+"forms": []
+},
+{
+"w": "people",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pink",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pool",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pepper",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pioneer",
+"mark": "",
+"forms": []
+},
+{
+"w": "poor",
+"mark": "*",
+"forms": []
+},
+{
+"w": "per",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pipe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pop",
+"mark": "**",
+"forms": []
+},
+{
+"w": "perceive",
+"mark": "",
+"forms": [
+"perception"
+]
+},
+{
+"w": "pitch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "popular",
+"mark": "**",
+"forms": []
+},
+{
+"w": "perfect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pity",
+"mark": "**",
+"forms": []
+},
+{
+"w": "populate",
+"mark": "",
+"forms": [
+"population"
+]
+},
+{
+"w": "perform",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pizza",
+"mark": "*",
+"forms": []
+},
+{
+"w": "pork",
+"mark": "**",
+"forms": []
+},
+{
+"w": "perhaps",
+"mark": "**",
+"forms": []
+},
+{
+"w": "place",
+"mark": "*",
+"forms": [
+"displace"
+]
+},
+{
+"w": "port",
+"mark": "**",
+"forms": []
+},
+{
+"w": "period",
+"mark": "**",
+"forms": []
+},
+{
+"w": "plain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "portion",
+"mark": "",
+"forms": []
+},
+{
+"w": "permanent",
+"mark": "",
+"forms": []
+},
+{
+"w": "plan",
+"mark": "*",
+"forms": []
+},
+{
+"w": "portrait",
+"mark": "",
+"forms": []
+},
+{
+"w": "permit",
+"mark": "",
+"forms": []
+},
+{
+"w": "plane",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pose",
+"mark": "",
+"forms": [
+"dispose"
+]
+},
+{
+"w": "persist",
+"mark": "",
+"forms": []
+},
+{
+"w": "planet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "posit",
+"mark": "",
+"forms": [
+"position",
+"positive"
+]
+},
+{
+"w": "person",
+"mark": "**",
+"forms": [
+"personality"
+]
+},
+{
+"w": "plant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "possess",
+"mark": "**",
+"forms": []
+},
+{
+"w": "perspective",
+"mark": "",
+"forms": []
+},
+{
+"w": "plastic",
+"mark": "*",
+"forms": []
+},
+{
+"w": "possible",
+"mark": "**",
+"forms": []
+},
+{
+"w": "post",
+"mark": "**",
+"forms": [
+"poster"
+]
+},
+{
+"w": "pride",
+"mark": "**",
+"forms": []
+},
+{
+"w": "proof",
+"mark": "",
+"forms": []
+},
+{
+"w": "pot",
+"mark": "**",
+"forms": []
+},
+{
+"w": "priest",
+"mark": "",
+"forms": []
+},
+{
+"w": "proper",
+"mark": "**",
+"forms": []
+},
+{
+"w": "potato",
+"mark": "*",
+"forms": []
+},
+{
+"w": "prime",
+"mark": "**",
+"forms": [
+"primary"
+]
+},
+{
+"w": "property",
+"mark": "**",
+"forms": []
+},
+{
+"w": "potential",
+"mark": "**",
+"forms": []
+},
+{
+"w": "primitive",
+"mark": "",
+"forms": []
+},
+{
+"w": "proportion",
+"mark": "",
+"forms": []
+},
+{
+"w": "pour",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prince",
+"mark": "*",
+"forms": []
+},
+{
+"w": "propose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "powder",
+"mark": "**",
+"forms": []
+},
+{
+"w": "principal",
+"mark": "",
+"forms": []
+},
+{
+"w": "prospect",
+"mark": "",
+"forms": []
+},
+{
+"w": "power",
+"mark": "*",
+"forms": []
+},
+{
+"w": "principle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prosper",
+"mark": "",
+"forms": []
+},
+{
+"w": "practical",
+"mark": "**",
+"forms": []
+},
+{
+"w": "print",
+"mark": "*",
+"forms": []
+},
+{
+"w": "protect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "practice",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prior",
+"mark": "",
+"forms": []
+},
+{
+"w": "protein",
+"mark": "",
+"forms": []
+},
+{
+"w": "praise",
+"mark": "",
+"forms": []
+},
+{
+"w": "prison",
+"mark": "**",
+"forms": []
+},
+{
+"w": "protest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pray",
+"mark": "**",
+"forms": []
+},
+{
+"w": "privacy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "proud",
+"mark": "**",
+"forms": []
+},
+{
+"w": "preach",
+"mark": "",
+"forms": []
+},
+{
+"w": "private",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prove",
+"mark": "**",
+"forms": []
+},
+{
+"w": "precede",
+"mark": "",
+"forms": [
+"unprecedented"
+]
+},
+{
+"w": "privilege",
+"mark": "",
+"forms": []
+},
+{
+"w": "provide",
+"mark": "**",
+"forms": []
+},
+{
+"w": "precise",
+"mark": "",
+"forms": []
+},
+{
+"w": "prize",
+"mark": "**",
+"forms": []
+},
+{
+"w": "province",
+"mark": "",
+"forms": []
+},
+{
+"w": "predator",
+"mark": "",
+"forms": []
+},
+{
+"w": "probable",
+"mark": "**",
+"forms": [
+"probably"
+]
+},
+{
+"w": "provoke",
+"mark": "",
+"forms": []
+},
+{
+"w": "predict",
+"mark": "",
+"forms": []
+},
+{
+"w": "problem",
+"mark": "*",
+"forms": []
+},
+{
+"w": "psychology",
+"mark": "",
+"forms": []
+},
+{
+"w": "prefer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "proceed",
+"mark": "**",
+"forms": [
+"procedure"
+]
+},
+{
+"w": "pub",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pregnant",
+"mark": "**",
+"forms": []
+},
+{
+"w": "process",
+"mark": "**",
+"forms": []
+},
+{
+"w": "public",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prejudice",
+"mark": "",
+"forms": []
+},
+{
+"w": "produce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "publish",
+"mark": "",
+"forms": [
+"publisher"
+]
+},
+{
+"w": "premium",
+"mark": "",
+"forms": []
+},
+{
+"w": "profession",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pull",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prepare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "professor",
+"mark": "",
+"forms": []
+},
+{
+"w": "pump",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prescribe",
+"mark": "",
+"forms": []
+},
+{
+"w": "profile",
+"mark": "",
+"forms": []
+},
+{
+"w": "punch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "presence",
+"mark": "**",
+"forms": []
+},
+{
+"w": "profit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "punish",
+"mark": "**",
+"forms": []
+},
+{
+"w": "present",
+"mark": "*",
+"forms": []
+},
+{
+"w": "profound",
+"mark": "",
+"forms": []
+},
+{
+"w": "pupil",
+"mark": "",
+"forms": []
+},
+{
+"w": "preserve",
+"mark": "",
+"forms": []
+},
+{
+"w": "program",
+"mark": "*",
+"forms": []
+},
+{
+"w": "puppy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "preside",
+"mark": "",
+"forms": [
+"president",
+"programmatic"
+]
+},
+{
+"w": "purchase",
+"mark": "**",
+"forms": []
+},
+{
+"w": "press",
+"mark": "**",
+"forms": []
+},
+{
+"w": "progress",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "presume",
+"mark": "",
+"forms": []
+},
+{
+"w": "prohibit",
+"mark": "",
+"forms": []
+},
+{
+"w": "purple",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pretend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "project",
+"mark": "*",
+"forms": []
+},
+{
+"w": "purpose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "pretty",
+"mark": "*",
+"forms": []
+},
+{
+"w": "prominent",
+"mark": "",
+"forms": []
+},
+{
+"w": "pursue",
+"mark": "",
+"forms": []
+},
+{
+"w": "prevail",
+"mark": "",
+"forms": []
+},
+{
+"w": "promise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "push",
+"mark": "*",
+"forms": []
+},
+{
+"w": "prevent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "promote",
+"mark": "**",
+"forms": []
+},
+{
+"w": "put",
+"mark": "*",
+"forms": []
+},
+{
+"w": "previous",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prompt",
+"mark": "",
+"forms": []
+},
+{
+"w": "puzzle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "prey",
+"mark": "",
+"forms": []
+},
+{
+"w": "pronounce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "price",
+"mark": "**",
+"forms": [
+"pronunciation"
+]
+},
+{
+"w": "rather",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reinforce",
+"mark": "",
+"forms": []
+},
+{
+"w": "rational",
+"mark": "",
+"forms": []
+},
+{
+"w": "reject",
+"mark": "",
+"forms": []
+},
+{
+"w": "raw",
+"mark": "",
+"forms": []
+},
+{
+"w": "relate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "quality",
+"mark": "**",
+"forms": [
+"qualify"
+]
+},
+{
+"w": "reach",
+"mark": "**",
+"forms": []
+},
+{
+"w": "quantity",
+"mark": "",
+"forms": []
+},
+{
+"w": "react",
+"mark": "**",
+"forms": []
+},
+{
+"w": "relax",
+"mark": "**",
+"forms": []
+},
+{
+"w": "quarter",
+"mark": "**",
+"forms": []
+},
+{
+"w": "read",
+"mark": "*",
+"forms": []
+},
+{
+"w": "release",
+"mark": "**",
+"forms": []
+},
+{
+"w": "queen",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ready",
+"mark": "*",
+"forms": []
+},
+{
+"w": "relevant",
+"mark": "",
+"forms": []
+},
+{
+"w": "question",
+"mark": "*",
+"forms": []
+},
+{
+"w": "real",
+"mark": "**",
+"forms": []
+},
+{
+"w": "relief",
+"mark": "**",
+"forms": []
+},
+{
+"w": "questionnaire",
+"mark": "",
+"forms": []
+},
+{
+"w": "rear",
+"mark": "",
+"forms": []
+},
+{
+"w": "relieve",
+"mark": "",
+"forms": []
+},
+{
+"w": "quick",
+"mark": "*",
+"forms": []
+},
+{
+"w": "reason",
+"mark": "**",
+"forms": [
+"reasonable"
+]
+},
+{
+"w": "religion",
+"mark": "",
+"forms": []
+},
+{
+"w": "quiet",
+"mark": "*",
+"forms": []
+},
+{
+"w": "rebel",
+"mark": "",
+"forms": []
+},
+{
+"w": "reluctant",
+"mark": "",
+"forms": []
+},
+{
+"w": "quit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "receipt",
+"mark": "",
+"forms": []
+},
+{
+"w": "rely",
+"mark": "**",
+"forms": []
+},
+{
+"w": "quite",
+"mark": "**",
+"forms": []
+},
+{
+"w": "receive",
+"mark": "**",
+"forms": [
+"reception"
+]
+},
+{
+"w": "remain",
+"mark": "**",
+"forms": []
+},
+{
+"w": "quiz",
+"mark": "*",
+"forms": []
+},
+{
+"w": "recent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "remark",
+"mark": "**",
+"forms": []
+},
+{
+"w": "quote",
+"mark": "**",
+"forms": []
+},
+{
+"w": "recipe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "remedy",
+"mark": "",
+"forms": []
+},
+{
+"w": "recognize",
+"mark": "**",
+"forms": []
+},
+{
+"w": "remember",
+"mark": "*",
+"forms": []
+},
+{
+"w": "recommend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "remind",
+"mark": "**",
+"forms": []
+},
+{
+"w": "record",
+"mark": "**",
+"forms": []
+},
+{
+"w": "remote",
+"mark": "",
+"forms": []
+},
+{
+"w": "recover",
+"mark": "**",
+"forms": []
+},
+{
+"w": "remove",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rabbit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "recreation",
+"mark": "*",
+"forms": []
+},
+{
+"w": "rent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "race",
+"mark": "*",
+"forms": [
+"racial"
+]
+},
+{
+"w": "recruit",
+"mark": "",
+"forms": []
+},
+{
+"w": "repair",
+"mark": "**",
+"forms": []
+},
+{
+"w": "radio",
+"mark": "*",
+"forms": []
+},
+{
+"w": "red",
+"mark": "*",
+"forms": []
+},
+{
+"w": "repeat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rage",
+"mark": "",
+"forms": []
+},
+{
+"w": "reduce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "replace",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rail",
+"mark": "**",
+"forms": []
+},
+{
+"w": "refer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reply",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rain",
+"mark": "*",
+"forms": []
+},
+{
+"w": "refine",
+"mark": "",
+"forms": []
+},
+{
+"w": "report",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rainbow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reflect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "represent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "raise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reform",
+"mark": "",
+"forms": []
+},
+{
+"w": "republic",
+"mark": "",
+"forms": []
+},
+{
+"w": "rally",
+"mark": "",
+"forms": []
+},
+{
+"w": "refrigerate",
+"mark": "",
+"forms": [
+"refrigerator"
+]
+},
+{
+"w": "reputation",
+"mark": "",
+"forms": []
+},
+{
+"w": "random",
+"mark": "",
+"forms": []
+},
+{
+"w": "refuse",
+"mark": "**",
+"forms": []
+},
+{
+"w": "request",
+"mark": "**",
+"forms": []
+},
+{
+"w": "range",
+"mark": "**",
+"forms": []
+},
+{
+"w": "regard",
+"mark": "**",
+"forms": []
+},
+{
+"w": "require",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rank",
+"mark": "",
+"forms": []
+},
+{
+"w": "region",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rescue",
+"mark": "",
+"forms": []
+},
+{
+"w": "rapid",
+"mark": "**",
+"forms": []
+},
+{
+"w": "register",
+"mark": "**",
+"forms": []
+},
+{
+"w": "research",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "regret",
+"mark": "",
+"forms": []
+},
+{
+"w": "resemble",
+"mark": "",
+"forms": []
+},
+{
+"w": "rat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "regular",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reserve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "regulate",
+"mark": "",
+"forms": []
+},
+{
+"w": "reside",
+"mark": "",
+"forms": [
+"resident"
+]
+},
+{
+"w": "resign",
+"mark": "",
+"forms": []
+},
+{
+"w": "right",
+"mark": "*",
+"forms": []
+},
+{
+"w": "run",
+"mark": "*",
+"forms": []
+},
+{
+"w": "resist",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ring",
+"mark": "*",
+"forms": []
+},
+{
+"w": "rural",
+"mark": "",
+"forms": []
+},
+{
+"w": "resolve",
+"mark": "",
+"forms": []
+},
+{
+"w": "riot",
+"mark": "",
+"forms": []
+},
+{
+"w": "rush",
+"mark": "**",
+"forms": []
+},
+{
+"w": "resort",
+"mark": "",
+"forms": []
+},
+{
+"w": "rise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "resource",
+"mark": "**",
+"forms": []
+},
+{
+"w": "risk",
+"mark": "**",
+"forms": []
+},
+{
+"w": "respect",
+"mark": "**",
+"forms": [
+"respective"
+]
+},
+{
+"w": "rival",
+"mark": "",
+"forms": []
+},
+{
+"w": "respond",
+"mark": "**",
+"forms": []
+},
+{
+"w": "river",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sack",
+"mark": "",
+"forms": []
+},
+{
+"w": "responsible",
+"mark": "**",
+"forms": []
+},
+{
+"w": "road",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sacred",
+"mark": "",
+"forms": []
+},
+{
+"w": "rest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "roar",
+"mark": "",
+"forms": []
+},
+{
+"w": "sacrifice",
+"mark": "",
+"forms": []
+},
+{
+"w": "restaurant",
+"mark": "*",
+"forms": []
+},
+{
+"w": "roast",
+"mark": "",
+"forms": []
+},
+{
+"w": "restore",
+"mark": "",
+"forms": []
+},
+{
+"w": "rob",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sad",
+"mark": "*",
+"forms": []
+},
+{
+"w": "restrain",
+"mark": "",
+"forms": []
+},
+{
+"w": "robot",
+"mark": "*",
+"forms": []
+},
+{
+"w": "safe",
+"mark": "*",
+"forms": []
+},
+{
+"w": "restrict",
+"mark": "",
+"forms": []
+},
+{
+"w": "rock",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sail",
+"mark": "**",
+"forms": []
+},
+{
+"w": "restroom",
+"mark": "*",
+"forms": []
+},
+{
+"w": "rocket",
+"mark": "**",
+"forms": []
+},
+{
+"w": "salad",
+"mark": "*",
+"forms": []
+},
+{
+"w": "result",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rod",
+"mark": "",
+"forms": []
+},
+{
+"w": "salary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "resume",
+"mark": "",
+"forms": []
+},
+{
+"w": "role",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sale",
+"mark": "*",
+"forms": []
+},
+{
+"w": "retail",
+"mark": "",
+"forms": []
+},
+{
+"w": "roll",
+"mark": "**",
+"forms": []
+},
+{
+"w": "salt",
+"mark": "*",
+"forms": []
+},
+{
+"w": "retain",
+"mark": "",
+"forms": []
+},
+{
+"w": "romantic",
+"mark": "",
+"forms": []
+},
+{
+"w": "same",
+"mark": "*",
+"forms": []
+},
+{
+"w": "retire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "roof",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sample",
+"mark": "**",
+"forms": []
+},
+{
+"w": "retreat",
+"mark": "",
+"forms": []
+},
+{
+"w": "room",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sand",
+"mark": "*",
+"forms": []
+},
+{
+"w": "return",
+"mark": "*",
+"forms": []
+},
+{
+"w": "root",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sandwich",
+"mark": "*",
+"forms": []
+},
+{
+"w": "reveal",
+"mark": "",
+"forms": []
+},
+{
+"w": "rope",
+"mark": "**",
+"forms": []
+},
+{
+"w": "satellite",
+"mark": "",
+"forms": []
+},
+{
+"w": "revenge",
+"mark": "",
+"forms": []
+},
+{
+"w": "rose",
+"mark": "*",
+"forms": []
+},
+{
+"w": "satisfy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reverse",
+"mark": "",
+"forms": []
+},
+{
+"w": "rot",
+"mark": "",
+"forms": []
+},
+{
+"w": "sauce",
+"mark": "**",
+"forms": []
+},
+{
+"w": "revise",
+"mark": "",
+"forms": []
+},
+{
+"w": "rough",
+"mark": "**",
+"forms": []
+},
+{
+"w": "save",
+"mark": "*",
+"forms": []
+},
+{
+"w": "revive",
+"mark": "",
+"forms": []
+},
+{
+"w": "round",
+"mark": "**",
+"forms": []
+},
+{
+"w": "say",
+"mark": "*",
+"forms": []
+},
+{
+"w": "revolution",
+"mark": "",
+"forms": []
+},
+{
+"w": "route",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scale",
+"mark": "**",
+"forms": []
+},
+{
+"w": "reward",
+"mark": "",
+"forms": []
+},
+{
+"w": "routine",
+"mark": "",
+"forms": []
+},
+{
+"w": "scan",
+"mark": "",
+"forms": []
+},
+{
+"w": "rhythm",
+"mark": "",
+"forms": []
+},
+{
+"w": "row",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scandal",
+"mark": "",
+"forms": []
+},
+{
+"w": "ribbon",
+"mark": "*",
+"forms": []
+},
+{
+"w": "royal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scarce",
+"mark": "",
+"forms": []
+},
+{
+"w": "rice",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rub",
+"mark": "**",
+"forms": [
+"rubber"
+]
+},
+{
+"w": "scare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rich",
+"mark": "*",
+"forms": []
+},
+{
+"w": "rude",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scarf",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rid",
+"mark": "",
+"forms": []
+},
+{
+"w": "ruin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scatter",
+"mark": "",
+"forms": []
+},
+{
+"w": "ride",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rule",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scene",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ridicule",
+"mark": "",
+"forms": [
+"ridiculous"
+]
+},
+{
+"w": "schedule",
+"mark": "**",
+"forms": []
+},
+{
+"w": "rumor",
+"mark": "",
+"forms": []
+},
+{
+"w": "scheme",
+"mark": "",
+"forms": []
+},
+{
+"w": "sensible",
+"mark": "",
+"forms": []
+},
+{
+"w": "ship",
+"mark": "*",
+"forms": []
+},
+{
+"w": "scholar",
+"mark": "",
+"forms": []
+},
+{
+"w": "sentence",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shirt",
+"mark": "*",
+"forms": []
+},
+{
+"w": "school",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sentiment",
+"mark": "",
+"forms": []
+},
+{
+"w": "shock",
+"mark": "**",
+"forms": []
+},
+{
+"w": "science",
+"mark": "*",
+"forms": []
+},
+{
+"w": "separate",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shoe",
+"mark": "*",
+"forms": []
+},
+{
+"w": "scissors",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sequence",
+"mark": "",
+"forms": []
+},
+{
+"w": "shoot",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scope",
+"mark": "",
+"forms": []
+},
+{
+"w": "series",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shop",
+"mark": "*",
+"forms": []
+},
+{
+"w": "score",
+"mark": "*",
+"forms": []
+},
+{
+"w": "serious",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shore",
+"mark": "**",
+"forms": []
+},
+{
+"w": "scramble",
+"mark": "",
+"forms": []
+},
+{
+"w": "serve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "short",
+"mark": "*",
+"forms": []
+},
+{
+"w": "scratch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "service",
+"mark": "*",
+"forms": []
+},
+{
+"w": "should",
+"mark": "*",
+"forms": []
+},
+{
+"w": "scream",
+"mark": "**",
+"forms": []
+},
+{
+"w": "session",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shoulder",
+"mark": "**",
+"forms": []
+},
+{
+"w": "screen",
+"mark": "**",
+"forms": []
+},
+{
+"w": "set",
+"mark": "*",
+"forms": []
+},
+{
+"w": "shout",
+"mark": "**",
+"forms": []
+},
+{
+"w": "screw",
+"mark": "",
+"forms": []
+},
+{
+"w": "settle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "show",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sculpt",
+"mark": "",
+"forms": [
+"sculpture"
+]
+},
+{
+"w": "seven",
+"mark": "*",
+"forms": []
+},
+{
+"w": "shower",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sea",
+"mark": "*",
+"forms": []
+},
+{
+"w": "several",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shut",
+"mark": "**",
+"forms": []
+},
+{
+"w": "seal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "severe",
+"mark": "",
+"forms": []
+},
+{
+"w": "shy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "search",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sew",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sick",
+"mark": "*",
+"forms": []
+},
+{
+"w": "season",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sex",
+"mark": "**",
+"forms": []
+},
+{
+"w": "side",
+"mark": "*",
+"forms": []
+},
+{
+"w": "seat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shade",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sigh",
+"mark": "",
+"forms": []
+},
+{
+"w": "second",
+"mark": "*",
+"forms": [
+"secondary"
+]
+},
+{
+"w": "shadow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sight",
+"mark": "**",
+"forms": []
+},
+{
+"w": "secret",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shake",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sign",
+"mark": "**",
+"forms": [
+"significant"
+]
+},
+{
+"w": "secretary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shall",
+"mark": "**",
+"forms": []
+},
+{
+"w": "silent",
+"mark": "",
+"forms": []
+},
+{
+"w": "section",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shallow",
+"mark": "",
+"forms": []
+},
+{
+"w": "silly",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sector",
+"mark": "",
+"forms": []
+},
+{
+"w": "shame",
+"mark": "**",
+"forms": []
+},
+{
+"w": "silver",
+"mark": "**",
+"forms": []
+},
+{
+"w": "secure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shape",
+"mark": "**",
+"forms": []
+},
+{
+"w": "similar",
+"mark": "**",
+"forms": []
+},
+{
+"w": "see",
+"mark": "*",
+"forms": []
+},
+{
+"w": "share",
+"mark": "**",
+"forms": []
+},
+{
+"w": "simple",
+"mark": "**",
+"forms": []
+},
+{
+"w": "seed",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sharp",
+"mark": "**",
+"forms": []
+},
+{
+"w": "simulate",
+"mark": "",
+"forms": []
+},
+{
+"w": "seek",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shave",
+"mark": "**",
+"forms": []
+},
+{
+"w": "simultaneous",
+"mark": "",
+"forms": []
+},
+{
+"w": "seem",
+"mark": "**",
+"forms": []
+},
+{
+"w": "she",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sin",
+"mark": "",
+"forms": []
+},
+{
+"w": "seize",
+"mark": "",
+"forms": []
+},
+{
+"w": "sheep",
+"mark": "**",
+"forms": []
+},
+{
+"w": "since",
+"mark": "**",
+"forms": []
+},
+{
+"w": "select",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sheet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sing",
+"mark": "*",
+"forms": []
+},
+{
+"w": "self",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shelf",
+"mark": "**",
+"forms": []
+},
+{
+"w": "single",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sell",
+"mark": "*",
+"forms": []
+},
+{
+"w": "shell",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sink",
+"mark": "**",
+"forms": []
+},
+{
+"w": "send",
+"mark": "*",
+"forms": []
+},
+{
+"w": "shelter",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sister",
+"mark": "*",
+"forms": []
+},
+{
+"w": "senior",
+"mark": "**",
+"forms": []
+},
+{
+"w": "shift",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sense",
+"mark": "**",
+"forms": [
+"sensation"
+]
+},
+{
+"w": "shine",
+"mark": "**",
+"forms": []
+},
+{
+"w": "site",
+"mark": "**",
+"forms": []
+},
+{
+"w": "situate",
+"mark": "**",
+"forms": [
+"situation"
+]
+},
+{
+"w": "social",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spectrum",
+"mark": "",
+"forms": []
+},
+{
+"w": "six",
+"mark": "*",
+"forms": []
+},
+{
+"w": "society",
+"mark": "**",
+"forms": []
+},
+{
+"w": "speech",
+"mark": "**",
+"forms": []
+},
+{
+"w": "size",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sociology",
+"mark": "",
+"forms": []
+},
+{
+"w": "speed",
+"mark": "*",
+"forms": []
+},
+{
+"w": "skate",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sock",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spell",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ski",
+"mark": "*",
+"forms": []
+},
+{
+"w": "soft",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "skill",
+"mark": "**",
+"forms": []
+},
+{
+"w": "software",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sphere",
+"mark": "",
+"forms": []
+},
+{
+"w": "skin",
+"mark": "*",
+"forms": []
+},
+{
+"w": "soil",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spill",
+"mark": "",
+"forms": []
+},
+{
+"w": "skip",
+"mark": "",
+"forms": []
+},
+{
+"w": "soldier",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "skirt",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sole",
+"mark": "",
+"forms": []
+},
+{
+"w": "spirit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sky",
+"mark": "*",
+"forms": []
+},
+{
+"w": "solid",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spit",
+"mark": "",
+"forms": []
+},
+{
+"w": "slave",
+"mark": "**",
+"forms": []
+},
+{
+"w": "solve",
+"mark": "**",
+"forms": []
+},
+{
+"w": "splash",
+"mark": "",
+"forms": []
+},
+{
+"w": "sleep",
+"mark": "*",
+"forms": []
+},
+{
+"w": "some",
+"mark": "*",
+"forms": []
+},
+{
+"w": "split",
+"mark": "",
+"forms": []
+},
+{
+"w": "slice",
+"mark": "",
+"forms": []
+},
+{
+"w": "somewhat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spoil",
+"mark": "**",
+"forms": []
+},
+{
+"w": "slide",
+"mark": "**",
+"forms": []
+},
+{
+"w": "son",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sponsor",
+"mark": "**",
+"forms": []
+},
+{
+"w": "slight",
+"mark": "**",
+"forms": []
+},
+{
+"w": "song",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spoon",
+"mark": "*",
+"forms": []
+},
+{
+"w": "slim",
+"mark": "",
+"forms": []
+},
+{
+"w": "soon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sport",
+"mark": "*",
+"forms": []
+},
+{
+"w": "slip",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sophisticate",
+"mark": "",
+"forms": []
+},
+{
+"w": "spot",
+"mark": "**",
+"forms": []
+},
+{
+"w": "slope",
+"mark": "",
+"forms": []
+},
+{
+"w": "sore",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spouse",
+"mark": "",
+"forms": []
+},
+{
+"w": "slow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sorry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spray",
+"mark": "**",
+"forms": []
+},
+{
+"w": "small",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sort",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spread",
+"mark": "**",
+"forms": []
+},
+{
+"w": "smart",
+"mark": "**",
+"forms": []
+},
+{
+"w": "soul",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spring",
+"mark": "*",
+"forms": []
+},
+{
+"w": "smash",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sound",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "smell",
+"mark": "*",
+"forms": []
+},
+{
+"w": "soup",
+"mark": "*",
+"forms": []
+},
+{
+"w": "square",
+"mark": "**",
+"forms": []
+},
+{
+"w": "smile",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sour",
+"mark": "**",
+"forms": []
+},
+{
+"w": "squeeze",
+"mark": "",
+"forms": []
+},
+{
+"w": "smoke",
+"mark": "**",
+"forms": []
+},
+{
+"w": "source",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stable",
+"mark": "**",
+"forms": []
+},
+{
+"w": "smooth",
+"mark": "**",
+"forms": []
+},
+{
+"w": "south",
+"mark": "*",
+"forms": []
+},
+{
+"w": "stack",
+"mark": "",
+"forms": []
+},
+{
+"w": "snack",
+"mark": "**",
+"forms": []
+},
+{
+"w": "space",
+"mark": "*",
+"forms": []
+},
+{
+"w": "staff",
+"mark": "*",
+"forms": []
+},
+{
+"w": "snake",
+"mark": "**",
+"forms": []
+},
+{
+"w": "spaghetti",
+"mark": "*",
+"forms": []
+},
+{
+"w": "stage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "snap",
+"mark": "**",
+"forms": []
+},
+{
+"w": "span",
+"mark": "",
+"forms": []
+},
+{
+"w": "stain",
+"mark": "",
+"forms": []
+},
+{
+"w": "sneak",
+"mark": "",
+"forms": []
+},
+{
+"w": "spare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stairs",
+"mark": "**",
+"forms": []
+},
+{
+"w": "snow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spark",
+"mark": "",
+"forms": []
+},
+{
+"w": "stamp",
+"mark": "**",
+"forms": []
+},
+{
+"w": "so",
+"mark": "*",
+"forms": []
+},
+{
+"w": "speak",
+"mark": "*",
+"forms": []
+},
+{
+"w": "stand",
+"mark": "*",
+"forms": []
+},
+{
+"w": "soak",
+"mark": "",
+"forms": []
+},
+{
+"w": "species",
+"mark": "**",
+"forms": [
+"special"
+]
+},
+{
+"w": "standard",
+"mark": "**",
+"forms": []
+},
+{
+"w": "soap",
+"mark": "",
+"forms": []
+},
+{
+"w": "specific",
+"mark": "**",
+"forms": []
+},
+{
+"w": "star",
+"mark": "*",
+"forms": []
+},
+{
+"w": "soccer",
+"mark": "*",
+"forms": []
+},
+{
+"w": "spectacle",
+"mark": "",
+"forms": []
+},
+{
+"w": "stare",
+"mark": "**",
+"forms": []
+},
+{
+"w": "start",
+"mark": "*",
+"forms": []
+},
+{
+"w": "stream",
+"mark": "**",
+"forms": []
+},
+{
+"w": "suicide",
+"mark": "",
+"forms": []
+},
+{
+"w": "starve",
+"mark": "",
+"forms": []
+},
+{
+"w": "street",
+"mark": "*",
+"forms": []
+},
+{
+"w": "suit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "state",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stress",
+"mark": "**",
+"forms": []
+},
+{
+"w": "suite",
+"mark": "",
+"forms": []
+},
+{
+"w": "station",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stretch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sum",
+"mark": "**",
+"forms": [
+"summary"
+]
+},
+{
+"w": "statistic",
+"mark": "",
+"forms": []
+},
+{
+"w": "strict",
+"mark": "",
+"forms": []
+},
+{
+"w": "summer",
+"mark": "*",
+"forms": []
+},
+{
+"w": "statue",
+"mark": "",
+"forms": []
+},
+{
+"w": "strike",
+"mark": "**",
+"forms": []
+},
+{
+"w": "summit",
+"mark": "",
+"forms": []
+},
+{
+"w": "status",
+"mark": "",
+"forms": []
+},
+{
+"w": "string",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sun",
+"mark": "*",
+"forms": []
+},
+{
+"w": "stay",
+"mark": "*",
+"forms": []
+},
+{
+"w": "strip",
+"mark": "",
+"forms": []
+},
+{
+"w": "super",
+"mark": "**",
+"forms": []
+},
+{
+"w": "steady",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stripe",
+"mark": "",
+"forms": []
+},
+{
+"w": "superb",
+"mark": "",
+"forms": []
+},
+{
+"w": "steak",
+"mark": "*",
+"forms": []
+},
+{
+"w": "stroke",
+"mark": "",
+"forms": []
+},
+{
+"w": "superior",
+"mark": "",
+"forms": []
+},
+{
+"w": "steal",
+"mark": "**",
+"forms": []
+},
+{
+"w": "strong",
+"mark": "*",
+"forms": []
+},
+{
+"w": "supervise",
+"mark": "",
+"forms": []
+},
+{
+"w": "steam",
+"mark": "**",
+"forms": []
+},
+{
+"w": "structure",
+"mark": "**",
+"forms": []
+},
+{
+"w": "supper",
+"mark": "**",
+"forms": []
+},
+{
+"w": "steel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "struggle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "supplement",
+"mark": "",
+"forms": []
+},
+{
+"w": "steep",
+"mark": "",
+"forms": []
+},
+{
+"w": "studio",
+"mark": "**",
+"forms": []
+},
+{
+"w": "supply",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stem",
+"mark": "",
+"forms": []
+},
+{
+"w": "study",
+"mark": "*",
+"forms": [
+"student"
+]
+},
+{
+"w": "support",
+"mark": "**",
+"forms": []
+},
+{
+"w": "step",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stuff",
+"mark": "**",
+"forms": []
+},
+{
+"w": "suppose",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stick",
+"mark": "**",
+"forms": []
+},
+{
+"w": "style",
+"mark": "*",
+"forms": []
+},
+{
+"w": "sure",
+"mark": "*",
+"forms": [
+"ensure"
+]
+},
+{
+"w": "stiff",
+"mark": "",
+"forms": []
+},
+{
+"w": "subject",
+"mark": "**",
+"forms": [
+"subjective"
+]
+},
+{
+"w": "surface",
+"mark": "**",
+"forms": []
+},
+{
+"w": "still",
+"mark": "**",
+"forms": []
+},
+{
+"w": "submarine",
+"mark": "",
+"forms": []
+},
+{
+"w": "surgery",
+"mark": "",
+"forms": []
+},
+{
+"w": "stimulate",
+"mark": "",
+"forms": []
+},
+{
+"w": "submit",
+"mark": "",
+"forms": [
+"submission"
+]
+},
+{
+"w": "surprise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stir",
+"mark": "**",
+"forms": []
+},
+{
+"w": "subscribe",
+"mark": "",
+"forms": []
+},
+{
+"w": "surrender",
+"mark": "",
+"forms": []
+},
+{
+"w": "stitch",
+"mark": "",
+"forms": []
+},
+{
+"w": "substance",
+"mark": "",
+"forms": [
+"substantial"
+]
+},
+{
+"w": "surround",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stock",
+"mark": "**",
+"forms": []
+},
+{
+"w": "substitute",
+"mark": "",
+"forms": []
+},
+{
+"w": "survey",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stomach",
+"mark": "**",
+"forms": []
+},
+{
+"w": "subtle",
+"mark": "",
+"forms": []
+},
+{
+"w": "survive",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stone",
+"mark": "*",
+"forms": []
+},
+{
+"w": "suburb",
+"mark": "",
+"forms": []
+},
+{
+"w": "suspect",
+"mark": "**",
+"forms": []
+},
+{
+"w": "stop",
+"mark": "*",
+"forms": []
+},
+{
+"w": "subway",
+"mark": "*",
+"forms": []
+},
+{
+"w": "suspend",
+"mark": "",
+"forms": []
+},
+{
+"w": "store",
+"mark": "*",
+"forms": []
+},
+{
+"w": "succeed",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sustain",
+"mark": "",
+"forms": []
+},
+{
+"w": "storm",
+"mark": "**",
+"forms": []
+},
+{
+"w": "success",
+"mark": "**",
+"forms": []
+},
+{
+"w": "swallow",
+"mark": "**",
+"forms": []
+},
+{
+"w": "story",
+"mark": "*",
+"forms": []
+},
+{
+"w": "such",
+"mark": "**",
+"forms": []
+},
+{
+"w": "swear",
+"mark": "",
+"forms": []
+},
+{
+"w": "stove",
+"mark": "",
+"forms": []
+},
+{
+"w": "suck",
+"mark": "",
+"forms": []
+},
+{
+"w": "sweat",
+"mark": "",
+"forms": []
+},
+{
+"w": "straight",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sudden",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sweater",
+"mark": "**",
+"forms": []
+},
+{
+"w": "strain",
+"mark": "",
+"forms": []
+},
+{
+"w": "suffer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sweep",
+"mark": "**",
+"forms": []
+},
+{
+"w": "strange",
+"mark": "**",
+"forms": []
+},
+{
+"w": "suffice",
+"mark": "",
+"forms": [
+"sufficient"
+]
+},
+{
+"w": "sweet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "strategy",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sugar",
+"mark": "*",
+"forms": []
+},
+{
+"w": "swell",
+"mark": "",
+"forms": []
+},
+{
+"w": "strawberry",
+"mark": "**",
+"forms": []
+},
+{
+"w": "suggest",
+"mark": "**",
+"forms": []
+},
+{
+"w": "swift",
+"mark": "",
+"forms": []
+},
+{
+"w": "swim",
+"mark": "*",
+"forms": []
+},
+{
+"w": "technology",
+"mark": "**",
+"forms": []
+},
+{
+"w": "theory",
+"mark": "**",
+"forms": []
+},
+{
+"w": "swing",
+"mark": "**",
+"forms": []
+},
+{
+"w": "teenage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "therapy",
+"mark": "",
+"forms": []
+},
+{
+"w": "switch",
+"mark": "**",
+"forms": []
+},
+{
+"w": "telegraph",
+"mark": "",
+"forms": []
+},
+{
+"w": "there",
+"mark": "*",
+"forms": []
+},
+{
+"w": "symbol",
+"mark": "",
+"forms": []
+},
+{
+"w": "telephone",
+"mark": "*",
+"forms": []
+},
+{
+"w": "therefore",
+"mark": "**",
+"forms": []
+},
+{
+"w": "sympathy",
+"mark": "",
+"forms": []
+},
+{
+"w": "television",
+"mark": "*",
+"forms": []
+},
+{
+"w": "they",
+"mark": "*",
+"forms": []
+},
+{
+"w": "symphony",
+"mark": "",
+"forms": []
+},
+{
+"w": "tell",
+"mark": "*",
+"forms": []
+},
+{
+"w": "thick",
+"mark": "**",
+"forms": []
+},
+{
+"w": "symptom",
+"mark": "",
+"forms": []
+},
+{
+"w": "temperature",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thief",
+"mark": "**",
+"forms": []
+},
+{
+"w": "system",
+"mark": "**",
+"forms": []
+},
+{
+"w": "temple",
+"mark": "",
+"forms": []
+},
+{
+"w": "thin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "temporary",
+"mark": "",
+"forms": []
+},
+{
+"w": "thing",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tempt",
+"mark": "",
+"forms": []
+},
+{
+"w": "think",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ten",
+"mark": "*",
+"forms": []
+},
+{
+"w": "third",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tenant",
+"mark": "",
+"forms": []
+},
+{
+"w": "thirst",
+"mark": "*",
+"forms": []
+},
+{
+"w": "table",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tend",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thirteen",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tackle",
+"mark": "",
+"forms": []
+},
+{
+"w": "tender",
+"mark": "",
+"forms": []
+},
+{
+"w": "thirty",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tag",
+"mark": "",
+"forms": []
+},
+{
+"w": "tennis",
+"mark": "*",
+"forms": []
+},
+{
+"w": "this",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tail",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tense",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thorough",
+"mark": "",
+"forms": []
+},
+{
+"w": "take",
+"mark": "*",
+"forms": [
+"mistake"
+]
+},
+{
+"w": "tent",
+"mark": "*",
+"forms": []
+},
+{
+"w": "though",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tale",
+"mark": "**",
+"forms": []
+},
+{
+"w": "term",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thousand",
+"mark": "**",
+"forms": []
+},
+{
+"w": "talent",
+"mark": "",
+"forms": []
+},
+{
+"w": "terminal",
+"mark": "",
+"forms": []
+},
+{
+"w": "thread",
+"mark": "",
+"forms": []
+},
+{
+"w": "talk",
+"mark": "*",
+"forms": []
+},
+{
+"w": "terminate",
+"mark": "",
+"forms": []
+},
+{
+"w": "threat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tall",
+"mark": "*",
+"forms": []
+},
+{
+"w": "terrace",
+"mark": "",
+"forms": []
+},
+{
+"w": "three",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tank",
+"mark": "**",
+"forms": []
+},
+{
+"w": "terrible",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thrill",
+"mark": "",
+"forms": []
+},
+{
+"w": "tap",
+"mark": "**",
+"forms": []
+},
+{
+"w": "terrific",
+"mark": "",
+"forms": []
+},
+{
+"w": "throat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tape",
+"mark": "*",
+"forms": []
+},
+{
+"w": "territory",
+"mark": "",
+"forms": []
+},
+{
+"w": "through",
+"mark": "**",
+"forms": []
+},
+{
+"w": "target",
+"mark": "**",
+"forms": []
+},
+{
+"w": "terror",
+"mark": "",
+"forms": [
+"terrorist"
+]
+},
+{
+"w": "throw",
+"mark": "**",
+"forms": []
+},
+{
+"w": "task",
+"mark": "",
+"forms": []
+},
+{
+"w": "test",
+"mark": "*",
+"forms": []
+},
+{
+"w": "thumb",
+"mark": "",
+"forms": []
+},
+{
+"w": "taste",
+"mark": "*",
+"forms": []
+},
+{
+"w": "text",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thus",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tax",
+"mark": "**",
+"forms": []
+},
+{
+"w": "textbook",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tick",
+"mark": "",
+"forms": []
+},
+{
+"w": "taxi",
+"mark": "*",
+"forms": []
+},
+{
+"w": "than",
+"mark": "*",
+"forms": []
+},
+{
+"w": "ticket",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tea",
+"mark": "**",
+"forms": []
+},
+{
+"w": "thank",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tide",
+"mark": "**",
+"forms": [
+"tidy"
+]
+},
+{
+"w": "teach",
+"mark": "*",
+"forms": []
+},
+{
+"w": "that",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tie",
+"mark": "**",
+"forms": []
+},
+{
+"w": "team",
+"mark": "*",
+"forms": []
+},
+{
+"w": "the",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tiger",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tear",
+"mark": "**",
+"forms": []
+},
+{
+"w": "theater",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tight",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tease",
+"mark": "",
+"forms": []
+},
+{
+"w": "theme",
+"mark": "",
+"forms": []
+},
+{
+"w": "till",
+"mark": "**",
+"forms": []
+},
+{
+"w": "technique",
+"mark": "**",
+"forms": []
+},
+{
+"w": "then",
+"mark": "**",
+"forms": []
+},
+{
+"w": "timber",
+"mark": "",
+"forms": []
+},
+{
+"w": "time",
+"mark": "*",
+"forms": []
+},
+{
+"w": "trace",
+"mark": "**",
+"forms": []
+},
+{
+"w": "trunk",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "track",
+"mark": "*",
+"forms": []
+},
+{
+"w": "trust",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tiny",
+"mark": "**",
+"forms": []
+},
+{
+"w": "trade",
+"mark": "**",
+"forms": []
+},
+{
+"w": "truth",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tip",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tradition",
+"mark": "**",
+"forms": []
+},
+{
+"w": "try",
+"mark": "*",
+"forms": [
+"trial"
+]
+},
+{
+"w": "tire",
+"mark": "*",
+"forms": [
+"tired"
+]
+},
+{
+"w": "traffic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tube",
+"mark": "",
+"forms": []
+},
+{
+"w": "tissue",
+"mark": "",
+"forms": []
+},
+{
+"w": "tragic",
+"mark": "",
+"forms": []
+},
+{
+"w": "tune",
+"mark": "**",
+"forms": []
+},
+{
+"w": "title",
+"mark": "**",
+"forms": [
+"entitle"
+]
+},
+{
+"w": "trail",
+"mark": "",
+"forms": []
+},
+{
+"w": "tunnel",
+"mark": "",
+"forms": []
+},
+{
+"w": "to",
+"mark": "*",
+"forms": []
+},
+{
+"w": "train",
+"mark": "*",
+"forms": []
+},
+{
+"w": "turn",
+"mark": "*",
+"forms": []
+},
+{
+"w": "toast",
+"mark": "**",
+"forms": []
+},
+{
+"w": "transact",
+"mark": "",
+"forms": []
+},
+{
+"w": "turnover",
+"mark": "",
+"forms": []
+},
+{
+"w": "today",
+"mark": "*",
+"forms": []
+},
+{
+"w": "transfer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "twelve",
+"mark": "*",
+"forms": []
+},
+{
+"w": "toe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "transform",
+"mark": "",
+"forms": []
+},
+{
+"w": "twenty",
+"mark": "*",
+"forms": []
+},
+{
+"w": "together",
+"mark": "*",
+"forms": []
+},
+{
+"w": "transition",
+"mark": "",
+"forms": []
+},
+{
+"w": "twenty-first",
+"mark": "*",
+"forms": []
+},
+{
+"w": "toilet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "translate",
+"mark": "",
+"forms": []
+},
+{
+"w": "twenty-second",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tomato",
+"mark": "*",
+"forms": []
+},
+{
+"w": "transmit",
+"mark": "",
+"forms": []
+},
+{
+"w": "twenty-third",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tomorrow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "transport",
+"mark": "**",
+"forms": [
+"transportation"
+]
+},
+{
+"w": "twice",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tone",
+"mark": "**",
+"forms": []
+},
+{
+"w": "trap",
+"mark": "**",
+"forms": []
+},
+{
+"w": "twin",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tongue",
+"mark": "**",
+"forms": []
+},
+{
+"w": "travel",
+"mark": "*",
+"forms": []
+},
+{
+"w": "twist",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tonight",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tray",
+"mark": "**",
+"forms": []
+},
+{
+"w": "two",
+"mark": "*",
+"forms": []
+},
+{
+"w": "too",
+"mark": "*",
+"forms": []
+},
+{
+"w": "treasure",
+"mark": "",
+"forms": []
+},
+{
+"w": "type",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tool",
+"mark": "**",
+"forms": []
+},
+{
+"w": "treat",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tooth",
+"mark": "*",
+"forms": []
+},
+{
+"w": "treaty",
+"mark": "",
+"forms": []
+},
+{
+"w": "top",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tree",
+"mark": "*",
+"forms": []
+},
+{
+"w": "topic",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tremendous",
+"mark": "",
+"forms": []
+},
+{
+"w": "torture",
+"mark": "",
+"forms": []
+},
+{
+"w": "trend",
+"mark": "",
+"forms": []
+},
+{
+"w": "ugly",
+"mark": "*",
+"forms": []
+},
+{
+"w": "toss",
+"mark": "",
+"forms": []
+},
+{
+"w": "triangle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "ultimate",
+"mark": "",
+"forms": []
+},
+{
+"w": "total",
+"mark": "**",
+"forms": []
+},
+{
+"w": "tribe",
+"mark": "",
+"forms": []
+},
+{
+"w": "umbrella",
+"mark": "*",
+"forms": []
+},
+{
+"w": "touch",
+"mark": "*",
+"forms": []
+},
+{
+"w": "trick",
+"mark": "**",
+"forms": []
+},
+{
+"w": "uncle",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tough",
+"mark": "**",
+"forms": []
+},
+{
+"w": "trigger",
+"mark": "",
+"forms": []
+},
+{
+"w": "under",
+"mark": "*",
+"forms": []
+},
+{
+"w": "tour",
+"mark": "**",
+"forms": []
+},
+{
+"w": "trim",
+"mark": "",
+"forms": []
+},
+{
+"w": "undergo",
+"mark": "",
+"forms": []
+},
+{
+"w": "toward",
+"mark": "**",
+"forms": []
+},
+{
+"w": "trip",
+"mark": "*",
+"forms": []
+},
+{
+"w": "underlie",
+"mark": "",
+"forms": []
+},
+{
+"w": "towel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "triumph",
+"mark": "",
+"forms": []
+},
+{
+"w": "undermine",
+"mark": "",
+"forms": []
+},
+{
+"w": "tower",
+"mark": "**",
+"forms": []
+},
+{
+"w": "troop",
+"mark": "",
+"forms": []
+},
+{
+"w": "understand",
+"mark": "*",
+"forms": []
+},
+{
+"w": "town",
+"mark": "*",
+"forms": []
+},
+{
+"w": "trouble",
+"mark": "**",
+"forms": []
+},
+{
+"w": "undertake",
+"mark": "",
+"forms": []
+},
+{
+"w": "toxic",
+"mark": "",
+"forms": []
+},
+{
+"w": "truck",
+"mark": "*",
+"forms": []
+},
+{
+"w": "uniform",
+"mark": "**",
+"forms": []
+},
+{
+"w": "toy",
+"mark": "*",
+"forms": []
+},
+{
+"w": "true",
+"mark": "*",
+"forms": []
+},
+{
+"w": "unify",
+"mark": "",
+"forms": []
+},
+{
+"w": "unique",
+"mark": "",
+"forms": []
+},
+{
+"w": "vehicle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vote",
+"mark": "**",
+"forms": []
+},
+{
+"w": "unit",
+"mark": "**",
+"forms": []
+},
+{
+"w": "venture",
+"mark": "",
+"forms": []
+},
+{
+"w": "unite",
+"mark": "**",
+"forms": [
+"union"
+]
+},
+{
+"w": "verb",
+"mark": "",
+"forms": [
+"verbal"
+]
+},
+{
+"w": "universe",
+"mark": "",
+"forms": []
+},
+{
+"w": "verse",
+"mark": "",
+"forms": []
+},
+{
+"w": "university",
+"mark": "**",
+"forms": []
+},
+{
+"w": "version",
+"mark": "**",
+"forms": []
+},
+{
+"w": "wage",
+"mark": "**",
+"forms": []
+},
+{
+"w": "unless",
+"mark": "**",
+"forms": []
+},
+{
+"w": "versus",
+"mark": "",
+"forms": []
+},
+{
+"w": "wait",
+"mark": "*",
+"forms": []
+},
+{
+"w": "until",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vertical",
+"mark": "",
+"forms": []
+},
+{
+"w": "wake",
+"mark": "*",
+"forms": []
+},
+{
+"w": "up",
+"mark": "*",
+"forms": []
+},
+{
+"w": "very",
+"mark": "*",
+"forms": []
+},
+{
+"w": "walk",
+"mark": "*",
+"forms": []
+},
+{
+"w": "update",
+"mark": "",
+"forms": []
+},
+{
+"w": "vessel",
+"mark": "",
+"forms": []
+},
+{
+"w": "wall",
+"mark": "*",
+"forms": []
+},
+{
+"w": "upon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "veterinarian",
+"mark": "",
+"forms": []
+},
+{
+"w": "via",
+"mark": "",
+"forms": []
+},
+{
+"w": "wander",
+"mark": "",
+"forms": []
+},
+{
+"w": "upper",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vice",
+"mark": "",
+"forms": []
+},
+{
+"w": "want",
+"mark": "*",
+"forms": []
+},
+{
+"w": "upset",
+"mark": "**",
+"forms": []
+},
+{
+"w": "victim",
+"mark": "**",
+"forms": []
+},
+{
+"w": "war",
+"mark": "*",
+"forms": []
+},
+{
+"w": "upward",
+"mark": "",
+"forms": []
+},
+{
+"w": "victory",
+"mark": "",
+"forms": []
+},
+{
+"w": "warehouse",
+"mark": "",
+"forms": []
+},
+{
+"w": "urban",
+"mark": "",
+"forms": []
+},
+{
+"w": "video",
+"mark": "*",
+"forms": []
+},
+{
+"w": "warm",
+"mark": "*",
+"forms": []
+},
+{
+"w": "urge",
+"mark": "",
+"forms": [
+"urgent"
+]
+},
+{
+"w": "view",
+"mark": "**",
+"forms": [
+"interview",
+"review"
+]
+},
+{
+"w": "warn",
+"mark": "**",
+"forms": []
+},
+{
+"w": "use",
+"mark": "*",
+"forms": [
+"usual"
+]
+},
+{
+"w": "vigor",
+"mark": "",
+"forms": [
+"vigorous"
+]
+},
+{
+"w": "warrant",
+"mark": "",
+"forms": []
+},
+{
+"w": "utilize",
+"mark": "",
+"forms": []
+},
+{
+"w": "villa",
+"mark": "**",
+"forms": []
+},
+{
+"w": "wash",
+"mark": "*",
+"forms": []
+},
+{
+"w": "utter",
+"mark": "",
+"forms": []
+},
+{
+"w": "village",
+"mark": "**",
+"forms": []
+},
+{
+"w": "waste",
+"mark": "**",
+"forms": []
+},
+{
+"w": "violent",
+"mark": "**",
+"forms": []
+},
+{
+"w": "watch",
+"mark": "*",
+"forms": []
+},
+{
+"w": "violin",
+"mark": "*",
+"forms": []
+},
+{
+"w": "water",
+"mark": "*",
+"forms": []
+},
+{
+"w": "virgin",
+"mark": "",
+"forms": []
+},
+{
+"w": "watermelon",
+"mark": "*",
+"forms": []
+},
+{
+"w": "vacate",
+"mark": "",
+"forms": [
+"vacation"
+]
+},
+{
+"w": "virtue",
+"mark": "",
+"forms": [
+"virtual"
+]
+},
+{
+"w": "wave",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vaccine",
+"mark": "",
+"forms": []
+},
+{
+"w": "virus",
+"mark": "",
+"forms": []
+},
+{
+"w": "way",
+"mark": "*",
+"forms": []
+},
+{
+"w": "vacuum",
+"mark": "",
+"forms": []
+},
+{
+"w": "visible",
+"mark": "",
+"forms": []
+},
+{
+"w": "we",
+"mark": "*",
+"forms": []
+},
+{
+"w": "vague",
+"mark": "",
+"forms": []
+},
+{
+"w": "vision",
+"mark": "**",
+"forms": []
+},
+{
+"w": "weak",
+"mark": "**",
+"forms": []
+},
+{
+"w": "valid",
+"mark": "",
+"forms": []
+},
+{
+"w": "visit",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wealth",
+"mark": "",
+"forms": []
+},
+{
+"w": "valley",
+"mark": "**",
+"forms": []
+},
+{
+"w": "visual",
+"mark": "",
+"forms": []
+},
+{
+"w": "weapon",
+"mark": "**",
+"forms": []
+},
+{
+"w": "value",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vital",
+"mark": "",
+"forms": []
+},
+{
+"w": "wear",
+"mark": "*",
+"forms": []
+},
+{
+"w": "van",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vivid",
+"mark": "",
+"forms": []
+},
+{
+"w": "weather",
+"mark": "*",
+"forms": []
+},
+{
+"w": "vanish",
+"mark": "",
+"forms": []
+},
+{
+"w": "vocabulary",
+"mark": "",
+"forms": []
+},
+{
+"w": "weave",
+"mark": "",
+"forms": []
+},
+{
+"w": "various",
+"mark": "**",
+"forms": []
+},
+{
+"w": "vocation",
+"mark": "",
+"forms": []
+},
+{
+"w": "website",
+"mark": "*",
+"forms": []
+},
+{
+"w": "vary",
+"mark": "**",
+"forms": []
+},
+{
+"w": "voice",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wedding",
+"mark": "*",
+"forms": []
+},
+{
+"w": "vast",
+"mark": "",
+"forms": []
+},
+{
+"w": "volume",
+"mark": "**",
+"forms": []
+},
+{
+"w": "weed",
+"mark": "",
+"forms": []
+},
+{
+"w": "vegetable",
+"mark": "*",
+"forms": []
+},
+{
+"w": "volunteer",
+"mark": "**",
+"forms": []
+},
+{
+"w": "week",
+"mark": "*",
+"forms": []
+},
+{
+"w": "weekend",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wing",
+"mark": "**",
+"forms": []
+},
+{
+"w": "yes",
+"mark": "*",
+"forms": []
+},
+{
+"w": "weigh",
+"mark": "**",
+"forms": []
+},
+{
+"w": "winter",
+"mark": "*",
+"forms": []
+},
+{
+"w": "yesterday",
+"mark": "*",
+"forms": []
+},
+{
+"w": "weight",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wipe",
+"mark": "**",
+"forms": []
+},
+{
+"w": "yet",
+"mark": "**",
+"forms": []
+},
+{
+"w": "weird",
+"mark": "",
+"forms": []
+},
+{
+"w": "wire",
+"mark": "**",
+"forms": []
+},
+{
+"w": "yield",
+"mark": "",
+"forms": []
+},
+{
+"w": "welcome",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wise",
+"mark": "**",
+"forms": []
+},
+{
+"w": "you",
+"mark": "*",
+"forms": []
+},
+{
+"w": "welfare",
+"mark": "",
+"forms": []
+},
+{
+"w": "wish",
+"mark": "*",
+"forms": []
+},
+{
+"w": "young",
+"mark": "*",
+"forms": []
+},
+{
+"w": "well",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wit",
+"mark": "",
+"forms": []
+},
+{
+"w": "west",
+"mark": "*",
+"forms": []
+},
+{
+"w": "with",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wet",
+"mark": "*",
+"forms": []
+},
+{
+"w": "withdraw",
+"mark": "",
+"forms": []
+},
+{
+"w": "whale",
+"mark": "**",
+"forms": []
+},
+{
+"w": "within",
+"mark": "**",
+"forms": []
+},
+{
+"w": "zebra",
+"mark": "**",
+"forms": []
+},
+{
+"w": "what",
+"mark": "*",
+"forms": []
+},
+{
+"w": "without",
+"mark": "**",
+"forms": []
+},
+{
+"w": "zero",
+"mark": "**",
+"forms": []
+},
+{
+"w": "wheat",
+"mark": "",
+"forms": []
+},
+{
+"w": "witness",
+"mark": "",
+"forms": []
+},
+{
+"w": "zone",
+"mark": "",
+"forms": []
+},
+{
+"w": "wheel",
+"mark": "**",
+"forms": []
+},
+{
+"w": "woman",
+"mark": "*",
+"forms": []
+},
+{
+"w": "zoo",
+"mark": "*",
+"forms": []
+},
+{
+"w": "when",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wonder",
+"mark": "**",
+"forms": []
+},
+{
+"w": "where",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wood",
+"mark": "*",
+"forms": []
+},
+{
+"w": "whereas",
+"mark": "",
+"forms": []
+},
+{
+"w": "wool",
+"mark": "**",
+"forms": []
+},
+{
+"w": "whether",
+"mark": "**",
+"forms": []
+},
+{
+"w": "word",
+"mark": "*",
+"forms": []
+},
+{
+"w": "which",
+"mark": "**",
+"forms": []
+},
+{
+"w": "work",
+"mark": "*",
+"forms": []
+},
+{
+"w": "while",
+"mark": "**",
+"forms": []
+},
+{
+"w": "world",
+"mark": "*",
+"forms": []
+},
+{
+"w": "whip",
+"mark": "",
+"forms": []
+},
+{
+"w": "worry",
+"mark": "*",
+"forms": []
+},
+{
+"w": "whisper",
+"mark": "**",
+"forms": []
+},
+{
+"w": "worship",
+"mark": "",
+"forms": []
+},
+{
+"w": "whistle",
+"mark": "**",
+"forms": []
+},
+{
+"w": "worth",
+"mark": "**",
+"forms": []
+},
+{
+"w": "white",
+"mark": "*",
+"forms": []
+},
+{
+"w": "would",
+"mark": "**",
+"forms": []
+},
+{
+"w": "who",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wound",
+"mark": "**",
+"forms": []
+},
+{
+"w": "whole",
+"mark": "**",
+"forms": []
+},
+{
+"w": "wrap",
+"mark": "**",
+"forms": []
+},
+{
+"w": "why",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wreck",
+"mark": "",
+"forms": []
+},
+{
+"w": "wicked",
+"mark": "",
+"forms": []
+},
+{
+"w": "write",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wide",
+"mark": "**",
+"forms": []
+},
+{
+"w": "wrong",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wife",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wild",
+"mark": "**",
+"forms": []
+},
+{
+"w": "will",
+"mark": "*",
+"forms": []
+},
+{
+"w": "win",
+"mark": "*",
+"forms": []
+},
+{
+"w": "year",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wind",
+"mark": "*",
+"forms": []
+},
+{
+"w": "yell",
+"mark": "**",
+"forms": []
+},
+{
+"w": "window",
+"mark": "*",
+"forms": []
+},
+{
+"w": "yellow",
+"mark": "*",
+"forms": []
+},
+{
+"w": "wine",
+"mark": "*",
+"forms": []
+}
+]

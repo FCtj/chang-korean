@@ -1,0 +1,6953 @@
+[
+{
+"raw": "あいさつ",
+"kana": "あいさつ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "アイスクリーム",
+"kana": "アイスクリーム",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あいだ(間)",
+"kana": "あいだ",
+"kanji": "間",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あいて<相手>",
+"kana": "あいて",
+"kanji": "相手",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あう(会う)",
+"kana": "あう",
+"kanji": "会う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あう(合う)",
+"kana": "あう",
+"kanji": "合う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あおい(青い)",
+"kana": "あおい",
+"kanji": "青い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あかい(赤い)",
+"kana": "あかい",
+"kanji": "赤い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あがる(上がる)",
+"kana": "あがる",
+"kanji": "上がる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あかるい(明るい)",
+"kana": "あかるい",
+"kanji": "明るい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あき(秋)",
+"kana": "あき",
+"kanji": "秋",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あく(開く)",
+"kana": "あく",
+"kanji": "開く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あける(開ける)",
+"kana": "あける",
+"kanji": "開ける",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あげる(上げる)",
+"kana": "あげる",
+"kanji": "上げる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あさ(朝)",
+"kana": "あさ",
+"kanji": "朝",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あさって",
+"kana": "あさって",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あし(足)",
+"kana": "あし",
+"kanji": "足",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あじ(味)",
+"kana": "あじ",
+"kanji": "味",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あした・あす(明日)",
+"kana": "あした・あす",
+"kanji": "明日",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あそこ",
+"kana": "あそこ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あそぶ(遊ぶ)",
+"kana": "あそぶ",
+"kanji": "遊ぶ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あたたかい・あったかい",
+"kana": "あたたかい・あったかい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あたま(頭)",
+"kana": "あたま",
+"kanji": "頭",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あたらしい(新しい)",
+"kana": "あたらしい",
+"kanji": "新しい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あちら",
+"kana": "あちら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あつい<暑い・熱い>",
+"kana": "あつい",
+"kanji": "暑い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あつい<厚い>",
+"kana": "あつい",
+"kanji": "厚い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あつまる(集まる)",
+"kana": "あつまる",
+"kanji": "集まる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あつめる(集める)",
+"kana": "あつめる",
+"kanji": "集める",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あと(後)",
+"kana": "あと",
+"kanji": "後",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あに(兄)",
+"kana": "あに",
+"kanji": "兄",
+"affix": false,
+"learn": true
+},
+{
+"raw": "アニメ",
+"kana": "アニメ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あね(姉)",
+"kana": "あね",
+"kanji": "姉",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あの",
+"kana": "あの",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あぶない<危ない>",
+"kana": "あぶない",
+"kanji": "危ない",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あまい<甘い>",
+"kana": "あまい",
+"kanji": "甘い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あまり",
+"kana": "あまり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あめ(雨)",
+"kana": "あめ",
+"kanji": "雨",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あやまる[謝る]",
+"kana": "あやまる",
+"kanji": "謝る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あらう<洗う>",
+"kana": "あらう",
+"kanji": "洗う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "あらわす<表す>",
+"kana": "あらわす",
+"kanji": "表す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ある",
+"kana": "ある",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あるく(歩く)",
+"kana": "あるく",
+"kanji": "歩く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "アルバイト・バイト",
+"kana": "アルバイト・バイト",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あれ",
+"kana": "あれ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あわせる(合わせる)",
+"kana": "あわせる",
+"kanji": "合わせる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "あんな",
+"kana": "あんな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "あんない(案内)",
+"kana": "あんない",
+"kanji": "案内",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いい・よい",
+"kana": "いい・よい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いう(言う)",
+"kana": "いう",
+"kanji": "言う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いえ(家)",
+"kana": "いえ",
+"kanji": "家",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いかが",
+"kana": "いかが",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いく・ゆく(行く)",
+"kana": "いく・ゆく",
+"kanji": "行く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いくつ",
+"kana": "いくつ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いくら",
+"kana": "いくら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いけない",
+"kana": "いけない",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いしゃ(医者)",
+"kana": "いしゃ",
+"kanji": "医者",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いじょう<以上>",
+"kana": "いじょう",
+"kanji": "以上",
+"affix": false,
+"learn": false
+},
+{
+"raw": "いす",
+"kana": "いす",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いそがしい",
+"kana": "いそがしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いそぐ(急ぐ)",
+"kana": "いそぐ",
+"kanji": "急ぐ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いたい(痛い)",
+"kana": "いたい",
+"kanji": "痛い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いたす",
+"kana": "いたす",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いただく",
+"kana": "いただく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いちご[苺]",
+"kana": "いちご",
+"kanji": "苺",
+"affix": false,
+"learn": false
+},
+{
+"raw": "いちばん(一番)",
+"kana": "いちばん",
+"kanji": "一番",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いつ",
+"kana": "いつ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いっしょ",
+"kana": "いっしょ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いっしょうけんめい",
+"kana": "いっしょうけんめい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いっぱい",
+"kana": "いっぱい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いつも",
+"kana": "いつも",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いなか<田舎>",
+"kana": "いなか",
+"kanji": "田舎",
+"affix": false,
+"learn": false
+},
+{
+"raw": "いぬ(犬)",
+"kana": "いぬ",
+"kanji": "犬",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いのる<祈る>",
+"kana": "いのる",
+"kanji": "祈る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "いま(今)",
+"kana": "いま",
+"kanji": "今",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いみ(意味)",
+"kana": "いみ",
+"kanji": "意味",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いもうと(妹)",
+"kana": "いもうと",
+"kanji": "妹",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いや",
+"kana": "いや",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いらっしゃる",
+"kana": "いらっしゃる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いりぐち(入口)",
+"kana": "いりぐち",
+"kanji": "入口",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いる[居る]",
+"kana": "いる",
+"kanji": "居る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "いる(要る)",
+"kana": "いる",
+"kanji": "要る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いれる(入れる)",
+"kana": "いれる",
+"kanji": "入れる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いろ(色)",
+"kana": "いろ",
+"kanji": "色",
+"affix": false,
+"learn": true
+},
+{
+"raw": "いろいろ",
+"kana": "いろいろ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "いわう<祝う>",
+"kana": "いわう",
+"kanji": "祝う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-いん(員)",
+"kana": "いん",
+"kanji": "員",
+"affix": true,
+"learn": true
+},
+{
+"raw": "インターネット・ネット",
+"kana": "インターネット・ネット",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜う・よう",
+"kana": "う・よう",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "うえ(上)",
+"kana": "うえ",
+"kanji": "上",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うかがう[伺う]",
+"kana": "うかがう",
+"kanji": "伺う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "うけつけ(受付)",
+"kana": "うけつけ",
+"kanji": "受付",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うける(受ける)",
+"kana": "うける",
+"kanji": "受ける",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うごく(動く)",
+"kana": "うごく",
+"kanji": "動く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うしろ(後ろ)",
+"kana": "うしろ",
+"kanji": "後ろ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うすい",
+"kana": "うすい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "うた(歌)",
+"kana": "うた",
+"kanji": "歌",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うたう(歌う)",
+"kana": "うたう",
+"kanji": "歌う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うち",
+"kana": "うち",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "うつ<蔚>",
+"kana": "うつ",
+"kanji": "蔚",
+"affix": false,
+"learn": false
+},
+{
+"raw": "うまい",
+"kana": "うまい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "うまれる(生まれる)",
+"kana": "うまれる",
+"kanji": "生まれる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うみ(海)",
+"kana": "うみ",
+"kanji": "海",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うる(売る)",
+"kana": "うる",
+"kanji": "売る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うるさい",
+"kana": "うるさい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "うれしい",
+"kana": "うれしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "うんてん(運転)",
+"kana": "うんてん",
+"kanji": "運転",
+"affix": false,
+"learn": true
+},
+{
+"raw": "うんどう(運動)",
+"kana": "うんどう",
+"kanji": "運動",
+"affix": false,
+"learn": true
+},
+{
+"raw": "え<絵>",
+"kana": "え",
+"kanji": "絵",
+"affix": false,
+"learn": false
+},
+{
+"raw": "エアコン",
+"kana": "エアコン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "えいが(映画)",
+"kana": "えいが",
+"kanji": "映画",
+"affix": false,
+"learn": true
+},
+{
+"raw": "えき(駅)",
+"kana": "えき",
+"kanji": "駅",
+"affix": false,
+"learn": true
+},
+{
+"raw": "エコ",
+"kana": "エコ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "えらぶ<選ぶ>",
+"kana": "えらぶ",
+"kanji": "選ぶ",
+"affix": false,
+"learn": false
+},
+{
+"raw": "えんりょ",
+"kana": "えんりょ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "-えん(円)",
+"kana": "えん",
+"kanji": "円",
+"affix": true,
+"learn": true
+},
+{
+"raw": "おー",
+"kana": "おー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おいしい",
+"kana": "おいしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おおい(多い)",
+"kana": "おおい",
+"kanji": "多い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おおきい(大きい)",
+"kana": "おおきい",
+"kanji": "大きい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おおぜい",
+"kana": "おおぜい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おかあさん(お母さん)",
+"kana": "おかあさん",
+"kanji": "お母さん",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おかしい",
+"kana": "おかしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おきる(起きる)",
+"kana": "おきる",
+"kanji": "起きる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おく(置く)",
+"kana": "おく",
+"kanji": "置く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おくさん<奥さん>",
+"kana": "おくさん",
+"kanji": "奥さん",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おくる(送る)",
+"kana": "おくる",
+"kanji": "送る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おくれる",
+"kana": "おくれる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おこす(起こす)",
+"kana": "おこす",
+"kanji": "起こす",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おこなう<行う>",
+"kana": "おこなう",
+"kanji": "行う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おこる<怒る>",
+"kana": "おこる",
+"kanji": "怒る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おこる(起こる)",
+"kana": "おこる",
+"kanji": "起こる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おじいさん",
+"kana": "おじいさん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おしえる(教える)",
+"kana": "おしえる",
+"kanji": "教える",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おす<押す>",
+"kana": "おす",
+"kanji": "押す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おそい",
+"kana": "おそい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おちゃ(お茶)",
+"kana": "おちゃ",
+"kanji": "お茶",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おちる(落ちる)",
+"kana": "おちる",
+"kanji": "落ちる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おっしゃる",
+"kana": "おっしゃる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おと(音)",
+"kana": "おと",
+"kanji": "音",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おとうさん(お父さん)",
+"kana": "おとうさん",
+"kanji": "お父さん",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おとうと(弟)",
+"kana": "おとうと",
+"kanji": "弟",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おとこ(男)",
+"kana": "おとこ",
+"kanji": "男",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おとす(落とす)",
+"kana": "おとす",
+"kanji": "落とす",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おととい",
+"kana": "おととい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おとな(大人)",
+"kana": "おとな",
+"kanji": "大人",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おどる",
+"kana": "おどる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おどろく",
+"kana": "おどろく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おなか",
+"kana": "おなか",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おなじ(同じ)",
+"kana": "おなじ",
+"kanji": "同じ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おにいさん(お兄さん)",
+"kana": "おにいさん",
+"kanji": "お兄さん",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おねえさん(お姉さん)",
+"kana": "おねえさん",
+"kanji": "お姉さん",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おばあさん",
+"kana": "おばあさん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おぼえる<覚える>",
+"kana": "おぼえる",
+"kanji": "覚える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おみやげ(お土産)",
+"kana": "おみやげ",
+"kanji": "お土産",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おもい(重い)",
+"kana": "おもい",
+"kanji": "重い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おもいだす(思い出す)",
+"kana": "おもいだす",
+"kanji": "思い出す",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おもう(思う)",
+"kana": "おもう",
+"kanji": "思う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おもしろい",
+"kana": "おもしろい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "およぐ(泳ぐ)",
+"kana": "およぐ",
+"kanji": "泳ぐ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おりる<下りる・降りる>",
+"kana": "おりる",
+"kanji": "下りる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おる[居る]",
+"kana": "おる",
+"kanji": "居る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "オレンジ",
+"kana": "オレンジ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "おわる(終わる)",
+"kana": "おわる",
+"kanji": "終わる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "おんせん<温泉>",
+"kana": "おんせん",
+"kanji": "温泉",
+"affix": false,
+"learn": false
+},
+{
+"raw": "おんな(女)",
+"kana": "おんな",
+"kanji": "女",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜か",
+"kana": "か",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "〜が",
+"kana": "が",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "カード",
+"kana": "カード",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かい(会)",
+"kana": "かい",
+"kanji": "会",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-かい(回)",
+"kana": "かい",
+"kanji": "回",
+"affix": true,
+"learn": true
+},
+{
+"raw": "-かい(階)",
+"kana": "かい",
+"kanji": "階",
+"affix": true,
+"learn": true
+},
+{
+"raw": "かいぎ<会議>",
+"kana": "かいぎ",
+"kanji": "会議",
+"affix": false,
+"learn": false
+},
+{
+"raw": "がいこく(外国)",
+"kana": "がいこく",
+"kanji": "外国",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かいしゃ(会社)",
+"kana": "かいしゃ",
+"kanji": "会社",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かいだん<階段>",
+"kana": "かいだん",
+"kanji": "階段",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かいわ(会話)",
+"kana": "かいわ",
+"kanji": "会話",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かう(買う)",
+"kana": "かう",
+"kanji": "買う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かう<飼う>",
+"kana": "かう",
+"kanji": "飼う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かえす<返す>",
+"kana": "かえす",
+"kanji": "返す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かえる<変える・代える・替える>",
+"kana": "かえる",
+"kanji": "変える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かえる(帰る)",
+"kana": "かえる",
+"kanji": "帰る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かお(顔)",
+"kana": "かお",
+"kanji": "顔",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かかる",
+"kana": "かかる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かく(書く)",
+"kana": "かく",
+"kanji": "書く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "がくせい(学生)",
+"kana": "がくせい",
+"kanji": "学生",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-かげつ(か月)",
+"kana": "かげつ",
+"kanji": "か月",
+"affix": true,
+"learn": true
+},
+{
+"raw": "かける",
+"kana": "かける",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かさ",
+"kana": "かさ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かざる",
+"kana": "かざる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かし<菓子>",
+"kana": "かし",
+"kanji": "菓子",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かじ(火事)",
+"kana": "かじ",
+"kanji": "火事",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かしゅ(歌手)",
+"kana": "かしゅ",
+"kanji": "歌手",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かす(貸す)",
+"kana": "かす",
+"kanji": "貸す",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かぜ(風)",
+"kana": "かぜ",
+"kanji": "風",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かぜ<風邪>",
+"kana": "かぜ",
+"kanji": "風邪",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かぞく(家族)",
+"kana": "かぞく",
+"kanji": "家族",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かたい",
+"kana": "かたい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かたかな",
+"kana": "かたかな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かたち(形)",
+"kana": "かたち",
+"kanji": "形",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かたづける<片づける>",
+"kana": "かたづける",
+"kanji": "片づける",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かつ(勝つ)",
+"kana": "かつ",
+"kanji": "勝つ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-がつ(月)",
+"kana": "がつ",
+"kanji": "月",
+"affix": true,
+"learn": true
+},
+{
+"raw": "がっこう(学校)",
+"kana": "がっこう",
+"kanji": "学校",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かっこいい",
+"kana": "かっこいい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かど(角)",
+"kana": "かど",
+"kanji": "角",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かなしい<悲しい>",
+"kana": "かなしい",
+"kanji": "悲しい",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かならず<必ず>",
+"kana": "かならず",
+"kanji": "必ず",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かね(金)",
+"kana": "かね",
+"kanji": "金",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かのじょ<彼女>",
+"kana": "かのじょ",
+"kanji": "彼女",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かばん",
+"kana": "かばん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "カフェ",
+"kana": "カフェ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かぶる",
+"kana": "かぶる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かまう",
+"kana": "かまう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かみ(紙)",
+"kana": "かみ",
+"kanji": "紙",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かみ[髪]",
+"kana": "かみ",
+"kanji": "髪",
+"affix": false,
+"learn": false
+},
+{
+"raw": "カメラ",
+"kana": "カメラ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜かも",
+"kana": "かも",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "かもく<科目>",
+"kana": "かもく",
+"kanji": "科目",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かよう<通う>",
+"kana": "かよう",
+"kanji": "通う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜から",
+"kana": "から",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "からい<辛い>",
+"kana": "からい",
+"kanji": "辛い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "カラオケ",
+"kana": "カラオケ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "からだ(体)",
+"kana": "からだ",
+"kanji": "体",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かりる",
+"kana": "かりる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜がる",
+"kana": "がる",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "かるい<軽い>",
+"kana": "かるい",
+"kanji": "軽い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かれ<彼>",
+"kana": "かれ",
+"kanji": "彼",
+"affix": false,
+"learn": false
+},
+{
+"raw": "カレーライス・カレー",
+"kana": "カレーライス・カレー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かわ(川)",
+"kana": "かわ",
+"kanji": "川",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-がわ<側>",
+"kana": "がわ",
+"kanji": "側",
+"affix": true,
+"learn": false
+},
+{
+"raw": "かわいい",
+"kana": "かわいい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "かわる<変わる・代わる・替わる>",
+"kana": "かわる",
+"kanji": "変わる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-かん(間)",
+"kana": "かん",
+"kanji": "間",
+"affix": true,
+"learn": true
+},
+{
+"raw": "-かん<館>",
+"kana": "かん",
+"kanji": "館",
+"affix": true,
+"learn": false
+},
+{
+"raw": "かんがえる(考える)",
+"kana": "かんがえる",
+"kanji": "考える",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かんきょう[環境]",
+"kana": "かんきょう",
+"kanji": "環境",
+"affix": false,
+"learn": false
+},
+{
+"raw": "かんじ(漢字)",
+"kana": "かんじ",
+"kanji": "漢字",
+"affix": false,
+"learn": true
+},
+{
+"raw": "かんたん<簡単>",
+"kana": "かんたん",
+"kanji": "簡単",
+"affix": false,
+"learn": false
+},
+{
+"raw": "がんばる",
+"kana": "がんばる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "き(木)",
+"kana": "き",
+"kanji": "木",
+"affix": false,
+"learn": true
+},
+{
+"raw": "き(気)",
+"kana": "き",
+"kanji": "気",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きいろい(黄色い)",
+"kana": "きいろい",
+"kanji": "黄色い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きく(聞く)",
+"kana": "きく",
+"kanji": "聞く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きこえる(聞こえる)",
+"kana": "きこえる",
+"kanji": "聞こえる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きせつ<季節>",
+"kana": "きせつ",
+"kanji": "季節",
+"affix": false,
+"learn": false
+},
+{
+"raw": "きた(北)",
+"kana": "きた",
+"kanji": "北",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きたない",
+"kana": "きたない",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "きっと",
+"kana": "きっと",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "きっぷ<切符>",
+"kana": "きっぷ",
+"kanji": "切符",
+"affix": false,
+"learn": false
+},
+{
+"raw": "きのう(昨日)",
+"kana": "きのう",
+"kanji": "昨日",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きびしい",
+"kana": "きびしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "きびん(気分)",
+"kana": "きびん",
+"kanji": "気分",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きまる(決まる)",
+"kana": "きまる",
+"kanji": "決まる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きめる(決める)",
+"kana": "きめる",
+"kanji": "決める",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きもち(気持ち)",
+"kana": "きもち",
+"kanji": "気持ち",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きゃく(客)",
+"kana": "きゃく",
+"kanji": "客",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きゅう(急)",
+"kana": "きゅう",
+"kanji": "急",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きゅうしょく<給食>",
+"kana": "きゅうしょく",
+"kanji": "給食",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ぎゅうにゅう<牛乳>",
+"kana": "ぎゅうにゅう",
+"kanji": "牛乳",
+"affix": false,
+"learn": false
+},
+{
+"raw": "きょう(今日)",
+"kana": "きょう",
+"kanji": "今日",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きょうしつ(教室)",
+"kana": "きょうしつ",
+"kanji": "教室",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きょうだい(兄弟)",
+"kana": "きょうだい",
+"kanji": "兄弟",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きょうみ",
+"kana": "きょうみ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "きょねん(去年)",
+"kana": "きょねん",
+"kanji": "去年",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きらい",
+"kana": "きらい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "きる(着る)",
+"kana": "きる",
+"kanji": "着る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きる(切る)",
+"kana": "きる",
+"kanji": "切る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "きれい",
+"kana": "きれい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ぎんこう(銀行)",
+"kana": "ぎんこう",
+"kanji": "銀行",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぐあい(具合)",
+"kana": "ぐあい",
+"kanji": "具合",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くうこう<空港>",
+"kana": "くうこう",
+"kanji": "空港",
+"affix": false,
+"learn": false
+},
+{
+"raw": "くすり(薬)",
+"kana": "くすり",
+"kanji": "薬",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くださる",
+"kana": "くださる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "くだもの<果物>",
+"kana": "くだもの",
+"kanji": "果物",
+"affix": false,
+"learn": false
+},
+{
+"raw": "くち(口)",
+"kana": "くち",
+"kanji": "口",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くつ",
+"kana": "くつ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "くに(国)",
+"kana": "くに",
+"kanji": "国",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くもる",
+"kana": "くもる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "くらい<暗い>",
+"kana": "くらい",
+"kanji": "暗い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜くらい・ぐらい",
+"kana": "くらい・ぐらい",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "くらす<暮らす>",
+"kana": "くらす",
+"kanji": "暮らす",
+"affix": false,
+"learn": false
+},
+{
+"raw": "クラス",
+"kana": "クラス",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "くらべる<比べる>",
+"kana": "くらべる",
+"kanji": "比べる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "くる(来る)",
+"kana": "くる",
+"kanji": "来る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くるま(車)",
+"kana": "くるま",
+"kanji": "車",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くれる",
+"kana": "くれる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "くろい(黒い)",
+"kana": "くろい",
+"kanji": "黒い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "くわしい",
+"kana": "くわしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "-くん(君)",
+"kana": "くん",
+"kanji": "君",
+"affix": true,
+"learn": true
+},
+{
+"raw": "けいけん<経験>",
+"kana": "けいけん",
+"kanji": "経験",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ケーキ",
+"kana": "ケーキ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ケータイ・けいたい",
+"kana": "ケータイ・けいたい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ゲーム",
+"kana": "ゲーム",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "けが",
+"kana": "けが",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "けさ(今朝)",
+"kana": "けさ",
+"kanji": "今朝",
+"affix": false,
+"learn": true
+},
+{
+"raw": "けしき<景色>",
+"kana": "けしき",
+"kanji": "景色",
+"affix": false,
+"learn": false
+},
+{
+"raw": "けす<消す>",
+"kana": "けす",
+"kanji": "消す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "けっこう[結構]",
+"kana": "けっこう",
+"kanji": "結構",
+"affix": false,
+"learn": false
+},
+{
+"raw": "けっこん<結婚>",
+"kana": "けっこん",
+"kanji": "結婚",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜けど・けれど",
+"kana": "けど・けれど",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "げんかん<玄関>",
+"kana": "げんかん",
+"kanji": "玄関",
+"affix": false,
+"learn": false
+},
+{
+"raw": "げんき(元気)",
+"kana": "げんき",
+"kanji": "元気",
+"affix": false,
+"learn": true
+},
+{
+"raw": "けんこう<玄関>",
+"kana": "けんこう",
+"kanji": "玄関",
+"affix": false,
+"learn": false
+},
+{
+"raw": "けんこう<健康>",
+"kana": "けんこう",
+"kanji": "健康",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こ(子)",
+"kana": "こ",
+"kanji": "子",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-こ(個)",
+"kana": "こ",
+"kanji": "個",
+"affix": true,
+"learn": true
+},
+{
+"raw": "ごー",
+"kana": "ごー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こうえん(公園)",
+"kana": "こうえん",
+"kanji": "公園",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ごうかく<合格>",
+"kana": "ごうかく",
+"kanji": "合格",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こうこう(高校)",
+"kana": "こうこう",
+"kanji": "高校",
+"affix": false,
+"learn": true
+},
+{
+"raw": "こうさてん<交差点>",
+"kana": "こうさてん",
+"kanji": "交差点",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こうつう<交通>",
+"kana": "こうつう",
+"kanji": "交通",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こうばん<交番>",
+"kana": "こうばん",
+"kanji": "交番",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こえ(声)",
+"kana": "こえ",
+"kanji": "声",
+"affix": false,
+"learn": true
+},
+{
+"raw": "コーヒー",
+"kana": "コーヒー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "コーラ",
+"kana": "コーラ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ここ",
+"kana": "ここ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ござる",
+"kana": "ござる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ごぜん(午前)",
+"kana": "ごぜん",
+"kanji": "午前",
+"affix": false,
+"learn": true
+},
+{
+"raw": "こたえる(答える)",
+"kana": "こたえる",
+"kanji": "答える",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ごちそう",
+"kana": "ごちそう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こちら",
+"kana": "こちら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "コップ",
+"kana": "コップ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こと(事)",
+"kana": "こと",
+"kanji": "事",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ことし(今年)",
+"kana": "ことし",
+"kanji": "今年",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ことば<言葉>",
+"kana": "ことば",
+"kanji": "言葉",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こども<子供>",
+"kana": "こども",
+"kanji": "子供",
+"affix": false,
+"learn": false
+},
+{
+"raw": "この",
+"kana": "この",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "このあいだ(この間)",
+"kana": "このあいだ",
+"kanji": "この間",
+"affix": false,
+"learn": true
+},
+{
+"raw": "このごろ",
+"kana": "このごろ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ごはん<ご飯>",
+"kana": "ごはん",
+"kanji": "ご飯",
+"affix": false,
+"learn": false
+},
+{
+"raw": "コピー",
+"kana": "コピー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こまかい<細かい>",
+"kana": "こまかい",
+"kanji": "細かい",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こまる<困る>",
+"kana": "こまる",
+"kanji": "困る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ごみ",
+"kana": "ごみ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こむ",
+"kana": "こむ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ごらん",
+"kana": "ごらん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "これ",
+"kana": "これ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "これから",
+"kana": "これから",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ころ・ごろ[頃]",
+"kana": "ころ・ごろ",
+"kanji": "頃",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こわい[怖い]",
+"kana": "こわい",
+"kanji": "怖い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "こわす",
+"kana": "こわす",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こわれる",
+"kana": "こわれる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こんげつ(今月)",
+"kana": "こんげつ",
+"kanji": "今月",
+"affix": false,
+"learn": true
+},
+{
+"raw": "コンサート",
+"kana": "コンサート",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こんしゅう(今週)",
+"kana": "こんしゅう",
+"kanji": "今週",
+"affix": false,
+"learn": true
+},
+{
+"raw": "こんど(今度)",
+"kana": "こんど",
+"kanji": "今度",
+"affix": false,
+"learn": true
+},
+{
+"raw": "こんな",
+"kana": "こんな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "こんばん<今晩>",
+"kana": "こんばん",
+"kanji": "今晩",
+"affix": false,
+"learn": false
+},
+{
+"raw": "コンビニ",
+"kana": "コンビニ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "-さ",
+"kana": "さ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "-さい<歳>",
+"kana": "さい",
+"kanji": "歳",
+"affix": true,
+"learn": false
+},
+{
+"raw": "さいきん<最近>",
+"kana": "さいきん",
+"kanji": "最近",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さいご<最後>",
+"kana": "さいご",
+"kanji": "最後",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さいふ<財布>",
+"kana": "さいふ",
+"kanji": "財布",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さがす<探す>",
+"kana": "さがす",
+"kanji": "探す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さかな(魚)",
+"kana": "さかな",
+"kanji": "魚",
+"affix": false,
+"learn": true
+},
+{
+"raw": "さがる(下がる)",
+"kana": "さがる",
+"kanji": "下がる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "さき・さっき(先)",
+"kana": "さき・さっき",
+"kanji": "先",
+"affix": false,
+"learn": true
+},
+{
+"raw": "さく<咲く>",
+"kana": "さく",
+"kanji": "咲く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さくねん(昨年)",
+"kana": "さくねん",
+"kanji": "昨年",
+"affix": false,
+"learn": true
+},
+{
+"raw": "さくら",
+"kana": "さくら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "さす",
+"kana": "さす",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "さそう",
+"kana": "さそう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "-さつ[冊]",
+"kana": "さつ",
+"kanji": "冊",
+"affix": true,
+"learn": false
+},
+{
+"raw": "サッカー",
+"kana": "サッカー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "さびしい",
+"kana": "さびしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "さむい<寒い>",
+"kana": "さむい",
+"kanji": "寒い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さら<皿>",
+"kana": "さら",
+"kanji": "皿",
+"affix": false,
+"learn": false
+},
+{
+"raw": "さわる[触る]",
+"kana": "さわる",
+"kanji": "触る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-さん・さま<様>",
+"kana": "さん・さま",
+"kanji": "様",
+"affix": true,
+"learn": false
+},
+{
+"raw": "ざんねん",
+"kana": "ざんねん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "さんぽ<散歩>",
+"kana": "さんぽ",
+"kanji": "散歩",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜し",
+"kana": "し",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "じ(字)",
+"kana": "じ",
+"kanji": "字",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-じ(時)",
+"kana": "じ",
+"kanji": "時",
+"affix": true,
+"learn": true
+},
+{
+"raw": "しあい(試合)",
+"kana": "しあい",
+"kanji": "試合",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しあわせ<幸せ>",
+"kana": "しあわせ",
+"kanji": "幸せ",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しお[塩]",
+"kana": "しお",
+"kanji": "塩",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜しか",
+"kana": "しか",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "しかし",
+"kana": "しかし",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "しかる",
+"kana": "しかる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "じかん(時間)",
+"kana": "じかん",
+"kanji": "時間",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しき<式>",
+"kana": "しき",
+"kanji": "式",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しけん(試験)",
+"kana": "しけん",
+"kanji": "試験",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じこ<事故>",
+"kana": "じこ",
+"kanji": "事故",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しごと(仕事)",
+"kana": "しごと",
+"kanji": "仕事",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じしょ<辞書>",
+"kana": "じしょ",
+"kanji": "辞書",
+"affix": false,
+"learn": false
+},
+{
+"raw": "じしん<地震>",
+"kana": "じしん",
+"kanji": "地震",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しずか<静か>",
+"kana": "しずか",
+"kanji": "静か",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しぜん<自然>",
+"kana": "しぜん",
+"kanji": "自然",
+"affix": false,
+"learn": false
+},
+{
+"raw": "した(下)",
+"kana": "した",
+"kanji": "下",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じだい(時代)",
+"kana": "じだい",
+"kanji": "時代",
+"affix": false,
+"learn": true
+},
+{
+"raw": "したしい(親しい)",
+"kana": "したしい",
+"kanji": "親しい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じつは<実は>",
+"kana": "じつは",
+"kanji": "実は",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しっぱい<失敗>",
+"kana": "しっぱい",
+"kanji": "失敗",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しつもん(質問)",
+"kana": "しつもん",
+"kanji": "質問",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しつれい(失礼)",
+"kana": "しつれい",
+"kanji": "失礼",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じてんしゃ(自転車)",
+"kana": "じてんしゃ",
+"kanji": "自転車",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じどうしゃ(自動車)",
+"kana": "じどうしゃ",
+"kanji": "自動車",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しぬ(死ぬ)",
+"kana": "しぬ",
+"kanji": "死ぬ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じぶん(自分)",
+"kana": "じぶん",
+"kanji": "自分",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しまう",
+"kana": "しまう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "しまる<閉まる>",
+"kana": "しまる",
+"kanji": "閉まる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しめる<閉める>",
+"kana": "しめる",
+"kanji": "閉める",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しゃしん(写真)",
+"kana": "しゃしん",
+"kanji": "写真",
+"affix": false,
+"learn": true
+},
+{
+"raw": "シャツ",
+"kana": "シャツ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "じゃま",
+"kana": "じゃま",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "シャワー",
+"kana": "シャワー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "-しゅう(週)",
+"kana": "しゅう",
+"kanji": "週",
+"affix": true,
+"learn": true
+},
+{
+"raw": "じゆう(自由)",
+"kana": "じゆう",
+"kanji": "自由",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しゅうかん<習慣>",
+"kana": "しゅうかん",
+"kanji": "習慣",
+"affix": false,
+"learn": false
+},
+{
+"raw": "じゅうしょ(住所)",
+"kana": "じゅうしょ",
+"kanji": "住所",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ジュース",
+"kana": "ジュース",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "じゅうぶん(十分)",
+"kana": "じゅうぶん",
+"kanji": "十分",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しゅうまつ(週末)",
+"kana": "しゅうまつ",
+"kanji": "週末",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じゅぎょう<授業>",
+"kana": "じゅぎょう",
+"kanji": "授業",
+"affix": false,
+"learn": false
+},
+{
+"raw": "じゅく[塾]",
+"kana": "じゅく",
+"kanji": "塾",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しゅくだい<宿題>",
+"kana": "しゅくだい",
+"kanji": "宿題",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しゅじん(主人)",
+"kana": "しゅじん",
+"kanji": "主人",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しゅっせき(出席)",
+"kana": "しゅっせき",
+"kanji": "出席",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しゅっぱつ(出発)",
+"kana": "しゅっぱつ",
+"kanji": "出発",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しゅみ",
+"kana": "しゅみ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "じゅんび<準備>",
+"kana": "じゅんび",
+"kanji": "準備",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-じょう<場>",
+"kana": "じょう",
+"kanji": "場",
+"affix": true,
+"learn": false
+},
+{
+"raw": "しょうかい<紹介>",
+"kana": "しょうかい",
+"kanji": "紹介",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しょうがっこう・しょうがく",
+"kana": "しょうがっこう・しょうがく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "しょうしょう(少々)",
+"kana": "しょうしょう",
+"kanji": "少々",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じょうず(上手)",
+"kana": "じょうず",
+"kanji": "上手",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しょうたい<招待>",
+"kana": "しょうたい",
+"kanji": "招待",
+"affix": false,
+"learn": false
+},
+{
+"raw": "じょうぶ",
+"kana": "じょうぶ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "しょうゆ",
+"kana": "しょうゆ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "しょうらい<将来>",
+"kana": "しょうらい",
+"kanji": "将来",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ジョギング",
+"kana": "ジョギング",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "しょくじ(食事)",
+"kana": "しょくじ",
+"kanji": "食事",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しょくどう(食堂)",
+"kana": "しょくどう",
+"kanji": "食堂",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しらせる(知らせる)",
+"kana": "しらせる",
+"kanji": "知らせる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しらべる<調べる>",
+"kana": "しらべる",
+"kanji": "調べる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しる(知る)",
+"kana": "しる",
+"kanji": "知る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しろい(白い)",
+"kana": "しろい",
+"kanji": "白い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-じん・にん(人)",
+"kana": "じん・にん",
+"kanji": "人",
+"affix": true,
+"learn": true
+},
+{
+"raw": "しんごう(信号)",
+"kana": "しんごう",
+"kanji": "信号",
+"affix": false,
+"learn": true
+},
+{
+"raw": "じんこう(人口)",
+"kana": "じんこう",
+"kanji": "人口",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しんせつ(親切)",
+"kana": "しんせつ",
+"kanji": "親切",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しんねん(新年)",
+"kana": "しんねん",
+"kanji": "新年",
+"affix": false,
+"learn": true
+},
+{
+"raw": "しんぱい<心配>",
+"kana": "しんぱい",
+"kanji": "心配",
+"affix": false,
+"learn": false
+},
+{
+"raw": "しんぶん(新聞)",
+"kana": "しんぶん",
+"kanji": "新聞",
+"affix": false,
+"learn": true
+},
+{
+"raw": "すいえい(水泳)",
+"kana": "すいえい",
+"kanji": "水泳",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ずいぶん",
+"kana": "ずいぶん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "スーツ",
+"kana": "スーツ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "スーパー",
+"kana": "スーパー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "スカート",
+"kana": "スカート",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すき(好き)",
+"kana": "すき",
+"kanji": "好き",
+"affix": false,
+"learn": true
+},
+{
+"raw": "スキー",
+"kana": "スキー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すぎる<過ぎる>",
+"kana": "すぎる",
+"kanji": "過ぎる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "すく<空く>",
+"kana": "すく",
+"kanji": "空く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "すぐ",
+"kana": "すぐ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すくない(少ない)",
+"kana": "すくない",
+"kanji": "少ない",
+"affix": false,
+"learn": true
+},
+{
+"raw": "すごい",
+"kana": "すごい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すこし(少し)",
+"kana": "すこし",
+"kanji": "少し",
+"affix": false,
+"learn": true
+},
+{
+"raw": "すごす<過ごす>",
+"kana": "すごす",
+"kanji": "過ごす",
+"affix": false,
+"learn": false
+},
+{
+"raw": "すずしい",
+"kana": "すずしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すすむ<進む>",
+"kana": "すすむ",
+"kanji": "進む",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ずつ",
+"kana": "ずつ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "すっかり",
+"kana": "すっかり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ずっと",
+"kana": "ずっと",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すてき",
+"kana": "すてき",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すてる",
+"kana": "すてる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すばらしい",
+"kana": "すばらしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "スプーン",
+"kana": "スプーン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "スポーツ",
+"kana": "スポーツ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ズボン",
+"kana": "ズボン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "スマートフォン・スマホ",
+"kana": "スマートフォン・スマホ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すむ(住む)",
+"kana": "すむ",
+"kanji": "住む",
+"affix": false,
+"learn": true
+},
+{
+"raw": "する",
+"kana": "する",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "すわる<座る>",
+"kana": "すわる",
+"kanji": "座る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "せ・せい<背>",
+"kana": "せ・せい",
+"kanji": "背",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-せい(生)",
+"kana": "せい",
+"kanji": "生",
+"affix": true,
+"learn": true
+},
+{
+"raw": "せいかつ(生活)",
+"kana": "せいかつ",
+"kanji": "生活",
+"affix": false,
+"learn": true
+},
+{
+"raw": "せいと<生徒>",
+"kana": "せいと",
+"kanji": "生徒",
+"affix": false,
+"learn": false
+},
+{
+"raw": "せかい(世界)",
+"kana": "せかい",
+"kanji": "世界",
+"affix": false,
+"learn": true
+},
+{
+"raw": "せき(席)",
+"kana": "せき",
+"kanji": "席",
+"affix": false,
+"learn": true
+},
+{
+"raw": "せつめい(説明)",
+"kana": "せつめい",
+"kanji": "説明",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぜひ",
+"kana": "ぜひ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "せまい<狭い>",
+"kana": "せまい",
+"kanji": "狭い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜せる・させる",
+"kana": "せる・させる",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "せわ(世話)",
+"kana": "せわ",
+"kanji": "世話",
+"affix": false,
+"learn": true
+},
+{
+"raw": "せんげつ(先月)",
+"kana": "せんげつ",
+"kanji": "先月",
+"affix": false,
+"learn": true
+},
+{
+"raw": "せんしゅう(先週)",
+"kana": "せんしゅう",
+"kanji": "先週",
+"affix": false,
+"learn": true
+},
+{
+"raw": "せんせい(先生)",
+"kana": "せんせい",
+"kanji": "先生",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぜんぜん",
+"kana": "ぜんぜん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "せんたく[洗濯]",
+"kana": "せんたく",
+"kanji": "洗濯",
+"affix": false,
+"learn": false
+},
+{
+"raw": "せんぱい[先輩]",
+"kana": "せんぱい",
+"kanji": "先輩",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ぜんぶ<全部>",
+"kana": "ぜんぶ",
+"kanji": "全部",
+"affix": false,
+"learn": false
+},
+{
+"raw": "そう",
+"kana": "そう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そうじ",
+"kana": "そうじ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜そうだ",
+"kana": "そうだ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "そうだん<相談>",
+"kana": "そうだん",
+"kanji": "相談",
+"affix": false,
+"learn": false
+},
+{
+"raw": "そこ",
+"kana": "そこ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そして・そうして",
+"kana": "そして・そうして",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そだてる<育てる>",
+"kana": "そだてる",
+"kanji": "育てる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "そちら",
+"kana": "そちら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そつぎょう<卒業>",
+"kana": "そつぎょう",
+"kanji": "卒業",
+"affix": false,
+"learn": false
+},
+{
+"raw": "そと(外)",
+"kana": "そと",
+"kanji": "外",
+"affix": false,
+"learn": true
+},
+{
+"raw": "その",
+"kana": "その",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そば[側]",
+"kana": "そば",
+"kanji": "側",
+"affix": false,
+"learn": false
+},
+{
+"raw": "そら(空)",
+"kana": "そら",
+"kanji": "空",
+"affix": false,
+"learn": true
+},
+{
+"raw": "それ",
+"kana": "それ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "それから",
+"kana": "それから",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "それで",
+"kana": "それで",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "それでは",
+"kana": "それでは",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "それなら",
+"kana": "それなら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "それに",
+"kana": "それに",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そろそろ",
+"kana": "そろそろ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "そんな",
+"kana": "そんな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜た",
+"kana": "た",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "〜だ",
+"kana": "だ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "〜たい",
+"kana": "たい",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "たいかい(大会)",
+"kana": "たいかい",
+"kanji": "大会",
+"affix": false,
+"learn": true
+},
+{
+"raw": "だいがく(大学)",
+"kana": "だいがく",
+"kanji": "大学",
+"affix": false,
+"learn": true
+},
+{
+"raw": "だいじ(大事)",
+"kana": "だいじ",
+"kanji": "大事",
+"affix": false,
+"learn": true
+},
+{
+"raw": "だいじょうぶ",
+"kana": "だいじょうぶ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "だいすき(大好き)",
+"kana": "だいすき",
+"kanji": "大好き",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たいせつ(大切)",
+"kana": "たいせつ",
+"kanji": "大切",
+"affix": false,
+"learn": true
+},
+{
+"raw": "だいたい",
+"kana": "だいたい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たいてい",
+"kana": "たいてい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "だいどころ<台所>",
+"kana": "だいどころ",
+"kanji": "台所",
+"affix": false,
+"learn": false
+},
+{
+"raw": "だいぶ",
+"kana": "だいぶ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たいふう<台風>",
+"kana": "たいふう",
+"kanji": "台風",
+"affix": false,
+"learn": false
+},
+{
+"raw": "たいへん<大変>",
+"kana": "たいへん",
+"kanji": "大変",
+"affix": false,
+"learn": false
+},
+{
+"raw": "たかい(高い)",
+"kana": "たかい",
+"kanji": "高い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "だから",
+"kana": "だから",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たくさん",
+"kana": "たくさん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "タクシー",
+"kana": "タクシー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜だけ",
+"kana": "だけ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "だす(出す)",
+"kana": "だす",
+"kanji": "出す",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たすかる<助かる>",
+"kana": "たすかる",
+"kanji": "助かる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "たすける<助ける>",
+"kana": "たすける",
+"kanji": "助ける",
+"affix": false,
+"learn": false
+},
+{
+"raw": "たずねる",
+"kana": "たずねる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ただしい(正しい)",
+"kana": "ただしい",
+"kanji": "正しい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-たち",
+"kana": "たち",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "たつ(立つ)",
+"kana": "たつ",
+"kanji": "立つ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たてもの(建物)",
+"kana": "たてもの",
+"kanji": "建物",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たてる(立てる・建てる)",
+"kana": "たてる",
+"kanji": "立てる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たとえば",
+"kana": "たとえば",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たのしい(楽しい)",
+"kana": "たのしい",
+"kanji": "楽しい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たのしむ(楽しむ)",
+"kana": "たのしむ",
+"kanji": "楽しむ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たのむ",
+"kana": "たのむ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たぶん",
+"kana": "たぶん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たべる(食べる)",
+"kana": "たべる",
+"kanji": "食べる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "たまご",
+"kana": "たまご",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ため",
+"kana": "ため",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "だめ",
+"kana": "だめ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜たら",
+"kana": "たら",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "〜たり",
+"kana": "たり",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "たりる<足りる>",
+"kana": "たりる",
+"kanji": "足りる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "だれ",
+"kana": "だれ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "たんじょうび<誕生日>",
+"kana": "たんじょうび",
+"kanji": "誕生日",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ダンス",
+"kana": "ダンス",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "だんだん",
+"kana": "だんだん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちいき<地域>",
+"kana": "ちいき",
+"kanji": "地域",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちいさい(小さい)",
+"kana": "ちいさい",
+"kanji": "小さい",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ちかい(近い)",
+"kana": "ちかい",
+"kanji": "近い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ちがう<違う>",
+"kana": "ちがう",
+"kanji": "違う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちかてつ<地下鉄>",
+"kana": "ちかてつ",
+"kanji": "地下鉄",
+"affix": false,
+"learn": false
+},
+{
+"raw": "チケット",
+"kana": "チケット",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちこく[遅刻]",
+"kana": "ちこく",
+"kanji": "遅刻",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちず<地図>",
+"kana": "ちず",
+"kanji": "地図",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちち(父)",
+"kana": "ちち",
+"kanji": "父",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ちゃわん",
+"kana": "ちゃわん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "-ちゃん",
+"kana": "ちゃん",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "-ちゅう・じゅう(中)",
+"kana": "ちゅう・じゅう",
+"kanji": "中",
+"affix": true,
+"learn": true
+},
+{
+"raw": "ちゅうい(注意)",
+"kana": "ちゅうい",
+"kanji": "注意",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ちゅうがっこう・ちゅうがく",
+"kana": "ちゅうがっこう・ちゅうがく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちゅうし(中止)",
+"kana": "ちゅうし",
+"kanji": "中止",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ちゅうしゃ<駐車>",
+"kana": "ちゅうしゃ",
+"kanji": "駐車",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちょうど",
+"kana": "ちょうど",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ちょっと",
+"kana": "ちょっと",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つかう(使う)",
+"kana": "つかう",
+"kanji": "使う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "つかれる[疲れる]",
+"kana": "つかれる",
+"kanji": "疲れる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つき(月)",
+"kana": "つき",
+"kanji": "月",
+"affix": false,
+"learn": true
+},
+{
+"raw": "つぎ<次>",
+"kana": "つぎ",
+"kanji": "次",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つく(着く)",
+"kana": "つく",
+"kanji": "着く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "つく",
+"kana": "つく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つくえ",
+"kana": "つくえ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つくる(作る)",
+"kana": "つくる",
+"kanji": "作る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "つける",
+"kana": "つける",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つごう<都合>",
+"kana": "つごう",
+"kanji": "都合",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つたえる<伝える>",
+"kana": "つたえる",
+"kanji": "伝える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つづく<続く>",
+"kana": "つづく",
+"kanji": "続く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つづける<続ける>",
+"kana": "つづける",
+"kanji": "続ける",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つとめる",
+"kana": "つとめる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つまらない",
+"kana": "つまらない",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つめたい<冷たい>",
+"kana": "つめたい",
+"kanji": "冷たい",
+"affix": false,
+"learn": false
+},
+{
+"raw": "つもり",
+"kana": "つもり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "つよい(強い)",
+"kana": "つよい",
+"kanji": "強い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "つれる<連れる>",
+"kana": "つれる",
+"kanji": "連れる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "て(手)",
+"kana": "て",
+"kanji": "手",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜て",
+"kana": "て",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "〜で",
+"kana": "で",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ていねい[丁寧]",
+"kana": "ていねい",
+"kanji": "丁寧",
+"affix": false,
+"learn": false
+},
+{
+"raw": "テーブル",
+"kana": "テーブル",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "でかける(出かける)",
+"kana": "でかける",
+"kanji": "出かける",
+"affix": false,
+"learn": true
+},
+{
+"raw": "てがみ(手紙)",
+"kana": "てがみ",
+"kanji": "手紙",
+"affix": false,
+"learn": true
+},
+{
+"raw": "できる",
+"kana": "できる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "でぐち(出口)",
+"kana": "でぐち",
+"kanji": "出口",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜です",
+"kana": "です",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "テスト",
+"kana": "テスト",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "てつだう(手伝う)",
+"kana": "てつだう",
+"kanji": "手伝う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "テニス",
+"kana": "テニス",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "では",
+"kana": "では",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "デパート",
+"kana": "デパート",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ても",
+"kana": "ても",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "でも",
+"kana": "でも",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "てら(寺)",
+"kana": "てら",
+"kanji": "寺",
+"affix": false,
+"learn": true
+},
+{
+"raw": "でる(出る)",
+"kana": "でる",
+"kanji": "出る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "テレビ",
+"kana": "テレビ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "てん(点)",
+"kana": "てん",
+"kanji": "点",
+"affix": false,
+"learn": true
+},
+{
+"raw": "てんいん(店員)",
+"kana": "てんいん",
+"kanji": "店員",
+"affix": false,
+"learn": true
+},
+{
+"raw": "てんき(天気)",
+"kana": "てんき",
+"kanji": "天気",
+"affix": false,
+"learn": true
+},
+{
+"raw": "でんき(電気)",
+"kana": "でんき",
+"kanji": "電気",
+"affix": false,
+"learn": true
+},
+{
+"raw": "でんしゃ(電車)",
+"kana": "でんしゃ",
+"kanji": "電車",
+"affix": false,
+"learn": true
+},
+{
+"raw": "でんわ(電話)",
+"kana": "でんわ",
+"kanji": "電話",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜と",
+"kana": "と",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "-ど(度)",
+"kana": "ど",
+"kanji": "度",
+"affix": true,
+"learn": true
+},
+{
+"raw": "ドア",
+"kana": "ドア",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "トイレ",
+"kana": "トイレ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "どう",
+"kana": "どう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "どうして",
+"kana": "どうして",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "どうぞ",
+"kana": "どうぞ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "どうぶつ(動物)",
+"kana": "どうぶつ",
+"kanji": "動物",
+"affix": false,
+"learn": true
+},
+{
+"raw": "どうも",
+"kana": "どうも",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "とおい(遠い)",
+"kana": "とおい",
+"kanji": "遠い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "とおる<通る>",
+"kana": "とおる",
+"kanji": "通る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜とか",
+"kana": "とか",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "とき(時)",
+"kana": "とき",
+"kanji": "時",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ときどき(時々)",
+"kana": "ときどき",
+"kanji": "時々",
+"affix": false,
+"learn": true
+},
+{
+"raw": "とくい<得意>",
+"kana": "とくい",
+"kanji": "得意",
+"affix": false,
+"learn": false
+},
+{
+"raw": "とくに(特に)",
+"kana": "とくに",
+"kanji": "特に",
+"affix": false,
+"learn": true
+},
+{
+"raw": "とくべつ(特別)",
+"kana": "とくべつ",
+"kanji": "特別",
+"affix": false,
+"learn": true
+},
+{
+"raw": "とけい(時計)",
+"kana": "とけい",
+"kanji": "時計",
+"affix": false,
+"learn": true
+},
+{
+"raw": "どこ",
+"kana": "どこ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ところ<所>",
+"kana": "ところ",
+"kanji": "所",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ところで",
+"kana": "ところで",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "とし(年)",
+"kana": "とし",
+"kanji": "年",
+"affix": false,
+"learn": true
+},
+{
+"raw": "としょかん(図書館)",
+"kana": "としょかん",
+"kanji": "図書館",
+"affix": false,
+"learn": true
+},
+{
+"raw": "とちゅう<途中>",
+"kana": "とちゅう",
+"kanji": "途中",
+"affix": false,
+"learn": false
+},
+{
+"raw": "どちら",
+"kana": "どちら",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "とても",
+"kana": "とても",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "とどく<届く>",
+"kana": "とどく",
+"kanji": "届く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "とどける<届ける>",
+"kana": "とどける",
+"kanji": "届ける",
+"affix": false,
+"learn": false
+},
+{
+"raw": "どなた",
+"kana": "どなた",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "となり",
+"kana": "となり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "どの",
+"kana": "どの",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "とまる<止まる・泊まる>",
+"kana": "とまる",
+"kanji": "止まる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "とめる<止める・泊める>",
+"kana": "とめる",
+"kanji": "止める",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ともだち(友だち)",
+"kana": "ともだち",
+"kanji": "友だち",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ドラマ",
+"kana": "ドラマ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "とり(鳥)",
+"kana": "とり",
+"kanji": "鳥",
+"affix": false,
+"learn": true
+},
+{
+"raw": "とる<取る・撮る>",
+"kana": "とる",
+"kanji": "取る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "どれ",
+"kana": "どれ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "どんな",
+"kana": "どんな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜な",
+"kana": "な",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ない・〜ない",
+"kana": "ない・〜ない",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "なおす<直す・治す>",
+"kana": "なおす",
+"kanji": "直す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "なおる<直る・治る>",
+"kana": "なおる",
+"kanji": "直る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "なか(中・仲)",
+"kana": "なか",
+"kanji": "中",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ながい(長い)",
+"kana": "ながい",
+"kanji": "長い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "なかなか",
+"kana": "なかなか",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ながら",
+"kana": "ながら",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "なく<泣く・鳴く>",
+"kana": "なく",
+"kanji": "泣く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "なくす",
+"kana": "なくす",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "なくなる",
+"kana": "なくなる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "なさる",
+"kana": "なさる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "なぜ",
+"kana": "なぜ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "なつ(夏)",
+"kana": "なつ",
+"kanji": "夏",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜など",
+"kana": "など",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "なに・なん(何)",
+"kana": "なに・なん",
+"kanji": "何",
+"affix": false,
+"learn": true
+},
+{
+"raw": "なまえ(名前)",
+"kana": "なまえ",
+"kanji": "名前",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜なら",
+"kana": "なら",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ならう(習う)",
+"kana": "ならう",
+"kanji": "習う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ならぶ<並ぶ>",
+"kana": "ならぶ",
+"kanji": "並ぶ",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ならべる<並べる>",
+"kana": "ならべる",
+"kanji": "並べる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "なる",
+"kana": "なる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "なれる<慣れる>",
+"kana": "なれる",
+"kanji": "慣れる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜なんて",
+"kana": "なんて",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "なんで",
+"kana": "なんで",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜に",
+"kana": "に",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "にあう<似合う>",
+"kana": "にあう",
+"kanji": "似合う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "におい",
+"kana": "におい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "にがて<苦手>",
+"kana": "にがて",
+"kanji": "苦手",
+"affix": false,
+"learn": false
+},
+{
+"raw": "にぎやか",
+"kana": "にぎやか",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "にく(肉)",
+"kana": "にく",
+"kanji": "肉",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-にくい",
+"kana": "にくい",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "にし(西)",
+"kana": "にし",
+"kanji": "西",
+"affix": false,
+"learn": true
+},
+{
+"raw": "にっき(日記)",
+"kana": "にっき",
+"kanji": "日記",
+"affix": false,
+"learn": true
+},
+{
+"raw": "にもつ<荷物>",
+"kana": "にもつ",
+"kanji": "荷物",
+"affix": false,
+"learn": false
+},
+{
+"raw": "にゅういん(入院)",
+"kana": "にゅういん",
+"kanji": "入院",
+"affix": false,
+"learn": true
+},
+{
+"raw": "にゅうがく(入学)",
+"kana": "にゅうがく",
+"kanji": "入学",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ニュース",
+"kana": "ニュース",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "にる<似る>",
+"kana": "にる",
+"kanji": "似る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "にわ<庭>",
+"kana": "にわ",
+"kanji": "庭",
+"affix": false,
+"learn": false
+},
+{
+"raw": "にんき(人気)",
+"kana": "にんき",
+"kanji": "人気",
+"affix": false,
+"learn": true
+},
+{
+"raw": "にんぎょう(人形)",
+"kana": "にんぎょう",
+"kanji": "人形",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぬぐ",
+"kana": "ぬぐ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ね",
+"kana": "ね",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ねがう<願う>",
+"kana": "ねがう",
+"kanji": "願う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ネクタイ",
+"kana": "ネクタイ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ねこ<猫>",
+"kana": "ねこ",
+"kanji": "猫",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ねだん",
+"kana": "ねだん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ねつ<熱>",
+"kana": "ねつ",
+"kanji": "熱",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ねむい",
+"kana": "ねむい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ねる<寝る>",
+"kana": "ねる",
+"kanji": "寝る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-ねん(年)",
+"kana": "ねん",
+"kanji": "年",
+"affix": true,
+"learn": true
+},
+{
+"raw": "〜の",
+"kana": "の",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ノート",
+"kana": "ノート",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "のこる<残る>",
+"kana": "のこる",
+"kanji": "残る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "のせる<乗せる・載せる>",
+"kana": "のせる",
+"kanji": "乗せる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ので",
+"kana": "ので",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "のど",
+"kana": "のど",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜のに",
+"kana": "のに",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "のぼる(上る・登る)",
+"kana": "のぼる",
+"kanji": "上る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "のむ(飲む)",
+"kana": "のむ",
+"kanji": "飲む",
+"affix": false,
+"learn": true
+},
+{
+"raw": "のりかえる<乗り換える>",
+"kana": "のりかえる",
+"kanji": "乗り換える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "のる(乗る)",
+"kana": "のる",
+"kanji": "乗る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "は<歯>",
+"kana": "は",
+"kanji": "歯",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜は",
+"kana": "は",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ば(場)",
+"kana": "ば",
+"kanji": "場",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜ば",
+"kana": "ば",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ばあい<場合>",
+"kana": "ばあい",
+"kanji": "場合",
+"affix": false,
+"learn": false
+},
+{
+"raw": "パーティー",
+"kana": "パーティー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "はいる(入る)",
+"kana": "はいる",
+"kanji": "入る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜ばかり",
+"kana": "ばかり",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "はく[履く]",
+"kana": "はく",
+"kanji": "履く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はこ<箱>",
+"kana": "はこ",
+"kanji": "箱",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はこぶ<運ぶ>",
+"kana": "はこぶ",
+"kanji": "運ぶ",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はし[箸]",
+"kana": "はし",
+"kanji": "箸",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はし(橋)",
+"kana": "はし",
+"kanji": "橋",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はじまる(始まる)",
+"kana": "はじまる",
+"kanji": "始まる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はじめ<初め・始め>",
+"kana": "はじめ",
+"kanji": "初め",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はじめて<初めて>",
+"kana": "はじめて",
+"kanji": "初めて",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はじめる(始める)",
+"kana": "はじめる",
+"kanji": "始める",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ばしょ<場所>",
+"kana": "ばしょ",
+"kanji": "場所",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はしる(走る)",
+"kana": "はしる",
+"kanji": "走る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "バス",
+"kana": "バス",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "はずかしい",
+"kana": "はずかしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "バスケットボール・バスケ",
+"kana": "バスケットボール・バスケ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "バスてい<バス停>",
+"kana": "バスてい",
+"kanji": "バス停",
+"affix": false,
+"learn": false
+},
+{
+"raw": "パスポート",
+"kana": "パスポート",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "パソコン",
+"kana": "パソコン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "はたらく<働く>",
+"kana": "はたらく",
+"kanji": "働く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はっきり",
+"kana": "はっきり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "はっぴょう<発表>",
+"kana": "はっぴょう",
+"kanji": "発表",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はな(花)",
+"kana": "はな",
+"kanji": "花",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はな<鼻>",
+"kana": "はな",
+"kanji": "鼻",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はなす(話す)",
+"kana": "はなす",
+"kanji": "話す",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はは(母)",
+"kana": "はは",
+"kanji": "母",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はやい(早い・速い)",
+"kana": "はやい",
+"kanji": "早い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はらう<払う>",
+"kana": "はらう",
+"kanji": "払う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "はる(春)",
+"kana": "はる",
+"kanji": "春",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はれる(晴れる)",
+"kana": "はれる",
+"kanji": "晴れる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "はん(半)",
+"kana": "はん",
+"kanji": "半",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ばん<晩>",
+"kana": "ばん",
+"kanji": "晩",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-ばん(番)",
+"kana": "ばん",
+"kanji": "番",
+"affix": true,
+"learn": true
+},
+{
+"raw": "パン",
+"kana": "パン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ばんぐみ<番組>",
+"kana": "ばんぐみ",
+"kanji": "番組",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ばんごう<番号>",
+"kana": "ばんごう",
+"kanji": "番号",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひ(日)",
+"kana": "ひ",
+"kanji": "日",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ひ(火)",
+"kana": "ひ",
+"kanji": "火",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ピアノ",
+"kana": "ピアノ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひがし(東)",
+"kana": "ひがし",
+"kanji": "東",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-ひき[匹]",
+"kana": "ひき",
+"kanji": "匹",
+"affix": true,
+"learn": false
+},
+{
+"raw": "ひく<引く・弾く>",
+"kana": "ひく",
+"kanji": "引く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひくい<低い>",
+"kana": "ひくい",
+"kanji": "低い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひこうき<飛行機>",
+"kana": "ひこうき",
+"kanji": "飛行機",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひだり(左)",
+"kana": "ひだり",
+"kanji": "左",
+"affix": false,
+"learn": true
+},
+{
+"raw": "びっくり",
+"kana": "びっくり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひっこす",
+"kana": "ひっこす",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひと(人)",
+"kana": "ひと",
+"kanji": "人",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ひどい",
+"kana": "ひどい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひま",
+"kana": "ひま",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "びょういん(病院)",
+"kana": "びょういん",
+"kanji": "病院",
+"affix": false,
+"learn": true
+},
+{
+"raw": "びょうき(病気)",
+"kana": "びょうき",
+"kanji": "病気",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ひらがな",
+"kana": "ひらがな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひらく(開く)",
+"kana": "ひらく",
+"kanji": "開く",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ひる<昼>",
+"kana": "ひる",
+"kanji": "昼",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ビル",
+"kana": "ビル",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ひろい(広い)",
+"kana": "ひろい",
+"kanji": "広い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ひろう<拾う>",
+"kana": "ひろう",
+"kanji": "拾う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-ぶ(部)",
+"kana": "ぶ",
+"kanji": "部",
+"affix": true,
+"learn": true
+},
+{
+"raw": "プール",
+"kana": "プール",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふえる<増える>",
+"kana": "ふえる",
+"kanji": "増える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふかい<深い>",
+"kana": "ふかい",
+"kanji": "深い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ぶかつ<部活>",
+"kana": "ぶかつ",
+"kanji": "部活",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふく<服>",
+"kana": "ふく",
+"kanji": "服",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふくざつ",
+"kana": "ふくざつ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふくしゅう<復習>",
+"kana": "ふくしゅう",
+"kanji": "復習",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふくろ[袋]",
+"kana": "ふくろ",
+"kanji": "袋",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ぶちょう(部長)",
+"kana": "ぶちょう",
+"kanji": "部長",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ふつう<普通>",
+"kana": "ふつう",
+"kanji": "普通",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふとい(太い)",
+"kana": "ふとい",
+"kanji": "太い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ふね<船>",
+"kana": "ふね",
+"kanji": "船",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふべん<不便>",
+"kana": "ふべん",
+"kanji": "不便",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふゆ(冬)",
+"kana": "ふゆ",
+"kanji": "冬",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ふる<降る>",
+"kana": "ふる",
+"kanji": "降る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふるい(古い)",
+"kana": "ふるい",
+"kanji": "古い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "プレゼント",
+"kana": "プレゼント",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ふろ<風呂>",
+"kana": "ふろ",
+"kanji": "風呂",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-ふん(分)",
+"kana": "ふん",
+"kanji": "分",
+"affix": true,
+"learn": true
+},
+{
+"raw": "ぶんか(文化)",
+"kana": "ぶんか",
+"kanji": "文化",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぶんかさい<文化祭>",
+"kana": "ぶんかさい",
+"kanji": "文化祭",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜へ",
+"kana": "へ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "へいき<平気>",
+"kana": "へいき",
+"kanji": "平気",
+"affix": false,
+"learn": false
+},
+{
+"raw": "へた(下手)",
+"kana": "へた",
+"kanji": "下手",
+"affix": false,
+"learn": true
+},
+{
+"raw": "べつ(別)",
+"kana": "べつ",
+"kanji": "別",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ベッド",
+"kana": "ベッド",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ペット",
+"kana": "ペット",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "へや(部屋)",
+"kana": "へや",
+"kanji": "部屋",
+"affix": false,
+"learn": true
+},
+{
+"raw": "へる<減る>",
+"kana": "へる",
+"kanji": "減る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "へん(辺)",
+"kana": "へん",
+"kanji": "辺",
+"affix": false,
+"learn": true
+},
+{
+"raw": "へん<変>",
+"kana": "へん",
+"kanji": "変",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ペン",
+"kana": "ペン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "べんきょう(勉強)",
+"kana": "べんきょう",
+"kanji": "勉強",
+"affix": false,
+"learn": true
+},
+{
+"raw": "へんじ<返事>",
+"kana": "へんじ",
+"kanji": "返事",
+"affix": false,
+"learn": false
+},
+{
+"raw": "べんとう<弁当>",
+"kana": "べんとう",
+"kanji": "弁当",
+"affix": false,
+"learn": false
+},
+{
+"raw": "べんり<便利>",
+"kana": "べんり",
+"kanji": "便利",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ほう(方)",
+"kana": "ほう",
+"kanji": "方",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぼうし",
+"kana": "ぼうし",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ホームステイ",
+"kana": "ホームステイ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ボール",
+"kana": "ボール",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ほか(外・他)",
+"kana": "ほか",
+"kanji": "外",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ぼく",
+"kana": "ぼく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ほしい",
+"kana": "ほしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ほそい<細い>",
+"kana": "ほそい",
+"kanji": "細い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ボタン",
+"kana": "ボタン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ホテル",
+"kana": "ホテル",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ほど",
+"kana": "ほど",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ほとんど",
+"kana": "ほとんど",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ほめる",
+"kana": "ほめる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ボランティア",
+"kana": "ボランティア",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ほん(本)",
+"kana": "ほん",
+"kanji": "本",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ほんとう(本当)",
+"kana": "ほんとう",
+"kanji": "本当",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-まい<枚>",
+"kana": "まい",
+"kanji": "枚",
+"affix": true,
+"learn": false
+},
+{
+"raw": "まいる",
+"kana": "まいる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まえ(前)",
+"kana": "まえ",
+"kanji": "前",
+"affix": false,
+"learn": true
+},
+{
+"raw": "まがる<曲がる>",
+"kana": "まがる",
+"kanji": "曲がる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "まける<負ける>",
+"kana": "まける",
+"kanji": "負ける",
+"affix": false,
+"learn": false
+},
+{
+"raw": "まじめ",
+"kana": "まじめ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜ます",
+"kana": "ます",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "まず",
+"kana": "まず",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "また",
+"kana": "また",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まだ",
+"kana": "まだ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まだまだ",
+"kana": "まだまだ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まち<町・街>",
+"kana": "まち",
+"kanji": "町",
+"affix": false,
+"learn": false
+},
+{
+"raw": "まちがえる<間違える>",
+"kana": "まちがえる",
+"kanji": "間違える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "まつ(待つ)",
+"kana": "まつ",
+"kanji": "待つ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "まっすぐ",
+"kana": "まっすぐ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜まで",
+"kana": "まで",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "まど(窓)",
+"kana": "まど",
+"kanji": "窓",
+"affix": false,
+"learn": true
+},
+{
+"raw": "まにあう(間に合う)",
+"kana": "まにあう",
+"kanji": "間に合う",
+"affix": false,
+"learn": true
+},
+{
+"raw": "まま・~まま",
+"kana": "まま・~まま",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まもる<守る>",
+"kana": "まもる",
+"kanji": "守る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "まるい<丸い>",
+"kana": "まるい",
+"kanji": "丸い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "まわる",
+"kana": "まわる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まんが",
+"kana": "まんが",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "まんなか",
+"kana": "まんなか",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "みえる(見える)",
+"kana": "みえる",
+"kanji": "見える",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みがく",
+"kana": "みがく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "みかん",
+"kana": "みかん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "みぎ(右)",
+"kana": "みぎ",
+"kanji": "右",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みじかい(短い)",
+"kana": "みじかい",
+"kanji": "短い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みず(水)",
+"kana": "みず",
+"kanji": "水",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みせ(店)",
+"kana": "みせ",
+"kanji": "店",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みせる(見せる)",
+"kana": "みせる",
+"kanji": "見せる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜みたいだ",
+"kana": "みたいだ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "みち(道)",
+"kana": "みち",
+"kanji": "道",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みつかる<見つかる>",
+"kana": "みつかる",
+"kanji": "見つかる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "みつける<見つける>",
+"kana": "みつける",
+"kanji": "見つける",
+"affix": false,
+"learn": false
+},
+{
+"raw": "みどり[緑]",
+"kana": "みどり",
+"kanji": "緑",
+"affix": false,
+"learn": false
+},
+{
+"raw": "みな・みんな",
+"kana": "みな・みんな",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "みなみ(南)",
+"kana": "みなみ",
+"kanji": "南",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みまい",
+"kana": "みまい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "みみ(耳)",
+"kana": "みみ",
+"kanji": "耳",
+"affix": false,
+"learn": true
+},
+{
+"raw": "みる(見る)",
+"kana": "みる",
+"kanji": "見る",
+"affix": false,
+"learn": true
+},
+{
+"raw": "むかえる<迎える>",
+"kana": "むかえる",
+"kanji": "迎える",
+"affix": false,
+"learn": false
+},
+{
+"raw": "むかし<昔>",
+"kana": "むかし",
+"kanji": "昔",
+"affix": false,
+"learn": false
+},
+{
+"raw": "むずかしい<難しい>",
+"kana": "むずかしい",
+"kanji": "難しい",
+"affix": false,
+"learn": false
+},
+{
+"raw": "むすこ",
+"kana": "むすこ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "むすめ",
+"kana": "むすめ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "むり<無理>",
+"kana": "むり",
+"kanji": "無理",
+"affix": false,
+"learn": false
+},
+{
+"raw": "-めい(名)",
+"kana": "めい",
+"kanji": "名",
+"affix": true,
+"learn": true
+},
+{
+"raw": "めいわく",
+"kana": "めいわく",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "メール",
+"kana": "メール",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "めがね",
+"kana": "めがね",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "めしあがる",
+"kana": "めしあがる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "めずらしい",
+"kana": "めずらしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "メニュー",
+"kana": "メニュー",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜も",
+"kana": "も",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "もう",
+"kana": "もう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "もうす<申す>",
+"kana": "もうす",
+"kanji": "申す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "もえる",
+"kana": "もえる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "もし",
+"kana": "もし",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "もちろん",
+"kana": "もちろん",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "もつ(持つ)",
+"kana": "もつ",
+"kanji": "持つ",
+"affix": false,
+"learn": true
+},
+{
+"raw": "もっと",
+"kana": "もっと",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "もどる<戻る>",
+"kana": "もどる",
+"kanji": "戻る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "もの(物)",
+"kana": "もの",
+"kanji": "物",
+"affix": false,
+"learn": true
+},
+{
+"raw": "もらう",
+"kana": "もらう",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "もんだい(問題)",
+"kana": "もんだい",
+"kanji": "問題",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-や(屋)",
+"kana": "や",
+"kanji": "屋",
+"affix": true,
+"learn": true
+},
+{
+"raw": "〜や",
+"kana": "や",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "やきゅう(野球)",
+"kana": "やきゅう",
+"kanji": "野球",
+"affix": false,
+"learn": true
+},
+{
+"raw": "やく<焼く>",
+"kana": "やく",
+"kanji": "焼く",
+"affix": false,
+"learn": false
+},
+{
+"raw": "やくそく(約束)",
+"kana": "やくそく",
+"kanji": "約束",
+"affix": false,
+"learn": true
+},
+{
+"raw": "やさい<野菜>",
+"kana": "やさい",
+"kanji": "野菜",
+"affix": false,
+"learn": false
+},
+{
+"raw": "やさしい<優しい>",
+"kana": "やさしい",
+"kanji": "優しい",
+"affix": false,
+"learn": false
+},
+{
+"raw": "やさしい<易しい>",
+"kana": "やさしい",
+"kanji": "易しい",
+"affix": false,
+"learn": false
+},
+{
+"raw": "やすい(安い)",
+"kana": "やすい",
+"kanji": "安い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "-やすい",
+"kana": "やすい",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "やすむ(休む)",
+"kana": "やすむ",
+"kanji": "休む",
+"affix": false,
+"learn": true
+},
+{
+"raw": "やせる",
+"kana": "やせる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "やはり・やっぱり",
+"kana": "やはり・やっぱり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "やま(山)",
+"kana": "やま",
+"kanji": "山",
+"affix": false,
+"learn": true
+},
+{
+"raw": "やむ(止む)",
+"kana": "やむ",
+"kanji": "止む",
+"affix": false,
+"learn": true
+},
+{
+"raw": "やめる(止める)",
+"kana": "やめる",
+"kanji": "止める",
+"affix": false,
+"learn": true
+},
+{
+"raw": "やる",
+"kana": "やる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "やわらかい",
+"kana": "やわらかい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ゆ<湯>",
+"kana": "ゆ",
+"kanji": "湯",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ゆうがた<夕方>",
+"kana": "ゆうがた",
+"kanji": "夕方",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ゆうびんきょく<郵便局>",
+"kana": "ゆうびんきょく",
+"kanji": "郵便局",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ゆうめい(有名)",
+"kana": "ゆうめい",
+"kanji": "有名",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ゆき(雪)",
+"kana": "ゆき",
+"kanji": "雪",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ゆっくり",
+"kana": "ゆっくり",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "ゆめ<夢>",
+"kana": "ゆめ",
+"kanji": "夢",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜よ",
+"kana": "よ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "ようい(用意)",
+"kana": "ようい",
+"kanji": "用意",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ようじ(用事)",
+"kana": "ようじ",
+"kanji": "用事",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜ようだ",
+"kana": "ようだ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "よこ",
+"kana": "よこ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "よごれる",
+"kana": "よごれる",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "よしゅう<予習>",
+"kana": "よしゅう",
+"kanji": "予習",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よてい<予定>",
+"kana": "よてい",
+"kanji": "予定",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よぶ<呼ぶ>",
+"kana": "よぶ",
+"kanji": "呼ぶ",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よほう<予報>",
+"kana": "よほう",
+"kanji": "予報",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よむ(読む)",
+"kana": "よむ",
+"kanji": "読む",
+"affix": false,
+"learn": true
+},
+{
+"raw": "よやく<予約>",
+"kana": "よやく",
+"kanji": "予約",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜より",
+"kana": "より",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "よる(夜)",
+"kana": "よる",
+"kanji": "夜",
+"affix": false,
+"learn": true
+},
+{
+"raw": "よる[寄る]",
+"kana": "よる",
+"kanji": "寄る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よる[因る・由る・依る]",
+"kana": "よる",
+"kanji": "因る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よろこぶ<喜ぶ>",
+"kana": "よろこぶ",
+"kanji": "喜ぶ",
+"affix": false,
+"learn": false
+},
+{
+"raw": "よろしい",
+"kana": "よろしい",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "よわい<弱い>",
+"kana": "よわい",
+"kanji": "弱い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "ラーメン",
+"kana": "ラーメン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "らいげつ(来月)",
+"kana": "らいげつ",
+"kanji": "来月",
+"affix": false,
+"learn": true
+},
+{
+"raw": "らいしゅう(来週)",
+"kana": "らいしゅう",
+"kanji": "来週",
+"affix": false,
+"learn": true
+},
+{
+"raw": "らいねん(来年)",
+"kana": "らいねん",
+"kanji": "来年",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜らしい",
+"kana": "らしい",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "リサイクル",
+"kana": "リサイクル",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "りっぱ",
+"kana": "りっぱ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "りゆう<理由>",
+"kana": "りゆう",
+"kanji": "理由",
+"affix": false,
+"learn": false
+},
+{
+"raw": "りゅうがく<留学>",
+"kana": "りゅうがく",
+"kanji": "留学",
+"affix": false,
+"learn": false
+},
+{
+"raw": "りよう<利用>",
+"kana": "りよう",
+"kanji": "利用",
+"affix": false,
+"learn": false
+},
+{
+"raw": "りょう[寮]",
+"kana": "りょう",
+"kanji": "寮",
+"affix": false,
+"learn": false
+},
+{
+"raw": "りょうしん<両親>",
+"kana": "りょうしん",
+"kanji": "両親",
+"affix": false,
+"learn": false
+},
+{
+"raw": "りょうり(料理)",
+"kana": "りょうり",
+"kanji": "料理",
+"affix": false,
+"learn": true
+},
+{
+"raw": "りょこう(旅行)",
+"kana": "りょこう",
+"kanji": "旅行",
+"affix": false,
+"learn": true
+},
+{
+"raw": "りんご",
+"kana": "りんご",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "るす<留守>",
+"kana": "るす",
+"kanji": "留守",
+"affix": false,
+"learn": false
+},
+{
+"raw": "れいぞうこ",
+"kana": "れいぞうこ",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "れきし<歴史>",
+"kana": "れきし",
+"kanji": "歴史",
+"affix": false,
+"learn": false
+},
+{
+"raw": "レストラン",
+"kana": "レストラン",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "レポート",
+"kana": "レポート",
+"kanji": null,
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜れる・られる",
+"kana": "れる・られる",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "れんしゅう<練習>",
+"kana": "れんしゅう",
+"kanji": "練習",
+"affix": false,
+"learn": false
+},
+{
+"raw": "れんらく<連絡>",
+"kana": "れんらく",
+"kanji": "連絡",
+"affix": false,
+"learn": false
+},
+{
+"raw": "〜わ",
+"kana": "わ",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "わかい<若い>",
+"kana": "わかい",
+"kanji": "若い",
+"affix": false,
+"learn": false
+},
+{
+"raw": "わかる(分かる)",
+"kana": "わかる",
+"kanji": "分かる",
+"affix": false,
+"learn": true
+},
+{
+"raw": "わかれる<別れる・分かれる>",
+"kana": "わかれる",
+"kanji": "別れる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "わすれる<忘れる>",
+"kana": "わすれる",
+"kanji": "忘れる",
+"affix": false,
+"learn": false
+},
+{
+"raw": "わたし・わたくし(私)",
+"kana": "わたし・わたくし",
+"kanji": "私",
+"affix": false,
+"learn": true
+},
+{
+"raw": "わたす<渡す>",
+"kana": "わたす",
+"kanji": "渡す",
+"affix": false,
+"learn": false
+},
+{
+"raw": "わたる<渡る>",
+"kana": "わたる",
+"kanji": "渡る",
+"affix": false,
+"learn": false
+},
+{
+"raw": "わらう<笑う>",
+"kana": "わらう",
+"kanji": "笑う",
+"affix": false,
+"learn": false
+},
+{
+"raw": "わるい(悪い)",
+"kana": "わるい",
+"kanji": "悪い",
+"affix": false,
+"learn": true
+},
+{
+"raw": "〜を",
+"kana": "を",
+"kanji": null,
+"affix": true,
+"learn": false
+},
+{
+"raw": "かた(方)",
+"kana": "かた",
+"kanji": "方",
+"affix": false,
+"learn": true
+},
+{
+"raw": "ごご(午後)",
+"kana": "ごご",
+"kanji": "午後",
+"affix": false,
+"learn": true
+},
+{
+"raw": "こころ(心)",
+"kana": "こころ",
+"kanji": "心",
+"affix": false,
+"learn": true
+},
+{
+"raw": "にち(日)",
+"kana": "にち",
+"kanji": "日",
+"affix": false,
+"learn": true
+},
+{
+"raw": "め(目)",
+"kana": "め",
+"kanji": "目",
+"affix": false,
+"learn": true
+}
+]

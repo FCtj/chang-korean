@@ -8,3 +8,6 @@ dist-en/
 .DS_Store
 
 dist-web/
+
+# 데이터 작업 원본·중간 결과 (tools/README.md)
+tools/_work/

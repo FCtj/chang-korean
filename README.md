@@ -1,5 +1,7 @@
 # Chang Korean 🐘 (MVP v0.15)
 
+> 이어서 작업하는 Claude·개발자는 [`CLAUDE.md`](CLAUDE.md) · [`docs/HANDOFF.md`](docs/HANDOFF.md) · [`tools/README.md`](tools/README.md) 를 먼저 보세요. (아래 MVP 설명은 초기 버전 기준)
+
 라오스·태국 사람들이 **그림(이모지)과 소리로** 한국어 단어를 외우는 앱입니다. 베트남어는 베타로 함께 지원합니다.
 한 코드로 **안드로이드 앱**(Capacitor)과 **웹 버전**을 함께 만듭니다.
 
