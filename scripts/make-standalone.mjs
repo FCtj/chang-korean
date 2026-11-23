@@ -121,11 +121,9 @@ writeFileSync(new URL('dist-web/manifest.webmanifest', root), manifestSource({ n
 writeFileSync(new URL('dist-web/sw.js', root), swSource('ko', build, ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png']))
 console.log('✓ dist-web/sw.js · manifest.webmanifest (오프라인 · 홈 화면 앱)')
 
-// 회사 소개 (니즈랩) → dist-web/needslab/ — 원본 site/needslab/, 앱 아이콘은 store/ 에서
+// 회사 소개 (니즈랩) 미리보기 → dist-web/needslab/ — 원본 site/needslab/ (needslab.kro.kr 로 옮길 독립 폴더)
 mkdirSync(new URL('dist-web/needslab/img/', root), { recursive: true })
-for (const f of ['index.html', 'logo.svg']) copyFileSync(new URL(`site/needslab/${f}`, root), new URL(`dist-web/needslab/${f}`, root))
-copyFileSync(new URL('store/icon-512.png', root), new URL('dist-web/needslab/img/ko.png', root))
-for (const ed of ['ja', 'en', 'lo']) copyFileSync(new URL(`store/editions/${ed}-icon-512.png`, root), new URL(`dist-web/needslab/img/${ed}.png`, root))
+for (const f of ['index.html', 'logo.svg', 'og.png', 'img/ko.png', 'img/ja.png', 'img/en.png', 'img/lo.png']) copyFileSync(new URL(`site/needslab/${f}`, root), new URL(`dist-web/needslab/${f}`, root))
 console.log('✓ dist-web/needslab/ (회사 소개)')
 
 // 개인정보처리방침 · 데이터 삭제 안내 (Facebook 앱 라이브 전환에 필요) → dist-web/privacy.html, dist-web/delete-data.html
