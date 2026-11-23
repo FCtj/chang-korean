@@ -15,5 +15,9 @@ export interface ExampleEntry {
   ar?: string
   /** (선택) 헷갈리기 쉬운 단어의 짧은 사용 팁 — 학습자 언어로 */
   tip?: { lo: string; th: string; vi: string; mn?: string; ar?: string }
+  /** (선택) 예문 ②③ — 설명 창에 차례로 보임 */
+  more?: ExampleLine[]
 }
+/** 추가 예문 한 줄 (일본어·영어·라오스어판: 예문 ②③) */
+export type ExampleLine = Omit<ExampleEntry, 'tip' | 'more'>
 export type ExampleMap = Record<string, ExampleEntry>

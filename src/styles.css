@@ -1210,6 +1210,20 @@ button:disabled {
 .player-page {
   gap: 14px;
 }
+/* 가장 많이 누르는 줄(다시 볼래요 · ⏸ · 외웠어요 / 다음 묶음)은 화면 아래에 붙여 둠 — 작은 폰에서도 스크롤 없이 엄지로 */
+.player-page > .act-row {
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+  margin-inline: -4px;
+  padding: 10px 4px calc(10px + var(--safe-bottom));
+  background: linear-gradient(to top, var(--bg) 78%, transparent);
+}
+/* 카드는 남은 높이에 맞춤 (위 단어 줄 · 아래 버튼 줄을 뺀 만큼) */
+.player-page .fcard-stage:not(.interlude) {
+  height: clamp(230px, calc(100vh - 370px), 400px);
+  height: clamp(230px, calc(100dvh - 370px), 400px);
+}
 .strip {
   display: flex;
   justify-content: center;
@@ -1605,6 +1619,11 @@ button:disabled {
   flex-direction: column;
   gap: 10px;
   animation: bounce-in 0.3s ease both;
+  /* 틀렸을 때 '다음' 버튼이 작은 폰에서도 화면 아래에 바로 보이게 */
+  position: sticky;
+  bottom: calc(10px + var(--safe-bottom));
+  z-index: 6;
+  box-shadow: 0 -4px 22px rgba(60, 40, 70, 0.12);
 }
 .feedback.good {
   background: var(--mint-soft);
@@ -5558,6 +5577,11 @@ body {
 }
 .word-help {
   gap: 12px;
+  /* 예문이 3개라 작은 화면에서는 창 안에서 스크롤 */
+  max-height: 92vh;
+  max-height: 92dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .wh-head {
   display: flex;
@@ -5606,6 +5630,30 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 8px;
+}
+/* 예문 ①②③ */
+.wh-ex-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wh-ex-item.more {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+.wh-ex-no {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 4px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--lilac-deep);
+  background: var(--lilac-soft);
 }
 .wh-ex-ko {
   flex: 1;

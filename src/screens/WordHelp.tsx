@@ -3,6 +3,7 @@ import { IS_KO } from '../edition'
 import { useApp } from '../ctx'
 import { translation, type Word } from '../data/words'
 import { useExample } from '../examples'
+import type { ExampleLine } from '../data/example-types'
 import { localPron } from '../pron'
 import { useStore } from '../store'
 import { speakText, speakWord } from '../audio'
@@ -31,6 +32,7 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
   const n = s.native
   // 몽골어·아랍어: 예문 파일 안 → 따로 번역한 파일 순서로
   const exTr = !entry ? '' : n === 'mn' ? entry.mn ?? mn?.mn ?? '' : n === 'ar' ? entry.ar ?? ar?.ar ?? '' : entry[n]
+  const lineTr = (m: ExampleLine) => (n === 'mn' ? m.mn ?? '' : n === 'ar' ? m.ar ?? '' : m[n])
   const tipTr = n === 'mn' ? entry?.tip?.mn ?? mn?.tip : n === 'ar' ? entry?.tip?.ar ?? ar?.tip : entry?.tip?.[n]
   const [fb, setFb] = useState(false)
   if (fb) return <FeedbackSheet word={word} onClose={() => setFb(false)} />
@@ -58,16 +60,20 @@ export default function WordHelp({ word, onClose }: { word: Word; onClose: () =>
           <div className="wh-ex">
             <span className="wh-label">💬 {t('exampleLabel')}</span>
             {entry ? (
-              <>
-                <div className="wh-ex-line">
-                  <p className="wh-ex-ko ko">{highlight(entry.ex, word.ko)}</p>
-                  <button className="round-btn sm" onClick={() => speakText(entry.ex, 'ko')} aria-label={t('speak')}>
-                    <Icon name="speaker" size={16} />
-                  </button>
+              // 예문 ① (+ 있으면 ②③): 문장 · 발음 · 내 언어
+              [{ ex: entry.ex, rom: entry.rom, tr: exTr }, ...(entry.more ?? []).map((m) => ({ ex: m.ex, rom: m.rom, tr: lineTr(m) }))].map((x, i) => (
+                <div key={i} className={i ? 'wh-ex-item more' : 'wh-ex-item'}>
+                  <div className="wh-ex-line">
+                    {entry.more?.length ? <span className="wh-ex-no num" aria-hidden="true">{i + 1}</span> : null}
+                    <p className="wh-ex-ko ko">{highlight(x.ex, word.ko)}</p>
+                    <button className="round-btn sm" onClick={() => speakText(x.ex, 'ko')} aria-label={t('speak')}>
+                      <Icon name="speaker" size={16} />
+                    </button>
+                  </div>
+                  {IS_KO ? <span className={`wh-ex-rom nf-${n}`}>{localPron(x.ex, n)}</span> : x.rom ? <span className="wh-ex-rom ed-pron">{x.rom}</span> : null}
+                  <p className={`wh-ex-tr nf-${n}`}>{x.tr}</p>
                 </div>
-                {IS_KO ? <span className={`wh-ex-rom nf-${n}`}>{localPron(entry.ex, n)}</span> : entry.rom ? <span className="wh-ex-rom ed-pron">{entry.rom}</span> : null}
-                <p className={`wh-ex-tr nf-${n}`}>{exTr}</p>
-              </>
+              ))
             ) : (
               <p className="note">{ready ? t('exampleSoon') : '…'}</p>
             )}

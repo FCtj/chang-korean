@@ -26,3 +26,5 @@ export interface EdExample {
   ko: string
 }
 export type EdExampleMap = Record<string, EdExample>
+/** 예문 ②③ (키 = 배울 말, 예문 ① 은 EX) */
+export type EdExampleMoreMap = Record<string, EdExample[]>

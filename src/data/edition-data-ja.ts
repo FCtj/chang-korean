@@ -2,3 +2,4 @@
 export type { EdLevel } from './edition-data'
 export { LEVELS as ED_LEVELS } from './ja/index.ts'
 export { DAILY as ED_DAILY } from './ja/daily.ts'
+export { EX_MORE as ED_EX_MORE } from './ja/ex-more.ts'

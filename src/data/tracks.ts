@@ -1,7 +1,7 @@
 // 목적별 트랙: 단원(단어 25 + 상황 문장) 여러 개를 한 목적으로 묶음
 // 원본: track-restaurant.ts (🍜 한국 식당·가게 알바), track-work-a/b.ts (🏭 한국 일자리)
 // ⚠️ 라오어·태국어·베트남어는 초안 — 원어민 검수 필요
-import { ED_DAILY, ED_LEVELS } from './edition-data.ts'
+import { ED_DAILY, ED_EX_MORE, ED_LEVELS } from './edition-data.ts'
 import type { EdUnit } from './edition-types.ts'
 import { ED_INFO, IS_KO, levelName } from '../edition.ts'
 import type { ExampleEntry } from './example-types.ts'
@@ -198,8 +198,11 @@ export const TRACKS: Track[] = IS_KO ? KO_TRACKS() : [...ED_TRACKS(), ...ED_DAIL
 export const ED_READING: Record<string, string> = Object.fromEntries([...ED_LEVELS, ...ED_DAILY].flatMap((lv) => lv.UNITS.flatMap((u) => [...u.words, ...u.phrases].map((r) => [r[0], r[1]]))))
 /** 일본어·영어판: 문장 카드 */
 export const ED_PHRASES = new Set([...ED_LEVELS, ...ED_DAILY].flatMap((lv) => lv.UNITS.flatMap((u) => u.phrases.map((r) => r[0]))))
-/** 일본어·영어판 예문 (한국어 번역을 학습자 언어 칸 모두에) */
+const edLine = (e: { ex: string; rom: string; ko: string }) => ({ ex: e.ex, rom: e.rom, lo: e.ko, th: e.ko, vi: e.ko, mn: e.ko, ar: e.ko })
+/** 일본어·영어판 예문 (한국어 번역을 학습자 언어 칸 모두에) — 예문 ②③ 은 more */
 export const ED_EXAMPLES: Record<string, ExampleEntry> = Object.fromEntries(
-  [...ED_DAILY, ...ED_LEVELS].flatMap((lv) => Object.entries(lv.EX).map(([k, e]) => [k, { ex: e.ex, rom: e.rom, lo: e.ko, th: e.ko, vi: e.ko, mn: e.ko, ar: e.ko }])),
+  [...ED_DAILY, ...ED_LEVELS].flatMap((lv) =>
+    Object.entries(lv.EX).map(([k, e]) => [k, { ...edLine(e), more: ED_EX_MORE[k]?.map(edLine) }]),
+  ),
 )
 export const findTrack = (id: string) => TRACKS.find((t) => t.id === id)

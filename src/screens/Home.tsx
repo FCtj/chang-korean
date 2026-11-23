@@ -80,7 +80,6 @@ export default function Home() {
       )}
 
       <CourseHead onChange={() => setSheet(true)} />
-      {!IS_KO && <VoiceHint />}
 
       {course === 'basic' && !s.placementDone && (
         <button className="level-card" onClick={() => push({ name: 'placement' })}>
@@ -132,6 +131,8 @@ export default function Home() {
         )
       })()}
       {!cur && courseUnits(s, course).length > 0 && <p className="panel center-panel">{t('courseDone')}</p>}
+      {/* 음성 안내는 '이어하기' 아래 — 가장 많이 누르는 이어하기 카드가 먼저 보이게 */}
+      {!IS_KO && <VoiceHint />}
 
       {course === 'basic' ? <BasicBody /> : course === 'topik' ? <TopikBody /> : course === 'job' ? <JobBody /> : <TrackBody id={course} />}
 

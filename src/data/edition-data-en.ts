@@ -2,3 +2,4 @@
 export type { EdLevel } from './edition-data'
 export { LEVELS as ED_LEVELS } from './en/index.ts'
 export { DAILY as ED_DAILY } from './en/daily.ts'
+export { ED_EX_MORE } from './edition-data' // 예문 ②③ 아직 없음
