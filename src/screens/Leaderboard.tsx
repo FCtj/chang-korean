@@ -3,7 +3,7 @@
 // 실제 가입자만 보여 줌 (점수 0인 가입자도 아래쪽에)
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
-import { backendReady, countryOf, fetchLeaderboard, fetchMyRank, signInWithFacebook, subscribeLeaderboard, useAuth, useMyPublic, type Period, type RankRow } from '../backend'
+import { backendReady, countryOf, FB_LOGIN_ON, fetchLeaderboard, fetchMyRank, subscribeLeaderboard, useAuth, useMyPublic, type Period, type RankRow } from '../backend'
 import { shownName } from '../privacy'
 import { IS_KO } from '../edition'
 import { LoginButtons } from './SettingsScreen'
@@ -140,17 +140,13 @@ export default function Leaderboard() {
         />
       )}
 
-      {backendReady && auth.status === 'out' &&
-        (IS_KO ? (
-          <button className="fb-btn" onClick={() => signInWithFacebook()}>
-            <span className="fb-logo" aria-hidden="true">f</span> {t('joinRanking')}
-          </button>
-        ) : (
-          <div className="rank-join">
-            <p className="note">{t('joinRanking')}</p>
-            <LoginButtons />
-          </div>
-        ))}
+      {backendReady && auth.status === 'out' && (
+        <div className="rank-join">
+          {/* 한국어판 문구는 'Facebook 으로 로그인하면…' 이라 Facebook 이 꺼져 있으면 버튼만 */}
+          {(!IS_KO || FB_LOGIN_ON) && <p className="note">{t('joinRanking')}</p>}
+          <LoginButtons />
+        </div>
+      )}
 
       {(auth.status === 'in' || !backendReady) && (
         <div className="my-rank">

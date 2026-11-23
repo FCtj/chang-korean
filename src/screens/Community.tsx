@@ -2,7 +2,8 @@
 // 공개 글과 그룹 글은 카드마다 🌏 공개 / 🔒 그룹 이름 · 멤버만 으로 구분
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
-import { backendReady, signInWithFacebook, useAuth, useMyPublic } from '../backend'
+import { backendReady, useAuth, useMyPublic } from '../backend'
+import { LoginButtons } from './SettingsScreen'
 import { learningRecord, useStore } from '../store'
 import { sfx } from '../audio'
 import { burstFrom } from '../fx'
@@ -131,12 +132,7 @@ export default function Community() {
       {tab !== 'groups' ? null : needLogin ? (
         <section className="panel center-panel">
           <p>{t('loginForCommunity')}</p>
-          <button className="fb-btn" onClick={() => signInWithFacebook()}>
-            <span className="fb-logo" aria-hidden="true">
-              f
-            </span>{' '}
-            {t('fbLogin')}
-          </button>
+          <LoginButtons />
         </section>
       ) : error ? (
         <section className="panel center-panel">

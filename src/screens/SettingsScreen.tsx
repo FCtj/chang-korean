@@ -14,7 +14,7 @@ import { GenderPicker, PhotoPicker } from './ProfileFields'
 import type { Theme } from '../store'
 import { hasVoice, openVoiceInstall, speakText } from '../audio'
 import { Avatar, Icon, Segmented, Stepper, Toggle } from '../ui'
-import { backendReady, checkAdmin, COUNTRIES, setCountry, signInWithFacebook, signInWithKakao, signOut, useProviders, syncPublicProfile, useAuth, useMyPublic } from '../backend'
+import { backendReady, checkAdmin, COUNTRIES, FB_LOGIN_ON, setCountry, signInWithFacebook, signInWithKakao, signOut, useProviders, syncPublicProfile, useAuth, useMyPublic } from '../backend'
 
 
 export default function SettingsScreen() {
@@ -356,7 +356,7 @@ export function LoginButtons({ big = false, before }: { big?: boolean; before?: 
     </button>
   ) : null
   const fb =
-    p.facebook !== false ? (
+    FB_LOGIN_ON && p.facebook !== false ? (
       <button key="fb" className={big ? 'fb-btn big' : 'fb-btn'} onClick={() => {
           before?.()
           signInWithFacebook()

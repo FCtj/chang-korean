@@ -12,7 +12,7 @@ import { POINTS_ENABLED, WELCOME_POINTS } from '../config'
 import { finishIntro, setCourse, useStore, MIN_ANSWER_MS } from '../store'
 import { sfx, speakWord, stopSpeaking } from '../audio'
 import { burstFrom, fireworks, floatFrom, sparkleRain } from '../fx'
-import { backendReady, signInWithFacebook, useAuth } from '../backend'
+import { backendReady, FB_LOGIN_ON, signInPreferred, useAuth, useProviders } from '../backend'
 import { Elephant, Icon, Pron, shuffle } from '../ui'
 import CoursePicker from './CoursePicker'
 import { LoginButtons } from './SettingsScreen'
@@ -74,6 +74,7 @@ function levelOf(right: number, total: number): { key: 'lvBeginner' | 'lvElement
 export default function Intro() {
   const s = useStore()
   const auth = useAuth()
+  const providers = useProviders()
   const { t, tf, ui } = useApp()
   const test = useMemo(makeTest, [])
   const [stage, setStage] = useState<'cover' | 'test' | 'result' | 'gift' | 'shop' | 'course'>('cover')
@@ -396,15 +397,15 @@ export default function Intro() {
               finishIntro(earned + WELCOME_POINTS)
             }}
           />
-          {!POINTS_ENABLED && backendReady && auth.status !== 'in' && (
+          {!POINTS_ENABLED && backendReady && auth.status !== 'in' && (FB_LOGIN_ON || providers.kakao) && (
             <button
               className="link-btn center"
               onClick={() => {
                 finishIntro(earned + WELCOME_POINTS)
-                signInWithFacebook()
+                signInPreferred()
               }}
             >
-              {t('haveAccount')}
+              {FB_LOGIN_ON ? t('haveAccount') : `💬 ${t('kakaoLogin')}`}
             </button>
           )}
         </main>
@@ -429,15 +430,15 @@ export default function Intro() {
         >
           📚 {t('startStudy')}
         </button>
-        {backendReady && auth.status !== 'in' && (
+        {backendReady && auth.status !== 'in' && (FB_LOGIN_ON || providers.kakao) && (
           <button
             className="link-btn center"
             onClick={() => {
               finishIntro(earned + WELCOME_POINTS)
-              signInWithFacebook()
+              signInPreferred()
             }}
           >
-            {t('haveAccount')}
+            {FB_LOGIN_ON ? t('haveAccount') : `💬 ${t('kakaoLogin')}`}
           </button>
         )}
       </main>

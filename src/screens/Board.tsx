@@ -2,11 +2,12 @@
 // 공개 글은 로그인 없이도 읽기, 쓰기·댓글·반응은 Facebook 로그인 후
 import { useCallback, useEffect, useState } from 'react'
 import { useApp } from '../ctx'
-import { backendReady, signInWithFacebook, useAuth } from '../backend'
+import { backendReady, useAuth } from '../backend'
 import { useStore } from '../store'
 import { Avatar } from '../ui'
 import { CATEGORIES, blockUser, boardReady, myActivity, myBlocks, myGroups, publicFeed, type Category, type Group, type MyActivity as Activity, type Post } from '../community'
 import { CategoryChip, PostCard, ThreadSheet, WriteSheet, flagOf, timeAgo } from './communityParts'
+import { LoginButtons } from './SettingsScreen'
 
 const SEEN_KEY = 'ck-activity-seen'
 export const readSeen = () => {
@@ -92,12 +93,7 @@ export function PublicBoard() {
       ) : (
         <div className="panel login-write">
           <span>{t('loginToWrite')}</span>
-          <button className="fb-btn" onClick={() => signInWithFacebook()}>
-            <span className="fb-logo" aria-hidden="true">
-              f
-            </span>{' '}
-            {t('fbLogin')}
-          </button>
+          <LoginButtons />
         </div>
       )}
 
@@ -195,12 +191,7 @@ export function MyActivityView({ onActivity }: { onActivity?: (a: Activity) => v
     return (
       <section className="panel center-panel">
         <p>{t('loginToWrite')}</p>
-        <button className="fb-btn" onClick={() => signInWithFacebook()}>
-          <span className="fb-logo" aria-hidden="true">
-            f
-          </span>{' '}
-          {t('fbLogin')}
-        </button>
+        <LoginButtons />
       </section>
     )
   if (!backendReady) return null

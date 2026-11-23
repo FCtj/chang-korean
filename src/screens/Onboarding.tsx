@@ -9,7 +9,7 @@ import { loginErrorKey } from './LoginError'
 import { GenderPicker, PhotoPicker } from './ProfileFields'
 import { PurposePicker } from './SettingsScreen'
 import { Avatar, Elephant, useHeart } from '../ui'
-import { backendReady, COUNTRIES, signInWithFacebook, useAuth } from '../backend'
+import { backendReady, COUNTRIES, FB_LOGIN_ON, signInPreferred, signInWithFacebook, useAuth, useProviders } from '../backend'
 import Placement from './Placement'
 
 export default function Onboarding() {
@@ -20,6 +20,7 @@ export default function Onboarding() {
   const [purposes, setPurposes] = useState<Purpose[]>(getState().purposes)
   const [country, setCountry] = useState(getState().country || 'LA')
   const auth = useAuth()
+  const providers = useProviders()
   const heart = useHeart()
   const { t } = makeT(ui)
   const loggedIn = auth.status === 'in' && auth.me
@@ -127,7 +128,7 @@ export default function Onboarding() {
               <span>{auth.me!.name}</span>
             </div>
           ) : (
-            backendReady && !SIMPLE_MODE && (
+            backendReady && !SIMPLE_MODE && FB_LOGIN_ON && (
               <>
                 <button
                   className="fb-btn big"
@@ -184,15 +185,23 @@ export default function Onboarding() {
           </button>
           {SIMPLE_MODE && backendReady && !loggedIn && (
             <>
-              <button
-                className="link-btn center fb-link"
-                onClick={() => {
-                  update((s) => ({ ...s, ui, native, country }))
-                  signInWithFacebook()
-                }}
-              >
-                <span className="fb-logo sm" aria-hidden="true">f</span> {t('haveAccount')}
-              </button>
+              {(FB_LOGIN_ON || providers.kakao) && (
+                <button
+                  className="link-btn center fb-link"
+                  onClick={() => {
+                    update((s) => ({ ...s, ui, native, country }))
+                    signInPreferred()
+                  }}
+                >
+                  {FB_LOGIN_ON ? (
+                    <>
+                      <span className="fb-logo sm" aria-hidden="true">f</span> {t('haveAccount')}
+                    </>
+                  ) : (
+                    <>💬 {t('kakaoLogin')}</>
+                  )}
+                </button>
+              )}
               {auth.error && (
                 <p className="note center err">
                   {t(loginErrorKey(auth.error))}

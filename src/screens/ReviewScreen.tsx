@@ -2,7 +2,7 @@
 // 결과는 Supabase translation_reviews (본인 것만 보임). 운영자는 SQL Editor 에서 모아 봄
 import { useEffect, useMemo, useState } from 'react'
 import { useApp } from '../ctx'
-import { backendReady, signInWithFacebook, supabase, useAuth } from '../backend'
+import { backendReady, supabase, useAuth } from '../backend'
 import { NATIVE_INFO } from '../i18n'
 import { TIERS, PACKS, type Native, type Round } from '../data/words'
 import { TRACKS } from '../data/tracks'
@@ -10,6 +10,7 @@ import { useStore } from '../store'
 import { Segmented, TopBar, Pron } from '../ui'
 import { sfx } from '../audio'
 import { rankEmoji } from '../mascot'
+import { LoginButtons } from './SettingsScreen'
 
 type Verdict = 'ok' | 'fix'
 
@@ -122,12 +123,7 @@ export default function ReviewScreen() {
           <section className="panel center-panel">
             <p>{t('reviewLogin')}</p>
             {backendReady && (
-              <button className="fb-btn" onClick={() => signInWithFacebook()}>
-                <span className="fb-logo" aria-hidden="true">
-                  f
-                </span>{' '}
-                {t('fbLogin')}
-              </button>
+              <LoginButtons />
             )}
           </section>
         ) : !w ? (

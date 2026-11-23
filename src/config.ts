@@ -18,6 +18,12 @@ export const CONTACT_EMAIL = 'iamexample2@gmail.com'
  * 단어팩·트랙·계급·커뮤니티·랭킹은 그대로 있고 '더 배우기' / '랭킹 보기' 안에 접혀 있음. false 면 전체 화면.
  */
 export const SIMPLE_MODE = true
+/**
+ * Facebook 로그인 버튼. Meta 앱이 '개발 모드'인 동안은 역할 없는 사람이 로그인할 수 없어서 끔 (카카오만 보임).
+ * 꺼져 있어도 주소 끝에 ?fb=1 을 붙여 열면 그 기기에서는 보임 — Meta 검수·관리자 시험용 (?fb=0 으로 다시 숨김).
+ * Meta 앱이 Live 가 되면 true.
+ */
+export const FACEBOOK_LOGIN = false
 /** 커뮤니티(게시판·그룹·댓글·공유) — 지금은 단어 외우기에 집중하려고 꺼 둠. true 로 바꾸면 다시 보임 (코드·DB 는 그대로) */
 export const COMMUNITY_ENABLED = false
 /** 랭킹(순위표) 탭. 일본어·영어판은 판마다 따로 (edition_points) */

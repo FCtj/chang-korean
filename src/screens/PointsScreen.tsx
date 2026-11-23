@@ -1,10 +1,11 @@
 // 포인트 탭 (간단 모드): 내 포인트 · 교환소(오픈 예정) · 최근 교환 내역(테스트 예시) · 모으는 법
 import { useApp } from '../ctx'
-import { backendReady, signInWithFacebook, useAuth } from '../backend'
+import { backendReady, useAuth } from '../backend'
 import { DAILY_CAP, DAILY_DONE_BONUS, EXAM_BONUS, HOURLY_CAP, PRACTICE_POINT, PROMO_BONUS, useStore } from '../store'
 import { nextShopItem } from '../data/shop'
 import { ShopGrid } from './Intro'
 import RecentRewards from './RecentRewards'
+import { LoginButtons } from './SettingsScreen'
 
 export default function PointsScreen() {
   const s = useStore()
@@ -29,12 +30,7 @@ export default function PointsScreen() {
       {backendReady && auth.status !== 'in' && (
         <section className="panel center-panel">
           <p className="note">{t('savePoints')}</p>
-          <button className="fb-btn" onClick={() => signInWithFacebook()}>
-            <span className="fb-logo" aria-hidden="true">
-              f
-            </span>{' '}
-            {t('fbLogin')}
-          </button>
+          <LoginButtons />
         </section>
       )}
 

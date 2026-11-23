@@ -65,7 +65,8 @@
 4. 라오어 성조 표시 (지금 읽기에는 성조 없음).
 5. 뜻·예문 초안 검수 — 수정 요청(관리자 화면 📮)으로 들어오는 것 반영.
 6. 포인트 정책 정하기 (`POINTS_ENABLED=false`, 점수는 랭킹에만 씀). 테스트가 끝나면 `ALWAYS_MASK=false`.
-7. Facebook 앱이 '개발 모드'면 역할 없는 사람은 로그인 못 함 → Meta 대시보드에서 Live 로 (개인정보처리방침·데이터 삭제 안내 페이지는 준비됨). 카카오는 Supabase 에 Kakao provider 켜기·Redirect URL `https://fctj.github.io/chang-korean/**` 확인.
+7. Facebook 로그인 버튼은 지금 숨김 (`src/config.ts` `FACEBOOK_LOGIN=false`, 카카오만 보임). 주소 끝에 `?fb=1` 을 붙이면 그 기기에서만 보임(Meta 검수·관리자용, `?fb=0` 으로 다시 숨김). Meta 앱이 Live 가 되면 true 로.
+   Facebook 앱이 '개발 모드'면 역할 없는 사람은 로그인 못 함 → Meta 대시보드에서 Live 로 (개인정보처리방침·데이터 삭제 안내 페이지는 준비됨). 카카오는 Supabase 에 Kakao provider 켜기·Redirect URL `https://fctj.github.io/chang-korean/**` 확인.
 8. 예전 사진 4장 git 기록 지우기 — 사용자 명시 승인 필요 (보류).
 
 ## 환경 메모 (클라우드 세션)

@@ -8,7 +8,7 @@ import { Capacitor } from '@capacitor/core'
 import { App as CapApp } from '@capacitor/app'
 import { getState, mergeServerActivity, setActivityReporter, setPointsReporter, subscribe, update, useStore, type DayActivity, type State } from './store'
 import { publicAvatar, publicName } from './privacy'
-import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
+import { FACEBOOK_LOGIN, SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
 
 // 주소·키는 src/config.ts 의 공개값 (빌드할 때 VITE_* 로 넣은 값이 있으면 그것)
 // 잘못된 값은 쓰지 않음: 주소는 https:// 로 시작해야 하고, 비밀 키(sb_secret_ / service_role)는 절대 쓰지 않음
@@ -79,7 +79,20 @@ export function useAuth(): AuthState {
 export type LoginProvider = 'facebook' | 'kakao'
 const SCOPES: Record<LoginProvider, string> = { facebook: 'public_profile', kakao: 'profile_nickname profile_image' }
 
-/** 서버(Supabase)에 켜져 있는 로그인 방법 — 카카오는 대시보드에서 켜야 버튼이 보임 */
+/** Facebook 로그인 버튼을 보일지: config FACEBOOK_LOGIN, 또는 주소에 ?fb=1 (이 기기에 기억, ?fb=0 으로 끔) */
+export const FB_LOGIN_ON: boolean = (() => {
+  if (FACEBOOK_LOGIN) return true
+  try {
+    const q = new URLSearchParams(window.location.search).get('fb')
+    if (q === '1') localStorage.setItem('chang-fb', '1')
+    if (q === '0') localStorage.removeItem('chang-fb')
+    return localStorage.getItem('chang-fb') === '1'
+  } catch {
+    return false
+  }
+})()
+
+/** 서버(Supabase)에 켜져 있는 로그인 방법 — 카카오는 대시보드에서 켜야 버튼이 보임, Facebook 은 FB_LOGIN_ON 일 때만 */
 let providers: Partial<Record<LoginProvider, boolean>> | null = null
 const providerListeners = new Set<() => void>()
 export function loadProviders() {
@@ -88,11 +101,11 @@ export function loadProviders() {
   fetch(`${URL_}/auth/v1/settings`, { headers: { apikey: KEY ?? '' } })
     .then((r) => (r.ok ? r.json() : null))
     .then((j: { external?: Record<string, boolean> } | null) => {
-      providers = { facebook: !!j?.external?.facebook, kakao: !!j?.external?.kakao }
+      providers = { facebook: FB_LOGIN_ON && !!j?.external?.facebook, kakao: !!j?.external?.kakao }
       providerListeners.forEach((f) => f())
     })
     .catch(() => {
-      providers = { facebook: true }
+      providers = { facebook: FB_LOGIN_ON }
       providerListeners.forEach((f) => f())
     })
 }
@@ -113,6 +126,10 @@ export function signInWithFacebook(): Promise<void> {
 }
 export function signInWithKakao(): Promise<void> {
   return signInWith('kakao')
+}
+/** '기록 저장' 같은 링크 하나로 로그인할 때: Facebook 이 켜져 있으면 Facebook, 아니면 카카오 */
+export function signInPreferred(): Promise<void> {
+  return FB_LOGIN_ON ? signInWithFacebook() : signInWithKakao()
 }
 
 // ───────── 로그인 시도 기록 (관리자 화면 🔑) ─────────

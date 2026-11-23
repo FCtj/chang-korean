@@ -2,7 +2,8 @@
 // 전체 공개 글은 🌏 공개, 그룹 글은 🔒 그룹 이름 · 멤버만 으로 항상 구분해서 보여 줌
 import { useEffect, useRef, useState } from 'react'
 import { useApp } from '../ctx'
-import { signInWithFacebook, useAuth } from '../backend'
+import { useAuth } from '../backend'
+import { LoginButtons } from './SettingsScreen'
 import { learningRecord, useStore } from '../store'
 import { TIERS, findRound } from '../data/words'
 import { sfx } from '../audio'
@@ -462,12 +463,7 @@ export function ThreadSheet({ postId, initial, groupOwner, onClose, onChanged }:
           ) : (
             <div className="cmt-input login">
               <span className="note">{t('loginToWrite')}</span>
-              <button className="fb-btn sm" onClick={() => signInWithFacebook()}>
-                <span className="fb-logo" aria-hidden="true">
-                  f
-                </span>{' '}
-                {t('fbLogin')}
-              </button>
+              <LoginButtons />
             </div>
           ))}
       </section>
