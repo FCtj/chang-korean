@@ -17,7 +17,8 @@
   - 회사 사이트 아래쪽(`site/needslab/index.html` footer + JSON-LD), 개인정보처리방침 '9. 문의'(`scripts/make-standalone.mjs` 의 `operator` · `operatorEn`) 두 곳에 같은 내용 — 바뀌면 둘 다 고칠 것.
   - 문의 메일은 앱과 같은 `iamexample2@gmail.com` (`src/config.ts` `CONTACT_EMAIL`, 회사 사이트 스크립트 `CONTACT_EMAIL`).
   - 지금은 무료 앱이라 통신판매업 신고 번호 없음. 유료 결제를 붙이면 신고 후 아래쪽에 번호 추가.
-- 도메인 needslab.kro.kr: 사용자가 빈 저장소 `FCtj/needslab-site` 를 만듦. Claude GitHub 앱이 그 저장소에 설치되면 `site/needslab/` 내용을 그대로 올리고 Pages(Source: GitHub Actions) + Custom domain 설정 (`site/needslab/README.md`).
+- 도메인 needslab.kro.kr: 저장소 `FCtj/needslab-site` (2026-11-23 첫 배포, Pages Source = GitHub Actions, CNAME needslab.kro.kr).
+  - 고치는 순서: 이 저장소 `site/needslab/` 를 고침 → 미리보기(/needslab/) 확인 → 같은 파일을 needslab-site 저장소 맨 위에 복사해 main 에 push (그 저장소의 워크플로가 배포).
   - **주의**: 저장소 이름을 `FCtj.github.io` 로 하고 도메인을 붙이면 앱 주소(fctj.github.io/chang-korean)까지 needslab.kro.kr 로 옮겨져 로그인·학습 기록이 끊김. 별도 이름 저장소만 쓸 것.
 
 ## 판별 내용
