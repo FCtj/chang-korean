@@ -5657,10 +5657,20 @@ body {
 }
 .wh-ex-ko {
   flex: 1;
+  min-width: 0;
   margin: 0;
   font-size: 1.2rem;
   line-height: 1.45;
   word-break: keep-all;
+}
+.wh-ex-line > .round-btn {
+  flex: none;
+}
+/* 일본어는 띄어쓰기가 없어 keep-all 이면 줄이 안 바뀜 → 글자 단위로 (문장부호 규칙은 지킴) */
+:root[data-edition='ja'] .wh-ex-ko {
+  word-break: normal;
+  line-break: strict;
+  font-size: clamp(1.05rem, 4.7vw, 1.2rem);
 }
 .wh-ex-ko mark {
   background: var(--butter-soft);

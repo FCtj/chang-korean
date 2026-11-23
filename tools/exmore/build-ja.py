@@ -21,7 +21,7 @@ for i in range(PARTS):
     names.append(n)
     lines = [
         f'// 일본어판 예문 ②③ ({n}/{PARTS}) — 이 앱에서 새로 씀: 초안 (원어민·전문가 검수 전)',
-        '// 만든 방법: tools/exmore/ (SPEC-ja.md · check-ja.py · build-ja.py) — 직접 고치지 말고 out-*.json 을 고친 뒤 다시 만들 것',
+        '// 만든 방법: tools/exmore/ (SPEC-ja.md · check-ja.py · build-ja.py). 작업 파일(out-*.json)은 git 밖이라 고칠 때는 이 파일을 직접 고침 (npm test 가 검사)',
         "import type { EdExampleMoreMap } from '../edition-types'",
         '',
         'export const MORE: EdExampleMoreMap = {',
