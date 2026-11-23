@@ -4,10 +4,11 @@ import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 const load = async (f) => import(pathToFileURL(resolve(f)).href)
+// 앱(ED_EXAMPLES)과 같은 순서: 두 번째 코스 먼저, 시험 코스가 같은 말을 덮어씀
 const LEVEL_FILES = {
-  ja: ['n5', 'n4', 'n3', 'moe-1', 'moe-2', 'daily-1', 'daily-2', 'daily-3'],
-  en: ['toeic-450', 'toeic-600', 'toeic-700', 'toeic-800', 'toeic-900', 'moe-1', 'moe-2', 'moe-3'],
-  lo: ['level-1', 'freq-1', 'level-2', 'freq-2', 'level-3', 'daily-1', 'daily-2', 'daily-3'],
+  ja: ['moe-1', 'moe-2', 'daily-1', 'daily-2', 'daily-3', 'n5', 'n4', 'n3'],
+  en: ['moe-1', 'moe-2', 'moe-3', 'toeic-450', 'toeic-600', 'toeic-700', 'toeic-800', 'toeic-900'],
+  lo: ['daily-1', 'daily-2', 'daily-3', 'level-1', 'freq-1', 'level-2', 'freq-2', 'level-3'],
 }
 const HANGUL = /[가-힣]/
 const JA = /[぀-ヿ一-鿿]/

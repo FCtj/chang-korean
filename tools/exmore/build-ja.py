@@ -10,7 +10,7 @@ for f in sorted(glob.glob(f'{WORK}/out-*.json')):
 order = []
 for f in sorted(glob.glob(f'{WORK}/in-*.json')):
     order += [d['term'] for d in json.load(open(f, encoding='utf-8'))]
-keys = [k for k in order if k in merged]
+keys = list(dict.fromkeys(k for k in order if k in merged))
 q = lambda s: "'" + s.strip().replace('\\', '\\\\').replace("'", "\\'") + "'"
 size = -(-len(keys) // PARTS)
 names = []
