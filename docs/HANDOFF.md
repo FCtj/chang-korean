@@ -10,6 +10,11 @@
 | 영어판 (Chang English) | https://fctj.github.io/chang-korean/en/ | 한국인이 영어 |
 | 라오스어판 (Chang Lao) | https://fctj.github.io/chang-korean/lo/ | 한국인이 라오스어 |
 
+## 회사 소개 사이트 (니즈랩 NeedsLab)
+- 원본 `site/needslab/` (한 파일 HTML · 한국어/English · 밝게/어둡게) → 빌드 때 `dist-web/needslab/` 로 복사 (`scripts/make-standalone.mjs`), 앱 아이콘은 `store/`.
+- 지금 주소(미리보기): https://fctj.github.io/chang-korean/needslab/
+- 남은 일: 회사 도메인 구입(사용자) → 별도 저장소 + GitHub Pages 사용자 지정 도메인으로 옮기기, 문의 메일 주소(`CONTACT_EMAIL` 상수), 회사 정보(대표·주소·사업자 번호 등 필요하면).
+
 ## 판별 내용
 - **일본어판**: JLPT N5·N4·N3 (3,449) + 학교·생활 일본어 = 교육과정 기본 ①②(2022 개정 고교 「일본어」 기본 어휘표 896) → 생활 회화 ①②③(JMdict 상용어 900). 마스코트 시바견.
 - **영어판**: TOEIC 450~900+ (TSL+NGSL 3,359) + 교육부 기본 어휘(2022 개정 [별표 3] 3,001 — 초등 801 · 중·고 공통 1,200 · 고교 선택 1,000). 마스코트 흰머리수리.
