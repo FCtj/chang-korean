@@ -34,14 +34,10 @@
 - 점검: `node tools/smoke/offline.mjs`
 
 ## Supabase (사용자가 SQL 편집기에서 직접 실행)
-`supabase/migrations/` 순서대로. 사용자가 실행했다고 확인한 것: ~ `20261122090000_edition_ranking.sql` 까지.
-**실행했는지 아직 확인 못 한 것** (사용자에게 확인):
-- `20261122100000_profiles_for_all.sql` — 가입 즉시 프로필 · 0점 가입자 랭킹 노출
-- `20261122110000_lao_edition.sql` — 라오스어판('lo') 기록·랭킹·수정 요청 허용
-- `20261123000000_device_activity.sql` — 로그인하지 않은 사람의 기기 기록(`device_activity`, `log_device_activity`, 관리자 `admin_device_overview`)
-- `20261123010000_admin_real_names.sql` — 관리자 목록에 원래 로그인 이름·로그인 방법·이메일·쓰는 앱, 네 앱 활동·점수 합치기
+`supabase/migrations/` 순서대로. 사용자가 2026-11-23 에 `20261123010000_admin_real_names.sql` 까지 실행했다고 함.
+새 마이그레이션을 만들면 사용자에게 실행을 부탁하고, 아래처럼 확인 SQL 을 드려서 결과를 받기 (클라우드 세션은 Supabase 에 직접 접속 못 함).
 
-확인용 SQL 예: `select to_regclass('public.edition_points'), to_regprocedure('public.handle_new_user()'), (select pg_get_constraintdef(oid) from pg_constraint where conname = 'edition_progress_app_check');`
+확인용 SQL 예: `select to_regprocedure('public.handle_new_user()') is not null, to_regclass('public.device_activity') is not null, pg_get_function_result('public.admin_users(text,text,int,int)'::regprocedure) like '%login_name%';`
 
 ## 남은 일 (중요한 순)
 1. **EPS 라오스어 교재 어휘** — 고용허가제 한국어 표준교재 라오스어판 1·2권의 **부록 어휘 목록 페이지**를 사용자가 10MB 이하 PDF 로 올려 주기로 함 (드라이브 연결 다운로드 한도 10MB, 1권은 0바이트로 올라감). 받으면 정부 번역과 대조해 한국어판·라오스어판의 라오어 뜻 초안을 고침.
