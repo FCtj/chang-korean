@@ -7779,3 +7779,12 @@ body {
 .adm-app {
   margin-inline-start: 4px;
 }
+.adm-login-item.st-error,
+.adm-login-item.st-abandoned {
+  border-inline-start: 3px solid var(--bad, #d6455d);
+  padding-inline-start: 8px;
+}
+.adm-login-item.st-success {
+  border-inline-start: 3px solid var(--good, #2bb673);
+  padding-inline-start: 8px;
+}

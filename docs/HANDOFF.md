@@ -28,6 +28,11 @@
 - Emoji 14 이후 그림 217개 교체 + `npm test` 에 검사 추가, 영어 IPA 강세 위치 1,170개 고침
 - 일본어 한 글자 단어(歯·二)는 가타카나로 읽힘 (조사·다른 읽기 방지)
 
+## 로그인 시도 (관리자 🔑)
+- 앱이 로그인 버튼(start)·성공·오류로 돌아옴(error)·그냥 돌아옴(abandoned)을 `log_login_attempt` 로 남김 (기기 번호·브라우저 종류 포함, `src/backend.ts` `logLogin`).
+- 관리자 화면 🔑: 앱·방법별 합계, 실제로 생긴 계정, 서버에 남은 끝나지 않은 OAuth(auth.flow_state), 최근 40건. 친구가 '가입했다'는데 계정이 없을 때 여기서 원인 확인.
+- 점검: `node tools/smoke/login-attempts.mjs`
+
 ## 오프라인
 - 웹: 판 폴더마다 `sw.js`(서비스 워커)·`manifest.webmanifest` 를 `scripts/make-standalone.mjs` 가 만듦 → 한 번 열면 인터넷 없이도 열림, '홈 화면에 추가' 가능. 인터넷이 되면 언제나 서버의 새것을 먼저 받음(`src/offline.ts`).
 - 끊긴 동안의 공부 기록(기기·계정)·점수는 `chang-offline-queue:<판>` 에 모았다가 다시 연결되면 보냄(`src/backend.ts` `flushOfflineQueue`).
@@ -35,6 +40,7 @@
 
 ## Supabase (사용자가 SQL 편집기에서 직접 실행)
 `supabase/migrations/` 순서대로. 사용자가 2026-11-23 에 `20261123010000_admin_real_names.sql` 까지 실행했다고 함.
+**실행 부탁 중**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸)
 새 마이그레이션을 만들면 사용자에게 실행을 부탁하고, 아래처럼 확인 SQL 을 드려서 결과를 받기 (클라우드 세션은 Supabase 에 직접 접속 못 함).
 
 확인용 SQL 예: `select to_regprocedure('public.handle_new_user()') is not null, to_regclass('public.device_activity') is not null, pg_get_function_result('public.admin_users(text,text,int,int)'::regprocedure) like '%login_name%';`

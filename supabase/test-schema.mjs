@@ -1011,5 +1011,53 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('admin_users: non-admin refused', await (async () => { try { await as(K, () => q(`select * from admin_users(null, 'new', 5, 0)`)); return false } catch (e) { return String(e.message).includes('not_admin') } })())
 }
 
+// ───────── 로그인 시도 기록 ─────────
+{
+  const DEV = 'abcd1111-1111-1111-1111-111111111111'
+  const asAnon = async (fn) => {
+    await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)
+    try {
+      return await fn()
+    } finally {
+      await db.exec('reset role;')
+    }
+  }
+  const lg = (stage, provider = 'facebook', err = null) => asAnon(() => q(`select log_login_attempt($1, 'ja', $2, $3, $4, 'android · 카카오톡 앱 안')`, [DEV, provider, stage, err]))
+  await lg('start')
+  await lg('abandoned')
+  await lg('start', 'kakao')
+  await lg('error', 'kakao', 'KOE205')
+  const n = (await q(`select count(*)::int n from login_attempts where device_id = $1`, [DEV])).rows[0].n
+  check('log_login_attempt: anon can log', n === 4, String(n))
+  let bad = ''
+  try {
+    await lg('hack')
+  } catch (e) {
+    bad = String(e.message)
+  }
+  check('log_login_attempt: bad stage refused', bad.includes('bad_value'), bad)
+  for (let i = 0; i < 40; i++) await lg('start')
+  const capped = (await q(`select count(*)::int n from login_attempts where device_id = $1`, [DEV])).rows[0].n
+  check('log_login_attempt: 30 per device per hour', capped === 30, String(capped))
+  let direct = ''
+  try {
+    await asAnon(() => q(`insert into login_attempts (app, provider, stage) values ('ja', 'kakao', 'start')`))
+  } catch (e) {
+    direct = String(e.message)
+  }
+  check('login_attempts: no direct insert', direct !== '', direct)
+  const ov = (await as(U.ploy, () => q('select admin_login_overview(7) as o'))).rows[0].o
+  const fb = ov.by.find((r) => r.provider === 'facebook')
+  const kk = ov.by.find((r) => r.provider === 'kakao')
+  check('admin_login_overview: per provider counts + recent + signups', fb && fb.abandoned === 1 && kk.error === 1 && ov.recent.length > 0 && ov.recent.some((r) => r.error === 'KOE205') && Array.isArray(ov.signups) && Array.isArray(ov.server_pending), JSON.stringify({ fb, kk }))
+  let na = ''
+  try {
+    await asAnon(() => q('select admin_login_overview(7)'))
+  } catch (e) {
+    na = String(e.message)
+  }
+  check('admin_login_overview: anon refused', na !== '', na)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

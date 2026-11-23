@@ -50,6 +50,7 @@ curl -LO https://raw.githubusercontent.com/HaHVU/HVULao_NLP/main/Datatest1k/test
 
 ## 4. 화면 점검 (`tools/smoke/`)
 빌드(`npm run build:single && npm run build:editions`) 후 저장소 루트에서 `node tools/smoke/<이름>.mjs`. 스크린샷은 `tools/_work/` 아래에 저장.
+- `login-attempts.mjs`: 카카오 버튼 → 오류/그냥 돌아옴이 로그인 시도 기록으로 가는지
 - `offline.mjs`: 한 번 연 뒤 인터넷을 끊고 다시 열기 · 끊긴 동안 기록이 다시 연결되면 가는지
 - `device-activity.mjs`: 로그인하지 않은 기기 기록이 서버로 가는지 (판마다)
 - `lo-smoke.mjs` · `lo-freq-smoke.mjs`: 라오스어판 · `daily-smoke.mjs`: 판 두 번째 코스 · `toast-shot.mjs`: 공부 화면 안내(토스트) · `feedback-smoke.mjs`: 수정 요청 · `rank-shot2.mjs`: 랭킹(이름 가림·사진 모자이크 — `tools/_work/faces.json` 필요) · `smoke50.mjs`: 일본어·영어 발음 소리 · `carbon-shot.mjs`: 어두운 테마 로고

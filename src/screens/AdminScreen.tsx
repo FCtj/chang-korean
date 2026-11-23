@@ -13,6 +13,8 @@ import {
   adminAccessPlaces,
   adminEditionOverview,
   adminDeviceOverview,
+  adminLoginOverview,
+  type LoginOverview,
   type DeviceStats,
   type EditionStats,
   adminModerate,
@@ -457,6 +459,88 @@ function FeedbackPanel({ mask }: { mask: boolean }) {
   )
 }
 
+const STAGE: Record<string, string> = { start: '▶️ 시작', success: '✅ 성공', error: '❌ 오류', abandoned: '↩️ 그만둠' }
+
+/** 🔑 로그인 시도: 앱·로그인 방법별 시도·성공·오류·그만둠 + 실제로 생긴 계정 + 서버에 남은 끝나지 않은 로그인 + 최근 기록 */
+function LoginPanel() {
+  const [days, setDays] = useState<'1' | '7' | '30'>('7')
+  const [d, setD] = useState<LoginOverview | null>(null)
+  const [err, setErr] = useState('')
+  useEffect(() => {
+    setD(null)
+    setErr('')
+    adminLoginOverview(Number(days)).then(setD, (e) => setErr(String((e as Error).message ?? e)))
+  }, [days])
+  if (err.includes('admin_login_overview') || err.includes('function'))
+    return (
+      <section className="panel adm-logins">
+        <h3 className="adm-h">🔑 로그인 시도</h3>
+        <p className="adm-flag">서버에 로그인 시도 SQL(20261123020000_login_attempts.sql)을 아직 실행하지 않았어요</p>
+      </section>
+    )
+  const fmtAt = (t: string) => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+  return (
+    <section className="panel adm-logins">
+      <h3 className="adm-h">🔑 로그인 시도</h3>
+      <Segmented<'1' | '7' | '30'>
+        name="기간"
+        value={days}
+        onChange={setDays}
+        options={[
+          { id: '1', label: '오늘·어제' },
+          { id: '7', label: '7일' },
+          { id: '30', label: '30일' },
+        ]}
+      />
+      {err && <p className="adm-flag">{err}</p>}
+      {!d && !err && <p className="note">…</p>}
+      {d && (
+        <>
+          {d.by.length === 0 && <p className="note">아직 로그인 버튼을 누른 기록이 없어요 (이 기능을 배포한 뒤부터 쌓여요)</p>}
+          <ul className="adm-list">
+            {d.by.map((r) => (
+              <li key={r.app + r.provider} className="adm-login-row">
+                <b>
+                  {APP_LABEL[r.app] ?? r.app} · {PROVIDER[r.provider] ?? r.provider}
+                </b>
+                <span className="note">
+                  {' '}
+                  — 시도 {fmtNum(r.start)} · <b>성공 {fmtNum(r.success)}</b> · 오류 {fmtNum(r.error)} · 그만둠 {fmtNum(r.abandoned)} (기기 {fmtNum(r.devices)}대)
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="note">
+            실제로 생긴 계정: {d.signups.length ? d.signups.map((x) => `${PROVIDER[x.provider] ?? x.provider} ${x.n}`).join(' · ') : '없음'}
+            {d.server_pending.length > 0 && (
+              <>
+                <br />
+                서버에 남은 끝나지 않은 로그인: {d.server_pending.map((x) => `${PROVIDER[x.provider] ?? x.provider} ${x.n} (마지막 ${fmtAt(x.last_at)})`).join(' · ')}
+              </>
+            )}
+          </p>
+          {d.recent.length > 0 && (
+            <ul className="adm-list adm-login-recent">
+              {d.recent.map((r, i) => (
+                <li key={i} className={`adm-login-item st-${r.stage}`}>
+                  <span className="note">{fmtAt(r.at)}</span> {STAGE[r.stage] ?? r.stage} · {APP_LABEL[r.app] ?? r.app} · {PROVIDER[r.provider] ?? r.provider}
+                  {r.browser && <span className="note"> · {r.browser}</span>}
+                  {r.device_id && <span className="note"> · 기기 {r.device_id.slice(0, 4)}</span>}
+                  {r.error && <div className="adm-flag">{r.error}</div>}
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="note">
+            읽는 법: 📘 Facebook 이 시작만 있고 성공이 없으면 → Meta 앱이 '개발 모드'인지 확인 (개발 모드면 앱 역할이 있는 사람만 로그인됨). ❌ 오류에 KOE 로 시작하는 코드가 있으면 카카오 설정 문제.
+            '카카오톡 앱 안'·'페이스북·인스타 앱 안' 브라우저에서 그만둠이 많으면 → 크롬·사파리로 열도록 안내.
+          </p>
+        </>
+      )}
+    </section>
+  )
+}
+
 function Dashboard({ onClose }: { onClose?: () => void }) {
   const [days, setDays] = useState<'7' | '30' | '90'>('30')
   const [ov, setOv] = useState<AdminOverview | null>(null)
@@ -625,6 +709,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
           </section>
         )}
 
+        <LoginPanel />
         <FeedbackPanel mask={mask} />
         <Reports mask={mask} />
         <LoggingCheck />

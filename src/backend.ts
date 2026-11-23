@@ -115,8 +115,61 @@ export function signInWithKakao(): Promise<void> {
   return signInWith('kakao')
 }
 
+// ───────── 로그인 시도 기록 (관리자 화면 🔑) ─────────
+// 버튼을 누름(start) → 성공(success) / 오류로 돌아옴(error) / 그냥 돌아옴(abandoned). 기기 번호는 기기 기록과 같은 임의 번호
+const PENDING_KEY = 'chang-login-pending'
+function browserKind(): string {
+  if (typeof navigator === 'undefined') return ''
+  const ua = navigator.userAgent
+  const os = native ? 'app' : /Android/i.test(ua) ? 'android' : /iPhone|iPad|iPod/i.test(ua) ? 'ios' : 'pc'
+  const b = /KAKAOTALK/i.test(ua)
+    ? '카카오톡 앱 안'
+    : /FBAN|FBAV|FB_IAB|Instagram/i.test(ua)
+      ? '페이스북·인스타 앱 안'
+      : /NAVER/i.test(ua)
+        ? '네이버 앱 안'
+        : /\bLine\//i.test(ua)
+          ? '라인 앱 안'
+          : /SamsungBrowser/i.test(ua)
+            ? '삼성 인터넷'
+            : /EdgA?\//i.test(ua)
+              ? 'Edge'
+              : /CriOS|Chrome\//i.test(ua)
+                ? 'Chrome'
+                : /Firefox|FxiOS/i.test(ua)
+                  ? 'Firefox'
+                  : /Safari/i.test(ua)
+                    ? 'Safari'
+                    : '기타'
+  return `${os} · ${b}`
+}
+function logLogin(stage: 'start' | 'success' | 'error' | 'abandoned', provider: string, error?: string, token?: string) {
+  if (!supabase) return
+  const body = JSON.stringify({ p_device: getDeviceId(), p_app: IS_KO ? 'ko' : EDITION, p_provider: provider, p_stage: stage, p_error: error ? error.slice(0, 300) : null, p_browser: browserKind() })
+  // 로그인 화면으로 넘어가는 중에도 보내지도록 keepalive
+  fetch(`${URL_}/rest/v1/rpc/log_login_attempt`, { method: 'POST', keepalive: true, headers: { apikey: KEY ?? '', Authorization: `Bearer ${token ?? KEY}`, 'Content-Type': 'application/json' }, body }).catch(() => {})
+}
+function setLoginPending(provider: string) {
+  try {
+    localStorage.setItem(PENDING_KEY, JSON.stringify({ provider, at: Date.now() }))
+  } catch {
+    /* 무시 */
+  }
+}
+function takeLoginPending(): { provider: string; at: number } | null {
+  try {
+    const v = localStorage.getItem(PENDING_KEY)
+    localStorage.removeItem(PENDING_KEY)
+    return v ? (JSON.parse(v) as { provider: string; at: number }) : null
+  } catch {
+    return null
+  }
+}
+
 async function signInWith(provider: LoginProvider): Promise<void> {
   if (!supabase) return
+  logLogin('start', provider)
+  setLoginPending(provider)
   try {
     if (native) {
       const { data, error } = await supabase.auth.signInWithOAuth({
@@ -134,6 +187,8 @@ async function signInWith(provider: LoginProvider): Promise<void> {
       if (error) throw error
     }
   } catch (e) {
+    takeLoginPending()
+    logLogin('error', provider, String((e as Error)?.message ?? e))
     setAuth({ ...auth, error: String((e as Error)?.message ?? e) })
   }
 }
@@ -353,6 +408,21 @@ export async function adminFeedbackSet(id: number, status: 'new' | 'done' | 'ski
   if (error) throw new Error(error.message)
 }
 
+/** 관리자: 로그인 시도 (앱·방법별 합계 · 최근 기록 · 서버의 가입 수 · 끝나지 않은 OAuth) */
+export type LoginOverview = {
+  days: number
+  by: { app: string; provider: string; start: number; success: number; error: number; abandoned: number; devices: number }[]
+  recent: { at: string; app: string; provider: string; stage: string; error: string | null; browser: string | null; linked: boolean; device_id: string | null }[]
+  signups: { provider: string; n: number }[]
+  server_pending: { provider: string; n: number; last_at: string }[]
+}
+export async function adminLoginOverview(days = 7): Promise<LoginOverview> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_login_overview', { p_days: days })
+  if (error) throw new Error(error.message)
+  return data as LoginOverview
+}
+
 /** 관리자: 로그인 안 한 사용 (기기 기준) — 앱마다 */
 export type DeviceStats = {
   devices_today: number
@@ -395,12 +465,19 @@ export async function checkAdmin(): Promise<boolean> {
 async function onSession(session: Session | null) {
   if (!supabase) return
   if (!session) {
+    // 로그인 버튼을 누르고 돌아왔는데 세션이 없음: code 가 있으면 마무리 실패, 없으면 중간에 그만둠
+    const pending = takeLoginPending()
+    if (pending) logLogin(returnedWithCode ? 'error' : 'abandoned', pending.provider, returnedWithCode ? 'code_exchange_failed' : undefined)
     // 로그인에서 돌아왔는데(code 있음) 세션이 없으면 마무리 실패 — 보통 다른 브라우저/앱에서 돌아온 경우
     const error = auth.error ?? (returnedWithCode ? 'code_exchange_failed' : undefined)
     setAuth({ status: 'out', me: null, error })
     return
   }
   const u = session.user
+  {
+    const pending = takeLoginPending()
+    if (pending) logLogin('success', pending.provider, undefined, session.access_token)
+  }
   const meta = (u.user_metadata ?? {}) as Record<string, string | undefined>
   const name = meta.full_name || meta.name || meta.nickname || meta.preferred_username || getState().nickname || 'User'
   const avatar = meta.avatar_url || meta.picture || null
@@ -870,7 +947,11 @@ function readAuthReturn(): string | undefined {
 export function initBackend() {
   if (!supabase) return
   const returnError = readAuthReturn()
-  if (returnError) setAuth({ ...auth, error: returnError })
+  if (returnError) {
+    setAuth({ ...auth, error: returnError })
+    const pending = takeLoginPending()
+    logLogin('error', pending?.provider ?? 'unknown', returnError)
+  }
   setPointsReporter(reportPoints)
   setActivityReporter(reportActivity)
   // 인터넷이 다시 되면: 모아 둔 기록·점수 보내기 + 학습 기록 동기화
