@@ -24,6 +24,7 @@
 - 랭킹 다시 켬: 한국어판은 기본 '전체'부터, 판은 판마다 따로. **예시 사용자 없음**(실제 가입자만), 0점 가입자도 아래쪽에 보임
 - 테스트 기간 `ALWAYS_MASK`: 남에게 보이는 이름 일부 가림(김*나) · 사진 모자이크
 - 가입하는 순간 서버가 프로필을 만듦 (`handle_new_user` 트리거)
+- 로그인하지 않아도 기기마다 임의 번호로 하루 공부 합계를 서버에 남김 (`device_activity`) → 관리자 화면 📱 '로그인 안 하고 쓰는 사람'. 그 기기에서 로그인하면 계정과 이어짐. 개인정보처리방침 7개 언어에 반영
 - Emoji 14 이후 그림 217개 교체 + `npm test` 에 검사 추가, 영어 IPA 강세 위치 1,170개 고침
 - 일본어 한 글자 단어(歯·二)는 가타카나로 읽힘 (조사·다른 읽기 방지)
 
@@ -32,6 +33,7 @@
 **실행했는지 아직 확인 못 한 것** (사용자에게 확인):
 - `20261122100000_profiles_for_all.sql` — 가입 즉시 프로필 · 0점 가입자 랭킹 노출
 - `20261122110000_lao_edition.sql` — 라오스어판('lo') 기록·랭킹·수정 요청 허용
+- `20261123000000_device_activity.sql` — 로그인하지 않은 사람의 기기 기록(`device_activity`, `log_device_activity`, 관리자 `admin_device_overview`)
 
 확인용 SQL 예: `select to_regclass('public.edition_points'), to_regprocedure('public.handle_new_user()'), (select pg_get_constraintdef(oid) from pg_constraint where conname = 'edition_progress_app_check');`
 

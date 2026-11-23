@@ -957,5 +957,47 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('lo: admin overview has lo', ov.lo && ov.lo.users === 1 && ov.lo.active_today === 1, JSON.stringify(ov.lo))
 }
 
+// ───────── 로그인 안 한 사람의 기기 기록 ─────────
+{
+  const DEV = { a: 'dddd1111-1111-1111-1111-111111111111', b: 'dddd2222-2222-2222-2222-222222222222' }
+  const U2 = 'dd000000-0000-0000-0000-000000000001'
+  await q('insert into auth.users values ($1) on conflict do nothing', [U2])
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message)
+    }
+  }
+  const asAnon = async (fn) => {
+    await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)
+    try {
+      return await fn()
+    } finally {
+      await db.exec('reset role;')
+    }
+  }
+  const today = `(now() at time zone 'UTC')::date`
+  const log = (dev, app, sec, extra = "null, null") => `select log_device_activity('${dev}', '${app}', ${today}, ${sec}, 5, 2, 1, ${extra})`
+  await asAnon(() => q(log(DEV.a, 'ko', 120, "'la', 'lo'")))
+  await asAnon(() => q(log(DEV.a, 'ko', 99999)))
+  await asAnon(() => q(log(DEV.b, 'lo', 60)))
+  const a = (await q(`select app, user_id, country, native, study_seconds, sessions from device_activity where device_id = $1`, [DEV.a])).rows[0]
+  check('log_device_activity: anon can log, adds up, caps one call at 3600s, keeps country/native', a && a.user_id === null && a.country === 'LA' && a.native === 'lo' && a.study_seconds === 3720 && a.sessions === 2, JSON.stringify(a))
+  check('log_device_activity: bad app refused', (await err(() => asAnon(() => q(log(DEV.a, 'xx', 1))))).includes('bad_app'))
+  check('log_device_activity: far day refused', (await err(() => asAnon(() => q(`select log_device_activity('${DEV.a}', 'ko', ${today} - 5, 1, 1, 1, 1)`)))).includes('bad_day'))
+  check('device_activity: not writable directly by anon', (await err(() => asAnon(() => q(`insert into device_activity (device_id, app, day) values ('${DEV.a}', 'ko', current_date)`)))) !== '')
+  // 같은 기기에서 로그인 → 그 뒤 기록에 user_id
+  await as(U2, () => q(log(DEV.b, 'lo', 30)))
+  const b = (await q(`select user_id, study_seconds from device_activity where device_id = $1 and app = 'lo'`, [DEV.b])).rows[0]
+  check('log_device_activity: logged-in call links the device', b.user_id === U2 && b.study_seconds === 90, JSON.stringify(b))
+  const ov = (await as(U.ploy, () => q('select admin_device_overview(7) as o'))).rows[0].o
+  check('admin_device_overview: anon vs linked devices per app', ov.ko.devices_today === 1 && ov.ko.anon_today === 1 && ov.lo.devices_today === 1 && ov.lo.anon_today === 0 && ov.lo.converted === 1 && ov.ko.countries_7d.LA === 1 && ov.ko.anon_seconds_7d === 3720, JSON.stringify({ ko: ov.ko, lo: ov.lo }))
+  check('admin_device_overview: non-admin refused', (await err(() => as(U2, () => q('select admin_device_overview(7)')))).includes('not_admin'))
+  await as(U2, () => q('select delete_my_data()'))
+  check('delete_my_data removes my linked device rows', (await q('select count(*)::int n from device_activity where user_id = $1', [U2])).rows[0].n === 0)
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

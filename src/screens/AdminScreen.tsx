@@ -12,6 +12,8 @@ import {
   lastActivityReport,
   adminAccessPlaces,
   adminEditionOverview,
+  adminDeviceOverview,
+  type DeviceStats,
   type EditionStats,
   adminModerate,
   adminReports,
@@ -465,6 +467,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
   const [open, setOpen] = useState<AdminUser | null>(null)
   const [places, setPlaces] = useState<{ countries: Record<string, number>; cities: { country: string | null; city: string; n: number }[] } | null>(null)
   const [eds, setEds] = useState<Partial<Record<'ja' | 'en' | 'lo', EditionStats>> | null>(null)
+  const [devs, setDevs] = useState<Partial<Record<'ko' | 'ja' | 'en' | 'lo', DeviceStats>> | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -477,6 +480,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
       adminAccessPlaces(Number(days)).then(setPlaces, () => setPlaces(null))
       // 일본어판·영어판 현황도 SQL 실행 전이면 조용히 건너뜀
       adminEditionOverview(Number(days)).then(setEds, () => setEds(null))
+      // 로그인 안 한 사용(기기 기준)도 SQL 실행 전이면 조용히 건너뜀
+      adminDeviceOverview(Number(days)).then(setDevs, () => setDevs(null))
     } catch (e) {
       setErr(String((e as Error).message ?? e))
     } finally {
@@ -585,6 +590,32 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
                     로그인 {fmtNum(e.users)}명 · 오늘 {fmtNum(e.active_today)}명 · 7일 {fmtNum(e.active_7d)}명 · 30일 {fmtNum(e.active_30d)}명 · 7일 공부 {fmtNum(Math.round(e.seconds_7d / 60))}분
                   </div>
                   {e.days.length > 0 && <DayBars title="날짜별 공부한 사람" data={e.days.map((d) => ({ day: d.day, v: d.users }))} unit="명" />}
+                </div>
+              )
+            })}
+          </section>
+        )}
+
+        {devs && (
+          <section className="panel adm-editions adm-devices">
+            <h3 className="adm-h">📱 로그인 안 하고 쓰는 사람 (기기 기준)</h3>
+            <p className="note">기기마다 임의 번호로 센 숫자예요. 한 번이라도 그 기기에서 로그인했으면 '로그인함'으로 셉니다.</p>
+            {(['ko', 'ja', 'en', 'lo'] as const).map((k) => {
+              const e = devs[k]
+              if (!e || !e.devices_30d) return null
+              const countries = Object.entries(e.countries_7d ?? {}).sort((a, b) => b[1] - a[1])
+              return (
+                <div key={k} className="adm-ed">
+                  <div className="adm-ed-title">{{ ko: '🇰🇷 한국어판', ja: '🇯🇵 일본어판', en: '💼 영어판', lo: '🇱🇦 라오스어판' }[k]}</div>
+                  <div className="note">
+                    오늘 {fmtNum(e.devices_today)}대 (로그인 안 함 {fmtNum(e.anon_today)}) · 7일 {fmtNum(e.devices_7d)}대 (안 함 {fmtNum(e.anon_7d)}) · 30일 {fmtNum(e.devices_30d)}대 (안 함 {fmtNum(e.anon_30d)})
+                  </div>
+                  <div className="note">
+                    로그인 안 한 기기의 7일 공부 {fmtNum(Math.round(e.anon_seconds_7d / 60))}분 · 본 단어 {fmtNum(e.anon_words_7d)}개 · 나중에 로그인한 기기 {fmtNum(e.converted)}대
+                    {countries.length > 0 && <> · 나라 {countries.map(([c, n]) => `${c} ${n}`).join(', ')}</>}
+                  </div>
+                  {e.days.length > 0 && <DayBars title="날짜별 기기 (전체)" data={e.days.map((d) => ({ day: d.day, v: d.devices }))} unit="대" />}
+                  {e.days.length > 0 && <DayBars title="날짜별 로그인 안 한 기기" data={e.days.map((d) => ({ day: d.day, v: d.anon }))} unit="대" />}
                 </div>
               )
             })}

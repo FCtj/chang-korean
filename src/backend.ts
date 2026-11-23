@@ -346,6 +346,27 @@ export async function adminFeedbackSet(id: number, status: 'new' | 'done' | 'ski
   if (error) throw new Error(error.message)
 }
 
+/** 관리자: 로그인 안 한 사용 (기기 기준) — 앱마다 */
+export type DeviceStats = {
+  devices_today: number
+  anon_today: number
+  devices_7d: number
+  anon_7d: number
+  devices_30d: number
+  anon_30d: number
+  anon_seconds_7d: number
+  anon_words_7d: number
+  converted: number
+  countries_7d: Record<string, number>
+  days: { day: string; devices: number; anon: number }[]
+}
+export async function adminDeviceOverview(days = 30): Promise<Partial<Record<'ko' | 'ja' | 'en' | 'lo', DeviceStats>>> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_device_overview', { p_days: days })
+  if (error) throw new Error(error.message)
+  return (data ?? {}) as Partial<Record<'ko' | 'ja' | 'en' | 'lo', DeviceStats>>
+}
+
 /** 관리자 전용 계정(이메일·비밀번호, Supabase 대시보드에서 만든 계정)으로 로그인 — 실패하면 오류 문구 */
 export async function signInWithEmail(email: string, password: string): Promise<string | null> {
   if (!supabase) return 'no_backend'
@@ -451,7 +472,47 @@ async function reportGeo() {
 /** 마지막으로 서버에 공부 기록을 보낸 결과 (관리자 화면 '기록 점검'에서 봄) */
 export let lastActivityReport: { at: number; ok: boolean; error?: string; sec: number } | null = null
 
+// ───────── 로그인하지 않아도 남기는 기기 기록 (device_activity, 관리자 통계용) ─────────
+// 기기마다 임의 번호 하나 (이름·연락처 없음). 로그인한 뒤에는 서버가 그 계정과 이어 줌
+const DEVICE_KEY = 'chang-device-id'
+let deviceId: string | null = null
+function getDeviceId(): string | null {
+  if (deviceId) return deviceId
+  try {
+    deviceId = localStorage.getItem(DEVICE_KEY)
+    if (!deviceId || !/^[0-9a-f-]{36}$/.test(deviceId)) {
+      deviceId =
+        typeof crypto !== 'undefined' && 'randomUUID' in crypto
+          ? crypto.randomUUID()
+          : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c) => (Number(c) ^ (Math.random() * 16) >> (Number(c) / 4)).toString(16))
+      localStorage.setItem(DEVICE_KEY, deviceId)
+    }
+  } catch {
+    return null
+  }
+  return deviceId
+}
+function reportDeviceActivity(d: DayActivity) {
+  const id = getDeviceId()
+  if (!supabase || !id) return
+  const st = getState()
+  supabase
+    .rpc('log_device_activity', {
+      p_device: id,
+      p_app: IS_KO ? 'ko' : EDITION,
+      p_day: vientianeDay(),
+      p_seconds: Math.round(d.sec),
+      p_words: Math.round(d.words),
+      p_questions: Math.round(d.questions),
+      p_sessions: Math.round(d.sessions),
+      p_country: IS_KO && /^[A-Z]{2}$/.test(st.country) && st.country !== 'ZZ' ? st.country : null,
+      p_native: IS_KO ? st.native : null,
+    })
+    .then(undefined, () => {})
+}
+
 function reportActivity(_day: string, d: DayActivity) {
+  reportDeviceActivity(d)
   if (!supabase || auth.status !== 'in') return
   reportGeo().catch(() => {})
   logActivity({ p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: Math.round(d.words), p_questions: Math.round(d.questions), p_sessions: Math.round(d.sessions) })
