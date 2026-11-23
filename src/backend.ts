@@ -218,6 +218,13 @@ export interface AdminUser {
   correct: number
   geo_country: string | null
   geo_city: string | null
+  /** 원래 로그인 이름 (카카오 닉네임 · Facebook 이름) — 관리자만 */
+  login_name: string | null
+  provider: string | null
+  email: string | null
+  /** 쓰는 앱: 'ko,ja,en,lo' 중 */
+  apps: string | null
+  last_sign_in: string | null
   total: number
 }
 export interface AdminUserDetail {
@@ -492,15 +499,42 @@ function getDeviceId(): string | null {
   }
   return deviceId
 }
-function reportDeviceActivity(d: DayActivity) {
+// ───────── 인터넷이 끊겼을 때: 보내지 못한 기록·점수를 기기에 모아 두었다가 다시 연결되면 보냄 ─────────
+type Pt = { kind: 'study' | 'exam' | 'promo'; ref: string | null; points: number }
+type OfflineQueue = { device: Record<string, DayActivity>; user: { uid: string; days: Record<string, DayActivity> } | null; points: { uid: string; items: Pt[] } | null }
+const QUEUE_KEY = `chang-offline-queue:${IS_KO ? 'ko' : EDITION}`
+function readQueue(): OfflineQueue {
+  try {
+    return { device: {}, user: null, points: null, ...(JSON.parse(localStorage.getItem(QUEUE_KEY) || '{}') as Partial<OfflineQueue>) }
+  } catch {
+    return { device: {}, user: null, points: null }
+  }
+}
+function writeQueue(q: OfflineQueue) {
+  try {
+    if (!Object.keys(q.device).length && !q.user && !q.points?.items.length) localStorage.removeItem(QUEUE_KEY)
+    else localStorage.setItem(QUEUE_KEY, JSON.stringify(q))
+  } catch {
+    /* 기기 저장소를 못 쓰면 버림 */
+  }
+}
+const addDayTo = (m: Record<string, DayActivity>, day: string, d: DayActivity) => {
+  const c = m[day] ?? { sec: 0, words: 0, questions: 0, sessions: 0 }
+  m[day] = { sec: c.sec + d.sec, words: c.words + d.words, questions: c.questions + d.questions, sessions: c.sessions + d.sessions }
+}
+/** 서버가 거절한 것(날짜가 지남·값 오류 등)은 다시 보내지 않음. 인터넷·서버의 잠깐 오류만 모아 둠 */
+const retryable = (msg?: string) => !/bad_day|bad_value|bad_app|not_logged_in|not_admin|permission|violates/i.test(msg ?? '')
+const errText = (e: unknown) => String((e as Error)?.message ?? e)
+
+function sendDevice(day: string, d: DayActivity): PromiseLike<'ok' | 'drop' | 'retry'> {
   const id = getDeviceId()
-  if (!supabase || !id) return
+  if (!supabase || !id) return Promise.resolve('drop')
   const st = getState()
-  supabase
+  return supabase
     .rpc('log_device_activity', {
       p_device: id,
       p_app: IS_KO ? 'ko' : EDITION,
-      p_day: vientianeDay(),
+      p_day: day,
       p_seconds: Math.round(d.sec),
       p_words: Math.round(d.words),
       p_questions: Math.round(d.questions),
@@ -508,23 +542,85 @@ function reportDeviceActivity(d: DayActivity) {
       p_country: IS_KO && /^[A-Z]{2}$/.test(st.country) && st.country !== 'ZZ' ? st.country : null,
       p_native: IS_KO ? st.native : null,
     })
-    .then(undefined, () => {})
+    .then(
+      ({ error }) => (!error ? 'ok' : retryable(error.message) ? 'retry' : 'drop'),
+      (e) => (retryable(errText(e)) ? 'retry' : 'drop'),
+    )
+}
+function sendUser(day: string, d: DayActivity): PromiseLike<'ok' | 'drop' | 'retry'> {
+  if (!supabase) return Promise.resolve('drop')
+  return logActivity({ p_day: day, p_seconds: Math.round(d.sec), p_words: Math.round(d.words), p_questions: Math.round(d.questions), p_sessions: Math.round(d.sessions) }).then(
+    ({ error }) => {
+      lastActivityReport = { at: Date.now(), ok: !error, error: error?.message, sec: Math.round(d.sec) }
+      if (error) console.warn('log_activity failed:', error.message)
+      return !error ? 'ok' : retryable(error.message) ? 'retry' : 'drop'
+    },
+    (e) => {
+      lastActivityReport = { at: Date.now(), ok: false, error: errText(e), sec: Math.round(d.sec) }
+      return retryable(errText(e)) ? 'retry' : 'drop'
+    },
+  )
 }
 
 function reportActivity(_day: string, d: DayActivity) {
-  reportDeviceActivity(d)
-  if (!supabase || auth.status !== 'in') return
+  const day = vientianeDay()
+  sendDevice(day, d).then((r) => {
+    if (r === 'retry') {
+      const q = readQueue()
+      addDayTo(q.device, day, d)
+      writeQueue(q)
+    } else if (r === 'ok') flushOfflineQueue()
+  })
+  if (!supabase || auth.status !== 'in' || !auth.me) return
+  const uid = auth.me.id
   reportGeo().catch(() => {})
-  logActivity({ p_day: vientianeDay(), p_seconds: Math.round(d.sec), p_words: Math.round(d.words), p_questions: Math.round(d.questions), p_sessions: Math.round(d.sessions) })
-    .then(
-      ({ error }) => {
-        lastActivityReport = { at: Date.now(), ok: !error, error: error?.message, sec: Math.round(d.sec) }
-        if (error) console.warn('log_activity failed:', error.message)
-      },
-      (e) => {
-        lastActivityReport = { at: Date.now(), ok: false, error: String((e as Error)?.message ?? e), sec: Math.round(d.sec) }
-      },
-    )
+  sendUser(day, d).then((r) => {
+    if (r !== 'retry') return
+    const q = readQueue()
+    if (!q.user || q.user.uid !== uid) q.user = { uid, days: {} }
+    addDayTo(q.user.days, day, d)
+    writeQueue(q)
+  })
+}
+
+/** 다시 연결되면(또는 앱을 열 때) 모아 둔 기록·점수를 보냄. 아직 끊겨 있으면 다음에 */
+let flushing = false
+export async function flushOfflineQueue() {
+  if (flushing || !supabase) return
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return
+  flushing = true
+  try {
+    const q = readQueue()
+    for (const [day, d] of Object.entries(q.device)) {
+      const r = await sendDevice(day, d)
+      if (r === 'retry') return
+      delete q.device[day]
+      writeQueue(q)
+    }
+    const uid = auth.status === 'in' ? auth.me?.id : undefined
+    if (q.user && uid === q.user.uid) {
+      for (const [day, d] of Object.entries(q.user.days)) {
+        const r = await sendUser(day, d)
+        if (r === 'retry') return
+        delete q.user.days[day]
+        writeQueue(q)
+      }
+      q.user = null
+      writeQueue(q)
+    }
+    if (q.points && uid === q.points.uid) {
+      while (q.points.items.length) {
+        const r = await sendPoint(q.points.items[0])
+        if (r === 'retry') return
+        q.points.items.shift()
+        writeQueue(q)
+      }
+      q.points = null
+      writeQueue(q)
+    }
+  } finally {
+    flushing = false
+  }
 }
 
 /** 기록 점검: 테스트 기록 한 번 보내고(앱 연 횟수 +1), 서버에 저장된 내 최근 기록을 읽어 옴 */
@@ -669,17 +765,30 @@ function schedulePush() {
 // ───────── 점수 → 서버 ─────────
 // 서버(award_points)가 하루 상한·한 번에 최대 10점·보너스 중복을 막음
 
+function sendPoint(p: Pt): PromiseLike<'ok' | 'drop' | 'retry'> {
+  if (!supabase) return Promise.resolve('drop')
+  const call = IS_KO
+    ? supabase.rpc('award_points', { p_kind: p.kind, p_ref: p.ref, p_points: p.points })
+    : supabase.rpc('award_edition_points', { p_app: EDITION, p_kind: p.kind, p_ref: p.ref, p_points: p.points })
+  return call.then(
+    ({ error }) => (!error ? 'ok' : retryable(error.message) ? 'retry' : 'drop'),
+    (e) => (retryable(errText(e)) ? 'retry' : 'drop'),
+  )
+}
 function reportPoints(kind: 'study' | 'exam' | 'promo', ref: string | null, points: number) {
-  if (!supabase || auth.status !== 'in') return
-  if (!IS_KO) {
-    // 일본어·영어판: 판마다 따로 쌓는 점수 (서버가 한 번에 10점 · 하루 400점 등 상한)
-    if (kind === 'promo') return
-    const parts = kind === 'study' ? Array.from({ length: Math.ceil(points / 10) }, (_, i) => Math.min(10, points - i * 10)) : [points]
-    for (const p of parts) supabase.rpc('award_edition_points', { p_app: EDITION, p_kind: kind, p_ref: ref, p_points: p }).then(undefined, () => {})
-    return
-  }
-  const calls = kind === 'study' ? Array.from({ length: Math.ceil(points / 10) }, (_, i) => Math.min(10, points - i * 10)) : [points]
-  for (const p of calls) supabase.rpc('award_points', { p_kind: kind, p_ref: ref, p_points: p }).then(undefined, () => {})
+  if (!supabase || auth.status !== 'in' || !auth.me) return
+  // 일본어·영어·라오스어판: 판마다 따로 쌓는 점수 (승급 보너스 없음). 서버가 한 번에 10점 · 하루 400점 등 상한
+  if (!IS_KO && kind === 'promo') return
+  const uid = auth.me.id
+  const parts: Pt[] = (kind === 'study' ? Array.from({ length: Math.ceil(points / 10) }, (_, i) => Math.min(10, points - i * 10)) : [points]).map((n) => ({ kind, ref, points: n }))
+  for (const p of parts)
+    sendPoint(p).then((r) => {
+      if (r !== 'retry') return
+      const q = readQueue()
+      if (!q.points || q.points.uid !== uid) q.points = { uid, items: [] }
+      if (q.points.items.length < 300) q.points.items.push(p)
+      writeQueue(q)
+    })
 }
 
 // ───────── 랭킹 ─────────
@@ -764,6 +873,13 @@ export function initBackend() {
   if (returnError) setAuth({ ...auth, error: returnError })
   setPointsReporter(reportPoints)
   setActivityReporter(reportActivity)
+  // 인터넷이 다시 되면: 모아 둔 기록·점수 보내기 + 학습 기록 동기화
+  if (typeof window !== 'undefined')
+    window.addEventListener('online', () => {
+      flushOfflineQueue()
+      if (auth.status === 'in') schedulePush()
+    })
+  setTimeout(() => flushOfflineQueue(), 5000)
   subscribe(schedulePush)
   subscribe(schedulePrivateSync)
   supabase.auth.onAuthStateChange((event, session) => {

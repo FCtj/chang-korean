@@ -7776,3 +7776,6 @@ body {
 .rank-join .note {
   margin: 0;
 }
+.adm-app {
+  margin-inline-start: 4px;
+}

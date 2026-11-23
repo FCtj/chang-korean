@@ -28,12 +28,18 @@
 - Emoji 14 이후 그림 217개 교체 + `npm test` 에 검사 추가, 영어 IPA 강세 위치 1,170개 고침
 - 일본어 한 글자 단어(歯·二)는 가타카나로 읽힘 (조사·다른 읽기 방지)
 
+## 오프라인
+- 웹: 판 폴더마다 `sw.js`(서비스 워커)·`manifest.webmanifest` 를 `scripts/make-standalone.mjs` 가 만듦 → 한 번 열면 인터넷 없이도 열림, '홈 화면에 추가' 가능. 인터넷이 되면 언제나 서버의 새것을 먼저 받음(`src/offline.ts`).
+- 끊긴 동안의 공부 기록(기기·계정)·점수는 `chang-offline-queue:<판>` 에 모았다가 다시 연결되면 보냄(`src/backend.ts` `flushOfflineQueue`).
+- 점검: `node tools/smoke/offline.mjs`
+
 ## Supabase (사용자가 SQL 편집기에서 직접 실행)
 `supabase/migrations/` 순서대로. 사용자가 실행했다고 확인한 것: ~ `20261122090000_edition_ranking.sql` 까지.
 **실행했는지 아직 확인 못 한 것** (사용자에게 확인):
 - `20261122100000_profiles_for_all.sql` — 가입 즉시 프로필 · 0점 가입자 랭킹 노출
 - `20261122110000_lao_edition.sql` — 라오스어판('lo') 기록·랭킹·수정 요청 허용
 - `20261123000000_device_activity.sql` — 로그인하지 않은 사람의 기기 기록(`device_activity`, `log_device_activity`, 관리자 `admin_device_overview`)
+- `20261123010000_admin_real_names.sql` — 관리자 목록에 원래 로그인 이름·로그인 방법·이메일·쓰는 앱, 네 앱 활동·점수 합치기
 
 확인용 SQL 예: `select to_regclass('public.edition_points'), to_regprocedure('public.handle_new_user()'), (select pg_get_constraintdef(oid) from pg_constraint where conname = 'edition_progress_app_check');`
 

@@ -14,7 +14,7 @@ const check = (name, ok, detail = '') => {
 await db.exec(`
   create role anon nologin; create role authenticated nologin;
   create schema auth;
-  create table auth.users (id uuid primary key, raw_user_meta_data jsonb, raw_app_meta_data jsonb);
+  create table auth.users (id uuid primary key, raw_user_meta_data jsonb, raw_app_meta_data jsonb, email text, created_at timestamptz default now(), last_sign_in_at timestamptz);
   create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
   grant usage on schema auth to anon, authenticated;
   grant execute on function auth.uid() to anon, authenticated;
@@ -997,6 +997,18 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('admin_device_overview: non-admin refused', (await err(() => as(U2, () => q('select admin_device_overview(7)')))).includes('not_admin'))
   await as(U2, () => q('select delete_my_data()'))
   check('delete_my_data removes my linked device rows', (await q('select count(*)::int n from device_activity where user_id = $1', [U2])).rows[0].n === 0)
+}
+
+// ───────── 관리자 목록: 원래 로그인 이름 · 로그인 방법 · 쓰는 앱 · 판 활동 합치기 ─────────
+{
+  const K = 'ee111111-1111-1111-1111-111111111111'
+  await q(`insert into auth.users (id, raw_user_meta_data, raw_app_meta_data, email, last_sign_in_at) values ($1, '{"name":"제킹"}', '{"provider":"kakao"}', null, now())`, [K])
+  await as(K, () => q(`insert into edition_progress (user_id, app, data) values ($1, 'ja', '{}')`, [K]))
+  await as(K, () => q(`select log_edition_activity('ja', (now() at time zone 'Asia/Seoul')::date, 300, 12, 3, 1)`))
+  await as(K, () => q(`select award_edition_points('ja', 'study', null, 10)`))
+  const r = (await as(U.ploy, () => q(`select display_name, login_name, provider, apps, study_seconds, words, points from admin_users('제킹', 'new', 10, 0)`))).rows
+  check('admin_users: finds by original login name, shows provider/apps, counts edition activity and points', r.length === 1 && r[0].display_name === '제*' && r[0].login_name === '제킹' && r[0].provider === 'kakao' && r[0].apps === 'ja' && Number(r[0].study_seconds) === 300 && Number(r[0].words) === 12 && Number(r[0].points) === 10, JSON.stringify(r))
+  check('admin_users: non-admin refused', await (async () => { try { await as(K, () => q(`select * from admin_users(null, 'new', 5, 0)`)); return false } catch (e) { return String(e.message).includes('not_admin') } })())
 }
 
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')

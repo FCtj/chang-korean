@@ -194,7 +194,8 @@ function UserSheet({ user, mask, onClose }: { user: AdminUser; mask: boolean; on
     }
     return out
   }, [d])
-  const name = mask ? maskName(user.display_name || '—') : user.display_name || '—'
+  const real = user.login_name || user.display_name || user.email || '—'
+  const name = mask ? maskName(real) : real
   const kindLabel: Record<string, string> = { study: '공부', exam: '졸업시험', promo: '승급시험' }
   return (
     <div className="sheet-backdrop" onClick={onClose}>
@@ -300,6 +301,8 @@ function LoggingCheck() {
   )
 }
 
+const PROVIDER: Record<string, string> = { kakao: '💬 카카오', facebook: '📘 Facebook', email: '✉️ 이메일' }
+const APP_LABEL: Record<string, string> = { ko: '🇰🇷 한국어판', ja: '🇯🇵 일본어판', en: '💼 영어판', lo: '🇱🇦 라오스어판' }
 const REASON_KO: Record<string, string> = { spam: '광고·스팸', abuse: '욕설·괴롭힘', sexual: '성적인 내용', privacy: '개인정보', other: '기타' }
 
 /** 🚩 신고된 글·댓글: 3명 이상이면 자동으로 숨겨져 있음 → 숨김 유지 · 되살리기 · 삭제 */
@@ -635,7 +638,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
               setQ(search.trim())
             }}
           >
-            <input className="input" placeholder="이름으로 찾기" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <input className="input" placeholder="이름 · 카카오 닉네임 · 이메일로 찾기" value={search} onChange={(e) => setSearch(e.target.value)} />
             <button className="btn btn-soft sm" type="submit">
               찾기
             </button>
@@ -657,7 +660,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
           </div>
           <ul className="adm-list">
             {users.map((u) => {
-              const name = mask ? maskName(u.display_name || '—') : u.display_name || '—'
+              const real = u.login_name || u.display_name || u.email || '—'
+              const name = mask ? maskName(real) : real
               const flag = suspect(u)
               return (
                 <li key={u.user_id}>
@@ -669,7 +673,15 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
                         <span className="note">{countryLabel(u.country)}</span>
                       </span>
                       <span className="adm-row-sub">
-                        가입 {fmtDay(u.created_at)} · 마지막 {ago(u.last_seen)} · {courseLabel(u.course, u.topik_level)}
+                        {PROVIDER[u.provider ?? ''] ?? u.provider ?? '—'}
+                        {!mask && u.email && <> · {u.email}</>}
+                        {(u.apps ?? '').split(',').filter(Boolean).map((a) => (
+                          <span key={a} className="chip tiny adm-app">{APP_LABEL[a] ?? a}</span>
+                        ))}
+                      </span>
+                      <span className="adm-row-sub">
+                        가입 {fmtDay(u.created_at)} · 로그인 {ago(u.last_sign_in)} · 공부 {ago(u.last_seen)}
+                        {(u.apps ?? '').includes('ko') && <> · {courseLabel(u.course, u.topik_level)}</>}
                       </span>
                       <span className="adm-row-sub">📍 {placeLabel(u.geo_country, u.geo_city)}
                       </span>
@@ -689,7 +701,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
               더 보기 ({users.length}/{total})
             </button>
           )}
-          <p className="note">사용 현황은 Facebook으로 로그인한 사람만 서버에 남아요. 로그인 없이 쓰는 사람은 각자 기기에만 기록돼요.</p>
+          <p className="note">로그인(카카오·Facebook)한 사람의 원래 이름·로그인 방법이에요 (관리자만 봄). 활동·점수는 네 앱을 합친 값이에요. 로그인 없이 쓰는 사람은 위 📱 칸에 기기 기준으로 나와요.</p>
         </section>
       </div>
       {open && <UserSheet user={open} mask={mask} onClose={() => setOpen(null)} />}
