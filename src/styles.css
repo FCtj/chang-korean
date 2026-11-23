@@ -5509,11 +5509,11 @@ body {
   box-shadow: none;
 }
 
-/* '?' 단어 설명 */
+/* '?' 단어 설명 — 오른쪽 위, 소리 버튼 왼쪽 (왼쪽 위의 '💬 문장' 표시를 가리지 않게) */
 .fcard-help {
   position: absolute;
-  top: 12px;
-  left: 12px;
+  top: 14px;
+  right: 64px;
   z-index: 3;
   width: 40px;
   height: 40px;
