@@ -14,6 +14,9 @@
 <link rel="canonical" href="https://needslab.kro.kr/" />
 <meta name="theme-color" content="#1d2140" />
 <link rel="icon" type="image/svg+xml" href="logo.svg" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"NeedsLab","alternateName":"니즈랩","url":"https://needslab.kro.kr/","logo":"https://needslab.kro.kr/logo.svg","foundingDate":"2026-06-01","founder":{"@type":"Person","name":"임태준"},"address":{"@type":"PostalAddress","streetAddress":"자혜로113번길 3, B2호","addressLocality":"성남시 중원구","addressRegion":"경기도","addressCountry":"KR"},"email":"iamexample2@gmail.com"}
+</script>
 <style>
 :root {
   --bg: #faf7f2;
@@ -153,9 +156,16 @@ section { scroll-margin-top: 80px; }
 .contact .btn { background: var(--coral); color: #fff; justify-self: end; }
 @media (max-width: 720px) { .contact { grid-template-columns: 1fr; } .contact .btn { justify-self: start; } }
 
-footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 0.9rem; }
-footer .wrap { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; }
+footer .wrap { display: grid; gap: 14px; }
+footer .biz-name { color: var(--ink); font-weight: 800; font-size: 0.95rem; }
+footer .biz { display: flex; flex-wrap: wrap; gap: 4px 26px; margin: 0; padding: 0; list-style: none; line-height: 1.6; }
+footer .biz li { display: inline-flex; gap: 6px; }
+footer .biz li[hidden] { display: none; }
+footer .biz b { font-weight: 600; color: var(--ink); opacity: 0.8; }
+footer .legal { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
 footer a { color: var(--muted); }
+@media (max-width: 640px) { footer .biz { flex-direction: column; } }
 </style>
 </head>
 <body>
@@ -328,15 +338,31 @@ footer a { color: var(--muted); }
 
 <footer>
   <div class="wrap">
-    <span>© 2026 NeedsLab <span class="ko">니즈랩</span></span>
-    <span><a href="https://fctj.github.io/chang-korean/privacy.html" target="_blank" rel="noopener"><span class="ko">Chang 개인정보처리방침</span><span class="en">Chang privacy policy</span></a></span>
+    <div class="biz-name"><span class="ko">니즈랩</span><span class="en">NeedsLab</span></div>
+    <!-- 사업자등록증명(2026-11-23 발급) 기준 공개 정보 -->
+    <ul class="biz">
+      <li><b><span class="ko">대표</span><span class="en">Representative</span></b><span class="ko">임태준</span><span class="en">Taejun Lim</span></li>
+      <li><b><span class="ko">사업자등록번호</span><span class="en">Business Reg. No.</span></b>540-10-03426</li>
+      <li><b><span class="ko">주소</span><span class="en">Address</span></b><span class="ko">경기도 성남시 중원구 자혜로113번길 3, B2호 (은행동)</span><span class="en">B2, 3 Jahye-ro 113beon-gil, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea</span></li>
+      <li id="mail-row" hidden><b><span class="ko">이메일</span><span class="en">Email</span></b><a id="mail-text" href="#contact"></a></li>
+    </ul>
+    <div class="legal">
+      <span>© 2026 NeedsLab <span class="ko">니즈랩</span></span>
+      <span><a href="https://fctj.github.io/chang-korean/privacy.html" target="_blank" rel="noopener"><span class="ko">Chang 개인정보처리방침</span><span class="en">Chang privacy policy</span></a></span>
+    </div>
   </div>
 </footer>
 
 <script>
   // 문의 메일 주소 (정해지면 여기에): 비어 있으면 버튼이 문의 영역에 머묾
-  const CONTACT_EMAIL = ''
-  if (CONTACT_EMAIL) document.getElementById('mail').href = 'mailto:' + CONTACT_EMAIL
+  const CONTACT_EMAIL = 'iamexample2@gmail.com'
+  if (CONTACT_EMAIL) {
+    document.getElementById('mail').href = 'mailto:' + CONTACT_EMAIL
+    const t = document.getElementById('mail-text')
+    t.href = 'mailto:' + CONTACT_EMAIL
+    t.textContent = CONTACT_EMAIL
+    document.getElementById('mail-row').hidden = false
+  }
   // 한국어 / English
   const root = document.documentElement
   const saved = (() => { try { return localStorage.getItem('needslab-lang') } catch { return null } })()

@@ -134,12 +134,17 @@ const contact = email
   ? `문의: <a href="mailto:${email}">${email}</a>`
   : `문의: <a href="${issues}">${issues}</a>`
 const contactEn = email ? `Contact: <a href="mailto:${email}">${email}</a>` : `Contact: <a href="${issues}">${issues}</a>`
+// 운영 회사 — 사업자등록증명(2026-11-23 발급)의 공개 정보만 (주민번호·발급번호는 넣지 않음). 회사 사이트 site/needslab/index.html 아래쪽과 같게
+const operator = '운영: 니즈랩 (대표 임태준 · 사업자등록번호 540-10-03426) · 경기도 성남시 중원구 자혜로113번길 3, B2호 (은행동)<br />개인정보 보호책임자: 임태준 (연락은 아래 메일)'
+const operatorEn = 'Operator: NeedsLab (니즈랩), Representative: Taejun Lim, Business Registration No. 540-10-03426, B2, 3 Jahye-ro 113beon-gil, Jungwon-gu, Seongnam-si, Gyeonggi-do, Republic of Korea.<br />Privacy officer: Taejun Lim (contact by the email below).'
 const style = readFileSync(new URL('legal/_style.css', root), 'utf8')
 for (const page of ['privacy.html', 'delete-data.html']) {
   const out = readFileSync(new URL(`legal/${page}`, root), 'utf8')
     .replaceAll('{{STYLE}}', style)
     .replaceAll('{{CONTACT_EN}}', contactEn)
     .replaceAll('{{CONTACT}}', contact)
+    .replaceAll('{{OPERATOR_EN}}', operatorEn)
+    .replaceAll('{{OPERATOR}}', operator)
   if (out.includes('{{')) throw new Error(`legal/${page}: 바꾸지 못한 {{…}} 가 남아 있음`)
   writeFileSync(new URL(`dist-web/${page}`, root), out)
 }

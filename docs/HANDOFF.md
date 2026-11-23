@@ -13,7 +13,12 @@
 ## 회사 소개 사이트 (니즈랩 NeedsLab)
 - 원본 `site/needslab/` (한 파일 HTML · 한국어/English · 밝게/어둡게) → 빌드 때 `dist-web/needslab/` 로 복사 (`scripts/make-standalone.mjs`), 앱 아이콘은 `store/`.
 - 지금 주소(미리보기): https://fctj.github.io/chang-korean/needslab/
-- 남은 일: 회사 도메인 구입(사용자) → 별도 저장소 + GitHub Pages 사용자 지정 도메인으로 옮기기, 문의 메일 주소(`CONTACT_EMAIL` 상수), 회사 정보(대표·주소·사업자 번호 등 필요하면).
+- 회사 정보(사업자등록증명 2026-11-23 발급 기준, 공개 정보만): 상호 니즈랩 · 대표 임태준 · 사업자등록번호 540-10-03426 · 경기도 성남시 중원구 자혜로113번길 3, B2호(은행동) · 개업 2026-06-01 · 정보통신업 / 응용 소프트웨어 개발 및 공급업. 주민번호·발급번호는 어디에도 넣지 않음.
+  - 회사 사이트 아래쪽(`site/needslab/index.html` footer + JSON-LD), 개인정보처리방침 '9. 문의'(`scripts/make-standalone.mjs` 의 `operator` · `operatorEn`) 두 곳에 같은 내용 — 바뀌면 둘 다 고칠 것.
+  - 문의 메일은 앱과 같은 `iamexample2@gmail.com` (`src/config.ts` `CONTACT_EMAIL`, 회사 사이트 스크립트 `CONTACT_EMAIL`).
+  - 지금은 무료 앱이라 통신판매업 신고 번호 없음. 유료 결제를 붙이면 신고 후 아래쪽에 번호 추가.
+- 도메인 needslab.kro.kr: 사용자가 빈 저장소 `FCtj/needslab-site` 를 만듦. Claude GitHub 앱이 그 저장소에 설치되면 `site/needslab/` 내용을 그대로 올리고 Pages(Source: GitHub Actions) + Custom domain 설정 (`site/needslab/README.md`).
+  - **주의**: 저장소 이름을 `FCtj.github.io` 로 하고 도메인을 붙이면 앱 주소(fctj.github.io/chang-korean)까지 needslab.kro.kr 로 옮겨져 로그인·학습 기록이 끊김. 별도 이름 저장소만 쓸 것.
 
 ## 판별 내용
 - **일본어판**: JLPT N5·N4·N3 (3,449) + 학교·생활 일본어 = 교육과정 기본 ①②(2022 개정 고교 「일본어」 기본 어휘표 896) → 생활 회화 ①②③(JMdict 상용어 900). 마스코트 시바견.
