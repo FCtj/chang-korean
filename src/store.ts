@@ -393,9 +393,13 @@ export function isPromoOpen(s: State, tierNo: number): boolean {
   return tier.rounds.every((r) => s.passedRounds.includes(r.id))
 }
 
-/** 외운 단어인지 ('외웠어요' 표시 또는 통과한 회차의 단어) */
+/**
+ * 외운 단어인지: 문제에서 맞힌(또는 '외웠어요' 표시한) 단어, 또는 통과한 단원의 단어.
+ * 단원 시험을 90% 로 통과했어도 그 시험(또는 다른 문제)에서 틀리고 아직 다시 맞히지 않은 단어는 외운 단어로 세지 않음
+ */
 export function isKnown(s: State, w: Word): boolean {
-  return !!s.known[w.id] || s.passedRounds.includes(w.roundId)
+  if (s.known[w.id]) return true
+  return s.passedRounds.includes(w.roundId) && !s.wordStats[w.id]?.w
 }
 
 export function knownCount(s: State, round: Round): number {
