@@ -1009,6 +1009,12 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   const r = (await as(U.ploy, () => q(`select display_name, login_name, provider, apps, study_seconds, words, points from admin_users('제킹', 'new', 10, 0)`))).rows
   check('admin_users: finds by original login name, shows provider/apps, counts edition activity and points', r.length === 1 && r[0].display_name === '제*' && r[0].login_name === '제킹' && r[0].provider === 'kakao' && r[0].apps === 'ja' && Number(r[0].study_seconds) === 300 && Number(r[0].words) === 12 && Number(r[0].points) === 10, JSON.stringify(r))
   check('admin_users: non-admin refused', await (async () => { try { await as(K, () => q(`select * from admin_users(null, 'new', 5, 0)`)); return false } catch (e) { return String(e.message).includes('not_admin') } })())
+  // 회원 상세: 판(일본어판) 기록도 60일 그래프 · 포인트 · 공부한 날에
+  await q(`update edition_progress set data = '{"studyDays":["2026-11-22","2026-11-23"],"streak":2}' where user_id = $1 and app = 'ja'`, [K])
+  const det = (await as(U.ploy, () => q('select admin_user_detail($1) as d', [K]))).rows[0].d
+  check('admin_user_detail: edition activity in 60-day chart, edition points, edition study days/streak', det.activity.length === 1 && det.activity[0].seconds === 300 && det.activity[0].words === 12 && JSON.stringify(det.activity[0].apps) === '["ja"]' && det.points.length === 1 && det.points[0].app === 'ja' && det.points[0].points === 10 && det.study_days === 2 && det.streak === 2, JSON.stringify(det))
+  const det2 = (await as(U.ploy, () => q('select admin_user_detail($1) as d', [U.keo]))).rows[0].d
+  check('admin_user_detail: Korean app history still there', det2.points.length > 0 && det2.points.every((p) => p.app === 'ko') && Array.isArray(det2.activity), JSON.stringify({ n: det2.points.length }))
 }
 
 // ───────── 로그인 시도 기록 ─────────

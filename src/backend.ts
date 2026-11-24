@@ -300,8 +300,9 @@ export interface AdminUser {
   total: number
 }
 export interface AdminUserDetail {
-  activity: { day: string; seconds: number; words: number; questions: number; sessions: number; country: string | null; city: string | null }[]
-  points: { kind: string; ref: string | null; points: number; created_at: string }[]
+  /** 날짜별 합계 — 한국어판 + 판(일본어·영어·라오스어) (apps: 그날 공부한 앱) */
+  activity: { day: string; seconds: number; words: number; questions: number; sessions: number; country: string | null; city: string | null; apps?: string[] | null }[]
+  points: { kind: string; ref: string | null; points: number; created_at: string; app?: string }[]
   groups: number
   study_days: number
   streak: number | null

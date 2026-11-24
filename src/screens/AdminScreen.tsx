@@ -214,7 +214,7 @@ function UserSheet({ user, mask, onClose }: { user: AdminUser; mask: boolean; on
         </div>
         {err && <p className="note bad">불러오지 못했어요: {err}</p>}
         <div className="adm-tiles">
-          <Tile label="활동한 날" value={`${user.active_days}일`} sub={d ? `공부한 날(기기) ${d.study_days}일` : undefined} />
+          <Tile label="활동한 날" value={`${user.active_days}일`} sub={d ? `공부한 날(기기 기록) ${d.study_days}일` : undefined} />
           <Tile label="공부 시간" value={fmtDur(user.study_seconds)} sub={`단어 ${fmtNum(user.words)} · 문제 ${fmtNum(user.questions)}`} />
           <Tile label="포인트" value={fmtNum(user.points)} sub={`최근 7일 ${fmtNum(user.points_7d)}`} />
           <Tile label="그룹" value={d ? `${d.groups}개` : '…'} sub={d?.streak ? `연속 ${d.streak}일` : undefined} />
@@ -243,7 +243,7 @@ function UserSheet({ user, mask, onClose }: { user: AdminUser; mask: boolean; on
           {(d?.points ?? []).map((p, i) => (
             <li key={i}>
               <span>{kindLabel[p.kind] ?? p.kind}</span>
-              <span className="note">{p.ref ?? ''}</span>
+              <span className="note">{[p.app && p.app !== 'ko' ? APP_LABEL[p.app] ?? p.app : '', p.ref ?? ''].filter(Boolean).join(' · ')}</span>
               <span className="num">+{p.points}</span>
               <span className="note">{ago(p.created_at)}</span>
             </li>
