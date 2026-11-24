@@ -50,8 +50,13 @@ curl -LO https://raw.githubusercontent.com/HaHVU/HVULao_NLP/main/Datatest1k/test
 
 ## 4. 화면 점검 (`tools/smoke/`)
 빌드(`npm run build:single && npm run build:editions`) 후 저장소 루트에서 `node tools/smoke/<이름>.mjs`. 스크린샷은 `tools/_work/` 아래에 저장.
+- `admin-feedback.mjs`: 관리자 📮 수정 요청 흐름 (새 요청 → 맡기기 → 복사 글 → 결과 붙여넣기)
 - `login-attempts.mjs`: 카카오 버튼 → 오류/그냥 돌아옴이 로그인 시도 기록으로 가는지
 - `offline.mjs`: 한 번 연 뒤 인터넷을 끊고 다시 열기 · 끊긴 동안 기록이 다시 연결되면 가는지
 - `device-activity.mjs`: 로그인하지 않은 기기 기록이 서버로 가는지 (판마다)
 - `lo-smoke.mjs` · `lo-freq-smoke.mjs`: 라오스어판 · `daily-smoke.mjs`: 판 두 번째 코스 · `toast-shot.mjs`: 공부 화면 안내(토스트) · `feedback-smoke.mjs`: 수정 요청 · `rank-shot2.mjs`: 랭킹(이름 가림·사진 모자이크 — `tools/_work/faces.json` 필요) · `smoke50.mjs`: 일본어·영어 발음 소리 · `carbon-shot.mjs`: 어두운 테마 로고
 - Playwright 는 `require('playwright')` 를 먼저 찾고, 없으면 클라우드 환경 경로(`/opt/node22/...`)를 씁니다.
+
+## 5. 수정 요청 처리 (`tools/feedback/`)
+- `find-word.mjs <ko|ja|en|lo> "<단어 id 와 단어 또는 단어>"`: 수정 요청의 단어가 데이터 파일 어디에 있는지 (파일:줄). 처리 순서는 `docs/FEEDBACK.md`.
+- `tools/exmore/`: 예문 ②③ 만들기 (지침 `SPEC-ja.md` · 검사 `check-ja.py`(SudachiPy 로 가나 읽기 대조) · 빌드 `build-ja.py`).

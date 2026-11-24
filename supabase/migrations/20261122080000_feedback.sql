@@ -59,7 +59,8 @@ $$;
 revoke all on function public.submit_feedback(text, text, text, text, text, text, text) from public;
 grant execute on function public.submit_feedback(text, text, text, text, text, text, text) to anon, authenticated;
 
--- 관리자: 처리 안 한 것 먼저, 최신 순
+-- 관리자: 처리 안 한 것 먼저, 최신 순 (반환 열이 20261124010000_feedback_workflow.sql 에서 늘어나서, 다시 실행해도 되게 먼저 지움)
+drop function if exists public.admin_feedback(text, int);
 create or replace function public.admin_feedback(p_status text default null, p_limit int default 100)
 returns table (
   id bigint, created_at timestamptz, app text, kind text, category text, target text, context text,

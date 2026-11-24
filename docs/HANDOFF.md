@@ -41,6 +41,10 @@
 - 일본어판 예문 3개씩: '?' 창에 예문 ①②③ (`src/data/ja/ex-more-*.ts`, 8,788문장 초안, 도구 `tools/exmore/`). 영어·라오스어·한국어판은 아직 1개 — 같은 방식으로 늘릴 수 있음 (`EX_MORE` / `ED_EX_MORE`, 한국어판은 `ExampleEntry.more`)
 - 공부 화면 버튼 줄(다시 볼래요·⏸·외웠어요)·문제 '다음'은 화면 아래에 붙음, 홈은 이어하기 카드가 먼저
 
+## 수정 요청 (관리자 📮, 맨 위)
+- 새 요청 → 운영자가 지시를 붙여 'Claude 에게 맡김' → 「Claude 에게 보낼 글 복사」를 Claude 에게 붙여 넣음 → Claude 가 고치고 배포 후 `CHANG-DONE` 블록 → 📮 에 붙여 넣으면 처리함. 자세히: [`docs/FEEDBACK.md`](FEEDBACK.md)
+- 점검: `node tools/smoke/admin-feedback.mjs` (서버를 흉내 내어 전체 흐름)
+
 ## 로그인 시도 (관리자 🔑)
 - 앱이 로그인 버튼(start)·성공·오류로 돌아옴(error)·그냥 돌아옴(abandoned)을 `log_login_attempt` 로 남김 (기기 번호·브라우저 종류 포함, `src/backend.ts` `logLogin`).
 - 관리자 화면 🔑: 앱·방법별 합계, 실제로 생긴 계정, 서버에 남은 끝나지 않은 OAuth(auth.flow_state), 최근 40건. 친구가 '가입했다'는데 계정이 없을 때 여기서 원인 확인.
@@ -53,7 +57,7 @@
 
 ## Supabase (사용자가 SQL 편집기에서 직접 실행)
 `supabase/migrations/` 순서대로. 사용자가 2026-11-23 에 `20261123010000_admin_real_names.sql` 까지, 2026-11-24 에 `20261124000000_admin_user_detail_all_apps.sql` 을 실행했다고 함.
-**실행 확인 필요**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸)
+**실행 확인 필요**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸) · `20261124010000_feedback_workflow.sql` (📮 수정 요청: 맡김 상태 · 지시 · 처리 결과)
 새 마이그레이션을 만들면 사용자에게 실행을 부탁하고, 아래처럼 확인 SQL 을 드려서 결과를 받기 (클라우드 세션은 Supabase 에 직접 접속 못 함).
 
 확인용 SQL 예: `select to_regprocedure('public.handle_new_user()') is not null, to_regclass('public.device_activity') is not null, pg_get_function_result('public.admin_users(text,text,int,int)'::regprocedure) like '%login_name%';`

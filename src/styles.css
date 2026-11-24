@@ -7814,8 +7814,8 @@ body {
   margin: 4px 0 0;
   font-size: 0.9rem;
 }
-.fb-row.fb-done,
-.fb-row.fb-skip {
+.fb-row.fb-st-done,
+.fb-row.fb-st-skip {
   opacity: 0.6;
 }
 
@@ -7845,4 +7845,61 @@ body {
 .adm-login-item.st-success {
   border-inline-start: 3px solid var(--good, #2bb673);
   padding-inline-start: 8px;
+}
+
+/* ── 관리자 📮 수정 요청: 지시 → Claude 에게 맡김 → 결과 붙여넣기 ── */
+.adm-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fb-how {
+  margin: 0;
+  line-height: 1.55;
+}
+.fb-info {
+  margin: 0;
+  color: var(--mint-deep, #1f9d7a);
+  font-weight: 600;
+}
+.fb-row.fb-st-todo {
+  border-color: var(--lilac, #b9a6ff);
+}
+.fb-note {
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: var(--lilac-soft);
+  font-size: 0.92rem;
+  white-space: pre-wrap;
+}
+.fb-note.done {
+  background: var(--mint-soft, #e3f7ef);
+}
+.fb-note-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+.fb-claude {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px dashed var(--line);
+}
+.fb-brief {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  white-space: pre;
+  overflow-x: auto;
+}
+:root[data-theme='carbon'] .fb-note {
+  background: #1f2330;
+}
+:root[data-theme='carbon'] .fb-note.done {
+  background: #16261f;
 }

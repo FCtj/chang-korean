@@ -51,3 +51,4 @@ Pages 워크플로는 `npm test` → `build:single` → `build:editions` 순서�
 - 카드 앞면(외울 말)에는 그림을 보여 주지 않음 — 그림이 답을 알려 주기 때문 (설정 '앞면에 그림 힌트'로만 켬).
 - 판 단어 파일 형식·검사: `src/data/edition-types.ts`, `scripts/check-edition.mjs`, `scripts/check-editions.mjs`.
 - 뜻·예문 중 앱에서 새로 쓴 것은 '초안' — 사용자들이 앱의 「틀린 곳 알리기」로 보낸 요청은 관리자 화면 📮 에서 확인.
+- **수정 요청 처리**: 운영자가 「[Chang 수정 요청] … #번호 | …」 글을 붙여 넣으면 [`docs/FEEDBACK.md`](docs/FEEDBACK.md) 대로 고치고 배포한 뒤 끝에 `CHANG-DONE` 블록으로 보고. 단어 위치 찾기: `node tools/feedback/find-word.mjs <앱> "<단어>"`.

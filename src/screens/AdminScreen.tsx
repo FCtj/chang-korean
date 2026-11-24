@@ -20,8 +20,11 @@ import {
   adminModerate,
   adminReports,
   adminFeedback,
+  adminFeedbackCounts,
   adminFeedbackSet,
   type AdminFeedback,
+  type FeedbackCounts,
+  type FeedbackStatus,
   adminOverview,
   adminUserDetail,
   adminUsers,
@@ -374,50 +377,170 @@ function Reports({ mask }: { mask: boolean }) {
 const FB_CAT: Record<string, string> = { pron: '🔊 발음', meaning: '📖 뜻', example: '💬 예문', picture: '🖼️ 그림', bug: '🐞 오류', idea: '💡 제안', other: '✏️ 기타' }
 const FB_APP: Record<string, string> = { ko: '🇰🇷 한국어판', ja: '🇯🇵 일본어판', en: '🇺🇸 영어판', lo: '🇱🇦 라오스어판' }
 
-/** 📮 수정 요청 · 제안: 처리 안 한 것 먼저 → 고침 · 넘김 · 삭제 */
+/** 📮 수정 요청 · 제안 — 새 요청 → (지시를 붙여) Claude 에게 맡김 → 고침 / 넘김. 처리 방법: docs/FEEDBACK.md */
+type FbTab = 'new' | 'todo' | 'closed'
+const FB_TAB_LABEL: Record<FbTab, string> = { new: '새 요청', todo: '🤖 맡김', closed: '처리함' }
+
+/** Claude 에게 붙여 넣을 글 (개인 이름은 넣지 않음) */
+function feedbackBrief(rows: AdminFeedback[]): string {
+  const day = new Date().toLocaleDateString('sv-SE')
+  const head = `[Chang 수정 요청] 저장소 docs/FEEDBACK.md 대로 처리해 줘 · ${day} · ${rows.length}건`
+  const items = rows.map((r) => {
+    const top = [`#${r.id}`, `${FB_APP[r.app] ?? r.app}(${r.app})`, FB_CAT[r.category] ?? r.category]
+    if (r.target) top.push(`단어: ${r.target}`)
+    if (r.context) top.push(`지금: ${r.context}`)
+    if (!r.target) top.push(`화면 언어 ${r.ui ?? '—'}`)
+    return [top.join(' | '), `  보낸 말: ${r.message.replace(/\s+/g, ' ').trim()}`, `  지시: ${r.admin_note?.trim() || '(없음 — 알아서 판단)'}`].join('\n')
+  })
+  return [head, '', ...items, '', '끝나면 맨 아래에 CHANG-DONE 블록을 붙여 줘 (관리자 화면 📮 에 붙여 넣어 처리함 표시).'].join('\n')
+}
+
+/** Claude 의 CHANG-DONE 블록 읽기: "#12 | done | 무엇을 고쳤는지" · "#13 | skip | 이유" (상태를 빼면 done) */
+function parseDone(text: string): { id: number; status: 'done' | 'skip'; note: string }[] {
+  const out: { id: number; status: 'done' | 'skip'; note: string }[] = []
+  for (const line of text.split('\n')) {
+    const m = line.trim().match(/^#?(\d+)\s*[|:·-]\s*(?:(done|skip|고침|넘김)\s*[|:·-]\s*)?(.*)$/i)
+    if (!m) continue
+    const st = (m[2] ?? 'done').toLowerCase()
+    out.push({ id: Number(m[1]), status: st === 'skip' || st === '넘김' ? 'skip' : 'done', note: m[3].trim() })
+  }
+  return out
+}
+
 function FeedbackPanel({ mask }: { mask: boolean }) {
+  const [tab, setTab] = useState<FbTab>('new')
   const [rows, setRows] = useState<AdminFeedback[] | null>(null)
+  const [counts, setCounts] = useState<FeedbackCounts | null>(null)
   const [err, setErr] = useState('')
-  const [all, setAll] = useState(false)
+  const [noteFor, setNoteFor] = useState<number | null>(null)
+  const [note, setNote] = useState('')
+  const [brief, setBrief] = useState('')
+  const [paste, setPaste] = useState('')
+  const [info, setInfo] = useState('')
+  const [busy, setBusy] = useState(false)
   const load = useCallback(() => {
-    adminFeedback(all ? null : 'new', 200).then(setRows, (e) => {
+    adminFeedback(tab, 200).then(setRows, (e) => {
       setErr(String((e as Error).message ?? e))
       setRows([])
     })
-  }, [all])
+    adminFeedbackCounts().then(setCounts, () => setCounts(null))
+  }, [tab])
   useEffect(() => {
+    setRows(null)
+    setBrief('')
+    setInfo('')
     load()
   }, [load])
-  const act = async (id: number, a: 'done' | 'skip' | 'new' | 'delete') => {
+  const act = async (id: number, a: FeedbackStatus | 'delete', n?: string) => {
     if (a === 'delete' && !confirm('삭제할까요?')) return
     try {
-      await adminFeedbackSet(id, a)
+      await adminFeedbackSet(id, a, n)
+      setNoteFor(null)
+      setNote('')
       load()
     } catch (e) {
       setErr(String((e as Error).message ?? e))
     }
   }
+  const allToTodo = async () => {
+    if (!rows?.length || !confirm(`새 요청 ${rows.length}건을 지시 없이 모두 Claude 에게 맡길까요?`)) return
+    setBusy(true)
+    for (const r of rows) await adminFeedbackSet(r.id, 'todo').catch(() => {})
+    setBusy(false)
+    setTab('todo')
+  }
+  const copyBrief = async () => {
+    const text = feedbackBrief(rows ?? [])
+    setBrief(text)
+    try {
+      await navigator.clipboard.writeText(text)
+      setInfo('복사했어요 — Claude 채팅에 붙여 넣으세요')
+    } catch {
+      setInfo('아래 글을 길게 눌러 전체 복사해 주세요')
+    }
+  }
+  const applyDone = async () => {
+    const list = parseDone(paste)
+    if (!list.length) {
+      setInfo('읽을 줄이 없어요 — "#번호 | done | 내용" 모양인지 봐 주세요')
+      return
+    }
+    setBusy(true)
+    let ok = 0
+    for (const x of list) {
+      try {
+        await adminFeedbackSet(x.id, x.status, x.note)
+        ok++
+      } catch {
+        /* 없는 번호 등은 건너뜀 */
+      }
+    }
+    setBusy(false)
+    setPaste('')
+    setInfo(`${ok}건을 처리함으로 바꿨어요${ok < list.length ? ` (${list.length - ok}건 실패)` : ''}`)
+    load()
+  }
   const missing = err.includes('admin_feedback') || err.includes('function')
+  const n = (k: FeedbackStatus) => counts?.[k] ?? 0
   return (
-    <section className="panel adm-feedback">
+    <section className="panel adm-feedback" id="adm-feedback">
       <h3 className="adm-h">
-        📮 수정 요청 · 제안 {rows && rows.length > 0 && <small className="note">· {rows.length}건</small>}
+        📮 수정 요청 · 제안{' '}
+        {counts && (
+          <small className="note">
+            · 새 {n('new')} · 맡김 {n('todo')} · 처리 {n('done') + n('skip')}
+          </small>
+        )}
       </h3>
       {missing ? (
-        <p className="adm-flag">서버에 수정 요청 SQL(20261122080000_feedback.sql)을 아직 실행하지 않았어요</p>
+        <p className="adm-flag">서버에 수정 요청 SQL 을 아직 실행하지 않았어요 ({err.includes('admin_feedback_counts') || err.includes('p_note') ? '20261124010000_feedback_workflow.sql' : '20261122080000_feedback.sql'})</p>
       ) : (
         <>
-          <Toggle id="fb-all" label="처리한 것도 보기" on={all} onChange={setAll} />
+          <p className="note fb-how">
+            ① 새 요청을 읽고 <b>🤖 Claude 에게 맡기기</b> (지시를 적어도 되고 비워도 돼요) → ② <b>맡김</b> 탭에서 <b>📋 Claude 에게 보낼 글 복사</b> → Claude 채팅에 붙여 넣기 → ③ Claude 가 고치고 배포한 뒤 준 <b>CHANG-DONE</b> 줄을 아래 칸에 붙여 넣기
+          </p>
+          <Segmented<FbTab>
+            name="수정 요청"
+            value={tab}
+            onChange={setTab}
+            options={(['new', 'todo', 'closed'] as FbTab[]).map((k) => ({
+              id: k,
+              label: `${FB_TAB_LABEL[k]}${counts ? ` ${k === 'closed' ? n('done') + n('skip') : n(k)}` : ''}`,
+            }))}
+          />
+          {err && !missing && <p className="adm-flag">{err}</p>}
+          {info && <p className="note fb-info">{info}</p>}
+          {tab === 'new' && rows && rows.length > 1 && (
+            <button className="btn btn-soft btn-block" disabled={busy} onClick={allToTodo}>
+              🤖 새 요청 {rows.length}건 모두 맡기기 (지시 없이)
+            </button>
+          )}
+          {tab === 'todo' && rows && rows.length > 0 && (
+            <div className="fb-claude">
+              <button className="btn btn-pink btn-block" onClick={copyBrief}>
+                📋 Claude 에게 보낼 글 복사 ({rows.length}건)
+              </button>
+              {brief && <textarea className="input fb-brief" readOnly rows={8} value={brief} onFocus={(e) => e.currentTarget.select()} />}
+              <label className="note" htmlFor="fb-paste">
+                ✅ Claude 결과 붙여넣기 (CHANG-DONE 블록)
+              </label>
+              <textarea id="fb-paste" className="input fb-brief" rows={4} placeholder={'#12 | done | 歯 예문을 바꿈\n#13 | skip | 이미 맞는 뜻'} value={paste} onChange={(e) => setPaste(e.target.value)} />
+              <button className="btn btn-mint btn-block" disabled={busy || !paste.trim()} onClick={applyDone}>
+                처리함으로 표시
+              </button>
+            </div>
+          )}
           {rows === null && <p className="note">…</p>}
-          {rows && rows.length === 0 && <p className="note">{all ? '아직 받은 요청이 없어요' : '새 요청이 없어요 👍'}</p>}
-          {err && <p className="adm-flag">{err}</p>}
+          {rows && rows.length === 0 && <p className="note">{tab === 'new' ? '새 요청이 없어요 👍' : tab === 'todo' ? '맡긴 요청이 없어요' : '아직 처리한 요청이 없어요'}</p>}
           <ul className="adm-list">
             {rows?.map((r) => (
-              <li key={r.id} className={`adm-report fb-row fb-${r.status}`}>
+              <li key={r.id} className={`adm-report fb-row fb-st-${r.status}`}>
                 <div className="adm-report-top">
+                  <span className="chip num">#{r.id}</span>
                   <span className="chip">{FB_APP[r.app] ?? r.app}</span>
                   <span className="chip chip-pink">{FB_CAT[r.category] ?? r.category}</span>
-                  {r.status !== 'new' && <span className="chip chip-mint">{r.status === 'done' ? '고침' : '넘김'}</span>}
+                  {r.status === 'done' && <span className="chip chip-mint">✅ 고침</span>}
+                  {r.status === 'skip' && <span className="chip">넘김</span>}
                   <span className="note">{new Date(r.created_at).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
                 {r.target && (
@@ -431,25 +554,75 @@ function FeedbackPanel({ mask }: { mask: boolean }) {
                 <p className="note">
                   {r.user_id ? (mask ? maskName(r.display_name || '—') : r.display_name || '(이름 없음)') : '로그인 안 함'} · 화면 언어 {r.ui ?? '—'}
                 </p>
-                <div className="adm-report-actions">
-                  {r.status === 'new' ? (
-                    <>
-                      <button className="btn btn-soft sm" onClick={() => act(r.id, 'done')}>
-                        ✅ 고침
+                {r.admin_note && <p className="fb-note">📝 지시: {r.admin_note}</p>}
+                {r.resolved_note && <p className="fb-note done">🔧 처리: {r.resolved_note}</p>}
+                {noteFor === r.id ? (
+                  <div className="fb-note-edit">
+                    <textarea
+                      className="input"
+                      rows={2}
+                      maxLength={1000}
+                      autoFocus
+                      placeholder="지시 (비워도 돼요) 예) 뜻을 '치아'로 · 예문만 고쳐 · 그대로 둬"
+                      value={note}
+                      onChange={(e) => setNote(e.target.value)}
+                    />
+                    <div className="adm-report-actions">
+                      <button className="btn btn-pink sm" onClick={() => act(r.id, 'todo', note)}>
+                        🤖 맡기기
                       </button>
-                      <button className="btn btn-soft sm" onClick={() => act(r.id, 'skip')}>
-                        넘김
+                      <button className="btn btn-soft sm" onClick={() => setNoteFor(null)}>
+                        취소
                       </button>
-                    </>
-                  ) : (
-                    <button className="btn btn-soft sm" onClick={() => act(r.id, 'new')}>
-                      다시 열기
+                    </div>
+                  </div>
+                ) : (
+                  <div className="adm-report-actions">
+                    {r.status === 'new' && (
+                      <>
+                        <button
+                          className="btn btn-pink sm"
+                          onClick={() => {
+                            setNoteFor(r.id)
+                            setNote(r.admin_note ?? '')
+                          }}
+                        >
+                          🤖 Claude 에게 맡기기
+                        </button>
+                        <button className="btn btn-soft sm" onClick={() => act(r.id, 'skip')}>
+                          넘김
+                        </button>
+                        <button className="btn btn-soft sm" onClick={() => act(r.id, 'done')}>
+                          ✅ 이미 고침
+                        </button>
+                      </>
+                    )}
+                    {r.status === 'todo' && (
+                      <>
+                        <button
+                          className="btn btn-soft sm"
+                          onClick={() => {
+                            setNoteFor(r.id)
+                            setNote(r.admin_note ?? '')
+                          }}
+                        >
+                          📝 지시 고치기
+                        </button>
+                        <button className="btn btn-soft sm" onClick={() => act(r.id, 'new')}>
+                          맡기기 취소
+                        </button>
+                      </>
+                    )}
+                    {(r.status === 'done' || r.status === 'skip') && (
+                      <button className="btn btn-soft sm" onClick={() => act(r.id, 'new')}>
+                        다시 열기
+                      </button>
+                    )}
+                    <button className="btn btn-soft sm danger" onClick={() => act(r.id, 'delete')}>
+                      삭제
                     </button>
-                  )}
-                  <button className="btn btn-soft sm danger" onClick={() => act(r.id, 'delete')}>
-                    삭제
-                  </button>
-                </div>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -632,6 +805,9 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
         </div>
         {err && <p className="adm-flag">불러오지 못했어요: {err}</p>}
 
+        {/* 📮 수정 요청은 맨 위 — 매일 가장 먼저 보는 곳 */}
+        <FeedbackPanel mask={mask} />
+
         {ov && (
           <>
             <div className="adm-tiles">
@@ -710,7 +886,6 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
         )}
 
         <LoginPanel />
-        <FeedbackPanel mask={mask} />
         <Reports mask={mask} />
         <LoggingCheck />
 

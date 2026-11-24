@@ -1065,5 +1065,41 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('admin_login_overview: anon refused', na !== '', na)
 }
 
+// ───────── 수정 요청 처리 흐름: 새 요청 → Claude 에게 맡김(지시) → 고침/넘김(결과) ─────────
+{
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message)
+    }
+  }
+  const asAnon = async (fn) => {
+    await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)
+    try {
+      return await fn()
+    } finally {
+      await db.exec('reset role;')
+    }
+  }
+  const fid = (await asAnon(() => q(`select submit_feedback('ja', 'word', 'meaning', 't-topik-1-d01-01 歯', 'は · 이, 치아', '뜻이 이상해요', 'ko') as id`))).rows[0].id
+  await as(U.ploy, () => q(`select admin_feedback_set($1, 'todo', $2)`, [fid, "뜻을 '이, 치아' 그대로 두고 예문만 확인"]))
+  const todo = (await as(U.ploy, () => q(`select * from admin_feedback('todo', 50)`))).rows
+  const mine = todo.find((r) => Number(r.id) === Number(fid))
+  check('feedback workflow: todo with admin note, listed under todo', mine && mine.status === 'todo' && mine.admin_note.startsWith('뜻을') && mine.resolved_note === null && mine.updated_at, JSON.stringify(mine))
+  const c1 = (await as(U.ploy, () => q('select admin_feedback_counts() as c'))).rows[0].c
+  check('feedback workflow: counts by status', c1.todo >= 1 && typeof c1.new === 'number' && typeof c1.done === 'number', JSON.stringify(c1))
+  await as(U.ploy, () => q(`select admin_feedback_set($1, 'done', $2)`, [fid, '예문 ③ 을 바꿈']))
+  const done = (await q('select status, admin_note, resolved_note from feedback where id = $1', [fid])).rows[0]
+  check('feedback workflow: done keeps the instruction and stores the result', done.status === 'done' && done.admin_note.startsWith('뜻을') && done.resolved_note === '예문 ③ 을 바꿈', JSON.stringify(done))
+  const closed = (await as(U.ploy, () => q(`select id from admin_feedback('closed', 500)`))).rows
+  check("feedback workflow: 'closed' lists done + skip", closed.some((r) => Number(r.id) === Number(fid)))
+  await as(U.ploy, () => q(`select admin_feedback_set($1, 'new')`, [fid]))
+  check('feedback workflow: reopening clears the result', (await q('select status, resolved_note from feedback where id = $1', [fid])).rows[0].resolved_note === null)
+  check('feedback workflow: bad status refused', (await err(() => as(U.ploy, () => q(`select admin_feedback_set($1, 'hack')`, [fid])))).includes('bad_status'))
+  check('feedback workflow: non-admin cannot count', (await err(() => asAnon(() => q('select admin_feedback_counts()')))) !== '')
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

@@ -410,20 +410,36 @@ export type AdminFeedback = {
   context: string | null
   message: string
   ui: string | null
-  status: 'new' | 'done' | 'skip'
+  /** new 새 요청 → todo Claude 에게 맡김 → done 고침 / skip 넘김 */
+  status: FeedbackStatus
   user_id: string | null
   display_name: string | null
+  /** 관리자가 Claude 에게 남긴 지시 */
+  admin_note?: string | null
+  /** 처리 결과 (무엇을 고쳤는지 / 왜 넘겼는지) */
+  resolved_note?: string | null
+  updated_at?: string | null
 }
-export async function adminFeedback(status: 'new' | 'done' | 'skip' | null = null, limit = 100): Promise<AdminFeedback[]> {
+export type FeedbackStatus = 'new' | 'todo' | 'done' | 'skip'
+export type FeedbackCounts = Record<FeedbackStatus, number>
+/** status: 'closed' = 고침 + 넘김, null = 전체 */
+export async function adminFeedback(status: 'new' | 'todo' | 'closed' | 'done' | 'skip' | null = null, limit = 200): Promise<AdminFeedback[]> {
   if (!supabase) throw new Error('no_backend')
   const { data, error } = await supabase.rpc('admin_feedback', { p_status: status, p_limit: limit })
   if (error) throw new Error(error.message)
   return (data ?? []) as AdminFeedback[]
 }
-export async function adminFeedbackSet(id: number, status: 'new' | 'done' | 'skip' | 'delete'): Promise<void> {
+/** 상태 바꾸기 + 메모 (todo: 지시, done/skip: 처리 결과) */
+export async function adminFeedbackSet(id: number, status: FeedbackStatus | 'delete', note?: string): Promise<void> {
   if (!supabase) throw new Error('no_backend')
-  const { error } = await supabase.rpc('admin_feedback_set', { p_id: id, p_status: status })
+  const { error } = await supabase.rpc('admin_feedback_set', { p_id: id, p_status: status, p_note: note ?? null })
   if (error) throw new Error(error.message)
+}
+export async function adminFeedbackCounts(): Promise<FeedbackCounts> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_feedback_counts')
+  if (error) throw new Error(error.message)
+  return data as FeedbackCounts
 }
 
 /** 관리자: 로그인 시도 (앱·방법별 합계 · 최근 기록 · 서버의 가입 수 · 끝나지 않은 OAuth) */
