@@ -1009,6 +1009,11 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   const r = (await as(U.ploy, () => q(`select display_name, login_name, provider, apps, study_seconds, words, points from admin_users('제킹', 'new', 10, 0)`))).rows
   check('admin_users: finds by original login name, shows provider/apps, counts edition activity and points', r.length === 1 && r[0].display_name === '제*' && r[0].login_name === '제킹' && r[0].provider === 'kakao' && r[0].apps === 'ja' && Number(r[0].study_seconds) === 300 && Number(r[0].words) === 12 && Number(r[0].points) === 10, JSON.stringify(r))
   check('admin_users: non-admin refused', await (async () => { try { await as(K, () => q(`select * from admin_users(null, 'new', 5, 0)`)); return false } catch (e) { return String(e.message).includes('not_admin') } })())
+  // 첫 화면: 판(일본어판) 공부도 사람 수 · 공부 시간 · 코스에, 공부 안 한 접속(0분) 줄은 사람 수에서 빠짐
+  const ovBefore = (await as(U.ploy, () => q('select admin_overview(30) as o'))).rows[0].o
+  await q(`insert into daily_activity (user_id, day, study_seconds, words_seen, questions, sessions) values ($1, (now() at time zone 'Asia/Vientiane')::date, 0, 0, 0, 0) on conflict do nothing`, [K])
+  const ovAfter = (await as(U.ploy, () => q('select admin_overview(30) as o'))).rows[0].o
+  check('admin_overview: counts edition study (time, people, course) and ignores 0-minute visits', ovBefore.seconds_7d >= 300 && ovBefore.active_7d >= 1 && Object.keys(ovBefore.courses).some((k) => k.startsWith('ja:')) && ovAfter.active_7d === ovBefore.active_7d && ovAfter.seconds_7d === ovBefore.seconds_7d, JSON.stringify({ s: ovBefore.seconds_7d, a7: ovBefore.active_7d, a7b: ovAfter.active_7d, courses: ovBefore.courses }))
   // 회원 상세: 판(일본어판) 기록도 60일 그래프 · 포인트 · 공부한 날에
   await q(`update edition_progress set data = '{"studyDays":["2026-11-22","2026-11-23"],"streak":2}' where user_id = $1 and app = 'ja'`, [K])
   const det = (await as(U.ploy, () => q('select admin_user_detail($1) as d', [K]))).rows[0].d

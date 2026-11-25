@@ -91,6 +91,14 @@ const courseLabel = (id: string, level?: number | null) => {
   const name = c ? c.title.ko : id
   return id === 'topik' && level ? `TOPIK ${level}급` : name
 }
+/** 첫 화면 '공부 중인 코스': 판은 'ja:topik' 처럼 앱 이름이 붙어 옴 */
+const courseLabelAll = (k: string) => {
+  const i = k.indexOf(':')
+  if (i < 0) return courseLabel(k)
+  const app = k.slice(0, i)
+  const c = k.slice(i + 1)
+  return `${APP_LABEL[app] ?? app} · ${c === 'topik' ? '레벨 코스' : c === 'job' ? '생활·학교 코스' : c}`
+}
 /** 의심 신호: 1시간 상한에 닿은 횟수 · 1초 안에 누른 정답 비율(정답 20개 이상일 때만) */
 function suspect(u: AdminUser): string | null {
   const parts: string[] = []
@@ -823,7 +831,7 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
             <DayBars title="날짜별 공부 시간" data={series.map((d) => ({ day: d.day, v: Math.round(d.seconds / 60) }))} unit="분" />
             <div className="adm-breaks">
               <Breakdown title="나라별 가입자" counts={ov.countries} label={countryLabel} />
-              <Breakdown title="공부 중인 코스" counts={ov.courses} label={(k) => courseLabel(k)} />
+              <Breakdown title="공부 중인 코스" counts={ov.courses} label={(k) => courseLabelAll(k)} />
               <Breakdown title="내 언어 (동의한 사람만)" counts={ov.natives} label={nativeLabel} note="성별·언어는 설정에서 동의한 사람만 서버에 있어요" />
             </div>
             {places && (

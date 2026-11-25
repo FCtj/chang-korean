@@ -57,7 +57,7 @@
 
 ## Supabase (사용자가 SQL 편집기에서 직접 실행)
 `supabase/migrations/` 순서대로. 사용자가 2026-11-23 에 `20261123010000_admin_real_names.sql` 까지, 2026-11-24 에 `20261124000000_admin_user_detail_all_apps.sql`, 2026-11-25 에 `20261124010000_feedback_workflow.sql` 을 실행했다고 함.
-**실행 확인 필요**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸)
+**실행 확인 필요**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸) · `20261125000000_admin_overview_all_apps.sql` (관리자 첫 화면 그래프에 판 공부 포함, 0분 접속은 '공부한 사람'에서 뺌)
 새 마이그레이션을 만들면 사용자에게 실행을 부탁하고, 아래처럼 확인 SQL 을 드려서 결과를 받기 (클라우드 세션은 Supabase 에 직접 접속 못 함).
 
 확인용 SQL 예: `select to_regprocedure('public.handle_new_user()') is not null, to_regclass('public.device_activity') is not null, pg_get_function_result('public.admin_users(text,text,int,int)'::regprocedure) like '%login_name%';`
