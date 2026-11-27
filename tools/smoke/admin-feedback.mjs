@@ -58,7 +58,8 @@ await ctx.route('**/*.supabase.co/**', async (route) => {
     }
     return json(null)
   }
-  if (rpc === 'admin_users' || rpc === 'admin_reports' || rpc === 'admin_access_places') return json([])
+  if (rpc === 'admin_access_places') return json({ countries: {}, cities: [] })
+  if (rpc === 'admin_users' || rpc === 'admin_reports') return json([])
   if (rpc) return json(null)
   return json([])
 })

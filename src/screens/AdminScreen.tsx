@@ -108,21 +108,44 @@ function suspect(u: AdminUser): string | null {
 }
 
 /** 막대 그래프 한 개 (한 가지 숫자 · 날짜별). 막대를 누르거나 올리면 그날 값 */
-function DayBars({ title, data, unit, fmt = fmtNum }: { title: string; data: { day: string; v: number }[]; unit: string; fmt?: (n: number) => string }) {
+function DayBars({
+  title,
+  data,
+  unit,
+  fmt = fmtNum,
+  legend,
+}: {
+  title: string
+  /** v2 가 있으면 막대 위에 옅은 색으로 쌓음 (예: v 로그인한 계정 · v2 로그인 안 한 기기) */
+  data: { day: string; v: number; v2?: number }[]
+  unit: string
+  fmt?: (n: number) => string
+  legend?: [string, string]
+}) {
   const [hover, setHover] = useState<number | null>(null)
-  const max = Math.max(1, ...data.map((d) => d.v))
-  const total = data.reduce((n, d) => n + d.v, 0)
+  const sum = (d: { v: number; v2?: number }) => d.v + (d.v2 ?? 0)
+  const max = Math.max(1, ...data.map(sum))
+  const total = data.reduce((n, d) => n + sum(d), 0)
+  const total1 = data.reduce((n, d) => n + d.v, 0)
   const W = 320
   const H = 120
   const gap = 2
   const bw = Math.max(2, (W - gap * (data.length - 1)) / data.length)
   const sel = hover !== null ? data[hover] : null
+  const split = (a: number, b: number) => (legend ? ` (${legend[0]} ${fmt(a)} · ${legend[1]} ${fmt(b)})` : '')
   return (
     <section className="adm-chart panel">
       <div className="adm-chart-head">
         <h3 className="adm-h">{title}</h3>
-        <span className="adm-chart-val">{sel ? `${fmtDay(sel.day)} · ${fmt(sel.v)}${unit}` : `합계 ${fmt(total)}${unit}`}</span>
+        <span className="adm-chart-val">{sel ? `${fmtDay(sel.day)} · ${fmt(sum(sel))}${unit}${split(sel.v, sel.v2 ?? 0)}` : `합계 ${fmt(total)}${unit}`}</span>
       </div>
+      {legend && (
+        <div className="adm-legend note">
+          <span className="adm-key" /> {legend[0]} {fmt(total1)}
+          {unit} <span className="adm-key k2" /> {legend[1]} {fmt(total - total1)}
+          {unit}
+        </div>
+      )}
       <svg className="adm-bars" viewBox={`0 0 ${W} ${H + 18}`} role="img" aria-label={`${title}: 최근 ${data.length}일, 합계 ${fmt(total)}${unit}`} onMouseLeave={() => setHover(null)}>
         <line className="adm-grid" x1={0} x2={W} y1={0.5} y2={0.5} />
         <line className="adm-grid" x1={0} x2={W} y1={H / 2} y2={H / 2} />
@@ -131,12 +154,16 @@ function DayBars({ title, data, unit, fmt = fmtNum }: { title: string; data: { d
           {fmt(max)}
         </text>
         {data.map((d, i) => {
-          const h = d.v > 0 ? Math.max(3, (d.v / max) * (H - 14)) : 0
+          const t = sum(d)
+          const h = t > 0 ? Math.max(3, (t / max) * (H - 14)) : 0
+          const h1 = t > 0 ? (h * d.v) / t : 0
           const x = i * (bw + gap)
           const r = Math.min(4, bw / 2, h)
+          const top = `M${x},${H} v${-(h - r)} q0,${-r} ${r},${-r} h${bw - 2 * r} q${r},0 ${r},${r} v${h - r} z`
           return (
             <g key={d.day} onMouseEnter={() => setHover(i)} onClick={() => setHover(hover === i ? null : i)}>
-              {h > 0 && <path className={hover === i ? 'adm-bar on' : 'adm-bar'} d={`M${x},${H} v${-(h - r)} q0,${-r} ${r},${-r} h${bw - 2 * r} q${r},0 ${r},${r} v${h - r} z`} />}
+              {h > 0 && <path className={hover === i ? 'adm-bar on' : d.v2 ? 'adm-bar k2' : 'adm-bar'} d={top} />}
+              {h > 0 && d.v2 ? h1 > 0 && <rect className={hover === i ? 'adm-bar on' : 'adm-bar'} x={x} y={H - h1} width={bw} height={h1} /> : null}
               <rect className="adm-hit" x={x - gap / 2} y={0} width={bw + gap} height={H} />
             </g>
           )
@@ -821,14 +848,23 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
             <div className="adm-tiles">
               <Tile label="전체 가입자" value={fmtNum(ov.users)} sub={`30일 신규 ${fmtNum(ov.new_30d)}`} />
               <Tile label="오늘 신규" value={fmtNum(ov.new_today)} sub={`7일 ${fmtNum(ov.new_7d)}`} />
-              <Tile label="오늘 공부한 사람" value={fmtNum(ov.active_today)} sub={`7일 ${fmtNum(ov.active_7d)} · 30일 ${fmtNum(ov.active_30d)}`} />
-              <Tile label="7일 공부 시간" value={fmtDur(ov.seconds_7d)} sub={`1명 하루 평균 ${fmtDur(last7Active ? ov.seconds_7d / last7Active : 0)}`} />
+              <Tile
+                label="오늘 공부한 사람"
+                value={fmtNum(ov.active_today + (ov.anon_today ?? 0))}
+                sub={`로그인 ${fmtNum(ov.active_today)}명 · 기기 ${fmtNum(ov.anon_today ?? 0)}대`}
+              />
+              <Tile
+                label="7일 공부 시간"
+                value={fmtDur(ov.seconds_7d + (ov.anon_seconds_7d ?? 0))}
+                sub={`로그인 ${fmtDur(ov.seconds_7d)} · 기기 ${fmtDur(ov.anon_seconds_7d ?? 0)}`}
+              />
               <Tile label="7일 포인트" value={fmtNum(ov.points_7d)} sub="서버에 기록된 것만" />
               <Tile label="다시 온 비율" value={`${ov.users ? Math.round((ov.active_7d * 100) / ov.users) : 0}%`} sub="가입자 중 7일 안에 공부" />
             </div>
             <DayBars title="날짜별 신규 가입" data={series.map((d) => ({ day: d.day, v: d.signups }))} unit="명" />
-            <DayBars title="날짜별 공부한 사람" data={series.map((d) => ({ day: d.day, v: d.active }))} unit="명" />
-            <DayBars title="날짜별 공부 시간" data={series.map((d) => ({ day: d.day, v: Math.round(d.seconds / 60) }))} unit="분" />
+            {/* 모든 앱 · 실제로 공부한 것만: 진한 색 = 로그인한 계정, 옅은 색 = 그날 로그인하지 않은 기기 */}
+            <DayBars title="날짜별 공부한 사람" data={series.map((d) => ({ day: d.day, v: d.active, v2: d.anon_active ?? 0 }))} unit="" legend={['로그인', '로그인 안 한 기기']} />
+            <DayBars title="날짜별 공부 시간" data={series.map((d) => ({ day: d.day, v: Math.round(d.seconds / 60), v2: Math.round((d.anon_seconds ?? 0) / 60) }))} unit="분" legend={['로그인', '로그인 안 한 기기']} />
             <div className="adm-breaks">
               <Breakdown title="나라별 가입자" counts={ov.countries} label={countryLabel} />
               <Breakdown title="공부 중인 코스" counts={ov.courses} label={(k) => courseLabelAll(k)} />
@@ -870,7 +906,9 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
         {devs && (
           <section className="panel adm-editions adm-devices">
             <h3 className="adm-h">📱 로그인 안 하고 쓰는 사람 (기기 기준)</h3>
-            <p className="note">기기마다 임의 번호로 센 숫자예요. 한 번이라도 그 기기에서 로그인했으면 '로그인함'으로 셉니다.</p>
+            <p className="note">
+              기기마다 임의 번호로 센 숫자예요 (앱을 열기만 해도 셈). 한 번이라도 그 기기에서 로그인했으면 그 뒤로 로그아웃해도 '로그인함'으로 셉니다 — 실제 공부 시간은 위 '날짜별 공부 시간'을 보세요.
+            </p>
             {(['ko', 'ja', 'en', 'lo'] as const).map((k) => {
               const e = devs[k]
               if (!e || !e.devices_30d) return null

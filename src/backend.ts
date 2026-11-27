@@ -263,8 +263,12 @@ export interface AdminOverview {
   active_7d: number
   active_30d: number
   seconds_7d: number
+  /** 그날 로그인하지 않은 기기의 공부 (20261127000000_admin_overview_devices.sql 부터) */
+  anon_today?: number
+  anon_7d?: number
+  anon_seconds_7d?: number
   points_7d: number
-  series: { day: string; signups: number; active: number; seconds: number }[]
+  series: { day: string; signups: number; active: number; seconds: number; anon_active?: number; anon_seconds?: number }[]
   countries: Record<string, number>
   natives: Record<string, number>
   courses: Record<string, number>

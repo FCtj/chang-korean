@@ -6637,7 +6637,10 @@ body {
   color: var(--muted);
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  /* 두 줄까지 (로그인 · 기기 나눠 보이기) */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .adm-chart {
   gap: 6px;
@@ -6665,6 +6668,33 @@ body {
 }
 .adm-bar.on {
   fill: var(--ink);
+}
+/* 쌓은 막대의 위쪽(로그인 안 한 기기) */
+.adm-bar.k2 {
+  fill: var(--pink-deep);
+  opacity: 0.35;
+}
+.adm-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: -4px 0 4px;
+  font-size: 0.8rem;
+}
+.adm-key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--pink-deep);
+}
+.adm-key.k2 {
+  opacity: 0.35;
+  margin-left: 6px;
+}
+:root[data-theme='carbon'] .adm-key {
+  background: var(--sky);
 }
 .adm-hit {
   fill: transparent;

@@ -1014,6 +1014,9 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   await q(`insert into daily_activity (user_id, day, study_seconds, words_seen, questions, sessions) values ($1, (now() at time zone 'Asia/Vientiane')::date, 0, 0, 0, 0) on conflict do nothing`, [K])
   const ovAfter = (await as(U.ploy, () => q('select admin_overview(30) as o'))).rows[0].o
   check('admin_overview: counts edition study (time, people, course) and ignores 0-minute visits', ovBefore.seconds_7d >= 300 && ovBefore.active_7d >= 1 && Object.keys(ovBefore.courses).some((k) => k.startsWith('ja:')) && ovAfter.active_7d === ovBefore.active_7d && ovAfter.seconds_7d === ovBefore.seconds_7d, JSON.stringify({ s: ovBefore.seconds_7d, a7: ovBefore.active_7d, a7b: ovAfter.active_7d, courses: ovBefore.courses }))
+  // 첫 화면: 그날 로그인하지 않은 기기의 공부도 (로그인한 날의 기기 줄은 계정 기록과 같아서 빼고)
+  const anonRows = (await q(`select coalesce(sum(study_seconds), 0)::int s, count(distinct device_id)::int n from device_activity where user_id is null and study_seconds > 0 and day > (now() at time zone 'Asia/Vientiane')::date - 7`)).rows[0]
+  check('admin_overview: adds study from devices not logged in that day', anonRows.s > 0 && ovAfter.anon_seconds_7d === anonRows.s && ovAfter.anon_7d === anonRows.n && ovAfter.series.some((d) => d.anon_seconds > 0), JSON.stringify({ anonRows, s: ovAfter.anon_seconds_7d, n: ovAfter.anon_7d }))
   // 회원 상세: 판(일본어판) 기록도 60일 그래프 · 포인트 · 공부한 날에
   await q(`update edition_progress set data = '{"studyDays":["2026-11-22","2026-11-23"],"streak":2}' where user_id = $1 and app = 'ja'`, [K])
   const det = (await as(U.ploy, () => q('select admin_user_detail($1) as d', [K]))).rows[0].d
