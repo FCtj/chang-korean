@@ -7,7 +7,9 @@
 //   내 언어→한국어: 문제 = 그림 + 뜻,     보기 = 한국어
 //   듣기:          문제 = 소리,          보기 = 그림
 import { useEffect, useRef, useState } from 'react'
-import { translation, type Word } from '../data/words'
+import { findRound, translation, type Word } from '../data/words'
+import { findTrack } from '../data/tracks'
+import { pickDistractors } from '../quizOptions'
 import { useApp, type QuizKind } from '../ctx'
 import { demoAutoAchievement } from '../community'
 import { COMMUNITY_ENABLED, POINTS_ENABLED } from '../config'
@@ -35,15 +37,36 @@ function pickType(kind: QuizKind, direction: Direction): QType {
   return d === 'ko2n' ? 'k2n' : 'n2k'
 }
 
+/** 문장 문제의 오답 후보가 단원에 모자라면 같은 레벨(트랙)의 다른 단원 문장에서 */
+const trackPhraseCache = new Map<string, Word[]>()
+function trackPhrases(word: Word): Word[] {
+  const trackId = findRound(word.roundId)?.track
+  if (!trackId) return []
+  let list = trackPhraseCache.get(trackId)
+  if (!list) {
+    list = (findTrack(trackId)?.units ?? []).flatMap((u) => u.words.filter((w) => w.kind === 'phrase'))
+    trackPhraseCache.set(trackId, list)
+  }
+  return list
+}
+
 function makeQ(word: Word, type: QType, pool: Word[], retry = false): Q {
   const keyOf = (w: Word) => (type === 'listen' ? w.emoji : type === 'k2n' ? translation(w) : w.ko)
-  const seen = new Set([keyOf(word)])
-  const distractors: Word[] = []
-  for (const w of shuffle(pool)) {
-    if (distractors.length === 3) break
-    if (w.id === word.id || seen.has(keyOf(w))) continue
-    seen.add(keyOf(w))
-    distractors.push(w)
+  const phrase = word.kind === 'phrase'
+  let cands = pool
+  if (phrase && pool.filter((w) => w.kind === 'phrase' && w.id !== word.id).length < 6) cands = [...pool, ...trackPhrases(word)]
+  const toC = (w: Word) => ({ id: w.id, key: keyOf(w), phrase: w.kind === 'phrase', ko: w.ko, w })
+  // 같은 종류(문장↔문장, 단어↔단어)에서 비슷한 것 먼저 — 듣기(그림 보기)는 같은 종류에서 무작위
+  const distractors = pickDistractors(toC(word), cands.map(toC), 3, Math.random, type !== 'listen').map((c) => c.w)
+  // 같은 종류가 모자라면 아무거나로 채움
+  if (distractors.length < 3) {
+    const seen = new Set([keyOf(word), ...distractors.map(keyOf)])
+    for (const w of shuffle(cands)) {
+      if (distractors.length === 3) break
+      if (w.id === word.id || seen.has(keyOf(w))) continue
+      seen.add(keyOf(w))
+      distractors.push(w)
+    }
   }
   return { word, type, options: shuffle([word, ...distractors]), retry }
 }
