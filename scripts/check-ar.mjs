@@ -34,13 +34,17 @@ if (file === '--coverage') {
   const { TRACKS } = await import('../src/data/tracks.ts')
   const { AR, TITLE_AR } = await import('../src/data/tr-ar.ts')
   const words = new Set()
-  for (const r of [...ROUNDS, ...PACKS, ...TRACKS.flatMap((t) => t.units)]) for (const w of r.words) words.add(w.ko)
+  for (const r of [...ROUNDS, ...PACKS]) for (const w of r.words) words.add(w.ko)
+  // 코스 단어: 코스 전용 지도(TRACK_AR)까지 넣어 만든 카드의 뜻이 있는지
+  const trackMiss = new Set()
+  for (const u of TRACKS.flatMap((t) => t.units)) for (const w of u.words) { words.add(w.ko); if (!w.ar) trackMiss.add(w.ko) }
+  const inTrack = new Set(TRACKS.flatMap((t) => t.units).flatMap((u) => u.words).map((w) => w.ko))
   const titles = new Set()
   const addT = (l) => l?.ko && titles.add(l.ko)
   for (const t of TIERS) [t.name, t.level, t.topics].forEach(addT)
   for (const r of [...ROUNDS, ...PACKS]) addT(r.title)
   for (const t of TRACKS) [t.title, t.desc, ...t.units.map((u) => u.title)].forEach(addT)
-  const missW = [...words].filter((k) => !AR[k])
+  const missW = [...words].filter((k) => (inTrack.has(k) ? trackMiss.has(k) : !AR[k]))
   const missT = [...titles].filter((k) => !TITLE_AR[k])
   if (missW.length || missT.length) {
     console.error(`✗ 아랍어 없음: 단어·문장 ${missW.length}개 (${missW.slice(0, 8).join(', ')}…) · 제목 ${missT.length}개 (${missT.slice(0, 5).join(', ')}…)`)

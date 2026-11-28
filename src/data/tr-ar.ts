@@ -9,6 +9,8 @@ import { AR_JOB_EPS_B } from './tr-ar-job-eps-b.ts'
 import { AR_JOB_STORE } from './tr-ar-job-store.ts'
 import { AR_JOB_HOTEL } from './tr-ar-job-hotel.ts'
 import { AR_JOB_MASSAGE } from './tr-ar-job-massage.ts'
+import { AR_JOB_RESTAURANT } from './tr-ar-job-restaurant.ts'
+import { AR_JOB_MASSAGE_LEGACY } from './tr-ar-job-massage-legacy.ts'
 import { AR_JOB_GUIDE } from './tr-ar-job-guide.ts'
 import { AR_JOB_PARENTING_A } from './tr-ar-job-parenting-a.ts'
 import { AR_JOB_PARENTING_B } from './tr-ar-job-parenting-b.ts'
@@ -33,7 +35,7 @@ const PARTS: Record<string, string>[] = [
   AR_JOB_EPS_B,
   AR_JOB_STORE,
   AR_JOB_HOTEL,
-  AR_JOB_MASSAGE,
+  AR_JOB_MASSAGE_LEGACY,
   AR_JOB_GUIDE,
   AR_JOB_PARENTING_A,
   AR_JOB_PARENTING_B,
@@ -48,6 +50,7 @@ const TITLE_PARTS: Record<string, string>[] = [
   AR_JOB_STORE,
   AR_JOB_HOTEL,
   AR_JOB_MASSAGE,
+  AR_JOB_RESTAURANT,
   AR_JOB_GUIDE,
   AR_JOB_PARENTING_A,
   AR_JOB_PARENTING_B,
@@ -57,3 +60,10 @@ const TITLE_PARTS: Record<string, string>[] = [
 
 export const AR: Record<string, string> = Object.assign({}, ...PARTS)
 export const TITLE_AR: Record<string, string> = Object.assign({}, ...TITLE_PARTS)
+
+/** 코스 전용 뜻: 이 코스 카드에는 이 지도를 먼저 씀 (전체 AR 에는 넣지 않음 → 같은 글자의 다른 코스 뜻을 덮어쓰지 않음)
+ *  예: 마사지 '불' = 등불(조명), 식당 주방 '불' = 불(火). 제목·설명은 TITLE_PARTS 로 */
+export const TRACK_AR: Record<string, Record<string, string>> = {
+  massage: AR_JOB_MASSAGE,
+  restaurant: AR_JOB_RESTAURANT,
+}

@@ -12,6 +12,8 @@
 | ④ 고치고 검사·배포한 뒤 CHANG-DONE 블록으로 보고 | **Claude** | 이 저장소 | |
 | ⑤ CHANG-DONE 블록을 「Claude 결과 붙여넣기」에 넣음 → 처리함 | 운영자 | 📮 → 맡김 탭 | `done` · `skip` |
 
+📚 **단어 검토에서 온 요청**: 보낸 말이 `[관리자 단어 검토] …` 로 시작하고 맡김(todo)으로 바로 들어옴. 단어 칸은 `카드 id 한국어`(예: `t-massage-greet-03 죄송합니다`), 지시 = 운영자 메모. 고칠 때 **그 자리의 단어를 다른 단어로 바꾸지 말 것**(id 가 자리 번호라 다른 사람의 학습 기록이 엉뚱한 단어에 붙음) — 뜻·그림·예문 고치기는 그 자리에서, 단어 자체를 빼려면 운영자가 🚫 제외를 누르게 안내, 새 단어는 단원 맨 뒤 `added` 로.
+
 서버: `feedback` 표 (`status` new/todo/done/skip · `admin_note` = 운영자 지시 · `resolved_note` = 처리 결과), 함수는 `supabase/migrations/20261124010000_feedback_workflow.sql`.
 Supabase 커넥터가 연결된 세션이면 ③⑤ 없이 Claude 가 직접 `select … from feedback where status = 'todo'` 로 읽고 끝나면 `update feedback set status = 'done', resolved_note = '…', updated_at = now() where id = …` (바꾸기 전에 운영자에게 확인).
 

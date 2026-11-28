@@ -15,7 +15,6 @@ export const EMOJI_FIX: Record<string, string> = {
   't-eps-life-basic-12': '👪',
   't-guide-sights-20': '🏮',
   't-parenting-baby-care-20': '👶',
-  't-restaurant-shift-03': '🧼',
   't-topik-3-culture-manners-02': '🙇‍♀️',
   't-topik-3-culture-manners-04': '🥁',
   't-topik-3-culture-manners-29': '🧎',

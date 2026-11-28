@@ -7933,3 +7933,140 @@ body {
 :root[data-theme='carbon'] .fb-note.done {
   background: #16261f;
 }
+
+/* ── 관리자 📚 단어 검토: 괜찮음 · 제외 · 고칠 곳 ── */
+.adm-review {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.rv-pick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.rv-pick select {
+  flex: 1 1 160px;
+  min-width: 0;
+}
+.rv-ex-toggle {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.rv-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rv-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--line, #f1d6e0);
+  border-radius: 14px;
+  background: var(--card, #fff);
+}
+.rv-row.rv-ok {
+  border-color: var(--mint, #7fd8bd);
+}
+.rv-row.rv-excluded {
+  opacity: 0.55;
+  border-style: dashed;
+}
+.rv-row.rv-excluded .rv-ko {
+  text-decoration: line-through;
+}
+.rv-row.rv-fix {
+  border-color: var(--lilac, #b9a6ff);
+}
+.rv-main {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.rv-no {
+  min-width: 1.6em;
+  font-size: 0.8rem;
+  color: var(--ink-soft, #8a7a90);
+  padding-top: 4px;
+}
+.rv-emoji {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+.rv-text {
+  flex: 1;
+  min-width: 0;
+}
+.rv-ko {
+  font-weight: 800;
+  font-size: 1.05rem;
+  word-break: keep-all;
+}
+.rv-rom {
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--ink-soft, #8a7a90);
+}
+.rv-kind {
+  display: inline-block;
+  margin-inline-end: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--lilac-soft, #efe9ff);
+  font-size: 0.72rem;
+  font-weight: 700;
+  vertical-align: 2px;
+}
+.rv-mean {
+  margin-top: 2px;
+  font-size: 0.98rem;
+}
+.rv-ex {
+  margin-top: 4px;
+  font-size: 0.88rem;
+  color: var(--ink-soft, #8a7a90);
+}
+.rv-note {
+  margin-top: 4px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: var(--lilac-soft, #efe9ff);
+  font-size: 0.88rem;
+  white-space: pre-wrap;
+}
+.rv-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.rv-btns .chip {
+  cursor: pointer;
+  border: 1.5px solid var(--line, #f1d6e0);
+  min-height: 36px;
+  padding: 4px 12px;
+}
+.rv-btns .chip.on {
+  border-color: var(--pink-deep, #e0457b);
+  background: var(--pink-soft, #ffe3ee);
+}
+.rv-st {
+  margin-inline-end: auto;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.rv-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

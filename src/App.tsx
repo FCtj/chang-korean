@@ -28,6 +28,7 @@ import Placement from './screens/Placement'
 import Quiz from './screens/Quiz'
 import Rewards from './screens/Rewards'
 import SettingsScreen from './screens/SettingsScreen'
+import { refreshExcluded } from './backend'
 
 export default function App() {
   const s = useStore()
@@ -39,6 +40,10 @@ export default function App() {
     const on = () => setAdminHash(location.hash === '#admin')
     window.addEventListener('hashchange', on)
     return () => window.removeEventListener('hashchange', on)
+  }, [])
+  // 관리자가 '제외'한 카드 목록 받기 (다음에 열 때 단원에서 빠짐)
+  useEffect(() => {
+    refreshExcluded()
   }, [])
   const [tab, setTab] = useState<Tab>('learn')
   const stackRef = useRef(stack)

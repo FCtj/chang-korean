@@ -9,6 +9,7 @@ import { App as CapApp } from '@capacitor/app'
 import { getState, mergeServerActivity, setActivityReporter, setPointsReporter, subscribe, update, useStore, type DayActivity, type State } from './store'
 import { publicAvatar, publicName } from './privacy'
 import { FACEBOOK_LOGIN, SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from './config'
+import { saveExcluded, savedExcluded } from './data/excluded'
 
 // 주소·키는 src/config.ts 의 공개값 (빌드할 때 VITE_* 로 넣은 값이 있으면 그것)
 // 잘못된 값은 쓰지 않음: 주소는 https:// 로 시작해야 하고, 비밀 키(sb_secret_ / service_role)는 절대 쓰지 않음
@@ -444,6 +445,43 @@ export async function adminFeedbackCounts(): Promise<FeedbackCounts> {
   const { data, error } = await supabase.rpc('admin_feedback_counts')
   if (error) throw new Error(error.message)
   return data as FeedbackCounts
+}
+
+/** 📚 단어 검토: ok 검토함 · excluded 제외(앱에서 뺌) · fix 고칠 곳(📮 에 Claude 지시로) */
+export type ContentFlagStatus = 'ok' | 'excluded' | 'fix'
+export type ContentFlag = { word_id: string; status: ContentFlagStatus; note: string | null; ko: string | null; updated_at: string }
+export async function adminContentFlags(trackId: string | null = null): Promise<ContentFlag[]> {
+  if (!supabase) throw new Error('no_backend')
+  const { data, error } = await supabase.rpc('admin_content_flags', { p_prefix: trackId })
+  if (error) throw new Error(error.message)
+  return (data ?? []) as ContentFlag[]
+}
+export async function adminContentFlagSet(wordId: string, status: ContentFlagStatus | 'clear', opts: { note?: string; ko?: string; context?: string } = {}): Promise<void> {
+  if (!supabase) throw new Error('no_backend')
+  const { error } = await supabase.rpc('admin_content_flag_set', {
+    p_word_id: wordId,
+    p_status: status,
+    p_note: opts.note ?? null,
+    p_ko: opts.ko ?? null,
+    p_context: opts.context?.slice(0, 300) ?? null,
+  })
+  if (error) throw new Error(error.message)
+  // 이 기기의 제외 목록도 바로 고침 (다음에 앱을 열 때 반영)
+  const ids = savedExcluded()
+  if (status === 'excluded') ids.add(wordId)
+  else ids.delete(wordId)
+  saveExcluded(ids)
+}
+/** 앱을 열 때: 관리자가 제외한 카드 목록을 받아 저장 (SQL 실행 전·오프라인이면 조용히 그대로) */
+export async function refreshExcluded(): Promise<void> {
+  if (!supabase || !IS_KO) return
+  try {
+    const { data, error } = await supabase.rpc('excluded_words')
+    if (error || !Array.isArray(data)) return
+    saveExcluded(data as string[])
+  } catch {
+    /* 오프라인 */
+  }
 }
 
 /** 관리자: 로그인 시도 (앱·방법별 합계 · 최근 기록 · 서버의 가입 수 · 끝나지 않은 OAuth) */

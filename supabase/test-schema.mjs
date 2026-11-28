@@ -1109,5 +1109,53 @@ check('delete_my_review_data removes only own reviews', (await q('select user_id
   check('feedback workflow: non-admin cannot count', (await err(() => asAnon(() => q('select admin_feedback_counts()')))) !== '')
 }
 
+// ───────── 단어 검토: 검토함 · 제외 · 고칠 곳(→ 수정 요청 todo) ─────────
+{
+  const err = async (fn) => {
+    try {
+      await fn()
+      return ''
+    } catch (e) {
+      return String(e.message ?? e)
+    }
+  }
+  const asAnon = async (fn) => {
+    await db.exec(`set role anon; select set_config('request.jwt.claim.sub', '', false);`)
+    try {
+      return await fn()
+    } finally {
+      await db.exec('reset role;')
+    }
+  }
+  check('content review: nothing excluded at first', (await asAnon(() => q('select excluded_words() as w'))).rows[0].w.length === 0)
+  await as(U.ploy, () => q(`select admin_content_flag_set('t-massage-greet-01', 'ok', null, '안녕하세요')`))
+  await as(U.ploy, () => q(`select admin_content_flag_set('t-massage-pay-05', 'excluded', '라오스에서 안 씀', '거스름돈')`))
+  const ex = (await asAnon(() => q('select excluded_words() as w'))).rows[0].w
+  check('content review: anyone gets only excluded ids', ex.length === 1 && ex[0] === 't-massage-pay-05', JSON.stringify(ex))
+  const list = (await as(U.ploy, () => q(`select * from admin_content_flags('massage')`))).rows
+  check('content review: admin lists flags by course', list.length === 2 && list.find((r) => r.word_id === 't-massage-greet-01').status === 'ok', JSON.stringify(list))
+  check('content review: other course prefix excluded', (await as(U.ploy, () => q(`select * from admin_content_flags('restaurant')`))).rows.length === 0)
+  const before = (await q(`select count(*)::int n from feedback where status = 'todo'`)).rows[0].n
+  await as(U.ploy, () => q(`select admin_content_flag_set('t-massage-parts-03', 'fix', '뜻을 눈(目)으로 확인', '눈', 'nun · ຕາ')`))
+  const fb = (await q(`select * from feedback where status = 'todo' order by id desc limit 1`)).rows[0]
+  check('content review: fix makes a todo request for Claude', (await q(`select count(*)::int n from feedback where status = 'todo'`)).rows[0].n === before + 1 && fb.target === 't-massage-parts-03 눈' && fb.admin_note === '뜻을 눈(目)으로 확인' && fb.context === 'nun · ຕາ', JSON.stringify(fb))
+  check('content review: fix needs a note', (await err(() => as(U.ploy, () => q(`select admin_content_flag_set('t-massage-parts-04', 'fix')`)))).includes('note_required'))
+  check('content review: bad status refused', (await err(() => as(U.ploy, () => q(`select admin_content_flag_set('t-massage-parts-04', 'hack')`)))).includes('bad_status'))
+  await as(U.ploy, () => q(`select admin_content_flag_set('t-massage-pay-05', 'clear')`))
+  check('content review: clear brings the card back', (await asAnon(() => q('select excluded_words() as w'))).rows[0].w.length === 0)
+  const e1 = await err(() => as(U.noy, () => q(`select admin_content_flag_set('t-massage-greet-01', 'excluded')`)))
+  check('content review: non-admin cannot set', e1.includes('not_admin'), e1)
+  check('content review: anon cannot list', (await err(() => asAnon(() => q(`select * from admin_content_flags(null)`)))) !== '')
+  // 표를 직접 읽으면 오류 또는 빈 결과 (RLS · 권한 없음) — 함수로만
+  let e2 = ''
+  let rows2 = []
+  try {
+    rows2 = (await asAnon(() => q('select * from content_flags'))).rows
+  } catch (e) {
+    e2 = String(e.message ?? e)
+  }
+  check('content review: table not readable directly', e2 !== '' || rows2.length === 0, e2 || JSON.stringify(rows2))
+}
+
 console.log(fails ? `\n${fails} FAILED` : '\nALL PASSED')
 process.exit(fails ? 1 : 0)

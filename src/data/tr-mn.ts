@@ -9,6 +9,8 @@ import { MN_JOB_EPS_B } from './tr-mn-job-eps-b.ts'
 import { MN_JOB_STORE } from './tr-mn-job-store.ts'
 import { MN_JOB_HOTEL } from './tr-mn-job-hotel.ts'
 import { MN_JOB_MASSAGE } from './tr-mn-job-massage.ts'
+import { MN_JOB_RESTAURANT } from './tr-mn-job-restaurant.ts'
+import { MN_JOB_MASSAGE_LEGACY } from './tr-mn-job-massage-legacy.ts'
 import { MN_JOB_GUIDE } from './tr-mn-job-guide.ts'
 import { MN_JOB_PARENTING_A } from './tr-mn-job-parenting-a.ts'
 import { MN_JOB_PARENTING_B } from './tr-mn-job-parenting-b.ts'
@@ -34,7 +36,7 @@ const PARTS: Record<string, string>[] = [
   MN_JOB_EPS_B,
   MN_JOB_STORE,
   MN_JOB_HOTEL,
-  MN_JOB_MASSAGE,
+  MN_JOB_MASSAGE_LEGACY,
   MN_JOB_GUIDE,
   MN_JOB_PARENTING_A,
   MN_JOB_PARENTING_B,
@@ -49,6 +51,7 @@ const TITLE_PARTS: Record<string, string>[] = [
   MN_JOB_STORE,
   MN_JOB_HOTEL,
   MN_JOB_MASSAGE,
+  MN_JOB_RESTAURANT,
   MN_JOB_GUIDE,
   MN_JOB_PARENTING_A,
   MN_JOB_PARENTING_B,
@@ -62,4 +65,11 @@ export const TITLE_MN: Record<string, string> = Object.assign({}, ...TITLE_PARTS
 /** 제목·설명(L10n)에 몽골어·아랍어 채우기: 이미 있으면 그대로, 없으면 TITLE_MN/TITLE_AR → 없으면 한국어 */
 export function withMn<T extends { ko: string; mn?: string; ar?: string }>(x: T): T & { mn: string; ar: string } {
   return { ...x, mn: x.mn || TITLE_MN[x.ko] || x.ko, ar: x.ar || TITLE_AR[x.ko] || x.ko }
+}
+
+/** 코스 전용 뜻: 이 코스 카드에는 이 지도를 먼저 씀 (전체 MN 에는 넣지 않음 → 같은 글자의 다른 코스 뜻을 덮어쓰지 않음)
+ *  예: 마사지 '불' = 등불(조명), 식당 주방 '불' = 불(火). 제목·설명은 TITLE_PARTS 로 */
+export const TRACK_MN: Record<string, Record<string, string>> = {
+  massage: MN_JOB_MASSAGE,
+  restaurant: MN_JOB_RESTAURANT,
 }

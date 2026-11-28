@@ -1,6 +1,7 @@
 // 💆 마사지샵 알바 — ⚠️ draft translations, need native review
 // (한국인 관광객이 오는 현지 마사지숍, 또는 한국의 타이 마사지숍에서 일하는 관리사·카운터 직원용)
 // 2026-11 전면 개편: 전문 용어(접수·노쇼·관절·소독…) 대신 한국 손님이 실제로 쓰는 쉬운 말 위주.
+//   라오스 기준: 카드 대신 현금·QR 결제, 돈은 낍·달러.
 //   손님이 하는 말(세게 해 주세요 · 시원해요 · 얼마예요?)을 알아듣고, 관리사가 짧게 대답·안내하는 말.
 //   단원 키를 새로 정해서(옛 키: booking · menu · body · pressure · care · service) 예전 학습 기록이 새 단어에 잘못 붙지 않게 함.
 import type { TrackUnitSrc, TitleL10n } from './track-types'
@@ -71,7 +72,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['타이 마사지', 'tai masaji', 'ນວດແຜນໄທ', 'นวดแผนไทย', 'massage kiểu Thái', '🧘'],
       ['오일 마사지', 'oil masaji', 'ນວດນ້ຳມັນ', 'นวดน้ำมัน', 'massage bằng dầu', '🧴'],
       ['머리 마사지', 'meori masaji', 'ນວດຫົວ', 'นวดหัว', 'massage đầu', '💇'],
-      ['스파', 'seupa', 'ສະປາ', 'สปา', 'spa', '♨️'],
+      ['낍', 'kip', 'ກີບ (ເງິນລາວ)', 'กีบ (เงินลาว)', 'kíp (tiền Lào)', '🇱🇦'],
       ['30분', 'samsip bun', '30 ນາທີ', '30 นาที', '30 phút', '🕧'],
       ['한 시간', 'han sigan', '1 ຊົ່ວໂມງ', '1 ชั่วโมง', '1 tiếng', '🕐'],
       ['한 시간 반', 'han sigan ban', '1 ຊົ່ວໂມງເຄິ່ງ', '1 ชั่วโมงครึ่ง', '1 tiếng rưỡi', '🕜'],
@@ -93,7 +94,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
     ],
     phrases: [
       ['발 마사지 얼마예요?', 'bal masaji eolmayeyo?', 'ນວດຕີນເທົ່າໃດ?', 'นวดเท้าเท่าไหร่?', 'Massage chân bao nhiêu tiền?', '💸'],
-      ['한 시간에 20달러예요.', 'han sigane isip dalleoyeyo.', 'ຊົ່ວໂມງລະ 20 ໂດລາ', 'ชั่วโมงละ 20 ดอลลาร์', 'Một tiếng 20 đô la.', '🧾'],
+      ['한 시간에 10만 낍이에요.', 'han sigane simman kibieyo.', 'ຊົ່ວໂມງລະ 100,000 ກີບ', 'ชั่วโมงละ 100,000 กีบ', 'Một tiếng 100.000 kíp.', '🧾'],
       ['몇 시간 하실 거예요?', 'myeot sigan hasil geoyeyo?', 'ຈະນວດຈັກຊົ່ວໂມງ?', 'จะนวดกี่ชั่วโมง?', 'Quý khách làm mấy tiếng ạ?', '⌛'],
       ['한 시간 해 주세요.', 'han sigan hae juseyo.', 'ເອົາ 1 ຊົ່ວໂມງ', 'เอา 1 ชั่วโมง', 'Cho tôi làm 1 tiếng.', '☝️'],
       ['뭐가 좋아요?', 'mwoga joayo?', 'ອັນໃດດີ?', 'อันไหนดี?', 'Cái nào tốt?', '🤔'],
@@ -213,7 +214,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['똑바로 누워요', 'ttokbaro nuwoyo', 'ນອນຫງາຍ', 'นอนหงาย', 'nằm ngửa', '🙃'],
       ['옆으로 누워요', 'yeopeuro nuwoyo', 'ນອນຕະແຄງ', 'นอนตะแคง', 'nằm nghiêng', '↪️'],
       ['앉아요', 'anjayo', 'ນັ່ງ', 'นั่ง', 'ngồi', '🪑'],
-      ['일어나요', 'ireonayo', 'ລຸກຂຶ້ນ', 'ลุกขึ้น', 'đứng dậy', '⬆️'],
+      ['일어나요', 'ireonayo', 'ລຸກຂຶ້ນ', 'ลุกขึ้น', 'dậy, ngồi dậy', '⬆️'],
       ['돌아누워요', 'doranuwoyo', 'ປີ້ນໂຕ', 'พลิกตัว', 'trở mình', '🔃'],
       ['에어컨', 'eeokeon', 'ແອ', 'แอร์', 'máy lạnh', '❄️'],
       ['불', 'bul', 'ໄຟ', 'ไฟ', 'đèn', '💡'],
@@ -242,12 +243,12 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
     title: { ko: '계산·인사', lo: 'ຈ່າຍເງິນ ແລະ ລາກັນ', th: 'จ่ายเงินและบอกลา', vi: 'Thanh toán và chào tạm biệt' },
     words: [
       ['계산', 'gyesan', 'ໄລ່ເງິນ', 'คิดเงิน', 'tính tiền', '🧾'],
-      ['카드', 'kadeu', 'ບັດ', 'บัตร', 'thẻ', '💳'],
+      ['QR 결제', 'kyual gyeolje', 'ຈ່າຍຜ່ານ QR', 'จ่ายผ่าน QR', 'thanh toán QR', '📲'],
       ['현금', 'hyeongeum', 'ເງິນສົດ', 'เงินสด', 'tiền mặt', '💵'],
       ['팁', 'tip', 'ທິບ', 'ทิป', 'tiền boa', '🪙'],
       ['거스름돈', 'geoseureumdon', 'ເງິນທອນ', 'เงินทอน', 'tiền thối', '💱'],
       ['영수증', 'yeongsujeung', 'ໃບບິນ', 'ใบเสร็จ', 'hóa đơn', '📃'],
-      ['끝났어요', 'kkeunnasseoyo', 'ແລ້ວແລ້ວ', 'เสร็จแล้ว', 'xong rồi', '🔚'],
+      ['끝났어요', 'kkeunnasseoyo', 'ສຳເລັດແລ້ວ', 'เสร็จแล้ว', 'xong rồi', '🔚'],
       ['차', 'cha', 'ນ້ຳຊາ', 'ชา', 'trà', '🍵'],
       ['다음에', 'daeume', 'ເທື່ອໜ້າ', 'ครั้งหน้า', 'lần sau', '🔜'],
       ['또', 'tto', 'ອີກ', 'อีก', 'lại', '🔁'],
@@ -256,7 +257,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['모두', 'modu', 'ທັງໝົດ', 'ทั้งหมด', 'tất cả', '👥'],
       ['따로', 'ttaro', 'ແຍກກັນ', 'แยกกัน', 'riêng', '✂️'],
       ['같이', 'gachi', 'ນຳກັນ', 'ด้วยกัน', 'cùng nhau', '🤝'],
-      ['수고하셨어요', 'sugohasyeosseoyo', 'ເໜື່ອຍແລ້ວເນາະ (ຂອບໃຈ)', 'เหนื่อยหน่อยนะ (ขอบคุณ)', 'vất vả rồi (cảm ơn)', '👏'],
+      ['수고하셨어요', 'sugohasyeosseoyo', 'ຂອບໃຈທີ່ເຮັດວຽກໜັກ', 'ขอบคุณที่ตั้งใจทำงาน', 'vất vả rồi (cảm ơn)', '👏'],
       ['고마워요', 'gomawoyo', 'ຂອບໃຈເດີ້', 'ขอบใจนะ', 'cảm ơn nhé', '😊'],
       ['안녕히 가세요', 'annyeonghi gaseyo', 'ໂຊກດີ (ເວົ້າກັບຄົນທີ່ໄປ)', 'ลาก่อน (พูดกับคนที่ไป)', 'tạm biệt (nói với người đi)', '👋'],
       ['안녕히 계세요', 'annyeonghi gyeseyo', 'ໂຊກດີ (ເວົ້າກັບຄົນທີ່ຢູ່)', 'ลาก่อน (พูดกับคนที่อยู่)', 'tạm biệt (nói với người ở lại)', '🚪'],
@@ -269,9 +270,9 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
     ],
     phrases: [
       ['계산해 주세요.', 'gyesanhae juseyo.', 'ໄລ່ເງິນແດ່', 'เช็คบิลด้วย', 'Tính tiền giúp tôi.', '🧮'],
-      ['카드 돼요?', 'kadeu dwaeyo?', 'ໃຊ້ບັດໄດ້ບໍ່?', 'ใช้บัตรได้ไหม?', 'Trả bằng thẻ được không?', '🏧'],
+      ['QR로 돼요?', 'kyuallo dwaeyo?', 'ຈ່າຍ QR ໄດ້ບໍ່?', 'จ่าย QR ได้ไหม?', 'Trả bằng QR được không?', '📸'],
       ['현금만 돼요.', 'hyeongeumman dwaeyo.', 'ຮັບແຕ່ເງິນສົດ', 'รับแค่เงินสด', 'Chỉ nhận tiền mặt.', '💴'],
-      ['다 해서 40달러예요.', 'da haeseo sasip dalleoyeyo.', 'ທັງໝົດ 40 ໂດລາ', 'ทั้งหมด 40 ดอลลาร์', 'Tổng cộng 40 đô la.', '💲'],
+      ['다 해서 20만 낍이에요.', 'da haeseo isimman kibieyo.', 'ທັງໝົດ 200,000 ກີບ', 'ทั้งหมด 200,000 กีบ', 'Tổng cộng 200.000 kíp.', '💲'],
       ['30분 연장해 주세요.', 'samsip bun yeonjanghae juseyo.', 'ຕໍ່ອີກ 30 ນາທີແດ່', 'ต่ออีก 30 นาที', 'Gia hạn thêm 30 phút giúp tôi.', '⏲️'],
       ['이건 팁이에요.', 'igeon tibieyo.', 'ນີ້ແມ່ນທິບ', 'นี่คือทิป', 'Đây là tiền boa.', '💝'],
       ['정말 시원했어요.', 'jeongmal siwonhaesseoyo.', 'ສະບາຍຫຼາຍແທ້ໆ', 'สบายมากจริงๆ', 'Thật sự rất dễ chịu.', '🥰'],
@@ -280,6 +281,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['다음에 또 올게요.', 'daeume tto olgeyo.', 'ເທື່ອໜ້າຈະມາອີກ', 'ครั้งหน้าจะมาอีก', 'Lần sau tôi sẽ lại đến.', '🗓️'],
       ['그런 서비스는 없어요.', 'geureon seobiseuneun eopseoyo.', 'ຮ້ານເຮົາບໍ່ມີບໍລິການແບບນັ້ນ', 'ร้านเราไม่มีบริการแบบนั้น', 'Chúng tôi không có dịch vụ đó.', '🙅'],
       ['이러시면 안 돼요.', 'ireosimyeon an dwaeyo.', 'ເຮັດແບບນີ້ບໍ່ໄດ້', 'ทำแบบนี้ไม่ได้', 'Không được làm như vậy.', '⛔'],
+      ['여기 QR 찍어 주세요.', 'yeogi kyual jjigeo juseyo.', 'ສະແກນ QR ບ່ອນນີ້ເດີ້', 'สแกน QR ตรงนี้นะ', 'Quét mã QR ở đây nhé.', '🤳'],
     ],
   },
 ]

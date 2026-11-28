@@ -37,10 +37,21 @@
   - 마스코트 코끼리, 로고 = 라오스 국기 색 + 코끼리.
 - 세 판 공통: 카카오·Facebook 로그인, 판마다 따로 기록(`edition_progress` · `edition_activity`)·랭킹(`edition_points`), 수정 요청, 카드 앞면 그림 숨김, 밝게/어둡게/기기 설정 테마.
 
+## 일·알바: 식당·카페 코스 (2026-11-28 라오스용 전면 개편)
+- 라오스 식당·카페에서 한국 손님을 맞는 직원용: 인사·자리 안내 · 주문 받기 · 음식 메뉴(쌀국수·찰밥·파파야 샐러드·신닷 + 삼겹살·김치찌개·라면) · 맛·부탁(고수 빼 주세요 · 안 맵게) · 음료·카페(비어라오 · 얼음 빼 주세요) · 계산·포장 (단어 150 · 문장 60).
+- **카드 없음** — 현금 · QR 결제, 돈은 낍 · 달러 · 바트. 단원 키 새로(옛 키 greet·order·menu·kitchen·pay·shift) → 예전 식당 학습 기록은 새 단어에 안 붙음.
+- 몽골어·아랍어는 코스 전용 지도(`TRACK_MN`/`TRACK_AR` in `tr-mn.ts`/`tr-ar.ts`) — 전체 지도에 넣지 않아 다른 코스의 같은 글자 뜻을 덮어쓰지 않음. 예문은 id 키(`ex-job-restaurant*.ts`).
+
+## 📚 단어 검토 (관리자 화면, 📮 아래)
+- 코스·단원을 고르고 카드마다 ✅ 괜찮음 · 🚫 제외 · ✏️ 고칠 곳. 표 `content_flags` (`20261128000000_content_review.sql` — **사용자가 SQL 편집기에서 실행해야 함**).
+- 🚫 제외: 앱이 시작할 때 `excluded_words()` 를 받아 이 기기에 저장 → **다음에 앱을 열 때** 그 카드를 단원에서 뺌 (`src/data/excluded.ts`, `tracks.ts` buildUnit). id 는 자리 번호라 다른 카드 기록은 그대로.
+- ✏️ 고칠 곳: 메모가 📮 수정 요청에 'Claude 에게 맡김'(todo)으로 들어감 → 평소처럼 `docs/FEEDBACK.md` 흐름. 데이터에서 아예 지울 때는 그 자리 단어를 바꾸지 말고 **제외 상태로 두거나** 맨 뒤 `added` 로 새 단어를 붙임(번호 밀림 방지).
+
 ## 일·알바: 마사지샵 코스 (2026-11-28 전면 개편)
 - 전문 용어(접수·노쇼·관절·소독…) 대신 **한국 손님(주로 해외 관광객)이 실제로 쓰는 쉬운 말**: 인사·기본 말 · 종류·시간·가격 · 몸 부위 · 세기·느낌 · 준비·자세 · 계산·인사 (단어 150 · 문장 62).
 - 단원 키를 새로 정함(옛 키 booking·menu·body·pressure·care·service) → 예전 마사지 학습 기록은 새 단어에 붙지 않음(이 코스만 처음부터).
-- 예문은 단어 id 로 둠(`ex-job-massage.ts`, `ex-job-massage-2.ts`) — 머리·물·친구처럼 다른 코스에도 있는 말의 예문을 덮어쓰지 않게.
+- 예문은 단어 id 로 둠(`ex-job-massage.ts`, `ex-job-massage-2.ts`) — 머리·물·친구처럼 다른 코스에도 있는 말의 예문을 덮어쓰지 않게. 몽골어·아랍어도 코스 전용 지도(`TRACK_MN`). 예전 마사지 지도가 다른 코스에 주던 값은 `tr-*-job-massage-legacy.ts` 로 그대로 둠.
+- 라오스 기준: 카드 대신 현금 · QR 결제, 돈은 낍 · 달러.
 - 사장님께 보여 줄 소개 자료(Slides): 마사지 가게용 · 식당 사장님용 — 앱 화면 사진은 `tools/_work/rest-deck-shots.mjs` 같은 방식으로 다시 찍음.
 
 ## 최근 바뀐 것 (git log 참고)
@@ -70,7 +81,7 @@
 
 ## Supabase (사용자가 SQL 편집기에서 직접 실행)
 `supabase/migrations/` 순서대로. 사용자가 2026-11-23 에 `20261123010000_admin_real_names.sql` 까지, 2026-11-24 에 `20261124000000_admin_user_detail_all_apps.sql`, 2026-11-25 에 `20261124010000_feedback_workflow.sql` 을 실행했다고 함.
-**실행 확인 필요**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸) · `20261125000000_admin_overview_all_apps.sql` (관리자 첫 화면 그래프에 판 공부 포함, 0분 접속은 '공부한 사람'에서 뺌) · `20261127000000_admin_overview_devices.sql` (첫 화면에 로그인 안 한 기기의 공부도 쌓아서)
+**실행 확인 필요**: `20261123020000_login_attempts.sql` (로그인 시도 기록 · 관리자 🔑 칸) · `20261125000000_admin_overview_all_apps.sql` (관리자 첫 화면 그래프에 판 공부 포함, 0분 접속은 '공부한 사람'에서 뺌) · `20261127000000_admin_overview_devices.sql` (첫 화면에 로그인 안 한 기기의 공부도 쌓아서) · `20261128000000_content_review.sql` (📚 단어 검토 · 제외)
 새 마이그레이션을 만들면 사용자에게 실행을 부탁하고, 아래처럼 확인 SQL 을 드려서 결과를 받기 (클라우드 세션은 Supabase 에 직접 접속 못 함).
 
 확인용 SQL 예: `select to_regprocedure('public.handle_new_user()') is not null, to_regclass('public.device_activity') is not null, pg_get_function_result('public.admin_users(text,text,int,int)'::regprocedure) like '%login_name%';`

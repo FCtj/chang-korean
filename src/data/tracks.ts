@@ -1,11 +1,11 @@
 // 목적별 트랙: 단원(단어 25 + 상황 문장) 여러 개를 한 목적으로 묶음
-// 원본: track-restaurant.ts (🍜 한국 식당·가게 알바), track-work-a/b.ts (🏭 한국 일자리)
+// 원본: track-restaurant.ts (🍜 식당·카페 알바), track-work-a/b.ts (🏭 한국 일자리)
 // ⚠️ 라오어·태국어·베트남어는 초안 — 원어민 검수 필요
 import { ED_DAILY, ED_EX_MORE, ED_LEVELS } from './edition-data.ts'
 import type { EdUnit } from './edition-types.ts'
 import { ED_INFO, IS_KO, levelName } from '../edition.ts'
 import type { ExampleEntry } from './example-types.ts'
-import { TRACK_RESTAURANT } from './track-restaurant.ts'
+import { TRACK_RESTAURANT, TRACK_RESTAURANT_META } from './track-restaurant.ts'
 import { TRACK_WORK_A } from './track-work-a.ts'
 import { TRACK_WORK_B } from './track-work-b.ts'
 import { TRACK_CITIZEN } from './track-citizen.ts'
@@ -31,8 +31,9 @@ import { TOPIK_CORE } from './track-topik-core.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 import { withFix } from './tr-fix.ts'
-import { MN, withMn } from './tr-mn.ts'
-import { AR } from './tr-ar.ts'
+import { MN, TRACK_MN, withMn } from './tr-mn.ts'
+import { AR, TRACK_AR } from './tr-ar.ts'
+import { EXCLUDED } from './excluded.ts'
 
 export interface TrackSource {
   id: string
@@ -97,8 +98,7 @@ export const TRACK_SOURCES: TrackSource[] = [
     group: 'job',
     purpose: 'parttime',
     icon: '🍜',
-    title: { ko: '한국 식당·가게 알바', lo: 'ວຽກພິເສດຮ້ານອາຫານເກົາຫຼີ', th: 'พาร์ตไทม์ร้านอาหารเกาหลี', vi: 'Làm thêm ở quán Hàn' },
-    desc: { ko: '손님 맞이 · 주문 · 메뉴 · 주방 · 계산 · 근무', lo: 'ຕ້ອນຮັບ · ສັ່ງອາຫານ · ເມນູ · ເຮືອນຄົວ · ຈ່າຍເງິນ · ການເຮັດວຽກ', th: 'ต้อนรับ · รับออร์เดอร์ · เมนู · ครัว · คิดเงิน · การทำงาน', vi: 'Đón khách · Gọi món · Thực đơn · Bếp · Thanh toán · Ca làm' },
+    ...TRACK_RESTAURANT_META,
     units: TRACK_RESTAURANT,
   },
   { id: 'store', group: 'job', purpose: 'parttime', icon: '🏪', ...TRACK_STORE_META, units: TRACK_STORE },
@@ -133,15 +133,16 @@ export interface Track {
   units: Round[]
 }
 
-function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
+/** all = true: 관리자 단어 검토용 — 제외한 카드도 넣음 */
+function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number, all = false): Round {
   const id = `t-${t.id}-${u.key}`
   const rows = [...u.words.map((r) => ({ r, phrase: false })), ...u.phrases.map((r) => ({ r, phrase: true })), ...(u.added ?? []).map((a) => ({ r: a.row, phrase: !!a.phrase }))]
   const words: Word[] = rows.map(({ r, phrase }, j) => withFix({
     id: `${id}-${String(j + 1).padStart(2, '0')}`,
     ko: r[0],
     rom: r[1],
-    mn: MN[r[0]] || '',
-    ar: AR[r[0]] || '',
+    mn: TRACK_MN[t.id]?.[r[0]] || MN[r[0]] || '',
+    ar: TRACK_AR[t.id]?.[r[0]] || AR[r[0]] || '',
     lo: r[2],
     th: r[3],
     vi: r[4],
@@ -149,7 +150,14 @@ function buildUnit(t: TrackSource, u: TrackUnitSrc, i: number): Round {
     roundId: id,
     ...(phrase ? { kind: 'phrase' as const } : {}),
   } as Word))
-  return { id, tier: 0, no: i + 1, title: withMn(u.title), words, pack: { icon: u.icon, purpose: t.purpose, desc: withMn(t.title) }, track: t.id }
+  // 관리자가 '제외'한 카드는 빼고 (id 는 자리 번호 그대로라 다른 카드의 학습 기록은 그대로)
+  const shown = all || !EXCLUDED.size ? words : words.filter((w) => !EXCLUDED.has(w.id))
+  return { id, tier: 0, no: i + 1, title: withMn(u.title), words: shown, pack: { icon: u.icon, purpose: t.purpose, desc: withMn(t.title) }, track: t.id }
+}
+
+/** 📚 관리자 단어 검토: 제외한 카드까지 모두 (한국어판 코스만) */
+export function reviewTracks(): Track[] {
+  return TRACK_SOURCES.map((t) => ({ ...t, title: withMn(t.title), desc: withMn(t.desc), units: t.units.map((u, i) => buildUnit(t, u, i, true)) }))
 }
 
 const KO_TRACKS = (): Track[] => TRACK_SOURCES.map((t) => ({ ...t, title: withMn(t.title), desc: withMn(t.desc), units: t.units.map((u, i) => buildUnit(t, u, i)) }))

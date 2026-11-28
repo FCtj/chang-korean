@@ -7,6 +7,7 @@ import { Avatar, Icon, Segmented, Toggle } from '../ui'
 import { NATIVE_INFO } from '../i18n'
 import { COURSES } from '../data/courses'
 import { maskName } from '../privacy'
+import AdminReview from './AdminReview'
 import {
   checkActivityLogging,
   lastActivityReport,
@@ -842,6 +843,8 @@ function Dashboard({ onClose }: { onClose?: () => void }) {
 
         {/* 📮 수정 요청은 맨 위 — 매일 가장 먼저 보는 곳 */}
         <FeedbackPanel mask={mask} />
+        {/* 📚 코스 단어·문장 검토: 괜찮음 · 제외 · 고칠 곳 */}
+        <AdminReview />
 
         {ov && (
           <>
