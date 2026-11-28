@@ -246,7 +246,7 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
       ['계산서', 'gyesanseo', 'ໃບບິນ', 'บิล', 'hóa đơn', '📄'],
       ['현금', 'hyeongeum', 'ເງິນສົດ', 'เงินสด', 'tiền mặt', '💵'],
       ['QR 결제', 'kyual gyeolje', 'ຈ່າຍຜ່ານ QR', 'จ่ายผ่าน QR', 'thanh toán QR', '📲'],
-      ['낍', 'kip', 'ກີບ (ເງິນລາວ)', 'กีบ (เงินลาว)', 'kíp (tiền Lào)', '🇱🇦'],
+      ['낍', 'kkip', 'ກີບ (ເງິນລາວ)', 'กีบ (เงินลาว)', 'kíp (tiền Lào)', '🇱🇦'],
       ['달러', 'dalleo', 'ໂດລາ', 'ดอลลาร์', 'đô la', '💲'],
       ['바트', 'bateu', 'ບາດ (ເງິນໄທ)', 'บาท', 'baht (tiền Thái)', '🇹🇭'],
       ['거스름돈', 'geoseureumdon', 'ເງິນທອນ', 'เงินทอน', 'tiền thối', '💱'],
@@ -270,7 +270,7 @@ export const TRACK_RESTAURANT: TrackUnitSrc[] = [
     ],
     phrases: [
       ['계산해 주세요.', 'gyesanhae juseyo.', 'ໄລ່ເງິນແດ່', 'เช็คบิลด้วย', 'Tính tiền giúp tôi.', '✍️'],
-      ['전부 15만 낍이에요.', 'jeonbu sibomman kibieyo.', 'ທັງໝົດ 150,000 ກີບ', 'ทั้งหมด 150,000 กีบ', 'Tất cả 150.000 kíp.', '💸'],
+      ['전부 15만 낍이에요.', 'jeonbu sibomman kkibieyo.', 'ທັງໝົດ 150,000 ກີບ', 'ทั้งหมด 150,000 กีบ', 'Tất cả 150.000 kíp.', '💸'],
       ['QR로 돼요?', 'kyuallo dwaeyo?', 'ຈ່າຍ QR ໄດ້ບໍ່?', 'จ่าย QR ได้ไหม?', 'Trả bằng QR được không?', '📸'],
       ['네, 여기 QR 찍어 주세요.', 'ne, yeogi kyual jjigeo juseyo.', 'ໄດ້, ສະແກນ QR ບ່ອນນີ້ເດີ້', 'ได้ สแกน QR ตรงนี้นะ', 'Được ạ, quét mã QR ở đây nhé.', '🤳'],
       ['현금만 돼요.', 'hyeongeumman dwaeyo.', 'ຮັບແຕ່ເງິນສົດ', 'รับแค่เงินสด', 'Chỉ nhận tiền mặt.', '💴'],

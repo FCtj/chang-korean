@@ -72,7 +72,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['타이 마사지', 'tai masaji', 'ນວດແຜນໄທ', 'นวดแผนไทย', 'massage kiểu Thái', '🧘'],
       ['오일 마사지', 'oil masaji', 'ນວດນ້ຳມັນ', 'นวดน้ำมัน', 'massage bằng dầu', '🧴'],
       ['머리 마사지', 'meori masaji', 'ນວດຫົວ', 'นวดหัว', 'massage đầu', '💇'],
-      ['낍', 'kip', 'ກີບ (ເງິນລາວ)', 'กีบ (เงินลาว)', 'kíp (tiền Lào)', '🇱🇦'],
+      ['낍', 'kkip', 'ກີບ (ເງິນລາວ)', 'กีบ (เงินลาว)', 'kíp (tiền Lào)', '🇱🇦'],
       ['30분', 'samsip bun', '30 ນາທີ', '30 นาที', '30 phút', '🕧'],
       ['한 시간', 'han sigan', '1 ຊົ່ວໂມງ', '1 ชั่วโมง', '1 tiếng', '🕐'],
       ['한 시간 반', 'han sigan ban', '1 ຊົ່ວໂມງເຄິ່ງ', '1 ชั่วโมงครึ่ง', '1 tiếng rưỡi', '🕜'],
@@ -94,7 +94,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
     ],
     phrases: [
       ['발 마사지 얼마예요?', 'bal masaji eolmayeyo?', 'ນວດຕີນເທົ່າໃດ?', 'นวดเท้าเท่าไหร่?', 'Massage chân bao nhiêu tiền?', '💸'],
-      ['한 시간에 10만 낍이에요.', 'han sigane simman kibieyo.', 'ຊົ່ວໂມງລະ 100,000 ກີບ', 'ชั่วโมงละ 100,000 กีบ', 'Một tiếng 100.000 kíp.', '🧾'],
+      ['한 시간에 10만 낍이에요.', 'han sigane simman kkibieyo.', 'ຊົ່ວໂມງລະ 100,000 ກີບ', 'ชั่วโมงละ 100,000 กีบ', 'Một tiếng 100.000 kíp.', '🧾'],
       ['몇 시간 하실 거예요?', 'myeot sigan hasil geoyeyo?', 'ຈະນວດຈັກຊົ່ວໂມງ?', 'จะนวดกี่ชั่วโมง?', 'Quý khách làm mấy tiếng ạ?', '⌛'],
       ['한 시간 해 주세요.', 'han sigan hae juseyo.', 'ເອົາ 1 ຊົ່ວໂມງ', 'เอา 1 ชั่วโมง', 'Cho tôi làm 1 tiếng.', '☝️'],
       ['뭐가 좋아요?', 'mwoga joayo?', 'ອັນໃດດີ?', 'อันไหนดี?', 'Cái nào tốt?', '🤔'],
@@ -239,7 +239,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
   },
   {
     key: 'pay',
-    icon: '💳',
+    icon: '💵',
     title: { ko: '계산·인사', lo: 'ຈ່າຍເງິນ ແລະ ລາກັນ', th: 'จ่ายเงินและบอกลา', vi: 'Thanh toán và chào tạm biệt' },
     words: [
       ['계산', 'gyesan', 'ໄລ່ເງິນ', 'คิดเงิน', 'tính tiền', '🧾'],
@@ -272,7 +272,7 @@ export const TRACK_MASSAGE: TrackUnitSrc[] = [
       ['계산해 주세요.', 'gyesanhae juseyo.', 'ໄລ່ເງິນແດ່', 'เช็คบิลด้วย', 'Tính tiền giúp tôi.', '🧮'],
       ['QR로 돼요?', 'kyuallo dwaeyo?', 'ຈ່າຍ QR ໄດ້ບໍ່?', 'จ่าย QR ได้ไหม?', 'Trả bằng QR được không?', '📸'],
       ['현금만 돼요.', 'hyeongeumman dwaeyo.', 'ຮັບແຕ່ເງິນສົດ', 'รับแค่เงินสด', 'Chỉ nhận tiền mặt.', '💴'],
-      ['다 해서 20만 낍이에요.', 'da haeseo isimman kibieyo.', 'ທັງໝົດ 200,000 ກີບ', 'ทั้งหมด 200,000 กีบ', 'Tổng cộng 200.000 kíp.', '💲'],
+      ['다 해서 20만 낍이에요.', 'da haeseo isimman kkibieyo.', 'ທັງໝົດ 200,000 ກີບ', 'ทั้งหมด 200,000 กีบ', 'Tổng cộng 200.000 kíp.', '💲'],
       ['30분 연장해 주세요.', 'samsip bun yeonjanghae juseyo.', 'ຕໍ່ອີກ 30 ນາທີແດ່', 'ต่ออีก 30 นาที', 'Gia hạn thêm 30 phút giúp tôi.', '⏲️'],
       ['이건 팁이에요.', 'igeon tibieyo.', 'ນີ້ແມ່ນທິບ', 'นี่คือทิป', 'Đây là tiền boa.', '💝'],
       ['정말 시원했어요.', 'jeongmal siwonhaesseoyo.', 'ສະບາຍຫຼາຍແທ້ໆ', 'สบายมากจริงๆ', 'Thật sự rất dễ chịu.', '🥰'],
