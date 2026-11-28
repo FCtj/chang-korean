@@ -33,6 +33,8 @@ for (const [lv, list] of Object.entries(moved)) {
   }
 }
 const idMoves = {}
+// 다른 코스에서 가져온 단어끼리 같은 그림이면 새 단원에서만 바꿈 (단원 안 그림 겹침 금지)
+const EMOJI_OVERRIDE = { '2-core-07:휴일': '🏖️', '2-core-08:주스': '🧃' }
 for (const u of plan) {
   const uk = `${u.level}-${u.key}`
   const o = out[uk]
@@ -46,7 +48,7 @@ for (const u of plan) {
   ar[u.title] = `${TITLE.ar} ${CIRC[k]}`
   const words = u.words.map((w, i) => {
     if (w.status === 'moved') idMoves[oldId[`${u.level}:${w.ko}`]] = `t-topik-${u.level}-${u.key}-${String(i + 1).padStart(2, '0')}`
-    if (w.status !== 'new') return [w.ko, w.rom, w.lo, w.th, w.vi, w.emoji]
+    if (w.status !== 'new') return [w.ko, w.rom, w.lo, w.th, w.vi, EMOJI_OVERRIDE[`${uk}:${w.ko}`] ?? w.emoji]
     const n = o.words[w.ko]
     mn[w.ko] = n.mn
     ar[w.ko] = n.ar
