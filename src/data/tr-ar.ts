@@ -17,6 +17,8 @@ import { AR_6 } from './tr-ar-6.ts'
 import { AR_5 } from './tr-ar-5.ts'
 import { AR_4 } from './tr-ar-4.ts'
 import { AR_1 } from './tr-ar-1.ts'
+// TOPIK 필수 단어 단원: 단어 · 문장 · 제목이 한 파일 (PARTS · TITLE_PARTS 둘 다)
+import { AR_CORE } from './tr-ar-core.ts'
 import { AR_3 } from './tr-ar-3.ts'
 import { AR_2 } from './tr-ar-2.ts'
 
@@ -36,6 +38,7 @@ const PARTS: Record<string, string>[] = [
   AR_JOB_PARENTING_A,
   AR_JOB_PARENTING_B,
   AR_CURATION,
+  AR_CORE,
   // @ar-parts
 ]
 const TITLE_PARTS: Record<string, string>[] = [
@@ -48,6 +51,7 @@ const TITLE_PARTS: Record<string, string>[] = [
   AR_JOB_GUIDE,
   AR_JOB_PARENTING_A,
   AR_JOB_PARENTING_B,
+  AR_CORE,
   // @ar-title-parts
 ]
 

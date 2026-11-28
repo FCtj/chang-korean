@@ -20,6 +20,8 @@ import { MN_3 } from './tr-mn-3.ts'
 import { MN_4 } from './tr-mn-4.ts'
 import { MN_2 } from './tr-mn-2.ts'
 import { MN_1 } from './tr-mn-1.ts'
+// TOPIK 필수 단어 단원: 단어 · 문장 · 제목이 한 파일 (PARTS · TITLE_PARTS 둘 다)
+import { MN_CORE } from './tr-mn-core.ts'
 
 const PARTS: Record<string, string>[] = [
   MN_1,
@@ -37,6 +39,7 @@ const PARTS: Record<string, string>[] = [
   MN_JOB_PARENTING_A,
   MN_JOB_PARENTING_B,
   MN_CURATION,
+  MN_CORE,
   // @mn-parts
 ]
 const TITLE_PARTS: Record<string, string>[] = [
@@ -49,6 +52,7 @@ const TITLE_PARTS: Record<string, string>[] = [
   MN_JOB_GUIDE,
   MN_JOB_PARENTING_A,
   MN_JOB_PARENTING_B,
+  MN_CORE,
   // @mn-title-parts
 ]
 

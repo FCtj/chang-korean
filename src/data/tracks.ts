@@ -26,6 +26,8 @@ import { TRACK_TOPIK_2 } from './track-topik-2.ts'
 import { TRACK_TOPIK_5 } from './track-topik-5.ts'
 import { TRACK_TOPIK_3 } from './track-topik-3.ts'
 import { TRACK_TOPIK_6 } from './track-topik-6.ts'
+// 급마다 더한 필수 단어 단원 (국립국어원 학습용 어휘 · tools/topik/)
+import { TOPIK_CORE } from './track-topik-core.ts'
 import type { TitleL10n, TrackUnitSrc } from './track-types.ts'
 import type { Purpose, Round, Word } from './words.ts'
 import { withFix } from './tr-fix.ts'
@@ -65,7 +67,7 @@ function TOPIK_SOURCES(): TrackSource[] {
     icon: TOPIK_ICON[n - 1],
     title: { ko: `TOPIK ${n}급`, lo: `TOPIK ລະດັບ ${n}`, th: `TOPIK ระดับ ${n}`, vi: `TOPIK cấp ${n}` },
     desc: TOPIK_DESC[n],
-    units: TOPIK_UNITS[n] ?? [],
+    units: [...(TOPIK_UNITS[n] ?? []), ...(TOPIK_CORE[n] ?? [])],
   }))
 }
 

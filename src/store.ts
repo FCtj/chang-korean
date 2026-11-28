@@ -1,6 +1,7 @@
 // 학습 기록·점수·도장 저장 (기기 안 localStorage)
 // 서버를 붙이면 이 파일의 저장/불러오기 부분만 API 호출로 바꾸면 됩니다.
 import { EDITION, IS_KO, LEVELS } from './edition'
+import { TOPIK_ID_MOVES } from './data/track-topik-core'
 import { useSyncExternalStore } from 'react'
 import { TIERS, ROUNDS, PACKS, SET_SIZE, findRound, setNative as setWordNative, NATIVES, type Native, type Purpose, type Round, type Word } from './data/words'
 import type { UiLang } from './i18n'
@@ -221,6 +222,25 @@ function initial(): State {
   return IS_KO ? base : { ...base, started: true, ui: 'ko', native: 'lo', country: 'ZZ', course: 'topik', newsSeen: NEWS_ID }
 }
 
+/** 단어 id 가 바뀐 단어의 기록(외웠어요 · 문제 기록)을 새 id 로 옮김 (여러 번 해도 같음) */
+function moveWordIds(s: State): State {
+  const moves = Object.entries(TOPIK_ID_MOVES).filter(([a]) => a in s.known || a in s.wordStats)
+  if (!moves.length) return s
+  const known = { ...s.known }
+  const wordStats = { ...s.wordStats }
+  for (const [a, b] of moves) {
+    if (a in known) {
+      known[b] ??= known[a]
+      delete known[a]
+    }
+    if (a in wordStats) {
+      wordStats[b] ??= wordStats[a]
+      delete wordStats[a]
+    }
+  }
+  return { ...s, known, wordStats }
+}
+
 function load(): State {
   try {
     const raw = localStorage.getItem(KEY)
@@ -256,6 +276,8 @@ function load(): State {
         merged.lastChunk = {}
         for (const r of ROUNDS) if (r.words.every((w) => stepKnown[`${r.id}#1`]?.[w.id])) merged.steps = { ...merged.steps, [r.id]: 2 }
       }
+      // TOPIK 단원 정리: 예전 단원 끝에 덧붙였던 단어를 '필수 단어' 단원으로 옮김 → 외운 기록·문제 기록도 새 id 로
+      merged = moveWordIds(merged)
       return merged
     }
   } catch {
