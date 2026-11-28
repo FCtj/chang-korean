@@ -27,7 +27,9 @@ const NOT = { lo: /[฀-๿]/, th: /[຀-໿]/, vi: /[฀-໿Ѐ-ӿ؀-ۿ]/, mn: /
 const HANGUL = /[가-힣]/
 const hangulOutsideBrackets = (s) => HANGUL.test(String(s).replace(/\([^)]*\)|\[[^\]]*\]/g, ''))
 const ROM = /^[a-z0-9' \-.,?!~"]+$/
-const isEmoji = (e) => typeof e === 'string' && e.length > 0 && e.length <= 14 && !/[\p{L}\p{N}\s]/u.test(e.replace(/️|‍/g, '')) && /\p{Extended_Pictographic}|[\u{1F1E6}-\u{1F1FF}]|[#*0-9]️?⃣/u.test(e)
+// 숫자 키캡(1️⃣ · #️⃣)도 그림으로 인정
+const KEYCAP = /^[#*0-9]\uFE0F?\u20E3$/u
+const isEmoji = (e) => typeof e === 'string' && e.length > 0 && e.length <= 14 && (KEYCAP.test(e) || (!/[\p{L}\p{N}\s]/u.test(e.replace(/\uFE0F|\u200D/g, '')) && /\p{Extended_Pictographic}|[\u{1F1E6}-\u{1F1FF}]/u.test(e)))
 let errors = 0
 let warns = 0
 const fail = (m) => (errors++, console.error('✗ ' + m))
