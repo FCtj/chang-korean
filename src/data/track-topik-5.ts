@@ -156,9 +156,6 @@ export const TRACK_TOPIK_5: TrackUnitSrc[] = [
       ['수술 후 환자의 상태가 호전되었다.', 'susul hu hwanjaui sangtaega hojeondoeeotda.', 'ຫຼັງຜ່າຕັດ ອາການຂອງຄົນເຈັບດີຂຶ້ນ', 'หลังผ่าตัด อาการของผู้ป่วยดีขึ้น', 'Sau phẫu thuật, tình trạng bệnh nhân đã chuyển biến tốt.', '😊'],
       ['복지 사각지대를 줄이는 정책이 필요하다.', 'bokji sagakjidaereul jurineun jeongchaegi piryohada.', 'ຕ້ອງມີນະໂຍບາຍຫຼຸດຊ່ອງຫວ່າງດ້ານສະຫວັດດີການ', 'จำเป็นต้องมีนโยบายลดจุดบอดของสวัสดิการ', 'Cần có chính sách thu hẹp vùng trũng phúc lợi.', '📝'],
     ],
-    added: [
-      { row: ['선별적 복지', 'seonbyeoljeok bokji', 'ສະຫວັດດີການແບບຄັດເລືອກ', 'สวัสดิการแบบเจาะจงกลุ่ม', 'phúc lợi có chọn lọc', '🎯'] },
-    ],
   },
   {
     key: 'history',
@@ -315,9 +312,6 @@ export const TRACK_TOPIK_5: TrackUnitSrc[] = [
       ['국회가 협정을 비준했다.', 'gukoega hyeopjeongeul bijunhaetda.', 'ສະພາແຫ່ງຊາດໄດ້ໃຫ້ສັດຕະຍາບັນຂໍ້ຕົກລົງ', 'รัฐสภาให้สัตยาบันข้อตกลง', 'Quốc hội đã phê chuẩn hiệp định.', '🖋️'],
       ['외교는 결국 국익을 위한 것이다.', 'oegyoneun gyeolguk gugigeul wihan geosida.', 'ໃນທີ່ສຸດ ການທູດກໍເພື່ອຜົນປະໂຫຍດແຫ່ງຊາດ', 'ท้ายที่สุดแล้ว การทูตก็เพื่อผลประโยชน์ของชาติ', 'Rốt cuộc, ngoại giao là vì lợi ích quốc gia.', '🧭'],
     ],
-    added: [
-      { row: ['남북 관계', 'nambuk gwangye', 'ສາຍພົວພັນເກົາຫຼີເໜືອ-ໃຕ້', 'ความสัมพันธ์เกาหลีเหนือ-ใต้', 'quan hệ liên Triều', '↕️'] },
-    ],
   },
   {
     key: 'labor-business',
@@ -434,9 +428,6 @@ export const TRACK_TOPIK_5: TrackUnitSrc[] = [
       ['두 변수 사이에 상관관계가 나타났다.', 'du byeonsu saie sanggwangwangyega natanatda.', 'ພົບຄວາມສຳພັນລະຫວ່າງສອງຕົວແປ', 'พบสหสัมพันธ์ระหว่างตัวแปรสองตัว', 'Đã xuất hiện tương quan giữa hai biến.', '📈'],
       ['선행 연구를 바탕으로 결론을 도출했다.', 'seonhaeng yeongureul batangeuro gyeolloneul dochulhaetda.', 'ໄດ້ສະຫຼຸບຜົນໂດຍອີງໃສ່ງານຄົ້ນຄວ້າທີ່ຜ່ານມາ', 'ได้ข้อสรุปโดยอิงจากงานวิจัยที่ผ่านมา', 'Đã rút ra kết luận dựa trên các nghiên cứu trước.', '🏗️'],
       ['소수의 사례로 일반화하는 것은 위험하다.', 'sosuui saryero ilbanhwahaneun geoseun wiheomhada.', 'ການເໝົາລວມຈາກພຽງບໍ່ເທົ່າໃດກໍລະນີແມ່ນອັນຕະລາຍ', 'การเหมารวมจากกรณีเพียงไม่กี่กรณีเป็นเรื่องอันตราย', 'Khái quát hóa từ vài trường hợp là nguy hiểm.', '⚠️'],
-    ],
-    added: [
-      { row: ['제시하다', 'jesihada', 'ສະເໜີ, ຍົກຂຶ້ນມາ', 'เสนอ, นำเสนอ', 'đưa ra, trình bày', '📋'] },
     ],
   },
   {

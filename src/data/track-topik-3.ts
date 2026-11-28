@@ -78,9 +78,6 @@ export const TRACK_TOPIK_3: TrackUnitSrc[] = [
       ['제 전공은 경영학이에요.', 'je jeongongeun gyeongyeonghagieyo.', 'ວິຊາເອກຂອງຂ້ອຍແມ່ນບໍລິຫານທຸລະກິດ', 'วิชาเอกของฉันคือบริหารธุรกิจ', 'Chuyên ngành của tôi là quản trị kinh doanh.', '📘'],
       ['아파서 오늘 수업에 결석했어요.', 'apaseo oneul sueobe gyeolseokaesseoyo.', 'ຂ້ອຍບໍ່ສະບາຍ ມື້ນີ້ຈຶ່ງຂາດຮຽນ', 'วันนี้ฉันไม่สบายเลยขาดเรียน', 'Hôm nay tôi bị ốm nên nghỉ học.', '🤒'],
     ],
-    added: [
-      { row: ['장학금', 'janghakgeum', 'ທຶນການສຶກສາ', 'ทุนการศึกษา', 'học bổng', '💰'] },
-    ],
   },
   {
     key: 'housing',
@@ -120,9 +117,6 @@ export const TRACK_TOPIK_3: TrackUnitSrc[] = [
       ['위층의 층간 소음 때문에 잠을 못 자요.', 'wicheungui cheunggan soeum ttaemune jameul mot jayo.', 'ນອນບໍ່ຫຼັບຍ້ອນສຽງດັງຈາກຊັ້ນເທິງ', 'นอนไม่หลับเพราะเสียงดังจากชั้นบน', 'Tôi không ngủ được vì tiếng ồn từ tầng trên.', '😫'],
       ['이번 주말에 집들이를 하려고 해요.', 'ibeon jumare jipdeurireul haryeogo haeyo.', 'ທ້າຍອາທິດນີ້ຂ້ອຍຈະຈັດງານຂຶ້ນເຮືອນໃໝ່', 'สุดสัปดาห์นี้ฉันจะจัดงานขึ้นบ้านใหม่', 'Cuối tuần này tôi định tổ chức tiệc tân gia.', '🥂'],
     ],
-    added: [
-      { row: ['월세', 'wolse', 'ຄ່າເຊົ່າລາຍເດືອນ', 'ค่าเช่ารายเดือน', 'tiền thuê nhà hàng tháng', '🏠'] },
-    ],
   },
   {
     key: 'health',
@@ -161,9 +155,6 @@ export const TRACK_TOPIK_3: TrackUnitSrc[] = [
       ['수술 후에 빨리 회복했어요.', 'susul hue ppalli hoebokaesseoyo.', 'ຫຼັງຜ່າຕັດ ຂ້ອຍຟື້ນຕົວໄວ', 'หลังผ่าตัดฉันฟื้นตัวเร็ว', 'Sau phẫu thuật tôi hồi phục nhanh.', '🏃'],
       ['이 약은 부작용이 있을 수 있어요.', 'i yageun bujagyongi isseul su isseoyo.', 'ຢານີ້ອາດມີຜົນຂ້າງຄຽງ', 'ยานี้อาจมีผลข้างเคียง', 'Thuốc này có thể có tác dụng phụ.', '🧴'],
       ['일 년에 한 번 건강 검진을 받아요.', 'il lyeone han beon geongang geomjineul badayo.', 'ຂ້ອຍກວດສຸຂະພາບປີລະເທື່ອ', 'ฉันตรวจสุขภาพปีละครั้ง', 'Tôi khám sức khỏe mỗi năm một lần.', '📅'],
-    ],
-    added: [
-      { row: ['증상', 'jeungsang', 'ອາການ', 'อาการ', 'triệu chứng', '🔍'] },
     ],
   },
   {

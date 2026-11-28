@@ -39,9 +39,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['1인 가구가 빠르게 증가하고 있다.', 'irin gaguga ppareuge jeunggahago itda.', 'ຄົວເຮືອນຄົນດຽວເພີ່ມຂຶ້ນຢ່າງໄວວາ', 'ครัวเรือนคนเดียวเพิ่มขึ้นอย่างรวดเร็ว', 'Số hộ gia đình một người đang tăng nhanh.', '🚀'],
       ['차별과 고정 관념을 없애야 한다.', 'chabyeolgwa gojeong gwannyeomeul eopsaeya handa.', 'ພວກເຮົາຕ້ອງລົບລ້າງການຈຳແນກແລະຄວາມຄິດແບບຕາຍຕົວ', 'เราต้องขจัดการเลือกปฏิบัติและภาพจำแบบเหมารวม', 'Cần xóa bỏ phân biệt đối xử và định kiến khuôn mẫu.', '🧹'],
     ],
-    added: [
-      { row: ['세대 갈등', 'sedae galdeung', 'ຄວາມຂັດແຍ່ງລະຫວ່າງຄົນຕ່າງລຸ້ນ', 'ความขัดแย้งระหว่างวัย', 'xung đột thế hệ', '🆚'] },
-    ],
   },
   {
     key: 'environment',
@@ -80,9 +77,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['폐기물을 줄이려면 재사용을 생활화해야 한다.', 'pyegimureul juriryeomyeon jaesayongeul saenghwalhwahaeya handa.', 'ເພື່ອຫຼຸດຂີ້ເຫຍື້ອ ຕ້ອງເຮັດໃຫ້ການນຳກັບມາໃຊ້ໃໝ່ກາຍເປັນນິໄສປະຈຳວັນ', 'เพื่อลดขยะ ต้องทำให้การใช้ซ้ำเป็นนิสัยในชีวิตประจำวัน', 'Muốn giảm chất thải thì phải biến việc tái sử dụng thành thói quen hằng ngày.', '🔁'],
       ['이 지역의 생태계가 훼손되었다.', 'i jiyeogui saengtaegyega hwesondoeeotda.', 'ລະບົບນິເວດຂອງເຂດນີ້ຖືກທຳລາຍແລ້ວ', 'ระบบนิเวศของพื้นที่นี้ถูกทำลาย', 'Hệ sinh thái của khu vực này đã bị hủy hoại.', '🥀'],
       ['기업들도 탄소 중립을 선언했다.', 'gieopdeuldo tanso jungnibeul seoneonhaetda.', 'ບັນດາບໍລິສັດກໍປະກາດຄວາມເປັນກາງທາງຄາບອນ', 'บริษัทต่างๆ ก็ประกาศความเป็นกลางทางคาร์บอน', 'Các doanh nghiệp cũng đã tuyên bố trung hòa carbon.', '🏢'],
-    ],
-    added: [
-      { row: ['생태계', 'saengtaegye', 'ລະບົບນິເວດ', 'ระบบนิเวศ', 'hệ sinh thái', '🐝'] },
     ],
   },
   {
@@ -123,9 +117,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['창의력을 키우는 교육이 필요하다.', 'changuiryeogeul kiuneun gyoyugi piryohada.', 'ຕ້ອງມີການສຶກສາທີ່ພັດທະນາຄວາມຄິດສ້າງສັນ', 'จำเป็นต้องมีการศึกษาที่พัฒนาความคิดสร้างสรรค์', 'Cần có nền giáo dục phát triển khả năng sáng tạo.', '🖌️'],
       ['정부는 교육 과정을 개편하기로 했다.', 'jeongbuneun gyoyuk gwajeongeul gaepyeonhagiro haetda.', 'ລັດຖະບານຕັດສິນໃຈປັບປຸງຫຼັກສູດການສຶກສາ', 'รัฐบาลตัดสินใจปรับปรุงหลักสูตรการศึกษา', 'Chính phủ quyết định cải tổ chương trình giáo dục.', '🔧'],
     ],
-    added: [
-      { row: ['학위', 'hagwi', 'ປະລິນຍາ', 'ปริญญา', 'học vị', '🎓'] },
-    ],
   },
   {
     key: 'careers',
@@ -165,9 +156,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['은퇴 후에 작은 가게를 창업했다.', 'euntoe hue jageun gagereul changeopaetda.', 'ຫຼັງກະສຽນ ໄດ້ເປີດຮ້ານນ້ອຍໆ', 'หลังเกษียณได้เปิดร้านเล็กๆ', 'Sau khi nghỉ hưu, tôi đã mở một cửa hàng nhỏ.', '🛍️'],
       ['회사가 구조 조정을 발표했다.', 'hoesaga gujo jojeongeul balpyohaetda.', 'ບໍລິສັດປະກາດປັບໂຄງສ້າງ', 'บริษัทประกาศปรับโครงสร้าง', 'Công ty đã công bố tái cơ cấu.', '📢'],
     ],
-    added: [
-      { row: ['정규직', 'jeonggyujik', 'ພະນັກງານປະຈຳ', 'พนักงานประจำ', 'nhân viên chính thức', '🔒'] },
-    ],
   },
   {
     key: 'economy',
@@ -206,10 +194,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['환율이 오르면 수입 물가도 오른다.', 'hwanyuri oreumyeon suip mulgado oreunda.', 'ເມື່ອອັດຕາແລກປ່ຽນຂຶ້ນ ລາຄາສິນຄ້ານຳເຂົ້າກໍຂຶ້ນ', 'เมื่ออัตราแลกเปลี่ยนสูงขึ้น ราคาสินค้านำเข้าก็สูงขึ้น', 'Khi tỷ giá tăng, giá hàng nhập khẩu cũng tăng.', '🌐'],
       ['주식 투자로 큰 손실을 보았다.', 'jusik tujaro keun sonsireul boatda.', 'ຂາດທຶນຫຼາຍຈາກການລົງທຶນຮຸ້ນ', 'ขาดทุนหนักจากการลงทุนในหุ้น', 'Tôi đã thua lỗ nặng vì đầu tư cổ phiếu.', '😭'],
       ['올해 경제 성장률이 하락할 전망이다.', 'olhae gyeongje seongjangnyuri harakal jeonmangida.', 'ຄາດວ່າອັດຕາການເຕີບໂຕທາງເສດຖະກິດປີນີ້ຈະຫຼຸດລົງ', 'คาดว่าอัตราการเติบโตทางเศรษฐกิจปีนี้จะลดลง', 'Dự báo tốc độ tăng trưởng kinh tế năm nay sẽ giảm.', '🔮'],
-    ],
-    added: [
-      { row: ['투자', 'tuja', 'ການລົງທຶນ', 'การลงทุน', 'đầu tư', '💹'] },
-      { row: ['상승하다', 'sangseunghada', 'ສູງຂຶ້ນ', 'สูงขึ้น', 'tăng lên', '⬆️'] },
     ],
   },
   {
@@ -328,9 +312,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['과로로 건강이 악화되었다.', 'gwaroro geongangi akhwadoeeotda.', 'ສຸຂະພາບຊຸດໂຊມລົງຍ້ອນເຮັດວຽກໜັກເກີນໄປ', 'สุขภาพแย่ลงเพราะทำงานหนักเกินไป', 'Sức khỏe xấu đi do làm việc quá sức.', '🥴'],
       ['전염병을 막으려면 손을 자주 씻어야 한다.', 'jeonyeombyeongeul mageuryeomyeon soneul jaju ssiseoya handa.', 'ເພື່ອປ້ອງກັນພະຍາດຕິດຕໍ່ ຕ້ອງລ້າງມືເລື້ອຍໆ', 'เพื่อป้องกันโรคติดต่อ ต้องล้างมือบ่อยๆ', 'Để phòng bệnh truyền nhiễm, phải rửa tay thường xuyên.', '🧼'],
     ],
-    added: [
-      { row: ['면역력', 'myeonyeongnyeok', 'ພູມຕ້ານທານ', 'ภูมิคุ้มกัน', 'sức đề kháng', '💪'] },
-    ],
   },
   {
     key: 'arts',
@@ -409,9 +390,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['계약을 위반하면 손해를 배상해야 한다.', 'gyeyageul wibanhamyeon sonhaereul baesanghaeya handa.', 'ຖ້າລະເມີດສັນຍາ ຕ້ອງຈ່າຍຄ່າເສຍຫາຍ', 'หากผิดสัญญาต้องชดใช้ค่าเสียหาย', 'Nếu vi phạm hợp đồng thì phải bồi thường thiệt hại.', '🤝'],
       ['노동자의 권리는 법으로 보호된다.', 'nodongjaui gwollineun beobeuro bohodoenda.', 'ສິດຂອງຜູ້ອອກແຮງງານໄດ້ຮັບການປົກປ້ອງດ້ວຍກົດໝາຍ', 'สิทธิของแรงงานได้รับการคุ้มครองตามกฎหมาย', 'Quyền của người lao động được pháp luật bảo vệ.', '🛡️'],
     ],
-    added: [
-      { row: ['검찰', 'geomchal', 'ອົງການໄອຍະການ', 'อัยการ', 'viện kiểm sát', '🕵️'] },
-    ],
   },
   {
     key: 'emotions',
@@ -489,12 +467,6 @@ export const TRACK_TOPIK_4: TrackUnitSrc[] = [
       ['관광지에서 바가지를 썼다.', 'gwangwangjieseo bagajireul sseotda.', 'ຖືກໂກງລາຄາຢູ່ສະຖານທີ່ທ່ອງທ່ຽວ', 'โดนโก่งราคาที่สถานที่ท่องเที่ยว', 'Tôi bị chặt chém ở khu du lịch.', '🏝️'],
       ['시험이 내일이라 발등에 불이 떨어졌다.', 'siheomi naeirira baldeunge buri tteoreojyeotda.', 'ມື້ອື່ນສອບເສັງແລ້ວ ຈຶ່ງຮີບດ່ວນຫຼາຍ', 'พรุ่งนี้สอบแล้ว ไฟลนก้นเลย', 'Mai thi rồi nên nước đến chân rồi.', '⏰'],
       ['오늘은 내가 한턱낼게.', 'oneureun naega hanteongnaelge.', 'ມື້ນີ້ຂ້ອຍລ້ຽງເອງ', 'วันนี้ฉันเลี้ยงเอง', 'Hôm nay tôi khao nhé.', '🎉'],
-    ],
-    added: [
-      { row: ['더욱이', 'deougi', 'ຍິ່ງໄປກວ່ານັ້ນ', 'ยิ่งไปกว่านั้น', 'hơn nữa', '➕'] },
-      { row: ['우물 안 개구리', 'umul an gaeguri', 'ກົບໃນກະລາ', 'กบในกะลา', 'ếch ngồi đáy giếng', '🐸'] },
-      { row: ['원숭이도 나무에서 떨어진다', 'wonsungido namueseo tteoreojinda', 'ສີ່ຕີນຮູ້ພາດ ນັກປາດຮູ້ພັ້ງ', 'สี่เท้ายังรู้พลาด นักปราชญ์ยังรู้พลั้ง', 'người giỏi cũng có lúc sai', '🐒'] },
-      { row: ['등잔 밑이 어둡다', 'deungjan michi eodupda', 'ໃກ້ຕົວກັບບໍ່ເຫັນ', 'ใกล้เกลือกินด่าง', 'gần đèn lại tối (gần mà không thấy)', '🪔'] },
     ],
   },
 ]

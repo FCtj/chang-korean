@@ -3,6 +3,7 @@
 // - 표본 검수(라오·태국·베트남·몽골·아랍어)에서 고친 뜻
 // 단어 id 는 '<단원 id>-<번호>' (예: t-topik-1-numbers-03, r1-07)
 import { EMOJI_FIX } from './tr-emoji-fix.ts'
+import { TOPIK_CORE_FIX } from './track-topik-core.ts'
 
 type Native = 'lo' | 'th' | 'vi' | 'mn' | 'ar'
 
@@ -126,7 +127,7 @@ export const FIX: Record<string, Partial<Record<Native, string>>> = {
   't-restaurant-pay-25': { mn: 'захиалгын киоск' },
   't-store-closing-26': { vi: 'Tôi bắt đầu dọn dẹp để đóng cửa nhé.', ar: 'سأبدأ التنظيف قبل الإغلاق.' },
   't-topik-1-body-22': { ar: 'يُصاب بالحمّى' },
-  't-topik-1-daily-33': { ar: 'يبحث عن' },
+  't-topik-1-core-03-25': { ar: 'يبحث عن' },
   't-topik-1-family-11': { ar: 'أخت كبرى (تقولها الفتاة)' },
   't-topik-1-food-12': { mn: 'алим', ar: 'تفاحة' },
   't-topik-1-food-14': { lo: 'ໝີ່ສຳເລັດຮູບ' },
@@ -135,8 +136,8 @@ export const FIX: Record<string, Partial<Record<Native, string>>> = {
   't-topik-1-numbers-10': { mn: 'арав', ar: 'عشرة' },
   't-topik-1-numbers-11': { mn: 'нэг', ar: 'واحد' },
   't-topik-1-numbers-18': { mn: 'найм', ar: 'ثمانية' },
-  't-topik-1-place-31': { ar: 'حافلة' },
-  't-topik-1-place-32': { ar: 'سيارة أجرة' },
+  't-topik-1-core-08-14': { ar: 'حافلة' },
+  't-topik-1-core-11-23': { ar: 'سيارة أجرة' },
   't-topik-1-time-16': { mn: 'цаг (хэдэн цаг)', ar: 'الساعة (لقول الوقت)' },
   't-topik-1-time-18': { ar: 'وقت، ساعة' },
   't-topik-1-weather-16': { mn: 'сэрүүн' },
@@ -145,7 +146,7 @@ export const FIX: Record<string, Partial<Record<Native, string>>> = {
   't-topik-2-exercise-17': { mn: 'тамхинаас гарах', ar: 'الإقلاع عن التدخين' },
   't-topik-2-feelings-21': { lo: 'ຕື່ນເຕັ້ນລໍຖ້າ' },
   't-topik-2-housework-25': { ar: 'ممسحة، خرقة تنظيف' },
-  't-topik-2-public-office-31': { ar: 'يفقد، يُضيّع' },
+  't-topik-2-core-05-16': { ar: 'يفقد، يُضيّع' },
   't-topik-2-school-05': { mn: '(шалгалтад) унах', ar: 'يرسب (في الامتحان)' },
   't-topik-2-school-08': { mn: 'бодлого, асуулт', ar: 'سؤال، مسألة' },
   't-topik-2-transport-08': { mn: '(зам) түгжрэх', ar: 'يزدحم (الطريق)' },
@@ -185,7 +186,7 @@ export const FIX: Record<string, Partial<Record<Native, string>>> = {
 
 /** 검수로 고친 뜻 덮어쓰기 */
 export function withFix<T extends { id: string }>(w: T): T {
-  const f = FIX[w.id]
+  const f = FIX[w.id] ?? TOPIK_CORE_FIX[w.id]
   const e = EMOJI_FIX[w.id]
   return f || e ? { ...w, ...f, ...(e ? { emoji: e } : {}) } : w
 }

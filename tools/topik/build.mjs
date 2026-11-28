@@ -33,8 +33,52 @@ for (const [lv, list] of Object.entries(moved)) {
   }
 }
 const idMoves = {}
+// 몽골어·아랍어 칸에는 한글을 넣지 않음 (scripts/check-mn·check-ar) → 괄호 안 한국어 문형 힌트만 빼고 설명은 남김
+// 예) "арга, боломж (-ㄹ 수 있다 = чадах)" → "арга, боломж (чадах)", "-гүй (үгүйсгэл: -지 않다)" → "-гүй (үгүйсгэл)"
+const HANGUL_TOKEN = /[-~/+]*[0-9]*[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3][\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A30-9\-~/()]*/g
+function noHangul(s) {
+  const fixBracket = (inner) =>
+    inner
+      .replace(HANGUL_TOKEN, ' ')
+      .replace(/\s+/g, ' ')
+      .replace(/\s+([,;:.])/g, '$1')
+      .replace(/^[\s=+:;,]+|[\s=+:;,]+$/g, '')
+      .replace(/:\s*=\s*/g, ': ')
+      .trim()
+  let t = String(s).replace(/\(([^()]*)\)/g, (m, inner) => {
+    if (!/[\u1100-\u11FF\u3130-\u318F\uAC00-\uD7A3]/.test(inner)) return m
+    const r = fixBracket(inner)
+    return r ? `(${r})` : ''
+  })
+  t = t.replace(HANGUL_TOKEN, ' ').replace(/\s+/g, ' ').replace(/\s+([,;:.)])/g, '$1').replace(/\(\s*\)/g, '').trim().replace(/[,;]$/, '')
+  return t
+}
 // 다른 코스에서 가져온 단어끼리 같은 그림이면 새 단원에서만 바꿈 (단원 안 그림 겹침 금지)
 const EMOJI_OVERRIDE = { '2-core-07:휴일': '🏖️', '2-core-08:주스': '🧃' }
+// 다른 코스에서 가져온 말인데 그쪽 뜻이 이 목록(빈도가 가장 높은 뜻)과 다른 것 → 이 단원에서만 뜻·그림·예문을 단어 id 로 따로 (다른 코스 카드는 그대로)
+const SENSE_OVERRIDE = {
+  '1-core-01:말': {
+    lo: 'ຄຳເວົ້າ, ພາສາ', th: 'คำพูด, ภาษา', vi: 'lời nói, tiếng (ngôn ngữ)', mn: 'үг, хэл яриа', ar: 'كلام، لغة', emoji: '💬',
+    ex: { ko: '그 말을 듣고 웃었어요.', rom: 'geu mareul deutgo useosseoyo.', lo: 'ຟັງຄຳເວົ້ານັ້ນແລ້ວກໍຫົວ', th: 'ได้ยินคำพูดนั้นแล้วก็หัวเราะ', vi: 'Nghe lời đó xong tôi đã cười.', mn: 'Тэр үгийг сонсоод инээсэн.', ar: 'سمعتُ ذلك الكلام فضحكت.' },
+  },
+  '1-core-04:못': {
+    lo: 'ບໍ່ໄດ້ (ກ່ອນຄຳກິລິຍາ)', th: 'ไม่ได้ (หน้ากริยา)', vi: 'không thể (đứng trước động từ)', mn: 'чадахгүй (үйл үгийн өмнө)', ar: 'لا يستطيع (قبل الفعل)', emoji: '🚫',
+    ex: { ko: '오늘은 바빠서 못 가요.', rom: 'oneureun bappaseo mot gayo.', lo: 'ມື້ນີ້ຫຍຸ້ງ ເລີຍໄປບໍ່ໄດ້', th: 'วันนี้ยุ่งเลยไปไม่ได้', vi: 'Hôm nay bận nên tôi không đi được.', mn: 'Өнөөдөр завгүй учраас явж чадахгүй.', ar: 'أنا مشغول اليوم فلا أستطيع الذهاب.' },
+  },
+  '1-core-06:새': {
+    lo: 'ໃໝ່ (ກ່ອນຄຳນາມ)', th: 'ใหม่ (หน้าคำนาม)', vi: 'mới (đứng trước danh từ)', mn: 'шинэ (нэр үгийн өмнө)', ar: 'جديد (قبل الاسم)', emoji: '🆕',
+    ex: { ko: '새 신발을 샀어요.', rom: 'sae sinbareul sasseoyo.', lo: 'ຊື້ເກີບໃໝ່', th: 'ซื้อรองเท้าใหม่', vi: 'Tôi đã mua giày mới.', mn: 'Шинэ гутал авсан.', ar: 'اشتريتُ حذاءً جديدًا.' },
+  },
+  '2-core-01:등': {
+    lo: 'ແລະອື່ນໆ; ຫຼັງ (ຮ່າງກາຍ)', th: 'ฯลฯ, เป็นต้น; หลัง (ร่างกาย)', vi: 'v.v., vân vân; lưng', mn: 'гэх мэт; нуруу', ar: 'إلخ، وغيرها؛ ظَهْر', emoji: '🔙',
+    ex: { ko: '사과, 배 등 과일을 샀어요.', rom: 'sagwa, bae deung gwaireul sasseoyo.', lo: 'ຊື້ໝາກໄມ້ ເຊັ່ນ ໝາກແອັບເປີ້ນ, ໝາກສາລີ່ ແລະອື່ນໆ', th: 'ซื้อผลไม้ เช่น แอปเปิล สาลี่ เป็นต้น', vi: 'Tôi đã mua trái cây như táo, lê v.v.', mn: 'Алим, лийр гэх мэт жимс авсан.', ar: 'اشتريتُ فواكه مثل التفاح والكمثرى وغيرها.' },
+  },
+  '2-core-02:병': {
+    lo: 'ພະຍາດ; ຂວດ', th: 'โรค; ขวด', vi: 'bệnh; chai', mn: 'өвчин; шил (сав)', ar: 'مرض؛ زجاجة', emoji: '🤒',
+    ex: { ko: '병이 나서 병원에 갔어요.', rom: 'byeongi naseo byeongwone gasseoyo.', lo: 'ບໍ່ສະບາຍ ເລີຍໄປໂຮງໝໍ', th: 'ป่วยเลยไปโรงพยาบาล', vi: 'Tôi bị bệnh nên đã đi bệnh viện.', mn: 'Өвдөөд эмнэлэг явсан.', ar: 'مرضتُ فذهبتُ إلى المستشفى.' },
+  },
+}
+const coreFix = {}
 for (const u of plan) {
   const uk = `${u.level}-${u.key}`
   const o = out[uk]
@@ -48,18 +92,25 @@ for (const u of plan) {
   ar[u.title] = `${TITLE.ar} ${CIRC[k]}`
   const words = u.words.map((w, i) => {
     if (w.status === 'moved') idMoves[oldId[`${u.level}:${w.ko}`]] = `t-topik-${u.level}-${u.key}-${String(i + 1).padStart(2, '0')}`
+    const id = `t-topik-${u.level}-${u.key}-${String(i + 1).padStart(2, '0')}`
+    const so = SENSE_OVERRIDE[`${uk}:${w.ko}`]
+    if (so) {
+      coreFix[id] = { mn: so.mn, ar: so.ar }
+      ex[id] = { ex: so.ex.ko, rom: so.ex.rom, lo: so.ex.lo, th: so.ex.th, vi: so.ex.vi, mn: so.ex.mn, ar: so.ex.ar }
+      return [w.ko, w.rom, so.lo, so.th, so.vi, so.emoji]
+    }
     if (w.status !== 'new') return [w.ko, w.rom, w.lo, w.th, w.vi, EMOJI_OVERRIDE[`${uk}:${w.ko}`] ?? w.emoji]
     const n = o.words[w.ko]
-    mn[w.ko] = n.mn
-    ar[w.ko] = n.ar
+    mn[w.ko] = noHangul(n.mn)
+    ar[w.ko] = noHangul(n.ar)
     ex[w.ko] = { ex: n.ex.ko, rom: n.ex.rom, lo: n.ex.lo, th: n.ex.th, vi: n.ex.vi }
-    exmn[w.ko] = n.ex.mn
-    exar[w.ko] = n.ex.ar
+    exmn[w.ko] = noHangul(n.ex.mn)
+    exar[w.ko] = noHangul(n.ex.ar)
     return [w.ko, n.rom, n.lo, n.th, n.vi, n.emoji]
   })
   const phrases = o.phrases.map((p) => {
-    mn[p.ko] = p.mn
-    ar[p.ko] = p.ar
+    mn[p.ko] = noHangul(p.mn)
+    ar[p.ko] = noHangul(p.ar)
     return [p.ko, p.rom, p.lo, p.th, p.vi, p.emoji]
   })
   ;(units[u.level] ??= []).push({ key: u.key, title, words, phrases })
@@ -73,6 +124,8 @@ const HEAD = (what) =>
 let core = HEAD('TOPIK 필수 단어 단원 (급마다 25단어 + 문장 5개)') + "import type { TrackUnitSrc } from './track-types'\n\n"
 core += '/** 예전 단원 끝에 덧붙였던 단어를 이 단원으로 옮김: 예전 id → 새 id (store 가 외운 기록을 옮김) */\n'
 core += `export const TOPIK_ID_MOVES: Record<string, string> = {\n${Object.entries(idMoves).map(([a, b]) => `  ${q(a)}: ${q(b)},`).join('\n')}\n}\n\n`
+core += '/** 다른 코스와 뜻이 다른 같은 글자(말·못·새·등·병): 이 단원 카드의 몽골어·아랍어 (tr-fix.ts withFix 가 씀) */\n'
+core += `export const TOPIK_CORE_FIX: Record<string, { mn: string; ar: string }> = {\n${Object.entries(coreFix).map(([a, b]) => `  ${q(a)}: { mn: ${q(b.mn)}, ar: ${q(b.ar)} },`).join('\n')}\n}\n\n`
 core += 'export const TOPIK_CORE: Record<number, TrackUnitSrc[]> = {\n'
 for (const [lv, us] of Object.entries(units)) {
   core += `  ${lv}: [\n`
@@ -113,4 +166,4 @@ for (const [a, b] of Object.entries(idMoves))
     rekeyed++
   }
 writeFileSync('src/data/tr-fix.ts', fix)
-console.log(`✓ 단원 ${plan.length}개 · 새 단어 ${Object.keys(ex).length} · 문장 ${plan.length * 5} · 옮긴 단어 ${Object.keys(idMoves).length} (예전 단원에서 뺀 줄 ${removed}, tr-fix 키 옮김 ${rekeyed})`)
+console.log(`✓ 단원 ${plan.length}개 · 새 단어 ${Object.keys(ex).filter((k) => !k.startsWith('t-')).length} · 문장 ${plan.length * 5} · 옮긴 단어 ${Object.keys(idMoves).length} (예전 단원에서 뺀 줄 ${removed}, tr-fix 키 옮김 ${rekeyed})`)

@@ -60,3 +60,10 @@ curl -LO https://raw.githubusercontent.com/HaHVU/HVULao_NLP/main/Datatest1k/test
 ## 5. 수정 요청 처리 (`tools/feedback/`)
 - `find-word.mjs <ko|ja|en|lo> "<단어 id 와 단어 또는 단어>"`: 수정 요청의 단어가 데이터 파일 어디에 있는지 (파일:줄). 처리 순서는 `docs/FEEDBACK.md`.
 - `tools/exmore/`: 예문 ②③ 만들기 (지침 `SPEC-ja.md` · 검사 `check-ja.py`(SudachiPy 로 가나 읽기 대조) · 빌드 `build-ja.py`).
+
+## 6. 한국어판 TOPIK 급 넓히기 (`tools/topik/`)
+| 순서 | 스크립트 | 하는 일 |
+|---|---|---|
+| ① | `prep.mjs` | 국립국어원 학습용 어휘(`data/`) 중 TOPIK 에 없는 말 → 급 배치 · 25개씩 단원 · 일감 `tools/_work/topik/in-NN.json` (다른 코스에 있던 말은 뜻·예문을 그대로 씀) |
+| ② | (에이전트) | `SPEC.md` 대로 `out-NN.json` (새 단어: 로마자·5개 언어 뜻·그림·예문 / 단원마다 문장 5개) → `node tools/topik/check.mjs NN` |
+| ③ | `build.mjs` | → `src/data/track-topik-core.ts` · `tr-mn-core.ts` · `tr-ar-core.ts` · `ex-topik-core.ts` · `exmn-core.ts` · `exar-core.ts` |

@@ -79,9 +79,6 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['신분증을 보여 주세요.', 'sinbunjeungeul boyeo juseyo.', 'ກະລຸນາສະແດງບັດປະຈຳຕົວ', 'กรุณาแสดงบัตรประจำตัว', 'Vui lòng cho xem giấy tờ tùy thân.', '👀'],
       ['책은 다음 주까지 반납하세요.', 'chaegeun daeum jukkaji bannapaseyo.', 'ກະລຸນາສົ່ງປຶ້ມຄືນພາຍໃນອາທິດໜ້າ', 'กรุณาคืนหนังสือภายในสัปดาห์หน้า', 'Hãy trả sách trước tuần sau.', '📖'],
     ],
-    added: [
-      { row: ['잃어버리다', 'ireobeorida', 'ເຮັດເສຍ', 'ทำหาย', 'làm mất', '👛'] },
-    ],
   },
   {
     key: 'hospital',
@@ -160,9 +157,6 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['경치가 정말 아름다워요.', 'gyeongchiga jeongmal areumdawoyo.', 'ທິວທັດງາມແທ້ໆ', 'ทิวทัศน์สวยจริงๆ', 'Phong cảnh đẹp thật.', '🌄'],
       ['짐을 맡길 수 있어요?', 'jimeul matgil su isseoyo?', 'ຝາກກະເປົ໋າໄດ້ບໍ?', 'ฝากกระเป๋าได้ไหม', 'Tôi gửi hành lý được không?', '🛄'],
     ],
-    added: [
-      { row: ['계획', 'gyehoek', 'ແຜນການ', 'แผนการ', 'kế hoạch', '📋'] },
-    ],
   },
   {
     key: 'hobby',
@@ -202,9 +196,6 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['같이 공연 보러 갈래요?', 'gachi gongyeon boreo gallaeyo?', 'ໄປເບິ່ງການສະແດງນຳກັນບໍ?', 'ไปดูการแสดงด้วยกันไหม', 'Đi xem biểu diễn cùng nhau nhé?', '🤝'],
       ['시간이 있을 때 소설을 읽어요.', 'sigani isseul ttae soseoreul ilgeoyo.', 'ຕອນມີເວລາວ່າງຂ້ອຍອ່ານນິຍາຍ', 'ตอนมีเวลาว่างฉันอ่านนิยาย', 'Khi có thời gian tôi đọc tiểu thuyết.', '📕'],
     ],
-    added: [
-      { row: ['연주하다', 'yeonjuhada', 'ບັນເລງດົນຕີ', 'บรรเลงดนตรี', 'biểu diễn (nhạc cụ)', '🎹'] },
-    ],
   },
   {
     key: 'contact',
@@ -243,9 +234,6 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['문자 보내 주세요.', 'munja bonae juseyo.', 'ກະລຸນາສົ່ງຂໍ້ຄວາມມາ', 'ช่วยส่งข้อความมาหน่อย', 'Hãy nhắn tin cho tôi nhé.', '✉️'],
       ['휴대폰 배터리가 다 됐어요.', 'hyudaepon baeteoriga da dwaesseoyo.', 'ແບັດໂທລະສັບໝົດແລ້ວ', 'แบตมือถือหมดแล้ว', 'Điện thoại hết pin rồi.', '📵'],
       ['주말 모임에 초대하고 싶어요.', 'jumal moime chodaehago sipeoyo.', 'ຢາກເຊີນໄປງານພົບປະທ້າຍອາທິດ', 'อยากเชิญไปงานพบปะสุดสัปดาห์', 'Tôi muốn mời bạn đến buổi họp mặt cuối tuần.', '🥳'],
-    ],
-    added: [
-      { row: ['부탁하다', 'butakada', 'ຂໍຮ້ອງ, ຂໍໃຫ້ຊ່ວຍ', 'ขอร้อง', 'nhờ, nhờ vả', '🙏'] },
     ],
   },
   {
@@ -363,9 +351,6 @@ export const TRACK_TOPIK_2: TrackUnitSrc[] = [
       ['다음 주에 면접을 봐요.', 'daeum jue myeonjeobeul bwayo.', 'ອາທິດໜ້າຂ້ອຍມີສຳພາດວຽກ', 'สัปดาห์หน้าฉันมีสัมภาษณ์งาน', 'Tuần sau tôi đi phỏng vấn.', '🤞'],
       ['동료들이 모두 친절해요.', 'dongnyodeuri modu chinjeolhaeyo.', 'ເພື່ອນຮ່ວມງານທຸກຄົນໃຈດີ', 'เพื่อนร่วมงานทุกคนใจดี', 'Đồng nghiệp ai cũng tử tế.', '😊'],
       ['회의가 몇 시에 끝나요?', 'hoeuiga myeot sie kkeunnayo?', 'ກອງປະຊຸມເລີກຈັກໂມງ?', 'ประชุมเลิกกี่โมง', 'Cuộc họp kết thúc lúc mấy giờ?', '🕔'],
-    ],
-    added: [
-      { row: ['소설가', 'soseolga', 'ນັກຂຽນນະວະນິຍາຍ', 'นักเขียนนวนิยาย', 'tiểu thuyết gia', '📖'] },
     ],
   },
   {
